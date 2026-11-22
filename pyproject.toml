@@ -26,7 +26,7 @@ dependencies = [
   # captured by `mistralai>=2.3.0,<3` rather than an exact pin, every
   # install in the hours before the quarantine would have pulled it.
   #
-  # After a pin change, run `hermes pm lock` so the transitive resolution
+  # After a pin change, run `kestrel pm lock` so the transitive resolution
   # stays consistent. Do not introduce ranges
   # without a written justification.
   #
@@ -187,7 +187,7 @@ dependencies = [
   "pillow-heif>=1.4.0,<2; python_version >= '3.14'",
   # SVG rendering for the icon generator (scripts/generate_icons.py). Source
   # builds render icons with the runtime interpreter (`hermes desktop`,
-  # `hermes update`), so a source install carries its renderer instead of
+  # `kestrel update`), so a source install carries its renderer instead of
   # preparing a separate environment at launch. abi3 wheels for every
   # shipped platform, including Windows ARM64 and Android.
   "resvg-py==0.5.0; python_version >= '3.14'",
@@ -351,7 +351,7 @@ documents = [
   "pypdf==6.21.4",
 ]
 # PDF text extraction and rasterization for skills/productivity/pdf. Only in
-# the skills' side environment (`hermes pm environment documents --extra
+# the skills' side environment (`kestrel pm environment documents --extra
 # documents --extra documents-pdf`), never baked: ~17 MB of pdfminer/pdfium.
 documents-pdf = [
   "pdfplumber==0.11.10",
@@ -563,7 +563,7 @@ kestrel-agent = "agent.legacy_cli:main"
 # misaki[en]: installed when the user picks it, not preinstalled.
 opt-in-extras = ["kittentts"]
 
-# What `hermes update` compiles before it moves the checkout to this tree, and again after: the
+# What `kestrel update` compiles before it moves the checkout to this tree, and again after: the
 # launcher and `hermes_bootstrap` import closure plus the CLI entry modules. Every file listed here
 # must exist; an update to a tree that lacks one is refused. A change that moves one of these
 # files updates its path here.
@@ -650,7 +650,7 @@ override-dependencies = [
   "spacy-curated-transformers; sys_platform == 'never'",
 ]
 # Release-age check: Hermes's dependencies must be at least 3 days old when Hermes
-# locks them. It runs where uv.lock is resolved (`hermes pm lock`, and CI's lock
+# locks them. It runs where uv.lock is resolved (`kestrel pm lock`, and CI's lock
 # check), never on users' machines: PM installs from this vetted lock and drops the
 # cutoff from what it generates (pm/workspace.py::_trust_core_lock), because many
 # package mirrors publish no upload times and uv rejects a file it cannot date
@@ -673,6 +673,8 @@ include = [
   "agent.*",
   "tools",
   "tools.*",
+  "kestrel_cli",
+  "kestrel_cli.*",
   "hermes_cli",
   "hermes_cli.*",
   "gateway",
@@ -686,8 +688,12 @@ include = [
   "plugins.*",
   "providers",
   "providers.*",
+  "kestrel_platform",
+  "kestrel_platform.*",
   "hermes_platform",
   "hermes_platform.*",
+  "kestrel_agent",
+  "kestrel_agent.*",
   "hermes_agent",
   "hermes_agent.*",
   "pm",
@@ -697,6 +703,12 @@ include = [
 ]
 
 [tool.setuptools.package-data]
+kestrel_cli = [
+  "observability/schemas/*.json",
+  "data/*.json",
+  "local_runtime/*.json",
+  "process_supervisor.sh",
+]
 hermes_cli = [
   "observability/schemas/*.json",
   "data/*.json",
