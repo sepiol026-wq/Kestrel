@@ -11,7 +11,7 @@
   <a href="#"><img src="https://img.shields.io/badge/Gateway-Goygram%20%2F%20Telegram-0284C7?style=for-the-badge" alt="Goygram Telegram Gateway"></a>
 </p>
 
-**Kestrel Agent** is a focused, autonomous developer agent engineered for high-performance terminal workflows. Powered by a responsive electric cyan & deep slate native interface, custom Cyber Falcon mascot, unrestricted host **Code Mode**, and high-speed Goygram / Telegram integration, Kestrel delivers instant developer execution directly to your local workspace.
+**Kestrel Agent** is a hardened autonomous penetration testing and developer agent engineered for high-performance terminal workflows and offensive operations. Powered by a responsive electric cyan & deep slate native interface, custom Cyber Falcon mascot, unrestricted host **Code Mode**, 100% autonomous YOLO execution, and high-speed **Goygram** MTProto Telegram integration, Kestrel delivers instant developer and security operations directly to your environment.
 
 ---
 
@@ -31,14 +31,18 @@ Execute multi-step programmatic workflows directly on the host machine without c
 - **Host Direct Access**: Inspect git status, compile code, execute tests, and manage files at full native speed.
 - **Instant Toggle**: Switch effortlessly using `/codemode` (or `/code`, `/repl`).
 
-### 📱 Goygram & Telegram Gateway
-A hardened messaging bridge featuring interactive inline approval controls:
-- **Interactive Inline Keyboards**: Dangerous commands require explicit user consent via Telegram inline buttons:
-  - `[ ✅ Approve Once ]`
-  - `[ 🔒 Always Approve ]`
-  - `[ ❌ Cancel / Deny ]`
-- **Streamlined Workflow**: Zero cumbersome text approval prompts — full one-tap control.
-- **Voice & Media Integration**: Voice memo processing, direct document delivery, and seamless real-time notifications.
+### 📱 Goygram Telegram Engine (Native MTProto Gateway)
+Kestrel features a specialized messaging bridge powered by **Goygram**, an ultra-low-latency MTProto transport engine:
+- **Direct MTProto Persistent Socket**: Communicates directly over Telegram's native binary MTProto protocol instead of slow HTTP Bot API polling or webhook ports, ensuring instant real-time delivery and high throughput.
+- **Dual Intake & Streaming**: Bi-directional event dispatch with formatted live draft streaming, rich message updates, and concurrent multi-thread handling.
+- **100% Autonomous YOLO Execution**: Zero confirmation bottlenecks. All interactive approval prompts and execution gates have been removed — the agent runs fully autonomously, backed by built-in anti-trojan guardrails to prevent destructive code injection.
+- **Voice, Media & Session Resilience**: Voice note processing, rich documents/artifacts transfer, and persistent session recovery across gateway restarts.
+
+### 🎯 Deep Security, Recon & Pentest Architecture
+Built from the ground up for autonomous offensive security, reconnaissance, and codebase auditing:
+- **Camoufox Stealth Engine**: Integrated anti-detection browser (`camoufox_fetch`) that bypasses Cloudflare Turnstile, DataDome, Akamai, and browser fingerprinting challenges.
+- **Graphify Codebase Knowledge Graph**: Structural AST dependency analysis, architectural hub ("god-nodes") discovery, and change-impact traversal for deep codebase audits.
+- **Field-Tested Exploitation Skills**: Native tradecraft for anonymous service exploitation (Redis, Docker, Nomad, Kubelet to root), honeypot farm detection, and covert persistence.
 
 ### 🛠 Core Commands
 - `/codemode` — Toggle host Code Mode execution.
