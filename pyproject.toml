@@ -550,10 +550,10 @@ requires = ["setuptools==84.1.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project.scripts]
-hermes = "hermes_cli.main:main"
+hermes = "kestrel_cli.main:main"
 hermes-agent = "agent.legacy_cli:main"
 hermes-acp = "acp_adapter.entry:main"
-kestrel = "hermes_cli.main:main"
+kestrel = "kestrel_cli.main:main"
 kestrel-agent = "agent.legacy_cli:main"
 
 [tool.hermes]

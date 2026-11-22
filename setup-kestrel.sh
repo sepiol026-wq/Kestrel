@@ -5,7 +5,7 @@
 # Derivative work. All upstream attribution and rights retained.
 
 # ============================================================================
-# Hermes Agent Setup Script — THE dev-environment entry point.
+# Kestrel Agent Setup Script — THE dev-environment entry point.
 # ============================================================================
 # Sets up the pm-managed development environment from a fresh clone:
 #   1. Stage the pinned uv from pm/lock.json (sha256-verified, into the pm
@@ -46,7 +46,7 @@ cd "$SCRIPT_DIR"
 export UV_NO_CONFIG=1
 
 echo ""
-echo -e "${CYAN}☤ Hermes Agent Setup${NC}"
+echo -e "${CYAN}☤ Kestrel Agent Setup${NC}"
 echo ""
 
 # ============================================================================
@@ -223,7 +223,11 @@ bin_dir="$HOME/.local/bin"
 if [ "$os" = win32 ]; then
     bin_dir="$(cygpath -am "${HERMES_HOME:-${LOCALAPPDATA:-$HOME/AppData/Local}/hermes}/bin")"
 fi
-if ! "$boot_py" -I -X utf8 hermes_cli/_launchers.py "$bin_dir"; then
+launcher_script="kestrel_cli/_launchers.py"
+if [ ! -f "$launcher_script" ]; then
+    launcher_script="hermes_cli/_launchers.py"
+fi
+if ! "$boot_py" -I -X utf8 "$launcher_script" "$bin_dir"; then
     echo -e "${RED}✗${NC} launcher publication failed" >&2
     exit 1
 fi
@@ -255,7 +259,7 @@ if [ "$os" != win32 ]; then
             if ! echo "$PATH" | tr ':' '\n' | grep -q "^$HOME/.local/bin$"; then
                 if ! grep -q '\.local/bin' "$SHELL_CONFIG" 2>/dev/null; then
                     echo "" >> "$SHELL_CONFIG"
-                    echo "# Hermes Agent — ensure ~/.local/bin is on PATH" >> "$SHELL_CONFIG"
+                    echo "# Kestrel Agent — ensure ~/.local/bin is on PATH" >> "$SHELL_CONFIG"
                     echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$SHELL_CONFIG"
                     echo -e "${GREEN}✓${NC} Added ~/.local/bin to PATH in $SHELL_CONFIG"
                 else
@@ -299,14 +303,14 @@ echo "  1. Activate the dev environment (venv-style, in THIS shell):"
 echo "     source ./activate"
 echo ""
 echo "  2. Run the setup wizard to configure API keys:"
-echo "     hermes setup"
+echo "     kestrel setup"
 echo ""
 echo "  3. Start chatting:"
 echo "     hermes"
 echo ""
 echo "Other commands:"
-echo "  hermes pm install     # Re-run the tool + dependency install"
+echo "  kestrel pm install     # Re-run the tool + dependency install"
 echo "  hermes status         # Check configuration"
-echo "  hermes doctor         # Diagnose issues"
+echo "  kestrel doctor         # Diagnose issues"
 echo "  deactivate            # Undo the activation (restore PATH etc.)"
 echo ""
