@@ -682,18 +682,31 @@ def _looks_like_gateway_provider_error(text: str) -> bool:
     return bool(_GATEWAY_PROVIDER_ERROR_SHAPE_RE.search(body))
 
 
-def _should_show_error_details() -> bool:
+def _should_show_error_details(platform: Optional[Any] = None) -> bool:
     """Whether user-facing error notices should include the specific error details and body."""
     import os
-    env_val = os.environ.get("HERMES_SHOW_ERROR_DETAILS")
+    env_val = os.environ.get("KESTREL_SHOW_ERROR_DETAILS")
+    if env_val is None:
+        env_val = os.environ.get("HERMES_SHOW_ERROR_DETAILS")
     if env_val is not None:
         return env_val.strip().lower() not in {"0", "false", "no"}
     try:
         cfg = _load_gateway_config() or {}
         display = cfg.get("display") or {}
-        return bool(display.get("show_error_details", False))
+        if "show_error_details" in display:
+            return bool(display.get("show_error_details", False))
+        if platform is not None:
+            p_val = _gateway_platform_value(platform)
+            platforms_cfg = cfg.get("platforms") or {}
+            plat_cfg = platforms_cfg.get(p_val) or {}
+            if "show_error_details" in plat_cfg:
+                return bool(plat_cfg["show_error_details"])
+            extra_cfg = plat_cfg.get("extra") or {}
+            if "show_error_details" in extra_cfg:
+                return bool(extra_cfg["show_error_details"])
     except Exception:
         return False
+    return False
 
 
 def _sanitize_gateway_final_response(platform: Any, text: str) -> str:
@@ -730,7 +743,7 @@ def _sanitize_gateway_final_response(platform: Any, text: str) -> str:
     redacted = _redact_gateway_user_facing_secrets(str(text))
     if _looks_like_gateway_provider_error(redacted):
         base_reply = _gateway_provider_error_reply(redacted)
-        if _should_show_error_details():
+        if _should_show_error_details(platform):
             clean_err = redacted.strip()
             if clean_err and clean_err not in base_reply:
                 return f"{base_reply}\n\n```\n{clean_err[:1500]}\n```"
@@ -3061,7 +3074,7 @@ _gateway_runner_ref: _weakref.ref = lambda: None
 
 
 def _normalize_empty_agent_response(
-    agent_result: dict, response: str, *, history_len: int = 0) -> str:
+    agent_result: dict, response: str, *, history_len: int = 0, platform: Optional[Any] = None) -> str:
     """Normalize empty/None agent responses into user-facing messages.
     Covers ``failed``, work done (api_calls > 0) with no text, and never-ran (api_calls == 0, the
     post-/stop silent-drop from a stale generation token) with a retry hint.
@@ -3077,6 +3090,8 @@ def _normalize_empty_agent_response(
     (``HTTP 400: {...}``) is rewritten too: returned unchanged, chat sanitizers turn it into a
     generic provider-failed reply and the user never sees /compact. Curated agent text survives.
     """
+    if platform is None:
+        platform = agent_result.get("platform")
     api_calls = int(agent_result.get("api_calls", 0) or 0)
     if agent_result.get("interrupted"):
         if api_calls == 0:
@@ -3085,7 +3100,7 @@ def _normalize_empty_agent_response(
 
     is_overflow = is_context_overflow_failure_result(agent_result, history_len)
     if response and not (is_overflow and _looks_like_gateway_provider_error(response)):
-        if agent_result.get("failed") and _should_show_error_details():
+        if agent_result.get("failed") and _should_show_error_details(platform):
             error_detail = agent_result.get("error")
             if error_detail:
                 clean_err = _redact_gateway_user_facing_secrets(str(error_detail).strip())
@@ -3107,7 +3122,7 @@ def _normalize_empty_agent_response(
         # Raw exception text (class names, JSON bodies, URLs) stays in the gateway log.
         logger.warning("Agent turn failed; reply sanitized for chat. Detail: %s", str(error_detail)[:500])
         base_failed = t("gateway.errors.generic_failed")
-        if _should_show_error_details():
+        if _should_show_error_details(platform):
             clean_err = _redact_gateway_user_facing_secrets(str(error_detail).strip())
             if clean_err:
                 return f"{base_failed}\n\n```\n{clean_err[:1500]}\n```"
@@ -3134,11 +3149,11 @@ def _normalize_empty_agent_response(
             clean_err = _redact_gateway_user_facing_secrets(err.strip())
             if _looks_like_gateway_provider_error(err):
                 logger.warning("Agent turn ended partially; reply sanitized for chat. Detail: %s", err[:500])
-                reason = f": {clean_err[:200]}" if _should_show_error_details() else ""
+                reason = f": {clean_err[:200]}" if _should_show_error_details(platform) else ""
             else:
                 reason = f": {clean_err[:200]}"
             base_msg = t("gateway.errors.stopped_before_finishing", reason=reason)
-            if _should_show_error_details() and clean_err and clean_err not in base_msg:
+            if _should_show_error_details(platform) and clean_err and clean_err not in base_msg:
                 return f"{base_msg}\n\n```\n{clean_err[:1500]}\n```"
             return base_msg
         return t("gateway.errors.no_response")

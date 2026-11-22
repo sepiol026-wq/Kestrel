@@ -790,10 +790,10 @@ gateway:
     connection_unknown: "⚠️ Hermes n'a pas pu joindre le service de modèle IA (aucun détail supplémentaire fourni par le SDK). Utilisez /retry pour réessayer ; si le problème persiste, lancez `kestrel doctor` sur l'hôte."
     context_overflow: "⚠️ Cette conversation est devenue trop longue pour que je puisse la lire d'un coup. Utilisez /compress pour raccourcir l'historique, ou /new pour démarrer une nouvelle conversation."
     usage_limit_resets: "⏱️ La limite de consommation du service de modèle IA est atteinte ; elle se réinitialise dans {window}. Utilisez /retry ensuite, ou /model pour changer de modèle."
-    provider_kept_failing: "⚠️ Le service de modèle IA a échoué à répétition. Utilisez /retry pour réessayer, ou /model pour changer de modèle. Les détails sont dans le journal du gateway (`hermes logs`)."
+    provider_kept_failing: "⚠️ Le service de modèle IA a échoué. Utilisez /retry pour réessayer, ou /model pour changer de modèle."
     session_storage_unavailable_disk: "⚠️ Le stockage des sessions était temporairement indisponible ; ce tour a donc été arrêté pour protéger l'historique de votre conversation. Vérifiez l'espace disque disponible, puis renvoyez votre message."
     session_storage_unavailable: "⚠️ Le stockage des sessions était temporairement indisponible ; ce tour a donc été arrêté pour protéger l'historique de votre conversation. Votre message devrait déjà être enregistré — renvoyez-le dans un instant."
-    generic_failed: "⚠️ Une erreur s'est produite et je n'ai pas pu terminer cette réponse. Utilisez /retry pour réessayer, ou /new pour démarrer une nouvelle conversation. Les détails techniques sont dans le journal du gateway (`hermes logs`)."
+    generic_failed: "⚠️ Une erreur s'est produite et je n'ai pas pu terminer cette réponse. Utilisez /retry pour réessayer, ou /new pour démarrer une nouvelle conversation. Les détails techniques sont dans le journal du gateway (`kestrel logs`)."
     interrupted_before_start: "⚠️ Votre message a été interrompu avant le début du traitement (probablement par un /stop récent). Veuillez le renvoyer."
     processing_incomplete: "traitement incomplet"
     stopped_before_finishing: "⚠️ J'ai dû m'arrêter avant de terminer{reason}. Utilisez /retry pour réessayer, ou /compress si cette conversation est devenue très longue."
@@ -810,7 +810,7 @@ gateway:
     hint_rejected: " Le service de modèle IA a rejeté la requête."
     generic_failed_with_hint: |-
       ⚠️ Une erreur s'est produite et je n'ai pas pu terminer cette réponse.{hint}
-      Utilisez /retry pour réessayer, ou /new pour démarrer une nouvelle conversation. Les détails techniques sont dans le journal du gateway (`hermes logs`).
+      Utilisez /retry pour réessayer, ou /new pour démarrer une nouvelle conversation. Les détails techniques sont dans le journal du gateway (`kestrel logs`).
     history_unavailable: "⚠️ L'historique de cette session est temporairement indisponible ; ce message n'a donc pas été traité. Demandez à l'opérateur d'inspecter state.db, puis renvoyez-le une fois le problème réglé. N'utilisez /reset que si vous voulez vraiment démarrer une nouvelle conversation."
     no_credentials: "⚠️ Je n'ai pas pu me connecter au service de modèle IA ; ce message n'a donc pas été traité. Utilisez /login pour vous reconnecter, ou /model pour choisir un autre modèle. Si l'échec persiste, lancez `kestrel doctor` sur l'hôte."
     cron_session_read_only: "⚠️ Cette conversation appartient à une tâche planifiée et n'exécute que cette tâche ; votre message n'a donc pas été exécuté. Démarrez une nouvelle conversation pour l'envoyer."
@@ -3995,7 +3995,7 @@ tips:
   t072: "hermes mcp-serve fait tourner Hermes lui-même comme serveur MCP pour d'autres agents."
   t073: "hermes auth add permet d'ajouter plusieurs clés API pour la rotation d'un pool d'identifiants."
   t074: "hermes completion bash >> ~/.bashrc active la complétion par Tab pour toutes les commandes et tous les profils."
-  t075: "hermes logs -f suit agent.log en temps réel. --level WARNING --since 1h filtre la sortie."
+  t075: "kestrel logs -f suit agent.log en temps réel. --level WARNING --since 1h filtre la sortie."
   t076: "hermes backup crée une sauvegarde zip de tout votre répertoire personnel Hermes."
   t077: "hermes profile create coder crée un profil isolé qui devient sa propre commande."
   t078: "hermes profile create work --clone copie votre configuration et vos clés actuelles dans un nouveau profil."
@@ -4169,7 +4169,7 @@ tips:
   t246: "La variable d'environnement HERMES_HOME_MODE (octal, ex. 0701) définit des permissions de répertoire personnalisées pour la traversée par le serveur web."
   t247: "Mode conteneur : placez .container-mode dans HERMES_HOME et la CLI hôte s'exécute automatiquement dans le conteneur."
   t248: "Ctrl+C a 5 niveaux de priorité : annuler l'enregistrement → annuler les invites → annuler le sélecteur → interrompre l'agent → quitter."
-  t249: "Les interruptions pendant une exécution de l'agent sont consignées dans agent.log (à consulter avec `hermes logs`) ; définissez HERMES_DEBUG_INTERRUPT=1 pour une trace détaillée."
+  t249: "Les interruptions pendant une exécution de l'agent sont consignées dans agent.log (à consulter avec `kestrel logs`) ; définissez HERMES_DEBUG_INTERRUPT=1 pour une trace détaillée."
   t250: "BROWSER_CDP_URL connecte les outils navigateur à n'importe quel navigateur de la famille Chromium en cours d'exécution — accepte WebSocket, HTTP ou host:port."
   t251: "BROWSERBASE_ADVANCED_STEALTH=true active l'anti-détection avancée avec un Chromium personnalisé (Scale Plan)."
   t252: "La CLI passe automatiquement en mode compact dans les terminaux de moins de 80 colonnes."

@@ -199,8 +199,13 @@ def _resolution_failure_reply(exc: Exception, platform: Platform) -> tuple[str, 
                 "message wasn't processed. Start a new session from the CLI to bind them again.", auth_permanent, False)
     if is_rate_limited_auth_error(exc.__cause__):
         # Quota cap with valid credentials: /login cannot help; name the reset window (#89401).
-        from gateway.run import _gateway_provider_error_reply
-        return _gateway_provider_error_reply(str(exc)), auth_permanent, False
+        from gateway.run import _gateway_provider_error_reply, _redact_gateway_user_facing_secrets, _should_show_error_details
+        base = _gateway_provider_error_reply(str(exc))
+        if _should_show_error_details(platform):
+            clean_exc = _redact_gateway_user_facing_secrets(str(exc)).strip()
+            if clean_exc and clean_exc not in base:
+                base = f"{base}\n\n```\n{clean_exc[:1500]}\n```"
+        return base, auth_permanent, False
     if platform == Platform.LOCAL:
         # The local operator reads the terminal: the resolver's own sentence ("provider 'custom'
         # resolved without credentials ...") is the diagnosis; /login is not.
@@ -221,7 +226,7 @@ def _resolution_failure_reply(exc: Exception, platform: Platform) -> tuple[str, 
         msg = t("gateway.errors.generic_failed")
         try:
             from gateway.run import _redact_gateway_user_facing_secrets, _should_show_error_details
-            if _should_show_error_details():
+            if _should_show_error_details(platform):
                 clean_exc = _redact_gateway_user_facing_secrets(f"{type(exc).__name__}: {exc}")
                 if clean_exc:
                     msg = f"{msg}\n\n```\n{clean_exc[:1500]}\n```"

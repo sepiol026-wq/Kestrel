@@ -846,6 +846,8 @@ DEFAULT_CONFIG = {
         # Post-response "Reasoning" recap collapses to 10 lines; true prints it all (live streaming
         # is always full).
         "reasoning_full": False,
+        # Include detailed error diagnostics (HTTP status, error body/code) in chat/gateway failure replies.
+        "show_error_details": True,
         # Background self-improvement notices in chat: "off" (review still runs) | "on" (generic "💾
         # Memory updated") | "verbose" (content preview). Per-platform via
         # display.platforms.<platform>.memory_notifications.

@@ -186,7 +186,7 @@ class GatewayTurnPersistenceMixin:
             # A bot peer gets the model's own words only: the runtime's retry hints and "not
             # processed" lines are new inbound messages for its turn loop (#137027).
             if automatic_notices_allowed(source):
-                response = _normalize_empty_agent_response(agent_result, response, history_len=len(history))
+                response = _normalize_empty_agent_response(agent_result, response, history_len=len(history), platform=source.platform)
             response = _sanitize_gateway_final_response(source.platform, response)
 
         # The agent thread already updated the contextvar; propagate to SessionEntry + _save() only
@@ -915,7 +915,7 @@ class GatewayTurnPersistenceMixin:
         err_msg = t("gateway.errors.generic_failed_with_hint", hint=status_hint)
         try:
             from gateway.run import _redact_gateway_user_facing_secrets, _should_show_error_details
-            if _should_show_error_details():
+            if _should_show_error_details(source.platform):
                 clean_err = _redact_gateway_user_facing_secrets(f"{type(e).__name__}: {e}")
                 if clean_err:
                     err_msg = f"{err_msg}\n\n```\n{clean_err[:1500]}\n```"

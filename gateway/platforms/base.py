@@ -4243,11 +4243,16 @@ class BasePlatformAdapter(_SessionModelSettingsMixin, ABC):
         _thread_metadata = None
         try:
             _thread_metadata = _thread_metadata_for_event(event)
+            from gateway.run import _redact_gateway_user_facing_secrets, _should_show_error_details
+            clean_err = _redact_gateway_user_facing_secrets(f"{type(e).__name__}: {e}").strip()
+            err_msg = t("gateway.errors.generic_failed")
+            if _should_show_error_details(getattr(event.source, "platform", None)) and clean_err:
+                err_msg = f"{err_msg}\n\n```\n{clean_err[:1500]}\n```"
             # Only the policy reads bind the routed profile; the send stays in the launch scope
             # as before, so delivery bookkeeping keeps landing where boot-time recovery reads it.
             with self._media_delivery_scope(event.source):
                 content = None if diagnostic_wake_muted(event) else self.warning_text(
-                    t("gateway.errors.generic_failed"),  # raw exception text can carry credentials (logged above)
+                    err_msg,
                     t("gateway.notify.turn_error"),
                     logical_platform=event.source.platform, chat_id=event.source.chat_id, metadata=_thread_metadata)
             if content is None:

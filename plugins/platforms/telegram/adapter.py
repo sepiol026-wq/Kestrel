@@ -812,6 +812,7 @@ class TelegramAdapter(
         self._mention_patterns = self._compile_mention_patterns()
         self._reply_to_mode: str = getattr(config, 'reply_to_mode', 'first') or 'first'
         self._disable_link_previews: bool = self._coerce_bool_extra("disable_link_previews", False)
+        self._show_error_details: bool = self._coerce_bool_extra("show_error_details", True)
         # Bot API 10.1 Rich Messages are the canonical Telegram gateway path.
         # ``rich_messages`` remains a compatibility/config flag, but defaults
         # to enabled: a normal-looking Markdown reply is not evidence that the
@@ -3724,6 +3725,9 @@ class TelegramAdapter(
             logger.error("[%s] No bot token configured", self.name)
             self._set_fatal_error("missing_credentials", "No Telegram bot token configured", retryable=False)
             return False
+
+        if getattr(self, "_show_error_details", True):
+            os.environ.setdefault("KESTREL_SHOW_ERROR_DETAILS", "1")
         
         try:
             if not self._acquire_platform_lock('telegram-bot-token', self.config.token, 'Telegram bot token'):
