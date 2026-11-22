@@ -225,9 +225,9 @@ hermes cron tick
 **Cron 执行由 gateway 守护进程处理。** Gateway 每 60 秒 tick 一次调度器，在隔离的 agent 会话中运行到期的任务。
 
 ```bash
-hermes gateway install     # 安装为用户服务
-sudo hermes gateway install --system   # Linux：服务器开机启动的系统服务
-hermes gateway             # 或在前台运行
+kestrel gateway install     # 安装为用户服务
+sudo kestrel gateway install --system   # Linux：服务器开机启动的系统服务
+kestrel gateway             # 或在前台运行
 
 hermes cron list
 hermes cron status

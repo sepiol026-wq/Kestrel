@@ -4,11 +4,11 @@
 # Derivative work. All upstream attribution and rights retained.
 
 """Ink's gateway bootstrap: a thin wrapper over ``hermes_cli.gateway_runtime_attach.attach_gateway``,
-the attach ``hermes gateway attach`` runs. The child is a client, never an agent owner.
+the attach ``kestrel gateway attach`` runs. The child is a client, never an agent owner.
 
 ``--start`` ensures the owner (first launch). A reconnect discovers only, except ``--recover``
 (a bounded slot, ``@hermes/shared/gateway-client`` ``OWNER_RECOVERY_LIMIT`` per window) re-ensures whenever the
-owner is not ready: it crashed, ended by its idle exit, was stopped with ``hermes gateway stop``
+owner is not ready: it crashed, ended by its idle exit, was stopped with ``kestrel gateway stop``
 while this TUI was open, or an older Hermes's gateway answers (ensure replaces that one). Main's TUI
 ran its own sidecar and never depended on an external daemon, so an open TUI comes back on its own.
 """
@@ -29,7 +29,7 @@ sys.path.insert(0, str(python_root()))
 
 # The terminal verdict's next step: the client stops retrying on it, so the user needs one. A
 # verdict line like the rest, so the TUI echoes it inline (userMessages.ts STDERR_PROBLEM_RE).
-BOOTSTRAP_REMEDY = "gateway unavailable: run `hermes pm repair`, then restart the TUI"
+BOOTSTRAP_REMEDY = "gateway unavailable: run `kestrel pm repair`, then restart the TUI"
 
 
 def bootstrap(start: bool, recover: bool = False) -> dict:
@@ -53,11 +53,11 @@ def bootstrap(start: bool, recover: bool = False) -> dict:
                                                    failure_message, scrub_client_launch_env)
 
     scrub_client_launch_env()
-    # The same attach `hermes gateway attach` runs; Ink keeps its own 30 s start budget.
+    # The same attach `kestrel gateway attach` runs; Ink keeps its own 30 s start budget.
     try:
         attached = attach_gateway(get_kestrel_home().resolve(), start=start, recover=recover, timeout=30)
     except TicketUnavailable as exc:
-        # Attachable, then no ticket: the verdict `hermes gateway attach` reports. Ink echoes only its
+        # Attachable, then no ticket: the verdict `kestrel gateway attach` reports. Ink echoes only its
         # `gateway inaccessible:` lines inline, the refusal's repair command among them.
         attached = GatewayAttach(GatewayDiscovery("inaccessible", reason_code="ticket_unavailable",
                                                   detail=exc.detail or exc.reason))

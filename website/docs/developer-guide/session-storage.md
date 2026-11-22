@@ -4,7 +4,7 @@ Kestrel Agent uses a SQLite database (`~/.hermes/state.db`) to persist session
 metadata, full message history, and model configuration across CLI and gateway
 sessions. This replaces the earlier per-session JSONL file approach.
 
-The profile's gateway is the **only writer of canonical sessions**: `hermes chat`,
+The profile's gateway is the **only writer of canonical sessions**: `kestrel chat`,
 the TUI, Desktop (local), the API server, ACP, cron, Bot Chat and Kanban workers are
 clients that admit input to its session authority over `/api/ws` (see
 [Gateway local sessions](./gateway-local-sessions.md)). Out-of-process managed

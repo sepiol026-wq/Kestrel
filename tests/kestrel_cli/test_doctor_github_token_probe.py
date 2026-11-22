@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes doctor`` validates a configured GITHUB_TOKEN/GH_TOKEN against api.github.com (#115257).
+"""``kestrel doctor`` validates a configured GITHUB_TOKEN/GH_TOKEN against api.github.com (#115257).
 
 An expired PAT left in ``.env`` used to be reported as "GitHub token configured" while every
 git-auth clone failed with a Git-level message that never named the token. The doctor now sends

@@ -65,6 +65,8 @@ interface HermesConsoleModalProps {
   onClose: () => void;
 }
 
+export type KestrelConsoleModalProps = HermesConsoleModalProps;
+
 function buildTerminalTheme(background: string, foreground: string) {
   return {
     background,
@@ -569,3 +571,5 @@ export function HermesConsoleModal({ open, onClose }: HermesConsoleModalProps) {
     document.body,
   );
 }
+
+export const KestrelConsoleModal = HermesConsoleModal;

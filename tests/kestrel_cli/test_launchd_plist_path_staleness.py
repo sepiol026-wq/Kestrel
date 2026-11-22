@@ -12,7 +12,7 @@ reported "Service definition matches the current Hermes install", ``gateway inst
 ``--force``, and ``refresh_launchd_plist_if_needed()`` never rewrote the plist — leaving the
 long-running gateway (the process that fetches arbitrary URLs) on the previous Node binary (#144735).
 
-The masking still has a reason to exist: the PATH tail is whatever shell ran ``hermes gateway
+The masking still has a reason to exist: the PATH tail is whatever shell ran ``kestrel gateway
 install``, and that must not flag a plist as stale. So these tests pin BOTH halves: the deterministic
 Hermes-owned prefix is compared, the shell tail is not.
 """

@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""`hermes update` lockfile-churn cleanup reverts only npm's own rewrites (#112378).
+"""`kestrel update` lockfile-churn cleanup reverts only npm's own rewrites (#112378).
 
 The npm projects (``scripts/whatsapp-bridge``, the Photon sidecar) carry their own ``package-lock.json``;
 npm rewrites them non-deterministically, so a lock whose sibling manifest is clean is churn. A dirty

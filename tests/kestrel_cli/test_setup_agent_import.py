@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""`hermes setup`'s "Coming from another agent?" step: it offers only the agents found on disk, installs
+"""`kestrel setup`'s "Coming from another agent?" step: it offers only the agents found on disk, installs
 the agent-importers plugin through the catalog install only after a yes, then runs that plugin's
 import for each pick.
 

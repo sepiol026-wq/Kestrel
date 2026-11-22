@@ -307,11 +307,11 @@ json.dump(sorted(leaf_paths(DEFAULT_CONFIG)), sys.stdout, indent=2)
                 "hermes-backend"
               ]) "expected hermes-agent + hermes-backend processes, got: ${toString names}"
               ++ lib.optional (
-                !lib.hasInfix "bin/hermes gateway" (argvOf "hermes-agent")
-              ) "gateway process does not run `hermes gateway`: ${argvOf "hermes-agent"}"
+                !lib.hasInfix "bin/kestrel gateway" (argvOf "hermes-agent")
+              ) "gateway process does not run `kestrel gateway`: ${argvOf "hermes-agent"}"
               ++ lib.optional (
                 !lib.hasInfix "bin/hermes serve" (argvOf "hermes-backend")
-              ) "backend process does not run `hermes serve`: ${argvOf "hermes-backend"}"
+              ) "backend process does not run `kestrel serve`: ${argvOf "hermes-backend"}"
               ++ lib.optional (
                 !lib.hasInfix "--no-open" (argvOf "hermes-backend")
               ) "backend must pass --no-open so a service never opens a browser"
@@ -773,11 +773,11 @@ json.dump(sorted(leaf_paths(DEFAULT_CONFIG)), sys.stdout, indent=2)
                 "hermes-backend"
               ]) "expected hermes-agent + hermes-backend units, got: ${toString names}"
               ++ lib.optional (
-                !lib.hasInfix "bin/hermes gateway" (execOf "hermes-agent")
-              ) "gateway unit does not run `hermes gateway`: ${execOf "hermes-agent"}"
+                !lib.hasInfix "bin/kestrel gateway" (execOf "hermes-agent")
+              ) "gateway unit does not run `kestrel gateway`: ${execOf "hermes-agent"}"
               ++ lib.optional (
                 !lib.hasInfix "bin/hermes dashboard" (execOf "hermes-backend")
-              ) "backend unit does not run `hermes dashboard`: ${execOf "hermes-backend"}"
+              ) "backend unit does not run `kestrel dashboard`: ${execOf "hermes-backend"}"
               ++ lib.optional (
                 units.hermes-agent.environment.HERMES_HOME != units.hermes-backend.environment.HERMES_HOME
               ) "gateway and backend must share one HERMES_HOME"

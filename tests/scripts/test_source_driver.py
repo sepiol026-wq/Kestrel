@@ -152,11 +152,11 @@ def test_observer_judges_only_the_live_app_not_rollback_copies_beside_it(tmp_pat
         dist = release / name / "resources/app.asar.unpacked/dist"
         dist.mkdir(parents=True)
         (dist / "index.html").write_text("<html></html>", encoding="utf-8")
-        (release / name / "Hermes.exe").write_bytes(b"MZ fixture")
+        (release / name / "Kestrel.exe").write_bytes(b"MZ fixture")
     assert driver["desktop_outputs"](tmp_path / "source") == [
         release / "win-unpacked/resources/app.asar.unpacked/dist"]
     driver["verify_products"](tmp_path / "source", "present")
-    (release / "win-unpacked/Hermes.exe").unlink()
+    (release / "win-unpacked/Kestrel.exe").unlink()
     with pytest.raises(RuntimeError, match="desktop executable is missing or empty"):
         driver["verify_products"](tmp_path / "source", "present")
     shutil.rmtree(release / "win-unpacked")

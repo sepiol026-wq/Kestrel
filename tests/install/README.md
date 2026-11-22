@@ -256,7 +256,7 @@ re-syncs it), but it may not delete or modify the user's own durable state —
   purpose: the state it defends must be produced by the product through the
   ordinary user path, never hand-written by the harness.
 - `e2e-assets/user-state-actions.sh` produces that state with real commands —
-  `hermes chat -q` (a real turn → `sessions/` + `state.db` rows),
+  `kestrel chat -q` (a real turn → `sessions/` + `state.db` rows),
   `hermes auth add` (→ `auth.json`), `hermes profile create`
   (→ `profiles/<name>/`) — after probing `--help` for each flag, per the
   harness's "probe, do not assume" rule. Each action asserts it actually landed,

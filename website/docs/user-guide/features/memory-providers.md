@@ -24,7 +24,7 @@ Or set manually in `~/.hermes/config.yaml`:
 memory:
   provider: retaindb  # or byterover,
                       # or honcho / hindsight / supermemory / mem0 / openviking / holographic
-                      # (plugin catalog — run `hermes plugins install <name>` first)
+                      # (plugin catalog — run `kestrel plugins install <name>` first)
 ```
 
 ## How It Works
@@ -183,7 +183,7 @@ hermes profile create coder --clone
 hermes honcho sync
 ```
 
-Scans every Hermes profile, creates host blocks for any profile without one, inherits settings from the default `hermes` block, and creates the new AI peers eagerly. Idempotent — skips profiles that already have a host block. `hermes update` no longer does this for you: run it once for profiles created before Honcho was set up.
+Scans every Hermes profile, creates host blocks for any profile without one, inherits settings from the default `hermes` block, and creates the new AI peers eagerly. Idempotent — skips profiles that already have a host block. `kestrel update` no longer does this for you: run it once for profiles created before Honcho was set up.
 
 ### Per-profile observation
 
@@ -287,7 +287,7 @@ See the [plugin README](https://github.com/plastic-labs/honcho/tree/main/hermes-
 
 #### Upgrading from the bundled Honcho
 
-Earlier Hermes releases shipped Honcho in-tree. If a profile still has `memory.provider: honcho`, Hermes installs the catalog plugin automatically the next time it starts or runs `hermes update` — your `~/.honcho/config.json` (or `$HERMES_HOME/honcho.json`), host blocks, peers and session mappings are read exactly as before, so no memory is lost. To do it by hand, or on a machine without network access at startup, run `hermes plugins install honcho`.
+Earlier Hermes releases shipped Honcho in-tree. If a profile still has `memory.provider: honcho`, Hermes installs the catalog plugin automatically the next time it starts or runs `kestrel update` — your `~/.honcho/config.json` (or `$HERMES_HOME/honcho.json`), host blocks, peers and session mappings are read exactly as before, so no memory is lost. To do it by hand, or on a machine without network access at startup, run `kestrel plugins install honcho`.
 
 
 ---
@@ -377,8 +377,8 @@ does not add a separate request.
 
 OpenViking used to ship inside the Hermes tree. If your `config.yaml` already has `memory.provider: openviking`, there is nothing to do for most users:
 
-- `hermes update` installs the catalog plugin into every profile home that names the provider.
-- If the plugin is still missing on the first agent start (`hermes chat`, the gateway, Desktop), Hermes installs it and tells you it did.
+- `kestrel update` installs the catalog plugin into every profile home that names the provider.
+- If the plugin is still missing on the first agent start (`kestrel chat`, the gateway, Desktop), Hermes installs it and tells you it did.
 - With `security.allow_lazy_installs: false` the agent-start path does not install anything; it prints the exact `hermes plugins install openviking` command instead.
 
 `memory.provider`, `memory.openviking.*`, the `OPENVIKING_*` keys in `.env`, `~/.openviking/` and the memories on your OpenViking server are untouched. Verify with `hermes memory status` and `hermes plugins list`.
@@ -468,14 +468,14 @@ The plugin authenticates with `X-API-Key` and uses the server's `/search` / `/me
 | Embedder | openai, ollama |
 | Vector Store | qdrant (local/server), pgvector |
 
-**Switching modes:** Re-run `hermes memory setup mem0 --mode <platform|selfhosted|oss>` or edit `mem0.json` directly.
+**Switching modes:** Re-run `kestrel memory setup mem0 --mode <platform|selfhosted|oss>` or edit `mem0.json` directly.
 
 ### Migrating from bundled Mem0
 
 Mem0 used to ship inside the Hermes tree (and as the `kestrel-agent[mem0]` pip extra). If your `config.yaml` already has `memory.provider: mem0`, there is nothing to do for most users:
 
-- `hermes update` installs the catalog plugin into every profile home that names the provider.
-- If the plugin is still missing on the first agent start (`hermes chat`, the gateway, Desktop), Hermes installs it and tells you it did.
+- `kestrel update` installs the catalog plugin into every profile home that names the provider.
+- If the plugin is still missing on the first agent start (`kestrel chat`, the gateway, Desktop), Hermes installs it and tells you it did.
 - With `security.allow_lazy_installs: false` the agent-start path does not install anything; it prints the exact `hermes plugins install mem0` command instead.
 
 `memory.provider`, `$HERMES_HOME/mem0.json`, the `MEM0_*` keys in `.env` and the memories stored in Mem0 Cloud, your Mem0 server or the local OSS store are untouched. Verify with `hermes memory status` and `hermes plugins list`.
@@ -536,9 +536,9 @@ See the [upstream Hermes integration docs](https://hindsight.vectorize.io/sdks/i
 
 Hindsight used to ship inside the Hermes tree (and as the `kestrel-agent[hindsight]` pip extra). If your `config.yaml` already has `memory.provider: hindsight`, there is nothing to do for most users:
 
-- `hermes update` installs the catalog plugin into every profile home that names the provider. Each line names the profile it is about. In a terminal it asks before preparing the plugin's Python dependencies; when several profiles use the provider, the questions are asked once and the answers apply to all of them. Without a terminal (the Desktop app, a script, a service) nobody can answer, so each profile prepares them unattended when its `security.allow_lazy_installs` is on (the default); a profile with it off gets the exact `hermes -p <profile> plugins install hindsight` command instead, and the other profiles still migrate.
-- If the plugin is still missing on the first agent start (`hermes chat`, Desktop, the gateway, …), Hermes installs it, dependencies included, and shows ``✓ Memory provider 'hindsight' moved out of core — installed its plugin from the catalog (memory.provider and your stored memories are unchanged; check its settings with `hermes memory status`).`` Messaging platforms get the line with the first reply.
-- When the agent-start install cannot happen, you see why instead of silently running without external memory: with `security.allow_lazy_installs: false` the warning names the install command for that profile; offline or declined installs show the error and the same command. After a failed attempt, agent starts in the next hour skip the install and only repeat the command; `hermes update` always retries.
+- `kestrel update` installs the catalog plugin into every profile home that names the provider. Each line names the profile it is about. In a terminal it asks before preparing the plugin's Python dependencies; when several profiles use the provider, the questions are asked once and the answers apply to all of them. Without a terminal (the Desktop app, a script, a service) nobody can answer, so each profile prepares them unattended when its `security.allow_lazy_installs` is on (the default); a profile with it off gets the exact `hermes -p <profile> plugins install hindsight` command instead, and the other profiles still migrate.
+- If the plugin is still missing on the first agent start (`kestrel chat`, Desktop, the gateway, …), Hermes installs it, dependencies included, and shows ``✓ Memory provider 'hindsight' moved out of core — installed its plugin from the catalog (memory.provider and your stored memories are unchanged; check its settings with `hermes memory status`).`` Messaging platforms get the line with the first reply.
+- When the agent-start install cannot happen, you see why instead of silently running without external memory: with `security.allow_lazy_installs: false` the warning names the install command for that profile; offline or declined installs show the error and the same command. After a failed attempt, agent starts in the next hour skip the install and only repeat the command; `kestrel update` always retries.
 - Agent start never asks a question (the chat prompt owns the terminal). A catalog provider that never shipped with Hermes (for example `mnemosyne`) is therefore not installed on agent start: the warning names `hermes plugins install <name>` for that profile, or install it from the dashboard/Desktop Plugins page.
 
 What changes on disk: the plugin appears in `~/.hermes/plugins/hindsight/` and `config.yaml` gains `plugins.enabled: [hindsight]`. `memory.provider`, `$HERMES_HOME/hindsight/config.json`, `HINDSIGHT_API_KEY` in `.env` and your memory bank data are untouched. Verify with `hermes memory status` (provider active) and `hermes plugins list` (plugin installed and enabled).
@@ -594,8 +594,8 @@ The catalog plugin has its own release notes and options beyond this list; see i
 
 Holographic used to ship inside the Hermes tree. If your `config.yaml` already has `memory.provider: holographic`, there is nothing to do:
 
-- `hermes update` installs the catalog plugin into every profile home that names the provider.
-- If the plugin is still missing on the first agent start (`hermes chat`, the gateway, Desktop), Hermes installs it and tells you it did.
+- `kestrel update` installs the catalog plugin into every profile home that names the provider.
+- If the plugin is still missing on the first agent start (`kestrel chat`, the gateway, Desktop), Hermes installs it and tells you it did.
 - With `security.allow_lazy_installs: false` the agent-start path does not install anything; it prints the exact `hermes plugins install holographic` command instead.
 
 Your facts (`$HERMES_HOME/memory_store.db`, or the `db_path` you set) and your `plugins.hermes-memory-store` settings are read exactly as before, so no memory is lost. Verify with `hermes memory status` and `hermes plugins list`.
@@ -699,7 +699,7 @@ After `hermes plugins install supermemory` and before running `hermes memory set
 }
 ```
 
-Then run `hermes memory setup` and enter the API key printed by the local
+Then run `kestrel memory setup` and enter the API key printed by the local
 server. Configuring the endpoint first ensures the setup connection probe also
 stays local.
 
@@ -750,9 +750,9 @@ Base URL precedence is `supermemory.json` → `SUPERMEMORY_BASE_URL` → `https:
 
 Supermemory used to ship inside the Hermes tree (and as the `kestrel-agent[supermemory]` pip extra). If your `config.yaml` already has `memory.provider: supermemory`, there is nothing to do for most users:
 
-- `hermes update` installs the catalog plugin into every profile home that names the provider (this runs even when `security.allow_lazy_installs` is `false`).
-- If the plugin is still missing on the first agent start (`hermes chat`, the gateway, …), Hermes installs it and prints `✓ Memory provider 'supermemory' moved out of core — installed its plugin from the catalog (your memory.supermemory settings and data are unchanged).`
-- With `security.allow_lazy_installs: false`, the agent-start path instead logs one line — ``Memory provider 'supermemory' is not installed; security.allow_lazy_installs is off — run `hermes plugins install supermemory`.`` — and you run `hermes plugins install supermemory` yourself.
+- `kestrel update` installs the catalog plugin into every profile home that names the provider (this runs even when `security.allow_lazy_installs` is `false`).
+- If the plugin is still missing on the first agent start (`kestrel chat`, the gateway, …), Hermes installs it and prints `✓ Memory provider 'supermemory' moved out of core — installed its plugin from the catalog (your memory.supermemory settings and data are unchanged).`
+- With `security.allow_lazy_installs: false`, the agent-start path instead logs one line — ``Memory provider 'supermemory' is not installed; security.allow_lazy_installs is off — run `kestrel plugins install supermemory`.`` — and you run `kestrel plugins install supermemory` yourself.
 
 What changes on disk: the plugin appears in `~/.hermes/plugins/supermemory/` and `config.yaml` gains `plugins.enabled: [supermemory]`. The Supermemory SDK is installed from the plugin's own package metadata, so the `kestrel-agent[supermemory]` extra is no longer needed. `memory.provider`, `$HERMES_HOME/supermemory.json`, the `SUPERMEMORY_*` keys in `.env` and the memories stored in your Supermemory account are untouched. Verify with `hermes memory status` (provider active) and `hermes plugins list` (plugin installed and enabled).
 
@@ -787,7 +787,7 @@ hermes memory setup
 ```
 
 If the installer does not support PM-managed directory-provider admission, ask
-the publisher for that integration rather than inventing a `hermes pm install`
+the publisher for that integration rather than inventing a `kestrel pm install`
 package command. Restart Hermes after successful dependency preparation.
 
 ---
@@ -829,7 +829,7 @@ maintained by itpartypattaya, see
 ByteRover leave core on October 15, 2026; their standalone repositories are unmaintained and
 open for a new maintainer. Nothing changes for you: the
 provider name, the settings it reads, its data directory and its tools stay the same.
-When a provider you have configured stops shipping with Hermes, `hermes update` installs its
+When a provider you have configured stops shipping with Hermes, `kestrel update` installs its
 catalog plugin for every profile that names it; if you update through the Desktop app, the
 agent does the same the first time it starts. Every outcome is shown to you — in the terminal,
 in Desktop, or with the first reply on a messaging platform. If the install cannot happen

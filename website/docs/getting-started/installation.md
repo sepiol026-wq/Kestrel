@@ -87,7 +87,7 @@ app included, already has it. Where PM has no Chromium build (Android/Termux,
 musl Linux), Hermes uses a system `chromium` on `PATH` instead.
 Other optional tools use their feature-specific installation paths.
 
-A new install lands on the latest stable release, the channel `hermes update`
+A new install lands on the latest stable release, the channel `kestrel update`
 follows from then on (see [Updating](./updating.md)). To install the tip of
 `main` instead, pass `--channel main` on POSIX or `-Channel main` on Windows
 (or set `HERMES_INSTALL_CHANNEL=main` first, for the one-liners).
@@ -95,8 +95,8 @@ follows from then on (see [Updating](./updating.md)). To install the tip of
 To leave the browser tools out, pass `--skip-browser` on POSIX or `-SkipBrowser`
 on Windows; for the computer-use driver, `--skip-computer-use` /
 `-SkipComputerUse`. Hermes remembers these choices: later installs and
-`hermes update` do not add them back. Run `hermes pm install chromium` or
-`hermes pm install cua-driver` to install them and undo the choice.
+`kestrel update` do not add them back. Run `kestrel pm install chromium` or
+`kestrel pm install cua-driver` to install them and undo the choice.
 
 The scripts create a launcher and prepare the data directory. Interactive runs
 also invoke setup and gateway configuration. `--non-interactive` on POSIX, or
@@ -140,19 +140,19 @@ hermes             # Start chatting!
 To reconfigure individual settings later, use the dedicated commands:
 
 ```bash
-hermes model          # Choose your LLM provider and model
+kestrel model          # Choose your LLM provider and model
 hermes tools          # Configure which tools are enabled
-hermes gateway setup  # Set up messaging platforms
+kestrel gateway setup  # Set up messaging platforms
 hermes config set     # Set individual config values
 hermes config get     # Inspect individual config values
-hermes setup          # Or run the full setup wizard to configure everything at once
+kestrel setup          # Or run the full setup wizard to configure everything at once
 ```
 
 :::tip Fastest path: Nous Portal
 One subscription covers 300+ models plus the [Tool Gateway](../user-guide/features/tool-gateway.md) (web search, image generation, TTS, cloud browser). Skip the per-tool key juggling:
 
 ```bash
-hermes setup --portal
+kestrel setup --portal
 ```
 
 That logs you in, sets Nous as your provider, and turns on the Tool Gateway in one command.
@@ -184,7 +184,7 @@ Linux Chromium also requires system libraries supplied by the distribution.
 
 On glibc Linux, the managed Node.js links `libatomic.so.1`, which minimal
 Debian, Ubuntu and RHEL-family images do not ship. When the library is
-missing, the installer and `hermes update` install the distro package
+missing, the installer and `kestrel update` install the distro package
 (`libatomic1` on apt and zypper, `libatomic` on dnf/yum and apk, `gcc-libs`
 on pacman). They run the package manager directly as root, or as
 `sudo -n` otherwise. An interactive run asks for your sudo password once,
@@ -226,7 +226,7 @@ configuration, and launcher must belong to that user.
    export PATH="$HOME/.local/bin:$PATH"
    ```
 
-4. Run `hermes doctor` from that account. Use the installed wrapper, not a
+4. Run `kestrel doctor` from that account. Use the installed wrapper, not a
    hardcoded `venv/bin/hermes` path.
 5. For a Linux user service that must survive logout, enable lingering as an administrator:
 
@@ -249,10 +249,10 @@ ask an administrator to run. See
 | Problem | Solution |
 |---------|----------|
 | `hermes: command not found` | Reload your shell (`source ~/.bashrc`) or check PATH |
-| `API key not set` | Run `hermes model` to configure your provider, or `hermes config set OPENROUTER_API_KEY your_key` |
-| Missing config after update | Run `hermes config check` then `hermes config migrate` |
+| `API key not set` | Run `kestrel model` to configure your provider, or `hermes config set OPENROUTER_API_KEY your_key` |
+| Missing config after update | Run `kestrel config check` then `hermes config migrate` |
 
-For more diagnostics, run `hermes doctor` — it will tell you exactly what's missing and how to fix it.
+For more diagnostics, run `kestrel doctor` — it will tell you exactly what's missing and how to fix it.
 
 ### Symlinked home directories and external storage
 
@@ -269,8 +269,8 @@ link, restore the mount or correct its target, and verify access permissions
 before retrying. For a deliberately new dotfiles target, create it yourself only
 after confirming the intended storage is available.
 
-`hermes doctor` reports these failures as storage problems, not invalid YAML.
-Keep your existing `config.yaml`; running `hermes setup` is not the repair for an
+`kestrel doctor` reports these failures as storage problems, not invalid YAML.
+Keep your existing `config.yaml`; running `kestrel setup` is not the repair for an
 unavailable directory. This is a directory-availability check, not a mount monitor:
 an existing directory cannot establish that the intended volume is mounted.
 
@@ -279,5 +279,5 @@ an existing directory cannot establish that the intended volume is mounted.
 The update owner depends on the running installation, not only its data home.
 Source checkouts use the managed Git update path. Desktop bundles, Docker,
 Nix, and Termux packages retain their package owner's update mechanism.
-`hermes doctor` reports installation provenance. See
+`kestrel doctor` reports installation provenance. See
 [Updating & Uninstalling](./updating.md) before changing package-owned files.

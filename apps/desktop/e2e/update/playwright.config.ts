@@ -17,7 +17,7 @@ import { defineConfig } from '@playwright/test'
  *
  *  - retries: 0 (a required lane must expose flake, not hide it);
  *  - one worker: specs share one install path (absolute paths are baked in);
- *  - per-test budget covers a real `hermes update` (git pull + product builds +
+ *  - per-test budget covers a real `kestrel update` (git pull + product builds +
  *    packaging) and the app's relaunch.
  */
 // Local parallel runs against different install roots need separate output dirs.

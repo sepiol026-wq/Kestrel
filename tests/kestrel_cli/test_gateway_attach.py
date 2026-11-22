@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""`hermes gateway attach`: the public attach for a third-party local client (#142159).
+"""`kestrel gateway attach`: the public attach for a third-party local client (#142159).
 
 The real CLI runs against a real control socket with a real ticket store: it prints the owner's
 WebSocket URL and one single-use ticket bound to the caller's profile, or the bootstrap's verdict.

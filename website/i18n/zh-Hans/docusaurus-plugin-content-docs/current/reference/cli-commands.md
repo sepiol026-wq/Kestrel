@@ -39,13 +39,13 @@ hermes [global-options] <command> [subcommand/options]
 
 | 命令 | 用途 |
 |---------|---------|
-| `hermes chat` | 与 agent 进行交互式或单次聊天。 |
-| `hermes model` | 交互式选择默认 provider 和模型。 |
+| `kestrel chat` | 与 agent 进行交互式或单次聊天。 |
+| `kestrel model` | 交互式选择默认 provider 和模型。 |
 | `hermes fallback` | 管理主模型出错时依次尝试的 fallback provider。 |
-| `hermes gateway` | 运行或管理消息 gateway 服务。 |
+| `kestrel gateway` | 运行或管理消息 gateway 服务。 |
 | `hermes proxy` | 本地 OpenAI 兼容代理，附加 OAuth provider 凭据。参见 [订阅代理](../user-guide/features/subscription-proxy.md)。 |
 | `hermes lsp` | 管理 Language Server Protocol 集成（为 write_file/patch 提供语义诊断）。 |
-| `hermes setup` | 全部或部分配置的交互式设置向导。 |
+| `kestrel setup` | 全部或部分配置的交互式设置向导。 |
 | `hermes whatsapp` | 配置并配对 WhatsApp 桥接。 |
 | `hermes slack` | Slack 辅助工具（当前功能：生成将每条命令注册为原生斜杠命令的 app manifest）。 |
 | `hermes auth` | 管理凭据——添加、列出、删除、重置、设置策略。处理 Codex/Nous/Anthropic 的 OAuth 流程。 |
@@ -55,7 +55,7 @@ hermes [global-options] <command> [subcommand/options]
 | `hermes kanban` | 多 profile 协作看板（任务、链接、调度器）。 |
 | `hermes webhook` | 管理用于事件驱动激活的动态 webhook 订阅。 |
 | `hermes hooks` | 检查、审批或删除 `config.yaml` 中声明的 shell 脚本 hook。 |
-| `hermes doctor` | 诊断配置和依赖问题。 |
+| `kestrel doctor` | 诊断配置和依赖问题。 |
 | `hermes security audit` | 对 venv、plugin 依赖和固定 MCP 服务器进行按需供应链审计（OSV.dev）。 |
 | `hermes dump` | 可直接复制粘贴的设置摘要，用于支持/调试。 |
 | `hermes debug` | 调试工具——上传日志和系统信息以获取支持。 |
@@ -82,13 +82,13 @@ hermes [global-options] <command> [subcommand/options]
 | `hermes profile` | 管理 profile——多个隔离的 Hermes 实例。 |
 | `hermes completion` | 打印 shell 补全脚本（bash/zsh/fish）。 |
 | `hermes --version` | 显示版本信息。 |
-| `hermes update` | 拉取最新代码并重新安装依赖。`--check` 预览而不安装；`--backup` 在拉取前对 `HERMES_HOME` 进行快照。 |
+| `kestrel update` | 拉取最新代码并重新安装依赖。`--check` 预览而不安装；`--backup` 在拉取前对 `HERMES_HOME` 进行快照。 |
 | `hermes uninstall` | 从系统中删除 Hermes。 |
 
-## `hermes chat`
+## `kestrel chat`
 
 ```bash
-hermes chat [options]
+kestrel chat [options]
 ```
 
 常用选项：
@@ -117,12 +117,12 @@ hermes chat [options]
 
 ```bash
 hermes
-hermes chat -q "Summarize the latest PRs"
-hermes chat --provider openrouter --model anthropic/claude-sonnet-4.6
-hermes chat --toolsets web,terminal,skills
-hermes chat --quiet -q "Return only JSON"
-hermes chat --worktree -q "Review this repo and open a PR"
-hermes chat --ignore-user-config --ignore-rules -q "Repro without my personal setup"
+kestrel chat -q "Summarize the latest PRs"
+kestrel chat --provider openrouter --model anthropic/claude-sonnet-4.6
+kestrel chat --toolsets web,terminal,skills
+kestrel chat --quiet -q "Return only JSON"
+kestrel chat --worktree -q "Review this repo and open a PR"
+kestrel chat --ignore-user-config --ignore-rules -q "Repro without my personal setup"
 ```
 
 ### `hermes -z <prompt>` — 脚本化单次调用
@@ -150,14 +150,14 @@ hermes -z "…" --provider openrouter --model openai/gpt-5.5
 HERMES_INFERENCE_MODEL=anthropic/claude-sonnet-4.6 hermes -z "…"
 ```
 
-相同的 agent、相同的工具、相同的 skill——只是剥离了所有交互式/装饰性层。如果你还需要在记录中包含工具输出，请改用 `hermes chat -q`；`-z` 专门用于"我只需要最终答案"的场景。
+相同的 agent、相同的工具、相同的 skill——只是剥离了所有交互式/装饰性层。如果你还需要在记录中包含工具输出，请改用 `kestrel chat -q`；`-z` 专门用于"我只需要最终答案"的场景。
 
-## `hermes model`
+## `kestrel model`
 
 交互式 provider + 模型选择器。**这是添加新 provider、设置 API 密钥和运行 OAuth 流程的命令。** 从终端运行——不要在活跃的 Hermes 聊天会话内部运行。
 
 ```bash
-hermes model
+kestrel model
 ```
 
 在以下情况使用此命令：
@@ -168,12 +168,12 @@ hermes model
 - 配置自定义/自托管端点
 - 将新默认值保存到 config
 
-:::warning hermes model 与 /model——了解区别
-**`hermes model`**（从终端运行，在任何 Hermes 会话外部）是**完整的 provider 设置向导**。它可以添加新 provider、运行 OAuth 流程、提示输入 API 密钥并配置端点。
+:::warning kestrel model 与 /model——了解区别
+**`kestrel model`**（从终端运行，在任何 Hermes 会话外部）是**完整的 provider 设置向导**。它可以添加新 provider、运行 OAuth 流程、提示输入 API 密钥并配置端点。
 
 **`/model`**（在活跃的 Hermes 聊天会话中输入）只能**在已设置好的 provider 和模型之间切换**。它无法添加新 provider、运行 OAuth 或提示输入 API 密钥。
 
-**如果需要添加新 provider：** 先退出 Hermes 会话（`Ctrl+C` 或 `/quit`），然后从终端提示符运行 `hermes model`。
+**如果需要添加新 provider：** 先退出 Hermes 会话（`Ctrl+C` 或 `/quit`），然后从终端提示符运行 `kestrel model`。
 :::
 
 ### `/model` 斜杠命令（会话中途）
@@ -197,15 +197,15 @@ hermes model
 ```
 
 :::info 如果我只看到 OpenRouter 模型怎么办？
-如果你只配置了 OpenRouter，`/model` 将只显示 OpenRouter 模型。要添加其他 provider（Anthropic、DeepSeek 等），请退出会话并从终端运行 `hermes model`。
+如果你只配置了 OpenRouter，`/model` 将只显示 OpenRouter 模型。要添加其他 provider（Anthropic、DeepSeek 等），请退出会话并从终端运行 `kestrel model`。
 :::
 
 Provider 和 base URL 的更改会自动持久化到 `config.yaml`。从自定义端点切换走时，过时的 base URL 会被清除，以防止其泄漏到其他 provider。
 
-## `hermes gateway`
+## `kestrel gateway`
 
 ```bash
-hermes gateway <subcommand>
+kestrel gateway <subcommand>
 ```
 
 子命令：
@@ -226,11 +226,11 @@ hermes gateway <subcommand>
 
 | 选项 | 说明 |
 |--------|-------------|
-| `--all` | 在 `start` / `restart` / `stop` 时：对**每个 profile** 的 gateway 执行操作，而不仅限于活跃的 `HERMES_HOME`。当你并行运行多个 profile 并希望在 `hermes update` 后全部重启时很有用。 |
+| `--all` | 在 `start` / `restart` / `stop` 时：对**每个 profile** 的 gateway 执行操作，而不仅限于活跃的 `HERMES_HOME`。当你并行运行多个 profile 并希望在 `kestrel update` 后全部重启时很有用。 |
 | `--no-supervise` | 在 `run` 时：在 s6-overlay Docker 镜像内部，跳过 s6 自动监管，退回到 pre-s6 前台语义——gateway 作为容器主进程运行，无自动重启。在 s6 镜像之外为空操作。等同于设置 `HERMES_GATEWAY_NO_SUPERVISE=1`。 |
 
 :::tip WSL 用户
-使用 `hermes gateway run` 而非 `hermes gateway start`——WSL 的 systemd 支持不稳定。用 tmux 包裹以保持持久运行：`tmux new -s hermes 'hermes gateway run'`。详见 [WSL FAQ](./faq.md#wsl网关持续断开连接或-hermes-gateway-start-失败)。
+使用 `kestrel gateway run` 而非 `kestrel gateway start`——WSL 的 systemd 支持不稳定。用 tmux 包裹以保持持久运行：`tmux new -s hermes 'kestrel gateway run'`。详见 [WSL FAQ](./faq.md#wsl网关持续断开连接或-hermes-gateway-start-失败)。
 :::
 
 ## `hermes lsp`
@@ -254,10 +254,10 @@ hermes lsp <subcommand>
 
 完整指南、支持的语言和配置项，请参阅 [LSP — 语义诊断](../user-guide/features/lsp.md)。
 
-## `hermes setup`
+## `kestrel setup`
 
 ```bash
-hermes setup [model|tts|terminal|gateway|tools|agent] [--non-interactive] [--reset] [--quick] [--reconfigure] [--portal]
+kestrel setup [model|tts|terminal|gateway|tools|agent] [--non-interactive] [--reset] [--quick] [--reconfigure] [--portal]
 ```
 
 **首次运行：** 启动首次使用向导。
@@ -281,7 +281,7 @@ hermes setup [model|tts|terminal|gateway|tools|agent] [--non-interactive] [--res
 | `--quick` | 在已配置用户运行时：仅提示缺失或未设置的项目，跳过已配置的项目。 |
 | `--non-interactive` | 使用默认值/环境变量，不显示提示。 |
 | `--reset` | 在设置前将配置重置为默认值。 |
-| `--reconfigure` | 向后兼容别名——在已有安装上裸运行 `hermes setup` 现在默认执行此操作。 |
+| `--reconfigure` | 向后兼容别名——在已有安装上裸运行 `kestrel setup` 现在默认执行此操作。 |
 | `--portal` | 一键 Nous Portal 设置：通过 OAuth 登录，将 Nous 设为推理 provider，并选择加入 [Tool Gateway](../user-guide/features/tool-gateway.md)。跳过向导其余部分。 |
 
 ## `hermes portal`
@@ -298,7 +298,7 @@ hermes portal [status|open|tools]
 | `open` | 在默认浏览器中打开 `portal.nousresearch.com/manage-subscription`。 |
 | `tools` | 列出每个 Tool Gateway 合作伙伴（Firecrawl、FAL、OpenAI TTS、Browser Use、Modal）及哪些通过 Nous 路由。 |
 
-关于 gateway 本身的配置，请参阅 [Tool Gateway](../user-guide/features/tool-gateway.md)。关于一键设置路径，请参阅上方的 `hermes setup --portal`。
+关于 gateway 本身的配置，请参阅 [Tool Gateway](../user-guide/features/tool-gateway.md)。关于一键设置路径，请参阅上方的 `kestrel setup --portal`。
 
 ## `hermes whatsapp`
 
@@ -325,13 +325,13 @@ hermes slack manifest --slashes-only  # 仅输出 features.slash_commands 数组
 | `--description DESC` | 默认简介 | Slack app 目录中显示的机器人描述。 |
 | `--slashes-only` | 关闭 | 仅输出 `features.slash_commands`，用于合并到手动维护的 manifest 中。 |
 
-`hermes update` 后重新运行 `hermes slack manifest --write` 以获取新增命令。
+`kestrel update` 后重新运行 `hermes slack manifest --write` 以获取新增命令。
 
 
 ## `hermes login` / `hermes logout` *（已弃用）*
 
 :::caution
-`hermes login` 已被移除。请使用 `hermes auth` 管理 OAuth 凭据，使用 `hermes model` 选择 provider，或使用 `hermes setup` 进行完整的交互式设置。
+`hermes login` 已被移除。请使用 `hermes auth` 管理 OAuth 凭据，使用 `kestrel model` 选择 provider，或使用 `kestrel setup` 进行完整的交互式设置。
 :::
 
 ## `hermes auth`
@@ -484,10 +484,10 @@ hermes webhook subscribe <name> [options]
 
 订阅持久化到 `~/.hermes/webhook_subscriptions.json`，webhook 适配器无需重启 gateway 即可热重载。
 
-## `hermes doctor`
+## `kestrel doctor`
 
 ```bash
-hermes doctor [--fix]
+kestrel doctor [--fix]
 ```
 
 | 选项 | 说明 |
@@ -567,7 +567,7 @@ config_overrides:
 - 出现问题时快速进行健全性检查
 
 :::tip
-`hermes dump` 专为分享而设计。交互式诊断请使用 `hermes doctor`。可视化概览请使用 `hermes status`。
+`hermes dump` 专为分享而设计。交互式诊断请使用 `kestrel doctor`。可视化概览请使用 `hermes status`。
 :::
 
 ## `hermes debug`
@@ -904,7 +904,7 @@ Curator 是一个辅助模型后台任务，定期审查 agent 创建的 skill�
 | `prune` | 手动修剪 curator 通常会清理的 skill |
 | `list-archived` | 列出已归档的 skill（可通过 `restore` 恢复） |
 
-在全新安装时，第一次计划运行会延迟一个完整的 `interval_hours`（默认 7 天）——gateway 不会在 `hermes update` 后的第一次 tick 时立即执行 curator。使用 `hermes curator run --dry-run` 在此之前预览。
+在全新安装时，第一次计划运行会延迟一个完整的 `interval_hours`（默认 7 天）——gateway 不会在 `kestrel update` 后的第一次 tick 时立即执行 curator。使用 `hermes curator run --dry-run` 在此之前预览。
 
 行为和配置请参阅 [Curator](../user-guide/features/curator.md)。
 
@@ -919,7 +919,7 @@ hermes fallback <subcommand>
 | 子命令 | 说明 |
 |------------|-------------|
 | `list`（别名：`ls`） | 显示当前 fallback 链（不带子命令时的默认行为） |
-| `add` | 选择 provider + 模型（与 `hermes model` 相同的选择器）并追加到链末尾 |
+| `add` | 选择 provider + 模型（与 `kestrel model` 相同的选择器）并追加到链末尾 |
 | `remove`（别名：`rm`） | 选择要从链中删除的条目 |
 | `clear` | 删除所有 fallback 条目 |
 | `check [--live] [--json]` | 检查每个条目能否解析并带有可用凭据（`--live`：对每个静态就绪的固定路由条目发送一次最小请求，核对该条目的 provider/模型）。任一条目不可用时退出码为 1，不创建 agent 会话 |
@@ -1063,7 +1063,7 @@ hermes computer-use <subcommand>
 
 `hermes computer-use install` 是安装 `computer_use` toolset 使用的 [cua-driver](https://github.com/trycua/cua) 二进制文件的稳定入口。它运行与首次启用 Computer Use 时 `hermes tools` 调用的相同上游安装程序，因此如果 toolset 切换未触发安装（例如在已配置用户的设置中），可以安全地用于重新运行安装。
 
-`hermes update` 在更新结束时，如果 cua-driver 在 PATH 中，会自动重新运行上游安装程序，因此大多数用户不需要手动调用 `--upgrade`。当上游发布了你现在就想要的修复，而不想等待下次 Hermes 更新时，使用此选项。
+`kestrel update` 在更新结束时，如果 cua-driver 在 PATH 中，会自动重新运行上游安装程序，因此大多数用户不需要手动调用 `--upgrade`。当上游发布了你现在就想要的修复，而不想等待下次 Hermes 更新时，使用此选项。
 
 ## `hermes sessions`
 
@@ -1151,7 +1151,7 @@ hermes claw migrate --source /home/user/old-openclaw
 hermes dashboard [options]
 ```
 
-启动 Web 控制台，用于管理配置、API 密钥和会话。FastAPI、Uvicorn 和平台 PTY 辅助库是核心依赖。`web` extra 提供 HTTP 栈的精确约束，标准 PM 安装通过 `all` 选择它。如依赖损坏，请运行 `hermes pm repair`。内嵌 Chat 标签页需要 POSIX PTY 环境，例如 Linux、macOS 或 WSL2。请参阅 [Web 控制台](../user-guide/features/web-dashboard.md)。
+启动 Web 控制台，用于管理配置、API 密钥和会话。FastAPI、Uvicorn 和平台 PTY 辅助库是核心依赖。`web` extra 提供 HTTP 栈的精确约束，标准 PM 安装通过 `all` 选择它。如依赖损坏，请运行 `kestrel pm repair`。内嵌 Chat 标签页需要 POSIX PTY 环境，例如 Linux、macOS 或 WSL2。请参阅 [Web 控制台](../user-guide/features/web-dashboard.md)。
 
 | 选项 | 默认值 | 说明 |
 |--------|---------|-------------|
@@ -1229,20 +1229,20 @@ hermes completion zsh >> ~/.zshrc
 hermes completion fish > ~/.config/fish/completions/hermes.fish
 ```
 
-## `hermes pm`
+## `kestrel pm`
 
 PM 管理工具和 Python 依赖，不负责替换应用发布包。
 源码开发先运行一次 setup 脚本，然后用 Bash `source ./activate` 或 PowerShell `. .\activate.ps1` 激活已有环境。
 使用 `deactivate` 恢复激活前的环境。
 详见[PM 开发工作流](./package-management.md#developer-workflow)，包括依赖更新和测试环境。
 
-## `hermes update`
+## `kestrel update`
 
 ```bash
-hermes update [--check] [--backup] [--restart-gateway]
+kestrel update [--check] [--backup] [--restart-gateway]
 ```
 
-拉取最新的 `kestrel-agent` 代码并在受管理的 venv 中重新安装依赖，然后重新运行安装后 hook（MCP 服务器、skill 同步、补全安装）。可在运行中的安装上安全执行。官方仓库的源码检出默认跟踪 `stable` 渠道（最新正式发布的 `vX.Y.Z` 版本）；运行 `hermes update --set-channel main` 改为跟踪 `main` 上的每个提交，`hermes update --set-channel stable` 切换回来。使用 `--check` 查看你的检出是否落后于所选渠道，而不安装。
+拉取最新的 `kestrel-agent` 代码并在受管理的 venv 中重新安装依赖，然后重新运行安装后 hook（MCP 服务器、skill 同步、补全安装）。可在运行中的安装上安全执行。官方仓库的源码检出默认跟踪 `stable` 渠道（最新正式发布的 `vX.Y.Z` 版本）；运行 `kestrel update --set-channel main` 改为跟踪 `main` 上的每个提交，`kestrel update --set-channel stable` 切换回来。使用 `--check` 查看你的检出是否落后于所选渠道，而不安装。
 
 | 选项 | 说明 |
 |--------|-------------|
@@ -1252,7 +1252,7 @@ hermes update [--check] [--backup] [--restart-gateway]
 
 附加行为：
 
-- **配对数据快照。** 即使 `--backup` 关闭，`hermes update` 也会在 `git pull` 前对 `~/.hermes/pairing/` 和 Feishu 评论规则进行轻量快照。如果拉取覆盖了你正在编辑的文件，可以用 `hermes backup restore --state pre-update` 回滚。
+- **配对数据快照。** 即使 `--backup` 关闭，`kestrel update` 也会在 `git pull` 前对 `~/.hermes/pairing/` 和 Feishu 评论规则进行轻量快照。如果拉取覆盖了你正在编辑的文件，可以用 `hermes backup restore --state pre-update` 回滚。
 - **旧版 `hermes.service` 警告。** 如果 Hermes 检测到预重命名的 `hermes.service` systemd 单元（而非当前的 `hermes-gateway.service`），会打印一次性迁移提示，帮助你避免循环重启问题。
 - **退出码。** 成功时为 `0`，拉取/安装/安装后错误时为 `1`，阻止 `git pull` 的意外工作树变更时为 `2`。
 
@@ -1261,7 +1261,7 @@ hermes update [--check] [--backup] [--restart-gateway]
 | 命令 | 说明 |
 |---------|-------------|
 | `hermes --version` | 打印版本信息。 |
-| `hermes update` | 拉取最新变更并重新安装依赖。 |
+| `kestrel update` | 拉取最新变更并重新安装依赖。 |
 | `hermes uninstall [--full] [--yes]` | 删除 Hermes，可选择删除所有 config/数据。 |
 
 ## 另请参阅

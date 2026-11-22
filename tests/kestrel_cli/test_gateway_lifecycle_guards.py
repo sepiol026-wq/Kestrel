@@ -30,7 +30,7 @@ from kestrel_cli import gateway as gw
 
 def _unit(path, home) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(f'[Service]\nEnvironment="HERMES_HOME={home}"\nExecStart=/usr/bin/hermes gateway run\n',
+    path.write_text(f'[Service]\nEnvironment="HERMES_HOME={home}"\nExecStart=/usr/bin/kestrel gateway run\n',
                     encoding="utf-8")
 
 
@@ -134,7 +134,7 @@ def test_stop_refuses_while_sessions_are_live_and_names_them(monkeypatch, record
     assert "2 live session(s)" in out
     assert "chat turn agent:main:telegram:dm:7" in out
     assert "background delegation deleg_ab12cd34" in out
-    assert "hermes gateway stop --yes" in out
+    assert "kestrel gateway stop --yes" in out
 
     gw._cmd_stop(SimpleNamespace(all=False, system=False, interrupt=True))
     assert stopped == [False]
@@ -200,7 +200,7 @@ def test_dashboard_stop_refuses_while_sessions_are_live(monkeypatch):
 
 @pytest.mark.platforms("linux")
 def test_sudo_system_stop_checks_the_units_home_not_roots(tmp_path, monkeypatch, recorded, capsys):
-    """``sudo hermes gateway stop --system``: HOME=/root and HERMES_HOME stripped, while the system unit
+    """``sudo kestrel gateway stop --system``: HOME=/root and HERMES_HOME stripped, while the system unit
     runs the invoking user's home. The live-work check must ask the unit's home, without adopting it."""
     import kestrel_constants
     root_home, user_home = tmp_path / "root", tmp_path / "user" / ".hermes"

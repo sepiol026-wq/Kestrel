@@ -11,7 +11,7 @@ import { commandLineIsHermesRuntime } from './hermes-process'
 describe('commandLineIsHermesRuntime (HX003 token matching)', () => {
   it('matches a real Hermes gateway command line', () => {
     expect(commandLineIsHermesRuntime('hermes\0gateway\0run')).toBe(true)
-    expect(commandLineIsHermesRuntime('hermes gateway run')).toBe(true)
+    expect(commandLineIsHermesRuntime('kestrel gateway run')).toBe(true)
     expect(commandLineIsHermesRuntime('hermes --profile work gateway run')).toBe(true)
   })
 

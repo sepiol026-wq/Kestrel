@@ -32,7 +32,7 @@ command. A hook with no concrete consumer is speculative infrastructure and is r
   terminal backend → `plugin-catalog/singularity.yaml`) keep their
   names/config/env and get a row in
   `hermes_cli/left_core_migration.py::LEFT_CORE` (catalog plugin + read-only "this home uses it"
-  predicate); `hermes update` and agent/gateway start install the plugin for homes that used it.
+  predicate); `kestrel update` and agent/gateway start install the plugin for homes that used it.
   Installing and converting core-era state are separate steps: the toolset-scope conversion runs
   once per home and row (`_left_core_scoped` in config.yaml) even when the plugin is already there.
   The automatic install also happens once per home and row (`_left_core_installed`, written only

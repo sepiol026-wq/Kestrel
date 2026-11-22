@@ -1035,7 +1035,7 @@ describe('createGatewayEventHandler', () => {
     onEvent({
       payload: {
         message:
-          'agent init failed: No LLM provider configured. Run `hermes model` to select a provider, or run `hermes setup` for first-time configuration.'
+          'agent init failed: No LLM provider configured. Run `kestrel model` to select a provider, or run `kestrel setup` for first-time configuration.'
       },
       type: 'error'
     } as any)

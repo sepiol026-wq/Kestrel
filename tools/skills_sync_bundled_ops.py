@@ -56,7 +56,7 @@ def reset_bundled_skill(name: str, restore: bool = False) -> dict:
         ss._write_manifest(manifest)
     synced = ss.sync_skills(quiet=True)
     if not restore:
-        action, message = "manifest_cleared", (f"Cleared manifest entry for '{name}'. Future `hermes update` runs "
+        action, message = "manifest_cleared", (f"Cleared manifest entry for '{name}'. Future `kestrel update` runs "
                                                f"will re-baseline against your current copy and accept upstream changes.")
     else:
         action = "restored"
@@ -88,7 +88,7 @@ def ensure_bundled_skill(name: str) -> dict:
     ``hub_shadowed`` (a hub install owns the name; it is the user's to remove, never overwritten).
     A restore into a leftover dir only adds the missing files (a user file is never overwritten) and
     the manifest records the bundled hash, so a dest that kept user files reads as user-modified and
-    ``hermes update`` leaves it alone: intended, the user's data wins."""
+    ``kestrel update`` leaves it alone: intended, the user's data wins."""
     from tools import skill_usage
     ss, manifest, bundled_dir, bundled_by_name = _bundled_state()
     src = bundled_by_name[name]
@@ -132,7 +132,7 @@ def ensure_bundled_skill(name: str) -> dict:
 
 
 def list_user_modified_bundled_skills() -> list[dict]:
-    """Bundled skills ``hermes update`` keeps because the user edited them (same test the sync
+    """Bundled skills ``kestrel update`` keeps because the user edited them (same test the sync
     loop uses). Name-sorted ``{"name", "dest", "bundled_src"}`` dicts."""
     ss = _ss()
     if not (manifest := ss._read_manifest()):
@@ -203,7 +203,7 @@ def diff_bundled_skill(name: str) -> dict:
 _OPT_OUT_MESSAGES = {  # (enabled, changed) -> message
     (True, True): "Opted out of bundled skills. Future install / update / sync runs will not seed bundled skills into this profile.",
     (True, False): "Already opted out — marker was already present.",
-    (False, True): "Opted back in. The next `hermes update` (or `hermes skills opt-in --sync`) will re-seed bundled skills.",
+    (False, True): "Opted back in. The next `kestrel update` (or `hermes skills opt-in --sync`) will re-seed bundled skills.",
     (False, False): "Not opted out — no marker to remove."}
 
 
@@ -218,7 +218,7 @@ def set_bundled_skills_opt_out(enabled: bool) -> dict:
             ss._kestrel_home().mkdir(parents=True, exist_ok=True)
             marker.write_text(
                 "This profile opted out of bundled-skill seeding (`hermes skills opt-out`).\n"
-                "Delete this file to re-enable sync on the next `hermes update`.\n",
+                "Delete this file to re-enable sync on the next `kestrel update`.\n",
                 encoding="utf-8")
         elif existed:
             marker.unlink()

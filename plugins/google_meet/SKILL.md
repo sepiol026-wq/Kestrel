@@ -76,7 +76,7 @@ hermes meet node approve my-mac ws://<mac-ip>:18789 <token>
 hermes meet node ping my-mac                   # confirm reachable
 ```
 
-Run `hermes meet setup` to preflight local prereqs.
+Run `kestrel meet setup` to preflight local prereqs.
 
 ## Flow
 

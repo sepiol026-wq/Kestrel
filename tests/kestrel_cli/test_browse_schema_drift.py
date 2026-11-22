@@ -248,7 +248,7 @@ def test_session_list_reconciles_once_only_when_unowned(own_store_client, missin
 
 
 def test_startup_eager_reconcile_heals_only_an_unowned_stale_store(own_store_client):
-    """After `hermes update` an old-schema store must not fail every poll (#79531/#80037); the
+    """After `kestrel update` an old-schema store must not fail every poll (#79531/#80037); the
     dashboard is never a second writer while a gateway owns it (#107688)."""
     from kestrel_cli import web_server_lifecycle
 
@@ -882,7 +882,7 @@ def test_budget_refusal_on_unowned_store_names_repair_not_a_gateway(tmp_path, mo
         _open_session_db_at_path(path, read_only=True)
     assert caught.value.status_code == 503
     detail = caught.value.detail
-    assert "Run `hermes -p scribe sessions repair` to bring it up to date (it has no time limit)" in detail
+    assert "Run `kestrel -p scribe sessions repair` to bring it up to date (it has no time limit)" in detail
     assert "Your history is untouched" in detail
     assert "gateway" not in detail.lower()
     assert _file_state(path) == before
@@ -973,7 +973,7 @@ def test_owned_refusal_names_the_owning_multiplexers_restart(tmp_path):
         host.wait()
     detail = caught.value.detail
     assert caught.value.status_code == 503 and "running gateway owns it" in detail
-    assert "`hermes gateway restart`" in detail
+    assert "`kestrel gateway restart`" in detail
     assert "-p scribe gateway restart" not in detail
 
 

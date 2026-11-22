@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""The classic CLI is main's HermesCLI again: `hermes` / `hermes chat` (interactive and -q) reach
+"""The classic CLI is main's HermesCLI again: `hermes` / `kestrel chat` (interactive and -q) reach
 ``cli.main``; only stream-json and the safe-mode bypass keep the gateway transport client."""
 import argparse
 import sys

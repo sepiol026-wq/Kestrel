@@ -856,7 +856,7 @@ def register(ctx):
         check_fn=check_requirements,
         required_env=["MYPLATFORM_TOKEN"],
         # 从环境变量自动填充 PlatformConfig.extra，使仅环境变量的设置
-        # 在 `hermes gateway status` 中显示，无需 SDK 实例化。
+        # 在 `kestrel gateway status` 中显示，无需 SDK 实例化。
         env_enablement_fn=_env_enablement,
         # 启用 cron 投递：`deliver=myplatform` 路由到此变量。
         cron_deliver_env_var="MYPLATFORM_HOME_CHANNEL",
@@ -1082,7 +1082,7 @@ my-plugin = "my_plugin_package"
 发现机制不代表可以向 PM 选中的环境直接注入 pip 包。对于 PM 管理的安装，
 请分发带有 `pyproject.toml` 或清单 Python 依赖声明的目录插件，并使用
 `hermes plugins install` / `enable` 进行事务式准入。新环境选定后重启 Hermes。
-`hermes pm install` 接受托管工具名称，不接受任意 PyPI 包名。
+`kestrel pm install` 接受托管工具名称，不接受任意 PyPI 包名。
 
 ## 为 NixOS 分发
 

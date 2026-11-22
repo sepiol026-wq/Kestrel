@@ -59,7 +59,7 @@ def _rpc(params: dict) -> dict:
 def test_install_by_catalog_name_refused_on_every_surface_when_hermes_is_too_old(gated):
     gated["state"]["requires"] = ">=0.31"
 
-    with pytest.raises(SystemExit):  # `hermes plugins install <name>` (and `hermes setup`'s importer step)
+    with pytest.raises(SystemExit):  # `hermes plugins install <name>` (and `kestrel setup`'s importer step)
         pc.cmd_install("cat-plugin", enable=False)
     assert any(REFUSAL in line and "and install again" in line for line in gated["printed"])
 

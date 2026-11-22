@@ -91,7 +91,7 @@ that of the Python backend, not a remote desktop client:
 An explicit provider stays selected, even if this platform does not support it.
 Hermes reports the requirement error instead of silently switching engines.
 Existing explicit settings are not migrated. To opt into automatic selection,
-run `hermes config set wake_word.provider auto`. Wake detection stays **off**
+run `kestrel config set wake_word.provider auto`. Wake detection stays **off**
 until you enable it.
 
 The default phrase label is **"hey hermes"**. For openWakeWord, Hermes includes

@@ -39,11 +39,11 @@ description: "与 Kestrel Agent 的第一次对话——从安装到开始聊天
 
 | 目标 | 先做这步 | 再做这步 |
 |---|---|---|
-| 只想让 Hermes 在本机跑起来 | `hermes setup` | 运行一次真实对话并验证有响应 |
-| 已知道要用哪个 provider | `hermes model` | 保存配置，然后开始聊天 |
-| 想搭建机器人或长期运行的服务 | CLI 正常后运行 `hermes gateway setup` | 接入 Telegram、Discord、Slack 或其他平台 |
-| 想使用本地或自托管模型 | `hermes model` → 自定义 endpoint | 验证 endpoint、模型名称和上下文长度 |
-| 想要多 provider 故障转移 | 先运行 `hermes model` | 基础对话正常后再添加路由和故障转移 |
+| 只想让 Hermes 在本机跑起来 | `kestrel setup` | 运行一次真实对话并验证有响应 |
+| 已知道要用哪个 provider | `kestrel model` | 保存配置，然后开始聊天 |
+| 想搭建机器人或长期运行的服务 | CLI 正常后运行 `kestrel gateway setup` | 接入 Telegram、Discord、Slack 或其他平台 |
+| 想使用本地或自托管模型 | `kestrel model` → 自定义 endpoint | 验证 endpoint、模型名称和上下文长度 |
+| 想要多 provider 故障转移 | 先运行 `kestrel model` | 基础对话正常后再添加路由和故障转移 |
 
 **经验法则：** 如果 Hermes 无法完成一次正常对话，暂时不要添加更多功能。先让一次完整对话跑通，再逐步叠加 gateway、cron、skills、语音或路由。
 
@@ -80,17 +80,17 @@ source ~/.bashrc   # 或 source ~/.zshrc
 
 ## 2. 选择 Provider
 
-这是最重要的配置步骤。使用 `hermes model` 以交互方式完成选择：
+这是最重要的配置步骤。使用 `kestrel model` 以交互方式完成选择：
 
 ```bash
-hermes model
+kestrel model
 ```
 
 :::tip 最简路径：Nous Portal
 一个订阅涵盖 300+ 个模型，以及 [Tool Gateway](../user-guide/features/tool-gateway.md)（网页搜索、图像生成、TTS、云端浏览器）。全新安装时：
 
 ```bash
-hermes setup --portal
+kestrel setup --portal
 ```
 
 该命令一次性完成登录、设置 Nous 为 provider 并开启 Tool Gateway。
@@ -100,16 +100,16 @@ hermes setup --portal
 
 | Provider | 说明 | 配置方式 |
 |----------|-----------|---------------|
-| **Nous Portal** | 订阅制，零配置 | 通过 `hermes model` 进行 OAuth 登录 |
-| **OpenAI Codex** | ChatGPT 或 Codex 订阅，使用 Codex 模型 | 通过 `hermes model` → **ChatGPT or Codex Subscription** 进行设备码认证 |
-| **Anthropic** | 直接使用 Claude 模型——Max 计划 + 额外用量积分（OAuth），或按 token 付费的 API key | `hermes model` → OAuth 登录（需要 Max + 额外积分），或 Anthropic API key |
+| **Nous Portal** | 订阅制，零配置 | 通过 `kestrel model` 进行 OAuth 登录 |
+| **OpenAI Codex** | ChatGPT 或 Codex 订阅，使用 Codex 模型 | 通过 `kestrel model` → **ChatGPT or Codex Subscription** 进行设备码认证 |
+| **Anthropic** | 直接使用 Claude 模型——Max 计划 + 额外用量积分（OAuth），或按 token 付费的 API key | `kestrel model` → OAuth 登录（需要 Max + 额外积分），或 Anthropic API key |
 | **OpenRouter** | 跨多个 provider 的多模型路由 | 输入 API key |
 | **Z.AI** | GLM / Zhipu 托管模型 | 设置 `GLM_API_KEY` / `ZAI_API_KEY` |
 | **Kimi / Moonshot** | Moonshot 托管的编程和对话模型 | 设置 `KIMI_API_KEY`（或 Kimi-Coding 专用的 `KIMI_CODING_API_KEY`） |
 | **Kimi / Moonshot China** | 中国区 Moonshot endpoint | 设置 `KIMI_CN_API_KEY` |
 | **Arcee AI** | Trinity 模型 | 设置 `ARCEEAI_API_KEY` |
 | **GMI Cloud** | 多模型直连 API | 设置 `GMI_API_KEY` |
-| **MiniMax (OAuth)** | 通过浏览器 OAuth 使用 MiniMax-M2.7，无需 API key | `hermes model` → MiniMax (OAuth) |
+| **MiniMax (OAuth)** | 通过浏览器 OAuth 使用 MiniMax-M2.7，无需 API key | `kestrel model` → MiniMax (OAuth) |
 | **MiniMax** | 国际版 MiniMax endpoint | 设置 `MINIMAX_API_KEY` |
 | **MiniMax China** | 中国区 MiniMax endpoint | 设置 `MINIMAX_CN_API_KEY` |
 | **Alibaba Cloud** | 通过 DashScope 使用 Qwen 模型 | 设置 `DASHSCOPE_API_KEY` |
@@ -130,7 +130,7 @@ Kestrel Agent 要求模型至少具备 **64,000 个 token** 的上下文窗口�
 :::
 
 :::tip
-你可以随时通过 `hermes model` 切换 provider——没有锁定。所有支持的 provider 完整列表及配置详情，请参阅 [AI Providers](../integrations/providers.md)。
+你可以随时通过 `kestrel model` 切换 provider——没有锁定。所有支持的 provider 完整列表及配置详情，请参阅 [AI Providers](../integrations/providers.md)。
 :::
 
 ### 配置的存储方式
@@ -230,7 +230,7 @@ Agent 会代你执行终端命令并显示结果。
 ### 机器人或共享助手
 
 ```bash
-hermes gateway setup    # 交互式平台配置
+kestrel gateway setup    # 交互式平台配置
 ```
 
 接入 [Telegram](../user-guide/messaging/telegram.md)、[Discord](../user-guide/messaging/discord.md)、[Slack](../user-guide/messaging/slack.md)、[WhatsApp](../user-guide/messaging/whatsapp.md)、[Signal](../user-guide/messaging/signal.md)、[Email](../user-guide/messaging/email.md)、[Home Assistant](../user-guide/messaging/homeassistant.md)（插件）或 [Microsoft Teams](../user-guide/messaging/teams.md)。
@@ -303,23 +303,23 @@ hermes acp
 
 | 现象 | 可能原因 | 解决方法 |
 |---|---|---|
-| Hermes 启动但回复为空或异常 | Provider 认证或模型选择有误 | 重新运行 `hermes model`，确认 provider、模型和认证信息 |
+| Hermes 启动但回复为空或异常 | Provider 认证或模型选择有误 | 重新运行 `kestrel model`，确认 provider、模型和认证信息 |
 | 自定义 endpoint "可用"但返回乱码 | base URL、模型名称有误，或实际上不兼容 OpenAI | 先用独立客户端验证该 endpoint |
-| Gateway 启动但无法收到消息 | Bot token、白名单或平台配置不完整 | 重新运行 `hermes gateway setup` 并检查 `hermes gateway status` |
+| Gateway 启动但无法收到消息 | Bot token、白名单或平台配置不完整 | 重新运行 `kestrel gateway setup` 并检查 `kestrel gateway status` |
 | `hermes --continue` 找不到旧会话 | 切换了 profile 或会话从未保存 | 检查 `hermes sessions list`，确认你在正确的 profile 下 |
 | 模型不可用或出现异常的故障转移行为 | Provider 路由或故障转移设置过于激进 | 在基础 provider 稳定之前关闭路由 |
-| `hermes doctor` 标记配置问题 | 配置值缺失或已过期 | 修复配置，在添加功能前重新测试普通对话 |
+| `kestrel doctor` 标记配置问题 | 配置值缺失或已过期 | 修复配置，在添加功能前重新测试普通对话 |
 
 ## 恢复工具包
 
 当感觉有问题时，按以下顺序操作：
 
-1. `hermes doctor`
-2. `hermes model`
-3. `hermes setup`
+1. `kestrel doctor`
+2. `kestrel model`
+3. `kestrel setup`
 4. `hermes sessions list`
 5. `hermes --continue`
-6. `hermes gateway status`
+6. `kestrel gateway status`
 
 这个顺序能让你快速从"感觉哪里不对"回到已知的正常状态。
 
@@ -330,12 +330,12 @@ hermes acp
 | 命令 | 说明 |
 |---------|-------------|
 | `hermes` | 开始聊天 |
-| `hermes model` | 选择 LLM provider 和模型 |
+| `kestrel model` | 选择 LLM provider 和模型 |
 | `hermes tools` | 配置每个平台启用的工具 |
-| `hermes setup` | 完整配置向导（一次性配置所有内容） |
-| `hermes doctor` | 诊断问题 |
-| `hermes update` | 更新到最新版本 |
-| `hermes gateway` | 启动消息 gateway |
+| `kestrel setup` | 完整配置向导（一次性配置所有内容） |
+| `kestrel doctor` | 诊断问题 |
+| `kestrel update` | 更新到最新版本 |
+| `kestrel gateway` | 启动消息 gateway |
 | `hermes --continue` | 恢复上次会话 |
 
 ## 下一步

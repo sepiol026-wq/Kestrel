@@ -22,7 +22,7 @@ from gateway import runtime_bootstrap_windows as native
 from kestrel_cli import gateway_runtime as runtime
 from kestrel_cli.gateway_runtime_cli import ensure_exit_code
 
-# The owner stand-in is a stub ``hermes gateway run`` child that each test reaps itself.
+# The owner stand-in is a stub ``kestrel gateway run`` child that each test reaps itself.
 pytestmark = pytest.mark.spawns_gateway_lookalike
 
 
@@ -43,7 +43,7 @@ def test_classify_refused_owner(facts, expected):
 
 
 def _gateway_child(tmp_path: Path):
-    """A real live process whose command line is a gateway's (``.../hermes gateway run``)."""
+    """A real live process whose command line is a gateway's (``.../kestrel gateway run``)."""
     entry = tmp_path / "bin" / "hermes"
     entry.parent.mkdir(exist_ok=True)
     entry.write_text("import sys\nsys.stdin.read()\n", encoding="utf-8")
@@ -89,7 +89,7 @@ def test_refusal_names_the_elevated_owner_with_its_remedy(monkeypatch, tmp_path,
     home, _ = _refusing_owner(monkeypatch, tmp_path, named, gateway_owner)
     result = runtime._refused(home, windows=True)
     assert result.reason_code == "gateway_elevated"
-    assert result.detail and "administrator" in result.detail and "hermes gateway stop" in result.detail
+    assert result.detail and "administrator" in result.detail and "kestrel gateway stop" in result.detail
 
 
 def test_unnamed_or_unprobeable_refusal_keeps_authorization(monkeypatch, tmp_path, gateway_owner):

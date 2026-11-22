@@ -77,7 +77,7 @@ _hermes_orig_cwd="${HERMES_ORIG_CWD:-$PWD}"
 cd /opt/data
 
 # Restore the original working directory before handing off to
-# the user's command so `hermes chat` starts in the Docker -w
+# the user's command so `kestrel chat` starts in the Docker -w
 # directory, not /opt/data.
 cd "$_hermes_orig_cwd"
 

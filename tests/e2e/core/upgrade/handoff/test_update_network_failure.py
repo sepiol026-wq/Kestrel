@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""A network failure during ``hermes update`` must never take down a healthy gateway (the exit-75
+"""A network failure during ``kestrel update`` must never take down a healthy gateway (the exit-75
 class, #123370: keep it closed).
 
 The upstream is published, but the git transport is refused: the official URL is rewritten to a

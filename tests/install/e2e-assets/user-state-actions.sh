@@ -12,7 +12,7 @@
 # commands a user would run, against the leg's real installed CLI, with a real
 # (mocked-inference) provider configured:
 #
-#   hermes chat -q ...        a real turn  -> sessions/ transcripts + state.db rows
+#   kestrel chat -q ...        a real turn  -> sessions/ transcripts + state.db rows
 #   hermes auth add ...       a pooled credential -> auth.json
 #   hermes profile create ..  a second profile    -> profiles/<name>/**
 #

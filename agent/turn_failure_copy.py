@@ -212,7 +212,7 @@ def is_max_iteration_handoff(result: Any) -> bool:
 _NEXT_STEPS_RETRY = "Wait a minute and send /retry, or switch models with /model."
 _NEXT_STEPS_LOOP = (
     "Your message is saved. Send `continue` to try again, or start a new session with /new. "
-    "If it happens again, run `hermes doctor` and share the error details."
+    "If it happens again, run `kestrel doctor` and share the error details."
 )
 
 # Lead sentence per classifier reason once retries and fallback are exhausted.
@@ -234,11 +234,11 @@ _EXHAUSTED_FIRST_ATTEMPT_LEADS: dict[str, str] = {
 _NONRETRYABLE_COPY: dict[str, str] = {
     FailoverReason.model_not_found.value: (
         "Model '{model}' isn't available on {label}. Pick a different model with /model "
-        "(or `hermes model` in a terminal).{prefix_hint}"
+        "(or `kestrel model` in a terminal).{prefix_hint}"
     ),
     FailoverReason.format_error.value: (
         "{label} rejected this request as malformed, so the model didn't answer. Start a clean "
-        "session with /new or switch models with /model; if it keeps happening, run `hermes doctor`."
+        "session with /new or switch models with /model; if it keeps happening, run `kestrel doctor`."
     ),
     FailoverReason.role_alternation.value: (
         "{label} requires user and assistant turns to strictly alternate and rejected this "
@@ -276,7 +276,7 @@ _AUTH_COPY: dict[str, str] = {
     "oauth": "{label} rejected your sign-in, so the model can't be reached. Sign in again: `{relogin}`.",
     "api_key": (
         "{label} rejected your API key, so the model can't be reached. Update it in "
-        "Settings → Providers, or run `hermes setup` in a terminal."
+        "Settings → Providers, or run `kestrel setup` in a terminal."
     ),
 }
 

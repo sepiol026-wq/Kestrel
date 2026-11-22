@@ -5,7 +5,7 @@
 
 """#140665 (#134889 CLI-39): a gateway-owned session's client cwd reaches the Docker terminal backend.
 
-Before #106742 every ``hermes chat`` was its own process with its own ``TERMINAL_CWD`` and its own
+Before #106742 every ``kestrel chat`` was its own process with its own ``TERMINAL_CWD`` and its own
 container. Now the turn runs in the gateway: the client's cwd (or ``--in DIR``) is frozen into the
 session's policy, but never reached ``resolve_task_overrides(task_id)['cwd']``, the per-session mount
 source. So ``container_persistent: false`` mounted no ``/workspace`` at all, and ``true`` shared ONE

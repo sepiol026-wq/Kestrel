@@ -204,7 +204,7 @@ Desktop 会在该 agent 的 **Activity log** 中实时渲染生命周期、工�
 
 前提条件：
 
-- 先通过 `hermes model` 配置 Hermes provider 凭据，或在 `~/.hermes/.env` / `~/.hermes/config.yaml` 中设置。
+- 先通过 `kestrel model` 配置 Hermes provider 凭据，或在 `~/.hermes/.env` / `~/.hermes/config.yaml` 中设置。
 
 ### JetBrains
 
@@ -223,7 +223,7 @@ command -v hermes-acp || command -v hermes
 ```
 
 较新的安装会将 `hermes` 和 `hermes-acp` 两个启动器写入 `~/.local/bin`；
-运行 `hermes update` 会为较旧的安装补上 `hermes-acp` 启动器。作为手动兜底方案，
+运行 `kestrel update` 会为较旧的安装补上 `hermes-acp` 启动器。作为手动兜底方案，
 可以将 Buzz 的 agent 命令配置为 `hermes`，参数为 `["acp"]`。
 
 #### 将 Buzz agent 保持为 owner-only
@@ -322,7 +322,7 @@ ACP 桥接将这些选项映射到 Hermes 的内部审批语义——`allow_alwa
 ```bash
 hermes acp --version
 hermes acp --check
-hermes doctor
+kestrel doctor
 hermes status
 ```
 
@@ -331,7 +331,7 @@ hermes status
 ACP 模式使用 Hermes 现有的 provider 设置。通过以下方式配置凭据：
 
 ```bash
-hermes model
+kestrel model
 ```
 
 或编辑 `~/.hermes/.env`。终端认证流程（`hermes acp --setup`）也可以触发交互式 provider/模型设置。

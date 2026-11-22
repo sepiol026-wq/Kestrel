@@ -17,7 +17,7 @@ the session. Three gaps, one cell each:
 Each gap is a ``known_failure`` (reason ``serve-cutover:``): it XFAILs while main fails exactly that
 way and passes once the serve cutover lands; delete the wrappers then. The control cell proves the
 same observables pass for a turn the gateway's own ``/api/ws`` admits. Real processes: a
-``hermes gateway run`` and a ``hermes serve`` in one hermetic home, a loopback model that holds the
+``kestrel gateway run`` and a ``hermes serve`` in one hermetic home, a loopback model that holds the
 turn open (so "mid-turn" is deterministic) and names the process that called it. Boot failures and
 timeouts fail loudly; they are never mistaken for a gap.
 """

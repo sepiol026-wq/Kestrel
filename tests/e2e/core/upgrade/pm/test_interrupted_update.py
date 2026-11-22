@@ -5,7 +5,7 @@
 
 """Interrupted dependency updates recover (PM lifecycle, failure class 2).
 
-``hermes update`` on a release that changes the dependency set runs a PM transaction: it arms the
+``kestrel update`` on a release that changes the dependency set runs a PM transaction: it arms the
 ``source-completion-pending`` marker, stages a NEW generation under
 ``installs/<key>/environments/`` (download + ``uv sync``), publishes it by rewriting facts.json,
 then runs the source-update tail (launchers, TUI/web builds) and clears the marker.
@@ -128,10 +128,10 @@ def test_sigkill_mid_dependency_update_recovers(home, provider, phase):
     # The user re-runs the update: it converges at the target and owes nothing.
     again = _retry(sb, "update", "--yes", "--branch", "main")
     assert again.returncode == 0 and I.TRACEBACK not in again.stdout + again.stderr, (
-        f"`hermes update` after a kill at {phase} failed\n" + P.diagnostics(sb, first, again))
+        f"`kestrel update` after a kill at {phase} failed\n" + P.diagnostics(sb, first, again))
     assert I.git("rev-parse", "HEAD", cwd=sb.checkout) == target, P.diagnostics(sb, again)
     assert not P.pending_marker(sb).exists(), (
-        f"`hermes update` exited 0 after a kill at {phase} but left source-completion-pending behind\n"
+        f"`kestrel update` exited 0 after a kill at {phase} but left source-completion-pending behind\n"
         + P.diagnostics(sb, first, again))
     selected = P.selected_generation(sb)
     if phase == "stage":

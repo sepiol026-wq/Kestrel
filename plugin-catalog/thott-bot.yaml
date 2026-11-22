@@ -18,4 +18,4 @@ capabilities:
   provides_middleware: []
   requires_env: []
 known_issues:
-  - "To connect, run `hermes mcp add thott --url https://mcp.thott.bot/mcp --auth oauth`. The first connection opens a sign-in page, where you sign in or create your free thott.bot account with Discord, Google or email."
+  - "To connect, run `kestrel mcp add thott --url https://mcp.thott.bot/mcp --auth oauth`. The first connection opens a sign-in page, where you sign in or create your free thott.bot account with Discord, Google or email."

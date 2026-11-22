@@ -31,7 +31,7 @@ version: "0.1.1"
 title: Google Calendar Agenda
 
 known_issues:
-  - "Needs your own Google Cloud OAuth client: set CALENDAR_AGENDA_GOOGLE_CLIENT_ID and CALENDAR_AGENDA_GOOGLE_CLIENT_SECRET, then run `hermes auth add calendar-agenda:google` in your own terminal."
+  - "Needs your own Google Cloud OAuth client: set CALENDAR_AGENDA_GOOGLE_CLIENT_ID and CALENDAR_AGENDA_GOOGLE_CLIENT_SECRET, then run `kestrel auth add calendar-agenda:google` in your own terminal."
   - "Timezone is currently fixed to Asia/Tokyo (a constant in calendar_agenda_service.py)."
 
 capabilities:

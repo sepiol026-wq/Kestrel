@@ -396,7 +396,7 @@ def _resolve_local_cdp(env: dict, task_id: Optional[str], session_name: str = ""
                           "to use local Chrome, or switch backends via `hermes tools` → Browser Automation.")
     else:
         fail = lambda e: (f"The local browser could not be started: {e} "
-                          "Run `hermes tools` → Browser Automation to (re)install Chromium, or switch backends.")
+                          "Run `kestrel tools` → Browser Automation to (re)install Chromium, or switch backends.")
     err = _export_session_cdp(env, _session_info, key, fail, "The local browser session returned no CDP endpoint.")
     if err is None:
         _mark_local_browser(env, session, key)
@@ -808,7 +808,7 @@ def browser_exec(code: str, session: str = "", timeout_s: int = _DEFAULT_TIMEOUT
     cmd = _find_cli()
     if not cmd:
         return tool_error("browser-harness is missing from Hermes's Python environment. "
-                          "Run `hermes update` to re-sync it.")
+                          "Run `kestrel update` to re-sync it.")
 
     env = _base_subprocess_env()
     if session:

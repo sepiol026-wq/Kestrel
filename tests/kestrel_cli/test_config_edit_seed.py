@@ -24,7 +24,7 @@ def _config_edit(tmp_path, monkeypatch, cfg, *, template):
 
 
 def _setup_agent_enter(tmp_path, monkeypatch, cfg):
-    """`hermes setup agent` on a fresh home, pressing Enter (the offered default) on every prompt."""
+    """`kestrel setup agent` on a fresh home, pressing Enter (the offered default) on every prompt."""
     from kestrel_cli import setup
 
     monkeypatch.setattr(setup, "prompt", lambda question, default=None, *a, **k: default or "")
@@ -48,7 +48,7 @@ def _blank_slate(tmp_path, monkeypatch, cfg):
 
 
 def _doctor_fix(tmp_path, monkeypatch, cfg):
-    """`hermes doctor --fix` on a home with no config.yaml: the real config-file check, fix enabled."""
+    """`kestrel doctor --fix` on a home with no config.yaml: the real config-file check, fix enabled."""
     from kestrel_cli import doctor
     from kestrel_cli.doctor_config import _check_config_file
 

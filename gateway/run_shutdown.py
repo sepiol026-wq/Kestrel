@@ -79,7 +79,7 @@ def _resolve_gateway_exit_verdict(runner, signal_initiated_shutdown: bool) -> bo
     return True
 
 # Windows has no bash/setsid chain: a tiny detached Python watcher waits for the gateway PID to
-# exit (bounded), then spawns ``hermes gateway restart``.
+# exit (bounded), then spawns ``kestrel gateway restart``.
 _WINDOWS_RESTART_WATCHER = """
 import os, subprocess, sys, time
 from kestrel_cli._subprocess_compat import windows_detach_flags_without_breakaway
@@ -805,7 +805,7 @@ class GatewayShutdownMixin(GatewaySessionEndMixin, GatewayHomeShutdownNoticeMixi
         )
         logger.warning(
             "%s paused after %d consecutive failures (%s) — fix the underlying issue then run `/platform "
-            "resume %s` to retry, or `hermes gateway restart` to restart the gateway.",
+            "resume %s` to retry, or `kestrel gateway restart` to restart the gateway.",
             platform.value, info.get("attempts", 0), info["pause_reason"], platform.value,
         )
 
@@ -1421,7 +1421,7 @@ class GatewayShutdownMixin(GatewaySessionEndMixin, GatewayHomeShutdownNoticeMixi
         from kestrel_cli._startup_fast import project_root_str
         project_root = Path(project_root_str())
         # Console python (NOT pythonw.exe) under CREATE_NO_WINDOW: the watcher owns one hidden console its
-        # `hermes gateway restart` child inherits; a console-less watcher makes every descendant allocate a
+        # `kestrel gateway restart` child inherits; a console-less watcher makes every descendant allocate a
         # visible conhost (#54220/#56747).
         from kestrel_cli._launchers import runtime_command
         if hermes_cmd[1:] == ["-m", "hermes_cli.main"]:  # bootstrap drops PYTHONPATH: bind the respawn to this checkout too
@@ -1565,7 +1565,7 @@ class GatewayShutdownMixin(GatewaySessionEndMixin, GatewayHomeShutdownNoticeMixi
 
     def _describe_active_work(self) -> list:
         """One dict per in-flight work unit the restart wait is holding for, so an observer
-        (``hermes update``, ``hermes gateway status``) can name it instead of printing a bare count.
+        (``kestrel update``, ``kestrel gateway status``) can name it instead of printing a bare count.
 
         ``kind`` ∈ ``chat`` (session turn), ``cron`` (job id + external worker pid when the run was handed to a
         restart-safe scope), ``managed`` (session + worker pid when a worker holds it), ``api`` / ``deferred``

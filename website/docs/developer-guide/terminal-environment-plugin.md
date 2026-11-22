@@ -19,9 +19,9 @@ A registered backend automatically participates in every core surface:
 | Surface | Driven by |
 |---|---|
 | Command dispatch (`terminal`, `execute_code`, file tools) | `create_environment()` |
-| `hermes setup` backend picker | `display_name`, `description`, `setup_instructions()`, `post_setup()` |
+| `kestrel setup` backend picker | `display_name`, `description`, `setup_instructions()`, `post_setup()` |
 | Dashboard terminal-backend picker (probe status) | `probe()` |
-| `hermes status` / `hermes doctor` | `doctor_checks()` |
+| `hermes status` / `kestrel doctor` | `doctor_checks()` |
 | System-prompt environment hints | `is_remote`, `env_description` |
 | Dangerous-command approval skipping | `skip_container_guards` |
 | Container path/cwd handling | `is_container` |

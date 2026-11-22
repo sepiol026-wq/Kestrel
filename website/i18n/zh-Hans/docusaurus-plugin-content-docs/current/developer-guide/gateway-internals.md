@@ -250,11 +250,11 @@ Gateway 在处理消息的同时运行周期性维护任务：
 
 Gateway 作为长期运行进程运行，管理方式如下：
 
-- `hermes gateway start` / `hermes gateway stop` — 手动控制
+- `kestrel gateway start` / `kestrel gateway stop` — 手动控制
 - `systemctl`（Linux）或 `launchctl`（macOS）— 服务管理
 - PID 文件位于 `~/.hermes/gateway.pid` — 面向 profile 的进程追踪
 
-**Profile 范围 vs 全局**：`start_gateway()` 使用 profile 范围的 PID 文件。`hermes gateway stop` 仅停止当前 profile 的 gateway。`hermes gateway stop --all` 使用全局 `ps aux` 扫描来终止所有 gateway 进程（用于更新时）。
+**Profile 范围 vs 全局**：`start_gateway()` 使用 profile 范围的 PID 文件。`kestrel gateway stop` 仅停止当前 profile 的 gateway。`kestrel gateway stop --all` 使用全局 `ps aux` 扫描来终止所有 gateway 进程（用于更新时）。
 
 ## 相关文档
 

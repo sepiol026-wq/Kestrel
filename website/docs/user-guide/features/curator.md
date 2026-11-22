@@ -28,9 +28,9 @@ The timer services its backend's profile. In-flight maintenance runs in a worker
 If both are true, it spawns a background fork of `AIAgent` — the same pattern used by the memory/skill self-improvement nudges. The fork runs in its own prompt cache and never touches the active conversation.
 
 :::info First-run behavior
-On a brand-new install (or the first time a pre-curator install ticks after `hermes update`), the curator **does not run immediately**. The first observation seeds `last_run_at` to "now" and defers the first real pass by one full `interval_hours`. This gives you a full interval to review your skill library, pin anything important, or opt out entirely before the curator ever touches it.
+On a brand-new install (or the first time a pre-curator install ticks after `kestrel update`), the curator **does not run immediately**. The first observation seeds `last_run_at` to "now" and defers the first real pass by one full `interval_hours`. This gives you a full interval to review your skill library, pin anything important, or opt out entirely before the curator ever touches it.
 
-If you want to see what the curator *would* do before it runs for real, run `hermes curator run --dry-run` — it produces the same review report without mutating the library.
+If you want to see what the curator *would* do before it runs for real, run `kestrel curator run --dry-run` — it produces the same review report without mutating the library.
 :::
 
 A run has two phases:
@@ -67,10 +67,10 @@ To disable entirely, set `curator.enabled: false`. To keep the always-on pruning
 
 The curator's LLM review pass is a regular auxiliary task slot — `auxiliary.curator` — alongside Vision, Compression, Session Search, etc. "Auto" means "use my main chat model"; override the slot to pin a specific provider + model for the review pass instead.
 
-**Easiest — `hermes model`:**
+**Easiest — `kestrel model`:**
 
 ```bash
-hermes model                   # → "Auxiliary models — side-task routing"
+kestrel model                   # → "Auxiliary models — side-task routing"
                                # → pick "Curator" → pick provider → pick model
 ```
 
@@ -89,7 +89,7 @@ auxiliary:
 Leaving `provider: auto` (the default) routes the review pass through whatever your main chat model is, matching the behavior of every other auxiliary task.
 
 :::note Legacy config
-Earlier releases used a one-off `curator.auxiliary.{provider,model}` block. That path still works but emits a deprecation log line — please migrate to `auxiliary.curator` above so the curator shares the same plumbing (`hermes model`, dashboard Models tab, `base_url`, `api_key`, `timeout`, `extra_body`) as every other aux task.
+Earlier releases used a one-off `curator.auxiliary.{provider,model}` block. That path still works but emits a deprecation log line — please migrate to `auxiliary.curator` above so the curator shares the same plumbing (`kestrel model`, dashboard Models tab, `base_url`, `api_key`, `timeout`, `extra_body`) as every other aux task.
 :::
 
 ## CLI
@@ -228,7 +228,7 @@ directory, that skill will have a `.usage.json` entry with `created_by: null`
 (or the field absent). The curator will not touch it. The same applies to
 skills the foreground agent created at your request (`created_by: learn`).
 
-**To see which skills the curator actually manages**, run `hermes curator status`.
+**To see which skills the curator actually manages**, run `kestrel curator status`.
 If the agent-created count is 0, no skills are currently in the curator's
 jurisdiction — the LLM review pass is skipped and the report will show
 `Model: (not resolved) via (not resolved)` with `Duration: 0s`.
@@ -286,7 +286,7 @@ in the skill ledger. It may archive (delete) only curator-managed skills, never
 pinned ones. To review those writes before they land, turn on
 `skills.write_approval` (see [Gating agent skill writes](./skills.md#gating-agent-skill-writes-skillswrite_approval)).
 A bundled or hub-installed skill the review has edited counts as locally
-modified, so `hermes update` / `hermes skills update` stop overwriting it.
+modified, so `kestrel update` / `hermes skills update` stop overwriting it.
 
 :::note `created_by` is a policy flag, not a provenance claim
 The stored field is named `created_by`, but it is consumed as "may autonomous
@@ -361,15 +361,15 @@ Once a skill is locked, every way the agent can write refuses it, in normal turn
 - The curator never archives a locked skill.
 - The agent cannot unlock it: `terminal` refuses `hermes curator unlock`, and the lock record (`skills/.usage.json`) is protected the same way while any skill is locked. The refusal tells the agent to describe the change it wanted so you can decide.
 
-Your own edits are not gated: editing the files in your editor or in the Desktop skill editor always works. To let the agent change it again, run `hermes curator unlock <skill>` or flip the switch.
+Your own edits are not gated: editing the files in your editor or in the Desktop skill editor always works. To let the agent change it again, run `kestrel curator unlock <skill>` or flip the switch.
 
 The flag is stored as `"locked": true` on the skill's entry in `~/.hermes/skills/.usage.json`, the same sidecar as `pinned`, so it is **per profile**: `hermes -p work curator lock deploy-runbook` locks that profile's copy only. Any skill that resolves in the profile can be locked (hand-written, agent-created, bundled or hub-installed); `lock` refuses a name it cannot resolve.
 
 What a lock is not:
 
 - It is a **policy check, not a sandbox.** The terminal check reads the command's write targets; a script that writes into the skill through its own logic, or `execute_code`, is not inspected. Pair it with filesystem permissions if you need a hard boundary.
-- If `.usage.json` is corrupt, the background passes are refused (fail closed) while normal turns proceed, so one broken file does not freeze every skill edit. Repair it, or run `hermes curator unlock <skill>` to rewrite it.
-- It does **not** stop `hermes update` / `hermes skills update` from refreshing a bundled or hub skill you have not modified; those are your commands, not agent writes.
+- If `.usage.json` is corrupt, the background passes are refused (fail closed) while normal turns proceed, so one broken file does not freeze every skill edit. Repair it, or run `kestrel curator unlock <skill>` to rewrite it.
+- It does **not** stop `kestrel update` / `hermes skills update` from refreshing a bundled or hub skill you have not modified; those are your commands, not agent writes.
 
 ## Usage telemetry
 

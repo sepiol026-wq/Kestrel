@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""One user's machine across one real ``hermes update``, observed once per column.
+"""One user's machine across one real ``kestrel update``, observed once per column.
 
 A manual gateway (with its cron ticker and embedded kanban dispatcher) and a manual dashboard run
 in one shared-PID-namespace sandbox. A kanban worker is in flight and a one-shot cron job comes due
@@ -58,7 +58,7 @@ CRON_GATES = {
            "gated on #113293: a cron job due during an update fires into the swap window, fails, and loses its slot"),
 }
 
-# ``hermes update``'s own line for each systemd unit it restarted (or tried to) after stopping a dashboard.
+# ``kestrel update``'s own line for each systemd unit it restarted (or tried to) after stopping a dashboard.
 _UNIT_RESTART = re.compile(r"✓ restarted systemd service (\S+\.service)|⚠ (\S+\.service): systemctl restart returned")
 
 
@@ -447,7 +447,7 @@ class HandoffProperties:
         self._relaunched(o)
         assert not o.pid_file, f"{o.pid_file}\n{o.diag}"
         assert f"Gateway is running (PID: {o.ident['pid']})" in o.status.stdout, (
-            f"`hermes gateway status` cannot find the relaunched gateway:\n{H.describe(o.status)}\n{o.diag}")
+            f"`kestrel gateway status` cannot find the relaunched gateway:\n{H.describe(o.status)}\n{o.diag}")
 
     def test_dashboard_is_back_on_its_port(self, fleet):
         o = fleet

@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Tests for ``hermes doctor --live`` — opt-in bounded real-call tool-backend probes.
+"""Tests for ``kestrel doctor --live`` — opt-in bounded real-call tool-backend probes.
 
 All probes are mocked at the HTTP/client layer; no real network calls are made.
 """

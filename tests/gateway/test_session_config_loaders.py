@@ -4,7 +4,7 @@
 # Derivative work. All upstream attribution and rights retained.
 
 """A gateway-owned session runs with ``provider_routing`` and ``prefill_messages_file`` from its own
-profile's config as of its creation, as a new ``hermes chat`` process read them once at startup on
+profile's config as of its creation, as a new ``kestrel chat`` process read them once at startup on
 pre-merge main (CFG-6, CFG-7). The daemon-start snapshot on the runner never reaches it, and the
 in-process turn and a managed worker get the same values."""
 import json

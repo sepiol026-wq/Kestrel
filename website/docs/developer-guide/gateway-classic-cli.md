@@ -1,11 +1,11 @@
 ---
 title: Classic gateway client
-description: How hermes chat / --cli attach to the gateway authority
+description: How kestrel chat / --cli attach to the gateway authority
 ---
 
 # Classic gateway client (initial migration)
 
-Normal `hermes --cli`, `hermes chat`, `hermes chat -q '…' -Q`, and top-level
+Normal `hermes --cli`, `kestrel chat`, `kestrel chat -q '…' -Q`, and top-level
 `hermes -z '…'` use the gateway authority. Direct `cli.main` chat launches also
 hand off before constructing a local agent. Local bootstrap uses the canonical
 ensure lifecycle and a single-use private control ticket, not service installation.
@@ -88,11 +88,11 @@ without `-Q` ends with main's `Resume this session with: hermes --resume <id>` b
 | `-w` / `--worktree` | Worktree creation is a launcher-side step the authority does not expose | `hermes --tui -w` |
 | `--image` | No client-side attachment staging on this path | attach in `hermes --tui` or Desktop |
 | `--run-budget` | No per-launch run budget in the creation contract | `agent.run_budget_seconds` in config.yaml |
-| `-v` / `--verbose` | Display-only; the client has no verbose renderer | `hermes logs --follow` (the refusal also names `hermes chat --tui -v`, whose canonical Ink path does not yet carry the flag) |
+| `-v` / `--verbose` | Display-only; the client has no verbose renderer | `hermes logs --follow` (the refusal also names `kestrel chat --tui -v`, whose canonical Ink path does not yet carry the flag) |
 | `--no-restore-cwd` | The gateway keeps the session's frozen cwd | `--in <dir>` |
 | `--create-if-missing` without `-c <name>` | Nothing to create by name | `-c <name> --create-if-missing` |
 
-`--compact` is not a `hermes chat` option (argparse rejects it); a direct `cli.main`
+`--compact` is not a `kestrel chat` option (argparse rejects it); a direct `cli.main`
 hand-off refuses it and names `display.compact`.
 
 ## Current parity limits — not full classic CLI parity

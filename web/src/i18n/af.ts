@@ -108,7 +108,7 @@ export const af: Translations = {
   status: {
     actionFailed: "Aksie het misluk",
     actionFinished: "Voltooi",
-    actionFinishedOwed: "Bygewerk, maar nog uitstaande (voer `hermes update` weer uit om klaar te maak)",
+    actionFinishedOwed: "Bygewerk, maar nog uitstaande (voer `kestrel update` weer uit om klaar te maak)",
     actions: "Aksies",
     agent: "Agent",
     activeSessions: "Aktiewe Sessies",

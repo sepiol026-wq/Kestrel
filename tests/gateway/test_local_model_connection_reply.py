@@ -226,7 +226,7 @@ class TestQuotaExhaustedIsNotAnAuthFailure:
     def test_turn_runner_resolution_failure_is_a_failed_turn_with_local_detail(self, monkeypatch):
         """A pre-agent resolution failure is a FAILED result (one-shot exits non-zero, the turn
         is closed in the transcript), and a LOCAL session sees the resolver's own diagnosis —
-        ``hermes chat -q`` on a bare ``custom`` must print the no-credentials error and exit
+        ``kestrel chat -q`` on a bare ``custom`` must print the no-credentials error and exit
         non-zero, not ``rc 0`` with a /login hint (C11 bare_custom_without_base_url_fails_fast)."""
         from types import SimpleNamespace
         import gateway.run as gateway_run

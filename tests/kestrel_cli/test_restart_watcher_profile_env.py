@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes update`` respawns a sibling profile's gateway with that profile's credentials, never the updater's.
+"""``kestrel update`` respawns a sibling profile's gateway with that profile's credentials, never the updater's.
 
 The updater has its own profile's ``.env`` in ``os.environ``. The restart watcher hands the env it was
 spawned with to the gateway it respawns, so a profile that declares no bot token of its own (an

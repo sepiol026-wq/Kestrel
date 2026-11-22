@@ -3,12 +3,12 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Tests for the post-pull HEAD-movement gate in ``hermes update``.
+"""Tests for the post-pull HEAD-movement gate in ``kestrel update``.
 
 Issue #79678: a detached/pinned checkout can report "N new commit(s)"
 against origin, run the ff-only merge successfully, and still sit on the
 old commit afterward (the branch-switch step re-detaches to the raw SHA).
-Before this guard ``hermes update`` printed "✓ Code updated!" and
+Before this guard ``kestrel update`` printed "✓ Code updated!" and
 reinstalled deps + rebuilt the desktop app against the stale tree — no
 error, no warning. The gate compares the pre-pull and post-pull HEAD SHA
 and fails loudly when the update was a no-op.

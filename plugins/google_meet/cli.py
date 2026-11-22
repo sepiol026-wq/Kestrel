@@ -203,7 +203,7 @@ def _cmd_auth() -> int:
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
-        print("playwright is not installed. Run: hermes meet install")
+        print("playwright is not installed. Run: kestrel meet install")
         return 1
     path = _auth_state_path()
     path.parent.mkdir(parents=True, exist_ok=True)

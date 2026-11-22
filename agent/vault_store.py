@@ -305,7 +305,7 @@ class VaultStore:
 
     def _missing_key_message(self, why: str) -> str:
         return (f"The vault key could not be found ({why}). vault.json.enc in {self._base} was left untouched. "
-                "If this profile came from another machine, run `hermes vault key migrate --to file` there and "
+                "If this profile came from another machine, run `kestrel vault key migrate --to file` there and "
                 "copy its vault.key next to vault.json.enc; if the keychain entry was deleted, restore it from a "
                 "keychain backup. `hermes vault key` shows where the key is expected. To start over instead, "
                 "delete vault.json.enc (its saved items are lost).")
@@ -363,7 +363,7 @@ class VaultStore:
         except kc.KeychainUnavailable as exc:
             raise VaultError(
                 f"its key is in the OS keychain, which this session cannot use ({exc}). Clone from a session "
-                "that can reach the keychain, or run `hermes vault key migrate --to file` on the source first.") from exc
+                "that can reach the keychain, or run `kestrel vault key migrate --to file` on the source first.") from exc
         try:
             kc.write_ref(self._keyref_path, mine)
         except OSError:

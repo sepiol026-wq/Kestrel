@@ -189,14 +189,14 @@ hermes teams-pipeline show <job-id>
 
 ### Daily or periodic checks
 
-- run `hermes teams-pipeline maintain-subscriptions --dry-run`
+- run `kestrel teams-pipeline maintain-subscriptions --dry-run`
 - inspect `hermes teams-pipeline list --status failed`
 - verify the Teams delivery target is still the correct chat or channel
 
 ### Before changing webhook URLs or delivery targets
 
 - update the public notification URL or Teams target config
-- run `hermes teams-pipeline validate`
+- run `kestrel teams-pipeline validate`
 - renew or recreate affected subscriptions
 - confirm new events land in the expected sink
 

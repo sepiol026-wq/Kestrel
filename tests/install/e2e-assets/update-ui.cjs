@@ -142,10 +142,10 @@ async function readManualUpdateCommand(page) {
   } catch {
     return null
   }
-  const text = await page.locator('code').filter({ hasText: /hermes update/i }).first().textContent()
+  const text = await page.locator('code').filter({ hasText: /kestrel update/i }).first().textContent()
   const command = (text || '').trim().replace(/^\$\s*/, '')
-  if (!/^hermes update(?:\s|$)/.test(command)) {
-    throw new Error('manual update card did not present a hermes update command')
+  if (!/^kestrel update(?:\s|$)/.test(command)) {
+    throw new Error('manual update card did not present a kestrel update command')
   }
   return command
 }

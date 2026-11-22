@@ -355,7 +355,7 @@ def _raise_if_non_interactive(lead: str) -> None:
     """
     if not _is_interactive():
         raise OAuthNonInteractiveError(
-            f"{lead} Run `hermes mcp login <server>` interactively to (re)authorize, then restart or reload the gateway."
+            f"{lead} Run `kestrel mcp login <server>` interactively to (re)authorize, then restart or reload the gateway."
         )
 
 
@@ -754,7 +754,7 @@ def _paste_callback_reader(result: dict, lock: threading.Lock | None = None) -> 
         if not _claim_result(result, lock, error=_USER_SKIPPED_SENTINEL):
             return
         print(
-            "  OAuth skipped. Run `hermes mcp login <server>` later to authenticate, "
+            "  OAuth skipped. Run `kestrel mcp login <server>` later to authenticate, "
             "or set ``enabled: false`` on that server in config.yaml to disable persistently.",
             file=sys.stderr)
         return
@@ -1326,7 +1326,7 @@ def build_oauth_auth(server_name: str, server_url: str, oauth_config: dict | Non
     if not _is_interactive() and not storage.has_cached_tokens():
         raise OAuthNonInteractiveError(
             f"MCP OAuth for '{server_name}': non-interactive environment and no cached tokens found. The OAuth flow "
-            f"requires browser authorization. Run `hermes mcp login {server_name}` interactively first to complete "
+            f"requires browser authorization. Run `kestrel mcp login {server_name}` interactively first to complete "
             "initial authorization, then cached tokens will be reused.")
     kwargs = build_provider_kwargs(cfg, storage, ssh_proxy_hint=True)
     if HermesOAuthClientProvider is None:

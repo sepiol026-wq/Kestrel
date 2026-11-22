@@ -5,7 +5,7 @@
 
 """A draining gateway names the work it is waiting on, and the updater's wait prints it.
 
-Before: ``hermes update`` printed "draining (up to 1875s)..." and then nothing for up to 30 minutes
+Before: ``kestrel update`` printed "draining (up to 1875s)..." and then nothing for up to 30 minutes
 while the gateway waited on one cron job; neither surface said WHAT was being waited on.
 """
 

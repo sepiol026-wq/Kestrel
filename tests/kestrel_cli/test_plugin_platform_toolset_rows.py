@@ -13,7 +13,7 @@ import logging
 import pytest
 
 # The rows cli-config.yaml.example seeded into every install (install.sh, install.ps1, the Docker hook,
-# `hermes doctor --fix`), plus Home Assistant's from before it left core. None of these platforms is set up.
+# `kestrel doctor --fix`), plus Home Assistant's from before it left core. None of these platforms is set up.
 _SEEDED_ROWS = {
     "cli": ["hermes-cli"],
     "telegram": ["hermes-telegram"],

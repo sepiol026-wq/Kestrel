@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Shared-metrics consent JSON-RPC handlers (the Desktop twin of ``hermes setup``'s Shared Metrics
+"""Shared-metrics consent JSON-RPC handlers (the Desktop twin of ``kestrel setup``'s Shared Metrics
 section). Both opt-ins live in the focused profile's config.yaml exactly where the wizard writes
 them — ``telemetry.shared_metrics.enabled`` (local collection) and ``.send`` (daily upload) — so the
 CLI and the app can never disagree about the answer. ``shared_metrics.set`` enforces the wizard's

@@ -33,7 +33,7 @@ class ProcessCheckpointMixin:
         if hosted_scope() is not None:
             return
         from agent.runtime_session_store import is_worker_process
-        # Every interpreter on the home writes this file; ``hermes update --force`` sweeps only what
+        # Every interpreter on the home writes this file; ``kestrel update --force`` sweeps only what
         # the gateway it killed owns (update_cmd_force_stop): a managed worker's jobs are its owner's.
         owner_pid = os.getppid() if is_worker_process() else os.getpid()  # windows-footgun: ok — getppid exists on Windows
         try:

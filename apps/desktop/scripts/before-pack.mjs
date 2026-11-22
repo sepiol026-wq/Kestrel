@@ -94,7 +94,7 @@ export function cleanStaleAppOutDir(appOutDir) {
  * safe fallback and matches pre-#69179 behavior exactly.
  */
 /** @param {string | null | undefined} appOutDir @param {string} [productExeName] @returns {boolean} */
-export function preserveRollbackBackup(appOutDir, productExeName = 'Hermes.exe') {
+export function preserveRollbackBackup(appOutDir, productExeName = 'Kestrel.exe') {
   if (!appOutDir || typeof appOutDir !== 'string' || !existsSync(appOutDir)) {
     return false
   }

@@ -78,7 +78,7 @@ a human in a browser.
    ```
 4. Verify end-to-end:
    ```bash
-   hermes chat -Q -q "Reply with exactly: ACTUAL_OK" --provider actual -m MODEL_ID
+   kestrel chat -Q -q "Reply with exactly: ACTUAL_OK" --provider actual -m MODEL_ID
    ```
 
 ### Local mode
@@ -101,7 +101,7 @@ a human in a browser.
    ```
 4. Verify (reduced toolset — see context-window pitfall below):
    ```bash
-   hermes chat -Q -q "Reply with exactly: LOCAL_OK" --provider actual -m INSTALLED_NAME -t file,web
+   kestrel chat -Q -q "Reply with exactly: LOCAL_OK" --provider actual -m INSTALLED_NAME -t file,web
    ```
 
 ## Quick Reference
@@ -153,9 +153,9 @@ a human in a browser.
 
 ```bash
 # Relay:
-hermes chat -Q -q "Reply with exactly: ACTUAL_OK" --provider actual -m MODEL
+kestrel chat -Q -q "Reply with exactly: ACTUAL_OK" --provider actual -m MODEL
 # Local (small model — reduced toolset):
-hermes chat -Q -q "Reply with exactly: LOCAL_OK" --provider actual -m MODEL -t file,web
+kestrel chat -Q -q "Reply with exactly: LOCAL_OK" --provider actual -m MODEL -t file,web
 # Provider status (local no-auth shows key_source=local-offline):
 hermes status
 ```

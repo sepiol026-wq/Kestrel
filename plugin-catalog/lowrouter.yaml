@@ -3,7 +3,7 @@ repo: https://github.com/carboniferio/hermes-lowrouter-provider
 sha: 93a8353d495443d8157c423979ac9df2a8589db6
 subdir: lowrouter
 description: >-
-  LowRouter as a Hermes model provider (`--provider lowrouter`, or LowRouter in `hermes model`).
+  LowRouter as a Hermes model provider (`--provider lowrouter`, or LowRouter in `kestrel model`).
   The picker shows the `auto/` chat models with tool calling and 64K+ context, plus the user's
   own `alias/` models, instead of every ID from /v1/models. Context windows come from
   LowRouter's catalog instead of Hermes' 256K fallback, and /usage shows the credit balance in

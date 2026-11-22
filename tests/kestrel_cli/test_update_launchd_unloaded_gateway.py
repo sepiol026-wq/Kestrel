@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Regression for #74973 — `hermes update` must not leave the gateway down.
+"""Regression for #74973 — `kestrel update` must not leave the gateway down.
 
 On macOS the update's launchd branch guarded the restart behind
 ``launchctl list <label>`` exiting 0. A job that has been *booted out* of
@@ -11,7 +11,7 @@ launchd exits non-zero there, so the whole restart branch was skipped — with
 no ``else`` and no message. The update printed ``✓ Update complete!`` and
 exited 0 while the gateway was stopped *and* deregistered, which ``KeepAlive``
 cannot recover because the job definition is gone. Messaging adapters and
-cron stayed dark until someone manually ran ``hermes gateway restart``.
+cron stayed dark until someone manually ran ``kestrel gateway restart``.
 
 ``launchctl list`` is also not a reliable loaded/unloaded classifier: it is
 session-scoped and can exit non-zero while the job is alive in its gui/user
@@ -94,7 +94,7 @@ class TestLaunchdRestartAfterUpdate:
         assert update_cmd._restart_launchd_gateway_after_update(supervision_verify=False) == ([], ["ai.hermes.gateway"])
         out = capsys.readouterr().out
         assert "kickstart refused" in out
-        assert "hermes gateway restart" in out
+        assert "kestrel gateway restart" in out
 
     @pytest.mark.parametrize(
         "exc",
@@ -111,7 +111,7 @@ class TestLaunchdRestartAfterUpdate:
         assert update_cmd._restart_launchd_gateway_after_update(supervision_verify=False) == ([], ["ai.hermes.gateway"])
         assert calls == []
         out = capsys.readouterr().out
-        assert "hermes gateway restart" in out
+        assert "kestrel gateway restart" in out
 
     def test_invoking_label_of_another_home_is_left_alone(self, launchd, capsys, tmp_path, monkeypatch):
         """2026-10-01: a scratch HERMES_HOME shaped like the native default derives the bare label,

@@ -7,7 +7,7 @@ description: >-
   Wally by RunAnywhere as a Hermes model provider: open-weight models (DeepSeek, GLM, Kimi,
   MiniMax) on an OpenAI-compatible API, each with its context window, tool support and image
   input declared, and reasoning effort sent as Wally's top-level reasoning_effort, clamped to the
-  levels each model accepts. Pick Wally in `hermes model` or use `--provider wally`.
+  levels each model accepts. Pick Wally in `kestrel model` or use `--provider wally`.
   Disclosure — registers one model provider at import and nothing else (no tools, hooks,
   middleware, commands, background work or file access); chat requests (prompts, tool schemas
   and results, images for image-capable models) and the model list go to

@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes doctor`` names the Relay plugin files the runtime actually loads.
+"""``kestrel doctor`` names the Relay plugin files the runtime actually loads.
 
 Relay discovers user and system ``plugins.toml`` files outside the Hermes home, so doctor is the one
 Hermes surface that shows a user which files apply. It must agree with what initialization loads.

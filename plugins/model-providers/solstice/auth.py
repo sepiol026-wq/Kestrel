@@ -76,6 +76,6 @@ def broker_token_request(grant: Mapping[str, str]) -> Mapping[str, Any]:
         return _nas_request("POST", path, json=body)
     except Exception as exc:
         if grant["grant_type"] == "refresh_token" and getattr(exc, "code", "") == "solstice_broker_failed":
-            raise _err("the stored sign-in was rejected; run `hermes auth add solstice` again.",
+            raise _err("the stored sign-in was rejected; run `kestrel auth add solstice` again.",
                        "invalid_grant", relogin=True) from exc
         raise

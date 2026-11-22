@@ -27,7 +27,7 @@ hermes -p <profile> plugins install homeassistant
 The plugin declares its own Python dependency (`aiohttp`), so there is no pip extra to install. The old `kestrel-agent[homeassistant]` extra has been removed.
 
 :::info Upgrading from a release that bundled Home Assistant
-Nothing to do. Every profile that was already using Home Assistant — `HASS_TOKEN` in its `.env`, `platforms.homeassistant` enabled (or given a `token`) in `config.yaml`, or the `homeassistant` toolset listed in `platform_toolsets` — gets the plugin installed automatically from the catalog by `hermes update` (for all profiles sharing the install). If that step could not run, Hermes installs it the first time the profile starts (agent or gateway start; this honours `security.allow_lazy_installs`). After a failed attempt (offline, catalog unreachable) starts retry at most once an hour; `hermes update` always retries. The outcome is reported in the terminal, the Desktop app and chat. This happens once per profile: if you later remove the plugin (`hermes plugins remove homeassistant`), it stays removed.
+Nothing to do. Every profile that was already using Home Assistant — `HASS_TOKEN` in its `.env`, `platforms.homeassistant` enabled (or given a `token`) in `config.yaml`, or the `homeassistant` toolset listed in `platform_toolsets` — gets the plugin installed automatically from the catalog by `kestrel update` (for all profiles sharing the install). If that step could not run, Hermes installs it the first time the profile starts (agent or gateway start; this honours `security.allow_lazy_installs`). After a failed attempt (offline, catalog unreachable) starts retry at most once an hour; `kestrel update` always retries. The outcome is reported in the terminal, the Desktop app and chat. This happens once per profile: if you later remove the plugin (`hermes plugins remove homeassistant`), it stays removed.
 
 Your configuration carries over unchanged: the same `HASS_TOKEN` / `HASS_URL` variables, the same `homeassistant` platform name and `platforms.homeassistant` keys, the same `homeassistant` toolset and tool names, and the same cron `deliver: homeassistant:<notify target>` syntax. One difference: like every plugin tool, the `ha_*` tools sit behind [Tool Search](../features/tools.md) (`tool_search` / `tool_call`) when it is on, instead of being listed directly.
 :::
@@ -64,7 +64,7 @@ With the plugin installed, the `homeassistant` toolset is enabled automatically 
 ### 3. Start the Gateway
 
 ```bash
-hermes gateway
+kestrel gateway
 ```
 
 Home Assistant will appear as a connected platform alongside any other messaging platforms (Telegram, Discord, etc.).
@@ -293,7 +293,7 @@ Agent automatically:
 
 **Platform or tools missing.**
 Check that the plugin is installed and enabled in the active profile with
-`hermes plugins list`. If it is missing, run `hermes plugins install homeassistant`
+`hermes plugins list`. If it is missing, run `kestrel plugins install homeassistant`
 (or `hermes -p <profile> plugins install homeassistant`) and restart the gateway.
 With `security.allow_lazy_installs` turned off, the automatic first-start install
 is skipped and you must install the plugin yourself.

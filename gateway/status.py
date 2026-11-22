@@ -387,11 +387,11 @@ def retained_gateway_state(runtime: Any) -> str:
     ``"startup_failed"`` (or a watchdog-stamped ``"degraded"``) only while the operator still
     wants it running, else ``"stopped"``.
 
-    ``hermes gateway stop`` keeps the last ``startup_failed`` + ``exit_reason`` on disk for
+    ``kestrel gateway stop`` keeps the last ``startup_failed`` + ``exit_reason`` on disk for
     diagnostics and records the durable stop intent as ``desired_state``; a profile the operator
     stopped is "stopped", not a current failure. A watchdog exit (``degraded`` + an exit_reason in
     ``WATCHDOG_EXIT_REASONS``) is the same kind of current failure as ``startup_failed`` and is kept
-    under the same rule, so the dashboard agrees with ``hermes gateway status``. Any other retained
+    under the same rule, so the dashboard agrees with ``kestrel gateway status``. Any other retained
     state of a dead process (``running``, ``starting``, missing) is just "stopped". Shared by
     ``/api/status`` and ``/api/messaging/platforms`` so the sidebar strip and the Channels page
     cannot disagree."""
@@ -800,7 +800,7 @@ def _get_code_identity_fields() -> dict[str, Any]:
     Lazy import keeps ``gateway.status`` free of ``hermes_cli`` at import time. Never raises.
 
     A gateway keeps serving the module versions it imported at startup, so stamping the identity into
-    ``gateway_state.json`` lets `hermes update` (and the dashboard) prove whether a running gateway actually
+    ``gateway_state.json`` lets `kestrel update` (and the dashboard) prove whether a running gateway actually
     picked up new code after the restart phase — instead of assuming it did (#88654, #69754). Never raises;
     degrades to absent fields.
     """
@@ -1623,7 +1623,7 @@ def _pid_marker_names_self(target_pid: int, target_start_time: Any) -> bool:
     times known -> must match; either unknown -> PID equality decides (bounded by the marker TTL):
     ``_get_process_start_time`` is None without /proc (macOS, native Windows -- where the
     planned-stop watcher matters most) and requiring a match there would misclassify a legitimate
-    ``hermes gateway stop`` as an unexpected exit revived by the service manager."""
+    ``kestrel gateway stop`` as an unexpected exit revived by the service manager."""
     if target_pid != os.getpid():
         return False
     our_start_time = _get_process_start_time(target_pid)

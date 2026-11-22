@@ -34,7 +34,7 @@ Kestrel Agent 通过基于浏览器的 OAuth 登录流程支持 **MiniMax**，�
 
 ```bash
 # 启动 provider 和模型选择器
-hermes model
+kestrel model
 # → 从 provider 列表中选择 "MiniMax (OAuth)"
 # → Hermes 在浏览器中打开 MiniMax 授权页面
 # → 在浏览器中批准访问
@@ -89,7 +89,7 @@ Hermes 针对 MiniMax OAuth 端点实现了 PKCE 设备码流程：
 ## 检查登录状态
 
 ```bash
-hermes doctor
+kestrel doctor
 ```
 
 `◆ Auth Providers` 部分将显示：
@@ -107,7 +107,7 @@ hermes doctor
 ## 切换模型
 
 ```bash
-hermes model
+kestrel model
 # → 选择 "MiniMax (OAuth)"
 # → 从模型列表中选择
 ```
@@ -157,7 +157,7 @@ hermes --provider minimax_oauth    # 别名（下划线形式）
 | `MINIMAX_API_KEY` | 仅用于 `minimax` provider——对 `minimax-oauth` 无效 |
 | `MINIMAX_CN_API_KEY` | 仅用于 `minimax-cn` provider——对 `minimax-oauth` 无效 |
 
-要将 `minimax-oauth` 设为活跃 provider，请在 `config.yaml` 中设置 `model.provider: minimax-oauth`（使用 `hermes setup` 进行引导式配置），或在单次调用时传入 `--provider minimax-oauth`：
+要将 `minimax-oauth` 设为活跃 provider，请在 `config.yaml` 中设置 `model.provider: minimax-oauth`（使用 `kestrel setup` 进行引导式配置），或在单次调用时传入 `--provider minimax-oauth`：
 
 ```bash
 hermes --provider minimax-oauth
@@ -188,7 +188,7 @@ Hermes 在每次会话启动时，若 access token 距过期不足 60 秒则刷�
 
 设备码流程有有限的过期窗口。如果您未在规定时间内批准登录，Hermes 将抛出超时错误。
 
-**解决方法：** 重新运行 `hermes auth add minimax-oauth`（或 `hermes model`）。流程将重新开始。
+**解决方法：** 重新运行 `hermes auth add minimax-oauth`（或 `kestrel model`）。流程将重新开始。
 
 ### State 不匹配（可能的 CSRF）
 
@@ -210,7 +210,7 @@ Hermes 将打印 URL 和用户码。在任意设备上打开该 URL 并在那里
 
 auth 存储中没有 `minimax-oauth` 的凭据。您尚未登录，或凭据文件已被删除。
 
-**解决方法：** 运行 `hermes model` 并选择 MiniMax (OAuth)，或运行 `hermes auth add minimax-oauth`。
+**解决方法：** 运行 `kestrel model` 并选择 MiniMax (OAuth)，或运行 `hermes auth add minimax-oauth`。
 
 ## 退出登录
 
@@ -225,4 +225,4 @@ hermes auth logout minimax-oauth
 - [AI Providers 参考](../integrations/providers.md)
 - [环境变量](../reference/environment-variables.md)
 - [配置](../user-guide/configuration.md)
-- [hermes doctor](../reference/cli-commands.md)
+- [kestrel doctor](../reference/cli-commands.md)

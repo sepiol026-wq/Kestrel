@@ -242,7 +242,7 @@ export const zhHantAssistant = {
           title: '無法連線到本機模型伺服器',
           body: '本機模型伺服器尚未執行：它可能仍在啟動中。請稍後重試，或切換到其他模型。',
           bodyNoRetry:
-            '本機模型伺服器已關閉。請在 Hermes 桌面應用程式或終端機中的 `hermes model` 啟動它，或切換到其他模型。'
+            '本機模型伺服器已關閉。請在 Hermes 桌面應用程式或終端機中的 `kestrel model` 啟動它，或切換到其他模型。'
         }
       },
       errorLayers: {

@@ -94,18 +94,18 @@ class TestDoctorPlatformHints:
         hint = doctor_platform._sqlite_upgrade_hint()
 
         assert "docker pull nousresearch/kestrel-agent:latest" in hint
-        assert "hermes update" not in hint
+        assert "kestrel update" not in hint
 
 
     def test_sqlite_upgrade_hint_apt_stamp_names_termux_external_update(self):
         # The "apt" install method is Termux APT by contract (config.py
         # _UPDATE_COMMAND_BY_METHOD). Deployment kinds are first-class: doctor
         # reports the correct external update command instead of routing an
-        # out-of-place method through the in-place `hermes update` path.
+        # out-of-place method through the in-place `kestrel update` path.
         hint = doctor_platform._sqlite_upgrade_hint("apt")
 
         assert "run `pkg upgrade kestrel-agent`" in hint
-        assert "hermes update" not in hint
+        assert "kestrel update" not in hint
 
     def test_sqlite_upgrade_hint_preserves_nix_guidance_as_prose(self):
         from kestrel_cli.config import recommended_update_command_for_method
@@ -115,7 +115,7 @@ class TestDoctorPlatformHints:
 
         assert guidance in hint
         assert f"run `{guidance}`" not in hint
-        assert "hermes update" not in hint
+        assert "kestrel update" not in hint
 
 
 class TestProviderEnvDetection:
@@ -144,7 +144,7 @@ class TestDoctorToolAvailabilitySummary:
     def test_image_gen_without_provider_reports_setup_hint_not_system_dependency(self, monkeypatch):
         """image_gen declares no single env var (FAL / managed Nous / plugin providers); an
         unconfigured backend is a setup problem and must say so, and it counts toward the
-        'run hermes setup' summary like any missing key (#9516)."""
+        'run kestrel setup' summary like any missing key (#9516)."""
         unavailable = [{"name": "image_gen", "env_vars": [], "tools": ["image_generate"]},
                        {"name": "homeassistant", "env_vars": [], "tools": []}]
         monkeypatch.setattr(doctor_tools, "_enabled_cli_toolsets_for_doctor", lambda: {"image_gen"})
@@ -164,7 +164,7 @@ class TestDoctorToolAvailabilitySummary:
         image_line = next(line for line in out.splitlines() if "image_gen" in line)
         assert "hermes tools" in image_line and "system dependency" not in image_line and "unavailable" in image_line
         assert "system dependency not met" in next(line for line in out.splitlines() if "homeassistant" in line)
-        assert any("hermes setup" in issue for issue in f.issues)
+        assert any("kestrel setup" in issue for issue in f.issues)
 
     def test_web_capability_rows_warn_when_selected_provider_not_ready(self, monkeypatch):
         """#78412: selected firecrawl with is_available=False must warn."""
@@ -210,7 +210,7 @@ class TestDoctorToolAvailabilitySummary:
 
 
 class TestDoctorEnvFileEncoding:
-    """Regression for #18637 (bug 3): `hermes doctor` crashed on Windows
+    """Regression for #18637 (bug 3): `kestrel doctor` crashed on Windows
     Chinese locale (GBK) because `.env` was read with Path.read_text(encoding="utf-8") which
     defaults to the system locale encoding, not UTF-8."""
 
@@ -890,7 +890,7 @@ def test_doctor_fix_does_not_claim_success_without_published_binary(monkeypatch,
     out = buf.getvalue()
 
     assert "Chromium not installed" in out
-    assert "hermes pm install chromium" in out
+    assert "kestrel pm install chromium" in out
 
 
 def test_doctor_fix_reports_pm_install_failure(monkeypatch, tmp_path):
@@ -934,7 +934,7 @@ def test_missing_chromium_is_info_when_config_needs_none(monkeypatch, tmp_path, 
     out = buf.getvalue()
 
     assert "not needed" in out and reason in out
-    assert "hermes pm install chromium" not in out
+    assert "kestrel pm install chromium" not in out
 
 
 def test_run_doctor_kimi_cn_env_is_detected_and_probe_is_null_safe(monkeypatch, tmp_path):
@@ -1588,7 +1588,7 @@ class TestMacOSTCCGrants:
         doctor_platform.check_macos_tcc_grants()
         out = capsys.readouterr().out
         assert "TCC grants will reset after every update" in out
-        assert "hermes update" in out
+        assert "kestrel update" in out
         assert "signing identity is stable" not in out
 
     def test_identifier_dr_is_stable_with_upgrade_hint_and_repair_info(self, monkeypatch, capsys, tmp_path):

@@ -570,7 +570,7 @@ def _apply_delete_for_wal_reset_bug(conn: sqlite3.Connection, *, db_label: str, 
 
 
 def _wal_reset_repair_hint() -> str:
-    """Repair hint matching what ``hermes update`` can actually do for this install type.
+    """Repair hint matching what ``kestrel update`` can actually do for this install type.
 
     See #75153.
     """
@@ -599,7 +599,7 @@ _ONCE_LOGS = {
         # Install-type-aware so the warning never promises a repair path that doesn't exist for git/pip installs.
         "%s: linked SQLite %s (interpreter %s) is vulnerable to the WAL-reset corruption bug "
         "(https://sqlite.org/wal.html#walresetbug) — %s. Upgrade to SQLite 3.51.3+ (or backports 3.50.7 / 3.44.6); "
-        "%s. See `hermes doctor`. This warning fires once per process per database."),
+        "%s. See `kestrel doctor`. This warning fires once per process per database."),
     "journal_upgrade": (_journal_upgrade_warned_lock, "_journal_upgrade_warned_paths", logging.WARNING,
         # journal_mode is a property of the FILE: switching an existing DB to WAL rewrites its header and outlives
         # the process. Operators set DELETE on the file (the WAL-reset-bug mitigation) and nothing told them the
@@ -626,7 +626,7 @@ _ONCE_LOGS = {
         # Never-live-downgrade keeps WAL; without this the operator never learns their delete had no effect.
         "%s: database.journal_mode=delete is configured but the on-disk database is already WAL; keeping WAL (a live "
         "downgrade under open connections can corrupt the DB). To apply journal_mode=DELETE, stop every Hermes "
-        "process using this database and run `hermes sessions set-journal-mode delete` (add `--db PATH` for a "
+        "process using this database and run `kestrel sessions set-journal-mode delete` (add `--db PATH` for a "
         "store other than state.db). This message fires once per process per database."),
     "wal_probe_unknown": (_wal_probe_unknown_lock, "_wal_probe_unknown_paths", logging.WARNING,
         # WARNING, not ERROR: the connection inherits the header's mode, so an already-WAL file (the common case)
@@ -647,7 +647,7 @@ _ONCE_LOGS = {
         "%s: existing WAL-mode database is on a cross-VM filesystem (virtiofs/9p — typical for Docker Desktop / "
         "OrbStack / Podman host bind mounts). SQLite WAL shared-memory is not coherent across the VM boundary and "
         "concurrent writers can silently corrupt the database. Hermes does not live-downgrade an on-disk WAL database. "
-        "Fix one of two ways: stop every Hermes process using this database and run `hermes sessions "
+        "Fix one of two ways: stop every Hermes process using this database and run `kestrel sessions "
         "set-journal-mode delete` (set `database.journal_mode: delete` in config.yaml to keep it), "
         "or move the database onto a native volume (e.g. a named Docker volume). This message fires once per process "
         "per database."),
@@ -657,7 +657,7 @@ _ONCE_LOGS = {
         "%s: existing WAL-mode database is on a network filesystem (nfs/cifs/smb/sshfs). Every WAL shared-memory "
         "(-shm) lock is a network round trip there, so concurrent connections can stall for tens of seconds, and "
         "concurrent writers risk silent corruption. Hermes does not live-downgrade an on-disk WAL database. To "
-        "switch it: stop every Hermes process using it, run `hermes sessions set-journal-mode delete` (add `--db "
+        "switch it: stop every Hermes process using it, run `kestrel sessions set-journal-mode delete` (add `--db "
         "PATH` for a store other than state.db), and set `database.journal_mode: delete` in config.yaml; or move "
         "the database onto local disk. This message fires once per process per database."),
     "network_fs_new_store": (_network_fs_new_store_warned_lock, "_network_fs_new_store_warned_paths", logging.WARNING,

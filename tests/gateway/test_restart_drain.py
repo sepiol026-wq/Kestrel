@@ -311,7 +311,7 @@ async def test_run_restart_excluded_from_stop_cancel_loop():
 @pytest.mark.asyncio
 async def test_restart_from_served_profile_chat_restarts_the_host_gateway(monkeypatch):
     """A /restart handled inside a served profile's runtime scope restarts the HOST gateway: the
-    detached watcher relaunches `hermes gateway restart` under the launch home (under a named
+    detached watcher relaunches `kestrel gateway restart` under the launch home (under a named
     profile's home it exits 78 and nothing comes back), and stop() - which flushes pending
     messages under get_kestrel_home() - runs outside the requester's profile scope."""
     from agent.secret_scope import current_secret_scope
@@ -481,14 +481,14 @@ async def test_posix_detached_restart_logs_helper_output_and_exit_status(monkeyp
     log_path = tmp_path / "logs" / "detached-restart.log"
     assert log_path.parent.is_dir()
     log_arg = shlex.quote(str(log_path))
-    assert "hermes gateway restart" in shell_cmd
+    assert "kestrel gateway restart" in shell_cmd
     assert f">> {log_arg} 2>&1" in shell_cmd
     assert f'echo "detached restart exited with status $?" >> {log_arg}' in shell_cmd
 
     # A log that cannot be opened must still run the helper: bash skips a command whose redirect fails.
     monkeypatch.undo()  # the real Popen runs the probe
     log_path.mkdir()  # a directory at the log path cannot be opened for append, even by root
-    probe = shell_cmd.replace("hermes gateway restart", "echo helper-ran")
+    probe = shell_cmd.replace("kestrel gateway restart", "echo helper-ran")
     out = subprocess.run(["bash", "-c", probe], capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30, check=False)  # noqa: ASYNC221 -- the probe shell must finish before the assert
     assert "helper-ran" in out.stdout
 
@@ -583,7 +583,7 @@ def _live_agent(idle_seconds: float = 1.0) -> MagicMock:
 async def test_request_restart_skips_wait_when_only_wedged_turns(monkeypatch):
     """A turn idle past agent.gateway_timeout must not defer the restart.
 
-    Regression: a WhatsApp turn wedged for 30+ min pinned `hermes update`
+    Regression: a WhatsApp turn wedged for 30+ min pinned `kestrel update`
     in "draining" for the full restart_after_turn_timeout cap — the
     after-turn wait counted the wedged agent as active work even though
     the inactivity watchdog had already declared it dead (Aug 2026).
@@ -659,7 +659,7 @@ def test_wedged_agent_count_ignores_sentinels_and_bad_summaries(monkeypatch):
 async def test_request_restart_skips_wait_for_cron_run_past_inflight_allowance(monkeypatch, tmp_path):
     """A cron run older than the scheduler's stale-inflight allowance is wedged: the restart proceeds.
 
-    #115469 Defect B: a no-agent job whose delivery hung pinned ``hermes update`` in "draining" for the
+    #115469 Defect B: a no-agent job whose delivery hung pinned ``kestrel update`` in "draining" for the
     full ``restart_after_turn_timeout`` because ``_wedged_agent_count`` only ever looked at chat agents,
     so the cron unit was structurally un-skippable ("0 wedged and excluded").
     """

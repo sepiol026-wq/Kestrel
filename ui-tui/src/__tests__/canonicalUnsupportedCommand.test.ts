@@ -49,7 +49,7 @@ it.each([
 })
 
 it.each([
-  ['/export', 'export', 'Run `hermes profile export [name] -o <file>` in a terminal.'],
+  ['/export', 'export', 'Run `kestrel profile export [name] -o <file>` in a terminal.'],
   ['/worktree new', 'worktree', 'Start in a fresh worktree with `hermes -w`, or use the classic CLI (`hermes --cli`).'],
   ['/palette', 'palette', 'Type / to search commands (the composer completes and filters them).']
 ])('%s names the refusal and what to use instead (T10)', async (cmd, name, hint) => {

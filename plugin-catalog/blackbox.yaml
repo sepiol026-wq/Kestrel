@@ -18,7 +18,7 @@ screenshots:
 readme: true
 platforms: []
 known_issues:
-  - "After installing, run `hermes blackbox setup` once: it installs Blackbox's local DKG node (a pinned, checksum-verified OriginTrail release from npm) and its graph store (Blazegraph in Docker, or Oxigraph when Docker is not available), then syncs the verified threat graph. Until setup has run, the built-in rules protect and `hermes blackbox status` says setup is needed."
+  - "After installing, run `kestrel blackbox setup` once: it installs Blackbox's local DKG node (a pinned, checksum-verified OriginTrail release from npm) and its graph store (Blazegraph in Docker, or Oxigraph when Docker is not available), then syncs the verified threat graph. Until setup has run, the built-in rules protect and `hermes blackbox status` says setup is needed."
 capabilities:
   provides_tools: []
   provides_hooks: [pre_tool_call, post_tool_call, pre_api_request, on_session_start, on_session_end]

@@ -145,7 +145,7 @@ while true; do
 done
 ```
 
-For a live event feed, run `hermes kanban watch --tenant <slug>` in a
+For a live event feed, run `kestrel kanban watch --tenant <slug>` in a
 separate terminal — it streams task lifecycle events as they happen.
 
 For automated intervention (auto-restart stuck tasks, auto-create re-render on

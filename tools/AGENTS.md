@@ -64,7 +64,7 @@ Rules for tool code:
   `INLINE_TOOL_EXECUTORS` table (`agent/inline_tool_executors.py`; `agent/AGENTS.md`).
 - **`_last_resolved_tool_names`** is a process-global in `model_tools.py`; `_run_single_child()` in
   `delegate_tool.py` saves/restores it around child runs — readers may see it stale mid-delegation.
-- New tools integrate with existing setup UX (`hermes tools`, `hermes setup`, auto-install) rather
+- New tools integrate with existing setup UX (`hermes tools`, `kestrel setup`, auto-install) rather
   than a raw env var; secrets go in `OPTIONAL_ENV_VARS` (`hermes_cli/AGENTS.md`).
 
 ## Toolsets (`toolsets.py`)

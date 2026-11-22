@@ -392,7 +392,7 @@ def test_clearing_an_endpoint_key_keeps_the_variable_the_main_model_reads(home, 
 
 
 def test_hermes_model_custom_flow_rotates_the_known_row_variable(home, monkeypatch):
-    """``hermes model`` for an endpoint that already has a Hermes-written row writes the new key
+    """``kestrel model`` for an endpoint that already has a Hermes-written row writes the new key
     under that row's variable, so every block reading it (here an aux slot) gets the rotation."""
     from kestrel_cli import model_setup_flows_custom as flow
     from kestrel_cli.config import load_config, read_raw_config
@@ -479,7 +479,7 @@ def _assert_each_endpoint_resolves_its_own_key(home, monkeypatch, provider_a, pr
     ("custom_providers", ("custom:a", "custom:b")), ("providers", ("a", "b"))])
 def test_hermes_model_custom_flow_moves_an_endpoint_off_a_shared_legacy_variable(home, monkeypatch, section,
                                                                                  providers):
-    """Re-running ``hermes model`` for one of two endpoints an older release put on one variable
+    """Re-running ``kestrel model`` for one of two endpoints an older release put on one variable
     gives it its own variable instead of refusing (or re-keying the other endpoint)."""
     from kestrel_cli import model_setup_flows_custom as flow
     from kestrel_cli.config import load_config
@@ -523,7 +523,7 @@ def test_dashboard_main_save_moves_an_endpoint_off_a_shared_legacy_variable(home
 
 
 def test_write_locked_env_refuses_an_aux_endpoint_key_without_a_traceback_or_a_500(home, monkeypatch, capsys):
-    """A managed ``.env`` that forbids the aux variable: ``hermes model`` prints the refusal and saves
+    """A managed ``.env`` that forbids the aux variable: ``kestrel model`` prints the refusal and saves
     nothing, and the dashboard answers 400 with it, never an opaque 500 or a dangling reference."""
     import asyncio
 
@@ -617,7 +617,7 @@ def test_dashboard_save_moves_every_shared_legacy_name_of_the_endpoint(home, mon
 
 def test_hermes_model_custom_flow_moves_every_shared_legacy_name_of_the_endpoint(home, monkeypatch):
     """The CLI twin of the dashboard case: ``providers`` rows for ``a`` spelling the default port both
-    ways sit on two legacy names, each shared with ``b``; ``hermes model`` for ``a`` moves both."""
+    ways sit on two legacy names, each shared with ``b``; ``kestrel model`` for ``a`` moves both."""
     from kestrel_cli import model_setup_flows_custom as flow
     from kestrel_cli.config import load_env
     from kestrel_cli.runtime_provider import resolve_runtime_provider

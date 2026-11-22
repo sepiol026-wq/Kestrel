@@ -39,7 +39,7 @@ def takeover(monkeypatch):
 @pytest.mark.parametrize("module,name", SHIMS, ids="{0[0]}.{0[1]}".format)
 @pytest.mark.parametrize("frame", ["live", "current-updater"])
 def test_current_code_never_starts_the_takeover(module, name, frame, takeover):
-    # A live serve/gateway/plugin, or the CURRENT `hermes update` (sentinel local), reaching a
+    # A live serve/gateway/plugin, or the CURRENT `kestrel update` (sentinel local), reaching a
     # retired shim must get a catchable error, not a full update finish that restarts it.
     sentinel = "    _hermes_current_updater_frame = True\n" if frame == "current-updater" else ""
     namespace = {"__name__": "hermes_cli.update_cmd", "_call": _call}

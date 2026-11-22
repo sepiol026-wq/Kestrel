@@ -76,7 +76,7 @@ def _confirm_or_exit_code(prompt: str, *, declined: str = "Cancelled.", unattend
 
 
 def _not_found(session_id) -> int:
-    print(f"No session '{session_id}'. Run: hermes sessions list to find the id.")
+    print(f"No session '{session_id}'. Run: kestrel sessions list to find the id.")
     return 1
 
 
@@ -1440,7 +1440,7 @@ def cmd_sessions(args, sessions_parser=None):
         if observational and not path.exists():
             return _print_empty_store(action, args)
         print("Could not open your session history database. "
-              "Run: hermes sessions repair to fix it (a backup is made first).")
+              "Run: kestrel sessions repair to fix it (a backup is made first).")
         print(f"Details: {e}")
         return 1
     try:

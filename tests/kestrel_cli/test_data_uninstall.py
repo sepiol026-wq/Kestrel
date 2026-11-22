@@ -132,7 +132,7 @@ def test_data_only_preserves_the_containing_bundled_application(layout, monkeypa
     project = payload / "repo"
     project.mkdir(parents=True)
     (project / "install-stamp.json").write_text(json.dumps({"payload": "bundled"}), encoding="utf-8")
-    shell = app / "Hermes.exe"
+    shell = app / "Kestrel.exe"
     shell.write_bytes(b"retained app bytes")
     (payload / "venv").mkdir()
     manifest = payload / "manifest.json"

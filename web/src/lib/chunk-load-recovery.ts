@@ -3,7 +3,7 @@
 // Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 // Derivative work. All upstream attribution and rights retained.
 
-// A tab opened before `hermes update` rebuilt the SPA still references the old
+// A tab opened before `kestrel update` rebuilt the SPA still references the old
 // hashed chunks; the rebuild deleted them, so the first lazy page it opens 404s
 // and React unmounts the whole app (blank page). A reload picks up the new
 // index.html, which is served no-store.

@@ -136,7 +136,7 @@ If the next user request is "reply to the best one" or "like that post", the age
 
 ### "No xAI credentials available"
 
-The tool surfaces this when both auth paths fail. Either set `XAI_API_KEY` in `~/.hermes/.env` or run `hermes auth add xai-oauth` and complete the browser login. Then restart your session so the agent re-reads the tool registry.
+The tool surfaces this when both auth paths fail. Either set `XAI_API_KEY` in `~/.hermes/.env` or run `kestrel auth add xai-oauth` and complete the browser login. Then restart your session so the agent re-reads the tool registry.
 
 ### "`x_search` is not enabled for this model"
 
@@ -146,8 +146,8 @@ The configured `x_search.model` doesn't have access to the server-side `x_search
 
 Two possible causes:
 
-1. **Toolset not enabled.** Run `hermes tools` and confirm `🐦 X (Twitter) Search` is checked.
-2. **No xAI credentials.** The check_fn returns False, so the schema stays hidden. Run `hermes auth status` to confirm xai-oauth login state, and check that `XAI_API_KEY` is set (if you're using the API-key path).
+1. **Toolset not enabled.** Run `kestrel tools` and confirm `🐦 X (Twitter) Search` is checked.
+2. **No xAI credentials.** The check_fn returns False, so the schema stays hidden. Run `kestrel auth status` to confirm xai-oauth login state, and check that `XAI_API_KEY` is set (if you're using the API-key path).
 
 ### `degraded: true` — answer with no citations
 

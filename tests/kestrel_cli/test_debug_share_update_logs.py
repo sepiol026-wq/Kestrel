@@ -7,7 +7,7 @@
 
 A Desktop-driven update that fails at the Electron rebuild (updater exit 6)
 stores its root cause in exactly two files: ``logs/update.log`` (full
-stdout/stderr mirror of ``hermes update``) and
+stdout/stderr mirror of ``kestrel update``) and
 ``logs/desktop-update-handoff.log`` (hand-off stages incl. the rebuild
 retry). The updater's failure message and the Desktop error box both point
 users at ``hermes debug share``, yet the share captured neither file, so
@@ -21,7 +21,7 @@ import pytest
 # Lines the writers really produce (main.py _UpdateOutputStream mirror and
 # scripts/desktop-update/windows.ps1 Write-HandoffLog / posix.sh log()).
 UPDATE_LOG_BODY = (
-    "=== hermes update started 2026-09-02T03:21:09 ===\n"
+    "=== kestrel update started 2026-09-02T03:21:09 ===\n"
     "→ Fetching updates...\n"
     "→ Building desktop packaged app...\n"
     "✗ Desktop GUI build failed\n"
@@ -73,7 +73,7 @@ class TestCaptureDefaultLogSnapshots:
         assert "ELIFECYCLE" in snaps["handoff"].tail_text
 
     def test_snapshots_read_the_root_home_update_logs_under_a_profile(self, tmp_path, monkeypatch):
-        """``hermes update`` and the hand-off scripts write the ROOT home's logs, whatever profile."""
+        """``kestrel update`` and the hand-off scripts write the ROOT home's logs, whatever profile."""
         from kestrel_cli.debug import _capture_default_log_snapshots
 
         root = tmp_path / "root"

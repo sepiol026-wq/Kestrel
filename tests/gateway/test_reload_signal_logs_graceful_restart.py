@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""SIGUSR1 (systemd ``ExecReload`` / ``hermes gateway restart``) is a graceful restart, and the
+"""SIGUSR1 (systemd ``ExecReload`` / ``kestrel gateway restart``) is a graceful restart, and the
 gateway says so in its log when the signal lands (#117267)."""
 
 from __future__ import annotations

@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Regression: ``hermes doctor --fix`` must not checkpoint the live WAL under a running gateway.
+"""Regression: ``kestrel doctor --fix`` must not checkpoint the live WAL under a running gateway.
 
 Checkpoint-lock premise (#40177): a bare ``sqlite3.connect`` runs WAL recovery and
 ``PRAGMA wal_checkpoint(PASSIVE)`` joins the live WAL — that second-writer handling

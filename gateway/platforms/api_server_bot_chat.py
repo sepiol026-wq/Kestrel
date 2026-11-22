@@ -80,7 +80,7 @@ def _refusal(authority, tip, exc):
         from kestrel_state_local_migration import validate_legacy_row
         try:
             validate_legacy_row(authority.db, tip)
-            reason, hint = 'bot_chat_unbound', 'open it once with `hermes chat -c "Bot Chat"` on that host'
+            reason, hint = 'bot_chat_unbound', 'open it once with `kestrel chat -c "Bot Chat"` on that host'
         except RuntimeStoreError:
             from gateway.session_bot import displaceable_bot_chat
             reason = 'bot_chat_not_local'

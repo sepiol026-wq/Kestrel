@@ -40,13 +40,13 @@ hermes config set API_SERVER_KEY your-secret-key
 `hermes config set` 会自动将标志路由到 `config.yaml`，将密钥路由到 `~/.hermes/.env`。如果 gateway 已在运行，请重启以使更改生效：
 
 ```bash
-hermes gateway stop && hermes gateway
+kestrel gateway stop && kestrel gateway
 ```
 
 ### 2. 启动 Kestrel Agent gateway
 
 ```bash
-hermes gateway
+kestrel gateway
 ```
 
 你应该看到：

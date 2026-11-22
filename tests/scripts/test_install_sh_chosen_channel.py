@@ -7,7 +7,7 @@
 
 Hermes-Setup reruns install.sh with its baked ``--branch main``. A checkout whose
 config.yaml record (written by Hermes itself) names ``stable`` must stay where
-``hermes update`` put it; a ``main`` record still follows the branch.
+``kestrel update`` put it; a ``main`` record still follows the branch.
 """
 from pathlib import Path
 import os

@@ -320,7 +320,7 @@ skills:
 运行 skill 并验证 agent 是否正确遵循指令：
 
 ```bash
-hermes chat --toolsets skills -q "Use the X skill to do Y"
+kestrel chat --toolsets skills -q "Use the X skill to do Y"
 ```
 
 ## Skill 应放在哪里？

@@ -391,7 +391,7 @@ def _check_manifest_v2(report: DoctorReport, manifest: Any) -> None:
         report.warning(
             "declared python_dependencies not installed: " + ", ".join(missing)
             + " — install and enable the plugin with hermes plugins. "
-            "For an enabled plugin, run hermes pm repair, then restart Kestrel.")
+            "For an enabled plugin, run kestrel pm repair, then restart Kestrel.")
 
     schema = getattr(manifest, "config_schema", {}) or {}
     if schema:

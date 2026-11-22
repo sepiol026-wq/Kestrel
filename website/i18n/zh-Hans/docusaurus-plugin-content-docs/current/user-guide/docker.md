@@ -298,7 +298,7 @@ Bot Screen 会话。代价是镜像体积：完整版比早期镜像附带的 he
 旧 `lazy-packages` overlay 不再使用。
 
 构建来源记录在 `/etc/hermes/image-provenance.json`，构建戳记位于 `/opt/hermes/install-stamp.json`。
-没有戳记的本地构建报告未知版本，不猜测提交。`hermes update` 不修改镜像所有的代码，应用更新需替换镜像。
+没有戳记的本地构建报告未知版本，不猜测提交。`kestrel update` 不修改镜像所有的代码，应用更新需替换镜像。
 
 入口点是 `docker/entrypoint-dispatch.sh`。正常 Docker/Podman 中它占有 PID 1，转交给 s6 的 `/init`。
 若平台已有 PID-1 init，则直接运行 stage2 和主包装器；命令仍可运行，但没有 s6 监管的 dashboard 或各 profile gateway。

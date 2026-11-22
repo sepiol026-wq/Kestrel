@@ -48,7 +48,7 @@ The full set of keys:
 | `timeout` | `300` | Seconds Hermes waits for an approval reply before timing out. |
 | `discord_prompt_timeout` | `300` | Seconds Discord's interactive buttons (approvals, clarify, update and slash-command prompts) stay clickable; minimum 30. See [Discord](./messaging/discord.md). |
 | `cron_mode` | `deny` | How [cron jobs](./features/cron.md) behave headlessly when they trigger a dangerous-command prompt. `deny` blocks the command (the agent must find another path); `approve` auto-approves everything in cron context. |
-| `single_query_mode` | `deny` | How one-shot [`hermes chat -q`](./cli.md) sessions behave when they trigger a dangerous-command prompt. A `-q` session runs a single turn and exits with no user waiting to answer prompts; `deny` blocks the command (the agent must find another path), `approve` auto-approves everything in single-query context. Mirrors `cron_mode`. |
+| `single_query_mode` | `deny` | How one-shot [`kestrel chat -q`](./cli.md) sessions behave when they trigger a dangerous-command prompt. A `-q` session runs a single turn and exits with no user waiting to answer prompts; `deny` blocks the command (the agent must find another path), `approve` auto-approves everything in single-query context. Mirrors `cron_mode`. |
 | `unattended_mode` | `deny` | How sessions on unattended programmatic platforms (webhook, msgraph_webhook, api_server) behave when they trigger a dangerous-command prompt. These surfaces have no human who can answer `/approve`, so instead of blocking for the full approval timeout, `deny` blocks the command instantly (the agent must find another path) and `approve` auto-approves everything in unattended context. Exception: an api_server session whose client can answer the card (`/v1/runs` and streaming chat completions, via `POST /v1/runs/{id}/approval`) still gets the approval request. Mirrors `cron_mode`. |
 | `approvers` | `["*"]` | Who may answer a pending approval from a messaging chat. `["*"]`: any admitted member. `[]` or a list of user ids: the requester, those ids and the platform admins only — see [Who can answer an approval in a shared chat](#who-can-answer-an-approval-in-a-shared-chat-approvalsapprovers). |
 | `mcp_reload_confirm` | `true` | When true, `/reload-mcp` asks before rebuilding the MCP tool set. Rebuilding invalidates the provider prompt cache (tool schemas live in the system prompt), so the next message re-sends full input tokens. Users who click **Always Approve** flip this key to `false`. |
@@ -68,7 +68,7 @@ Setting `approvals.mode: off` disables all safety prompts. Use only in trusted e
 
 YOLO mode bypasses **all** dangerous command approval prompts for the current session. It can be activated three ways:
 
-1. **CLI flag**: Start a session with `hermes --yolo` or `hermes chat --yolo`
+1. **CLI flag**: Start a session with `hermes --yolo` or `kestrel chat --yolo`
 2. **Slash command**: Type `/yolo` during a session to toggle it on/off
 3. **Environment variable**: Set `HERMES_YOLO_MODE=1`
 
@@ -95,7 +95,7 @@ YOLO mode disables **all** dangerous command safety checks for the session — *
 
 YOLO and `approvals.mode: off` also skip the [`trust: untrusted`](../reference/mcp-config-reference.md) MCP prompt: a write-capable tool on an untrusted server runs without asking, with each source's usual reach. `/yolo` covers only the chat it was typed in (another chat is still asked); `--yolo` and `HERMES_YOLO_MODE` cover the sessions of the Hermes process they were given to; `approvals.mode: off` covers every chat and cron job of that profile. They do **not** skip:
 
-- **An MCP server's spend limit.** A call that would take the chat past a declared [`spend_limit`](./features/mcp.md#tool-costs-and-spend-limits) still asks, and where nobody can answer (a cron job, `hermes chat -q`) it is refused. The limit is a budget you set, not a safety prompt.
+- **An MCP server's spend limit.** A call that would take the chat past a declared [`spend_limit`](./features/mcp.md#tool-costs-and-spend-limits) still asks, and where nobody can answer (a cron job, `kestrel chat -q`) it is refused. The limit is a budget you set, not a safety prompt.
 - **Questions from an MCP server** ([elicitation](./features/mcp.md#mcp-elicitation-support)), which ask you for input rather than for permission.
 - **Payment-card fill prompts** from the [credential vault](./features/credential-vault.md#paying-and-filling-addresses), which hand a card to a page, and MCP event subscriptions, which install a standing trigger.
 
@@ -345,7 +345,7 @@ These patterns are loaded at startup and silently approved in all future session
 Entries can be exact command text, a shell-style glob (`podman *`), or a
 dangerous-pattern rule key such as `script execution via heredoc` (the key shown
 in the approval prompt). Rule keys are honored on every surface, including
-unattended ones: a cron job, `hermes chat -q` run or webhook session under
+unattended ones: a cron job, `kestrel chat -q` run or webhook session under
 `cron_mode`/`single_query_mode`/`unattended_mode: deny` still runs a command whose
 detected rule key is in `command_allowlist`.
 
@@ -957,7 +957,7 @@ a scan or an approval prompt, so when `distribution.yaml` owns the file a scanne
 7. **Set `terminal.cwd`** — don't let the agent operate from sensitive directories
 8. **Run as non-root** — never run the gateway as root
 9. **Monitor logs** — check `~/.hermes/logs/` for unauthorized access attempts
-10. **Keep updated** — run `hermes update` regularly for security patches
+10. **Keep updated** — run `kestrel update` regularly for security patches
 
 ### Securing API Keys
 
@@ -1037,14 +1037,14 @@ Hermes ships with a built-in advisory scanner that flags Python packages in the 
 
 How it runs:
 
-- **CLI startup banner.** A one-line warning is printed if any advisory matches, with a pointer to `hermes doctor` for the full remediation.
-- **`hermes doctor`.** Surfaces every active advisory with version specifics and 2-4 step remediation instructions.
+- **CLI startup banner.** A one-line warning is printed if any advisory matches, with a pointer to `kestrel doctor` for the full remediation.
+- **`kestrel doctor`.** Surfaces every active advisory with version specifics and 2-4 step remediation instructions.
 - **Gateway startup.** Logged to `gateway.log`; the first interactive message gets a short operator banner.
 
 Each advisory carries a stable id. Once you have read and acted on it you can dismiss it for good:
 
 ```bash
-hermes doctor --ack <advisory-id>
+kestrel doctor --ack <advisory-id>
 ```
 
 The ack is persisted to `config.security.acked_advisories` and survives restart. Old advisories are intentionally **not** removed from the catalog — leaving them in place keeps fresh installs warned about historically poisoned versions that might still be cached in a private mirror.
@@ -1093,7 +1093,7 @@ names. This setting is not a blanket ban on explicit plugin admission or
 manual package-manager commands. The official Docker image also disables
 on-demand installs through its internal environment policy.
 
-For missing dependencies, use `hermes tools` and `hermes doctor` to identify
+For missing dependencies, use `hermes tools` and `kestrel doctor` to identify
 the requirement. Do not run pip against a signed payload or the system Python.
 See [Package management](../reference/package-management.md) for installation
 ownership, diagnostics, and command boundaries.

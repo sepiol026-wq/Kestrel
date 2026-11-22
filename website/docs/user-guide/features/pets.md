@@ -211,7 +211,7 @@ display:
 
 ## Troubleshooting
 
-Run `hermes pets doctor` — it reports:
+Run `kestrel pets doctor` — it reports:
 
 - the pets directory and which pets are installed,
 - `display.pet.enabled`, `display.pet.slug`, and the resolved active pet,

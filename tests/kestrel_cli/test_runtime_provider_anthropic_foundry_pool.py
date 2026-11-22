@@ -66,7 +66,7 @@ def test_foundry_model_api_key_wins_over_the_claude_code_login(home):
 
 
 def test_foundry_azure_env_key_wins_without_an_explicit_request(home, monkeypatch):
-    """``hermes chat`` passes no ``--provider``: the saved provider takes the same path."""
+    """``kestrel chat`` passes no ``--provider``: the saved provider takes the same path."""
     monkeypatch.setenv("AZURE_ANTHROPIC_KEY", "KAZ-ENV")
     write_home(home, base_url=FOUNDRY_URL)
     runtime = rp.resolve_runtime_provider()

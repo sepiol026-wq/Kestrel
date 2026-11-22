@@ -4,7 +4,7 @@
 # Derivative work. All upstream attribution and rights retained.
 
 """Unattended plugin updates: catalog installs ride ``plugins.auto_apply``, one updater per plugin, the
-Desktop/TUI RPC switch + update-all, and the catalog notice after ``hermes update``."""
+Desktop/TUI RPC switch + update-all, and the catalog notice after ``kestrel update``."""
 
 from __future__ import annotations
 
@@ -177,7 +177,7 @@ def test_widened_pin_is_one_review_line_not_a_traceback(home, caplog):
                                 config_get=lambda _s, key: True if key == "auto_apply" else 24)
     lines = [r for r in caplog.records if "wide" in r.getMessage()]
     assert [r.getMessage() for r in lines if "review" in r.getMessage()] == [
-        "plugin wide has an update that needs your review: run `hermes plugins update wide`"]
+        "plugin wide has an update that needs your review: run `kestrel plugins update wide`"]
     assert not any(r.exc_info for r in lines)
 
 

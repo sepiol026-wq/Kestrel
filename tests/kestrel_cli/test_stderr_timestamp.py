@@ -306,7 +306,7 @@ def test_main_maps_gateway_ex_config_to_clean_stop(tmp_path):
 
 @pytest.mark.platforms("posix")  # POSIX signals
 def test_wrapper_forwards_sigusr1_restart_request_to_child(tmp_path):
-    """Regression for #101426: launchd owns the wrapper's PID, so ``hermes update`` sends its
+    """Regression for #101426: launchd owns the wrapper's PID, so ``kestrel update`` sends its
     drain-aware SIGUSR1 to the wrapper. It must reach the gateway child and the wrapper must
     report the child's planned exit code — not die of the signal itself (which makes launchd
     treat the restart as a crash and apply its back-off to every sibling profile)."""

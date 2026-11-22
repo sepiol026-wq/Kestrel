@@ -5,7 +5,7 @@
 
 """Title-keyed local session selection, resolved read-only by the authority.
 
-``hermes chat --resume <title>`` / ``-c <title> [--create-if-missing]`` used to open
+``kestrel chat --resume <title>`` / ``-c <title> [--create-if-missing]`` used to open
 SessionDB in the client; the zero-writer client now sends the name and the owner
 applies the classic CLI rule (``hermes_cli.main._resolve_session_by_name_or_id``).
 """

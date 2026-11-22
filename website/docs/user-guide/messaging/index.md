@@ -17,7 +17,7 @@ Bots need both a model provider and tool providers (TTS, web). A [Nous Portal](.
 ## Messaging status in Desktop and the dashboard
 
 Messaging status belongs to the selected profile on the selected machine. Credentials
-saved by `hermes gateway setup` can enable a credential-based platform without a
+saved by `kestrel gateway setup` can enable a credential-based platform without a
 `platforms` entry in `config.yaml`; an explicit `platforms.<name>.enabled: false`
 still disables it. A different profile never inherits the server process's credentials.
 Platforms without required credential fields are not enabled merely because that list
@@ -161,7 +161,7 @@ On a message from a person, a bare silence token is replaced by a short notice, 
 The easiest way to configure messaging platforms is the interactive wizard:
 
 ```bash
-hermes gateway setup        # Interactive setup for all messaging platforms
+kestrel gateway setup        # Interactive setup for all messaging platforms
 ```
 
 This walks you through configuring each platform with arrow-key selection, shows which platforms are already configured, and offers to start/restart the gateway when done.
@@ -169,14 +169,14 @@ This walks you through configuring each platform with arrow-key selection, shows
 ## Gateway Commands
 
 ```bash
-hermes gateway              # Run in foreground
-hermes gateway setup        # Configure messaging platforms interactively
-hermes gateway install      # Install as a user service (Linux) / launchd service (macOS)
-sudo hermes gateway install --system   # Linux only: install a boot-time system service
-hermes gateway start        # Start the default service
-hermes gateway stop         # Stop the default service
-hermes gateway status       # Check default service status
-hermes gateway status --system         # Linux only: inspect the system service explicitly
+kestrel gateway              # Run in foreground
+kestrel gateway setup        # Configure messaging platforms interactively
+kestrel gateway install      # Install as a user service (Linux) / launchd service (macOS)
+sudo kestrel gateway install --system   # Linux only: install a boot-time system service
+kestrel gateway start        # Start the default service
+kestrel gateway stop         # Stop the default service
+kestrel gateway status       # Check default service status
+kestrel gateway status --system         # Linux only: inspect the system service explicitly
 ```
 
 ### Stack dump on demand (`SIGUSR2`)
@@ -195,7 +195,7 @@ probes (default 3), housekeeping, the cron scheduler and the embedded kanban
 dispatcher have all frozen with it, so the watchdog dumps every thread's stack
 to the log, stamps `gateway_state.json` with `gateway_state: degraded` and
 `exit_reason: loop_liveness_watchdog`, and exits with code `75` so the service
-supervisor restarts the process. `hermes gateway status` renders that record as
+supervisor restarts the process. `kestrel gateway status` renders that record as
 `⚠ Gateway exited degraded: event loop stopped dispatching …` until a new
 gateway process overwrites it, and the dashboard's gateway badge shows
 **Degraded** with the same reason. Set `gateway.loop_watchdog: false` in
@@ -203,7 +203,7 @@ gateway process overwrites it, and the dashboard's gateway badge shows
 
 Housekeeping also re-stamps `gateway_state.json`'s `updated_at` every tick
 (60 s), so it doubles as a heartbeat: when the process is still alive but that
-stamp is more than 120 s old, `hermes gateway status` prints
+stamp is more than 120 s old, `kestrel gateway status` prints
 `⚠ Gateway heartbeat stale: housekeeping has not refreshed gateway_state.json
 for N s …` and the dashboard badge reads **Heartbeat stale** — the "looks
 running but nothing is scheduled" case. Restart the gateway.
@@ -222,7 +222,7 @@ gateway:
 Regenerate the service unit after changing this setting:
 
 ```bash
-hermes gateway install --force
+kestrel gateway install --force
 ```
 
 A positive value makes the generated unit use `Type=notify`,
@@ -322,7 +322,7 @@ Gateway conversations do not reset after inactivity or at a daily boundary. Use 
 or `/reset` for an explicit new conversation; context compression remains automatic.
 Core ignores legacy `session_reset` settings, reset-policy overrides and reset-timer
 environment variables. If your config still sets `session_reset.mode` to `idle`, `daily`
-or `both`, gateway startup and `hermes doctor` warn about it. To keep time-based resets,
+or `both`, gateway startup and `kestrel doctor` warn about it. To keep time-based resets,
 install the catalog plugin that reads the same block unchanged:
 `hermes plugins install hermes-session-reset-policy`. Cached agents may be released to reclaim resources without
 replacing the durable conversation. Restart-recovery freshness limits automatic
@@ -682,19 +682,19 @@ Background tasks on messaging platforms are fire-and-forget — you don't need t
 ### Linux (systemd)
 
 ```bash
-hermes gateway install               # Install as user service
-hermes gateway start                 # Start the service
-hermes gateway stop                  # Stop the service
-hermes gateway status                # Check status
+kestrel gateway install               # Install as user service
+kestrel gateway start                 # Start the service
+kestrel gateway stop                  # Stop the service
+kestrel gateway status                # Check status
 journalctl --user -u hermes-gateway -f  # View logs
 
 # Enable lingering (keeps running after logout)
 sudo loginctl enable-linger $USER
 
 # Or install a boot-time system service that still runs as your user
-sudo hermes gateway install --system
-sudo hermes gateway start --system
-sudo hermes gateway status --system
+sudo kestrel gateway install --system
+sudo kestrel gateway start --system
+sudo kestrel gateway status --system
 journalctl -u hermes-gateway -f
 ```
 
@@ -712,21 +712,21 @@ The installed unit declares `ExecStop=` to record a planned-stop marker for `$MA
 systemctl --user restart hermes-gateway   # or: sudo systemctl restart hermes-gateway
 ```
 
-Prefer `hermes gateway restart` when in-flight agent turns matter: it asks the gateway to drain first (`SIGUSR1`, honoring the restart wait budget) and waits for the replacement, while a raw `systemctl restart` stops the current process on systemd's schedule. After updating Hermes, run `hermes gateway restart` once so the running service picks up the regenerated unit that contains the `ExecStop=` line (`hermes gateway status` warns while the installed unit is outdated).
+Prefer `kestrel gateway restart` when in-flight agent turns matter: it asks the gateway to drain first (`SIGUSR1`, honoring the restart wait budget) and waits for the replacement, while a raw `systemctl restart` stops the current process on systemd's schedule. After updating Hermes, run `kestrel gateway restart` once so the running service picks up the regenerated unit that contains the `ExecStop=` line (`kestrel gateway status` warns while the installed unit is outdated).
 
-The installed unit also maps `systemctl reload hermes-gateway` to `SIGUSR1`. For Hermes, `reload` therefore means a graceful drain, process exit, and supervisor relaunch; it is **not** an in-process configuration reload. Use `hermes gateway restart` when you want the CLI to wait for and verify the replacement process.
+The installed unit also maps `systemctl reload hermes-gateway` to `SIGUSR1`. For Hermes, `reload` therefore means a graceful drain, process exit, and supervisor relaunch; it is **not** an in-process configuration reload. Use `kestrel gateway restart` when you want the CLI to wait for and verify the replacement process.
 
 :::tip Headless VMs: user service + linger avoids root prompts
-A system service needs root for every restart — including the automatic gateway restart at the end of `hermes update`. When `hermes update` runs as a non-root user, it tries passwordless `sudo systemctl`; if that's unavailable, it skips the restart and prints the manual `sudo systemctl restart hermes-gateway` command (it never blocks on an interactive password prompt).
+A system service needs root for every restart — including the automatic gateway restart at the end of `kestrel update`. When `kestrel update` runs as a non-root user, it tries passwordless `sudo systemctl`; if that's unavailable, it skips the restart and prints the manual `sudo systemctl restart hermes-gateway` command (it never blocks on an interactive password prompt).
 
 For a headless VM you never log into, a **user** service with lingering enabled gives you the same start-at-boot behavior with zero root involvement:
 
 ```bash
-hermes gateway install          # user service
+kestrel gateway install          # user service
 sudo loginctl enable-linger $USER   # one-time: start at boot, survive logout
 ```
 
-After that, `hermes update` can restart the gateway without any privileges. If you prefer to keep the system service, either run updates with `sudo hermes update`, or grant the service account passwordless sudo for systemctl, e.g. in `sudo visudo -f /etc/sudoers.d/hermes-gateway`:
+After that, `kestrel update` can restart the gateway without any privileges. If you prefer to keep the system service, either run updates with `sudo kestrel update`, or grant the service account passwordless sudo for systemctl, e.g. in `sudo visudo -f /etc/sudoers.d/hermes-gateway`:
 
 ```
 hermes ALL=(root) NOPASSWD: /usr/bin/systemctl --no-ask-password reset-failed hermes-gateway*, /usr/bin/systemctl --no-ask-password start hermes-gateway*, /usr/bin/systemctl --no-ask-password restart hermes-gateway*
@@ -735,23 +735,23 @@ hermes ALL=(root) NOPASSWD: /usr/bin/systemctl --no-ask-password reset-failed he
 
 Avoid keeping both the user and system gateway units installed at once unless you really mean to. Hermes will warn if it detects both because start/stop/status behavior gets ambiguous.
 
-An installed unit (or launchd plist) belongs to the `HERMES_HOME` it pins. A gateway started from a different home, such as a test or scratch home that happens to resolve to the same service name, never rewrites it: `gateway run`, `start`, `restart` and `install --force` refuse with a message naming both homes and leave the file alone. To deliberately point an existing service at the current home, run `hermes gateway install --force-unit-path`.
+An installed unit (or launchd plist) belongs to the `HERMES_HOME` it pins. A gateway started from a different home, such as a test or scratch home that happens to resolve to the same service name, never rewrites it: `gateway run`, `start`, `restart` and `install --force` refuse with a message naming both homes and leave the file alone. To deliberately point an existing service at the current home, run `kestrel gateway install --force-unit-path`.
 
 :::note Inside a container, only the system scope is offered
-`hermes gateway install` (and the `hermes gateway setup` wizard) refuse to install a **user** service when Hermes detects it is running inside a container. A user unit lands in `~/.config/systemd/user`, and when that home is bind-mounted from the host (podman/distrobox), the host's own `systemd --user` enables and starts the same unit — a second gateway polling the same bot token. Run the gateway as the container's main process (`hermes gateway run`, with a container restart policy), or in a systemd container (systemd as PID 1) install the isolated system scope: `sudo hermes gateway install --system --run-as-user <user>`.
+`kestrel gateway install` (and the `kestrel gateway setup` wizard) refuse to install a **user** service when Hermes detects it is running inside a container. A user unit lands in `~/.config/systemd/user`, and when that home is bind-mounted from the host (podman/distrobox), the host's own `systemd --user` enables and starts the same unit — a second gateway polling the same bot token. Run the gateway as the container's main process (`kestrel gateway run`, with a container restart policy), or in a systemd container (systemd as PID 1) install the isolated system scope: `sudo kestrel gateway install --system --run-as-user <user>`.
 :::
 
 :::info Multiple installations
-If you run multiple Hermes installations on the same machine (with different `HERMES_HOME` directories), each gets its own systemd service name. The default `~/.hermes` uses `hermes-gateway`; other installations use `hermes-gateway-<hash>`. The `hermes gateway` commands automatically target the correct service for your current `HERMES_HOME`.
+If you run multiple Hermes installations on the same machine (with different `HERMES_HOME` directories), each gets its own systemd service name. The default `~/.hermes` uses `hermes-gateway`; other installations use `hermes-gateway-<hash>`. The `kestrel gateway` commands automatically target the correct service for your current `HERMES_HOME`.
 :::
 
 ### macOS (launchd)
 
 ```bash
-hermes gateway install               # Install as launchd agent
-hermes gateway start                 # Start the service
-hermes gateway stop                  # Stop the service
-hermes gateway status                # Check status
+kestrel gateway install               # Install as launchd agent
+kestrel gateway start                 # Start the service
+kestrel gateway stop                  # Stop the service
+kestrel gateway status                # Check status
 tail -f ~/.hermes/logs/gateway.log   # View logs
 ```
 
@@ -762,24 +762,24 @@ The generated plist lives at `~/Library/LaunchAgents/ai.hermes.gateway.plist`. I
 - **HERMES_HOME** — scopes the gateway to your Hermes installation.
 
 :::tip PATH changes after install
-launchd plists are static — if you install new tools (e.g. a new Node.js version via nvm, or ffmpeg via Homebrew) after setting up the gateway, run `hermes gateway install` again to capture the updated PATH. The gateway will detect the stale plist and reload automatically.
+launchd plists are static — if you install new tools (e.g. a new Node.js version via nvm, or ffmpeg via Homebrew) after setting up the gateway, run `kestrel gateway install` again to capture the updated PATH. The gateway will detect the stale plist and reload automatically.
 :::
 
 :::info Installing without starting
-The plist sets `RunAtLoad`, so loading it starts the gateway. `hermes gateway install --no-start-now`, like answering No to "Start the gateway now?" in `hermes gateway setup`, writes the plist without loading it: the gateway starts at your next login, or when you run `hermes gateway start`. A gateway that launchd is already running is reloaded onto the new plist, not stopped.
+The plist sets `RunAtLoad`, so loading it starts the gateway. `kestrel gateway install --no-start-now`, like answering No to "Start the gateway now?" in `kestrel gateway setup`, writes the plist without loading it: the gateway starts at your next login, or when you run `kestrel gateway start`. A gateway that launchd is already running is reloaded onto the new plist, not stopped.
 :::
 
 :::info Local Network access (LAN devices fail with "No route to host")
-macOS Local Network Privacy attributes a socket to the executable launchd spawned for the job. A bare venv Python has no application identity, so a launchd-run gateway could not reach LAN hosts (Home Assistant, local model servers) — every connect failed with `errno 65 No route to host` while the same URL worked from Terminal, and no prompt was ever shown to grant it. The generated plist therefore runs the gateway through `/usr/bin/osascript`; a JXA `system()` call starts the gateway without an interactive event-polling loop, and macOS treats its children as osascript's own — an Apple platform binary, exempt from the check. `ps` shows `osascript → stderr_timestamp → gateway run`; stop/restart/KeepAlive behave exactly as before. A plist installed by an older Hermes is refreshed by `hermes gateway install` (or on the next `hermes gateway start`).
+macOS Local Network Privacy attributes a socket to the executable launchd spawned for the job. A bare venv Python has no application identity, so a launchd-run gateway could not reach LAN hosts (Home Assistant, local model servers) — every connect failed with `errno 65 No route to host` while the same URL worked from Terminal, and no prompt was ever shown to grant it. The generated plist therefore runs the gateway through `/usr/bin/osascript`; a JXA `system()` call starts the gateway without an interactive event-polling loop, and macOS treats its children as osascript's own — an Apple platform binary, exempt from the check. `ps` shows `osascript → stderr_timestamp → gateway run`; stop/restart/KeepAlive behave exactly as before. A plist installed by an older Hermes is refreshed by `kestrel gateway install` (or on the next `kestrel gateway start`).
 
-Without an installed service, the gateway Hermes starts for you (Hermes Desktop, a chat or TUI client, or the restart after `hermes update`) runs the same way, as a one-off launchd job labelled `com.nousresearch.hermes.runtime.<id>`. A plain child process would lose LAN access as soon as the app that started it quits: macOS then holds the gateway itself responsible, and denies it. The one-off job is never installed in `~/Library/LaunchAgents`, never starts at login and is never restarted by launchd. Because osascript is the responsible app, macOS file-access prompts for that gateway (Documents, Downloads, …) name **osascript**, not Hermes.
+Without an installed service, the gateway Hermes starts for you (Hermes Desktop, a chat or TUI client, or the restart after `kestrel update`) runs the same way, as a one-off launchd job labelled `com.nousresearch.hermes.runtime.<id>`. A plain child process would lose LAN access as soon as the app that started it quits: macOS then holds the gateway itself responsible, and denies it. The one-off job is never installed in `~/Library/LaunchAgents`, never starts at login and is never restarted by launchd. Because osascript is the responsible app, macOS file-access prompts for that gateway (Documents, Downloads, …) name **osascript**, not Hermes.
 :::
 
 :::tip Picking up new credentials after `hermes auth add` / `hermes auth reset`
 Agents run as threads inside the one gateway process; the only child processes are tool subprocesses (terminal commands, browsers), which never hold provider credentials. A running gateway also re-reads the `openai-codex` login it seeded from `auth.json` the next time its pool selects that entry after it had gone `exhausted` or `dead` (entries added with `hermes auth add openai-codex` are independent accounts and are not resynced). When you want every session on the fresh login at once, restart the gateway — but prefer the drain-aware path over a bare kill:
 
-- `hermes gateway restart` asks the gateway (SIGUSR1) to restart when idle: it keeps serving, exits at the first moment no work is in flight (warning every `agent.restart_after_turn_timeout` seconds, default 1800, with what it is still waiting on), and lets launchd's `KeepAlive` relaunch it; the new process reads `auth.json` from scratch.
-- `launchctl kickstart -k gui/$UID/ai.hermes.gateway` sends SIGTERM instead: the gateway interrupts in-flight chat turns after `agent.restart_drain_timeout` (default `0` — immediately; the user is told and the turn resumes on their next message), gives cron runs and api_server (`/v1`) runs `agent.cron_drain_timeout` (default 30 s), kills tool subprocesses and exits, then launchd relaunches it. Nothing from the old process survives, so a session that still fails with `401` after the relaunch is talking to a different gateway process — check `hermes gateway status` (and `launchctl list | grep hermes`) for a second PID, such as a manually started `hermes gateway run`, and stop that one too.
+- `kestrel gateway restart` asks the gateway (SIGUSR1) to restart when idle: it keeps serving, exits at the first moment no work is in flight (warning every `agent.restart_after_turn_timeout` seconds, default 1800, with what it is still waiting on), and lets launchd's `KeepAlive` relaunch it; the new process reads `auth.json` from scratch.
+- `launchctl kickstart -k gui/$UID/ai.hermes.gateway` sends SIGTERM instead: the gateway interrupts in-flight chat turns after `agent.restart_drain_timeout` (default `0` — immediately; the user is told and the turn resumes on their next message), gives cron runs and api_server (`/v1`) runs `agent.cron_drain_timeout` (default 30 s), kills tool subprocesses and exits, then launchd relaunches it. Nothing from the old process survives, so a session that still fails with `401` after the relaunch is talking to a different gateway process — check `kestrel gateway status` (and `launchctl list | grep hermes`) for a second PID, such as a manually started `kestrel gateway run`, and stop that one too.
 :::
 
 :::info Multiple installations
@@ -789,26 +789,26 @@ Like the Linux systemd service, each `HERMES_HOME` directory gets its own launch
 ### Windows (Task Scheduler)
 
 ```powershell
-hermes gateway install               # Register the Hermes_Gateway Scheduled Task (runs at logon)
-hermes gateway start                 # Start the gateway hidden, without a console window
-hermes gateway stop                  # Drain and stop the service
-hermes gateway status                # Check status, including registration drift
+kestrel gateway install               # Register the Hermes_Gateway Scheduled Task (runs at logon)
+kestrel gateway start                 # Start the gateway hidden, without a console window
+kestrel gateway stop                  # Drain and stop the service
+kestrel gateway status                # Check status, including registration drift
 ```
 
 The Scheduled Task runs `wscript.exe` on a generated `.vbs` launcher under `%USERPROFILE%\.hermes\gateway-service\`. The launcher starts `python.exe -m hermes_cli.main gateway run` with a hidden window and **exits immediately** — by design: `wscript.exe` has no console, so at logon it never receives the `CTRL_CLOSE_EVENT` that kills a `cmd.exe`-hosted gateway, and the gateway inherits one hidden console instead of every subprocess flashing its own (see `hermes_cli/gateway_windows.py::_build_gateway_vbs_script`).
 
 :::warning RestartOnFailure covers the launcher, not the gateway
-Because the launcher returns as soon as the gateway is spawned, Task Scheduler only ever sees the launcher's exit code. The `<RestartOnFailure>` policy in the registered task therefore fires only when `wscript.exe` itself fails to start the gateway — it does **not** restart a gateway that crashes or is killed later. Gateway auto-restart on Windows relies on the gateway's own in-process restart path (`/restart`, updates, and the `hermes gateway restart` command); a gateway killed from outside stays down until `hermes gateway start` or `schtasks /Run /TN <task>`.
+Because the launcher returns as soon as the gateway is spawned, Task Scheduler only ever sees the launcher's exit code. The `<RestartOnFailure>` policy in the registered task therefore fires only when `wscript.exe` itself fails to start the gateway — it does **not** restart a gateway that crashes or is killed later. Gateway auto-restart on Windows relies on the gateway's own in-process restart path (`/restart`, updates, and the `kestrel gateway restart` command); a gateway killed from outside stays down until `kestrel gateway start` or `schtasks /Run /TN <task>`.
 :::
 
-`hermes gateway install` writes the task from the current template; a task registered by an older build would otherwise keep its old settings (no `RestartOnFailure`, no logon `Delay`, an older launcher command line) indefinitely. `hermes gateway status` compares the registered task with the current template and warns when it predates it:
+`kestrel gateway install` writes the task from the current template; a task registered by an older build would otherwise keep its old settings (no `RestartOnFailure`, no logon `Delay`, an older launcher command line) indefinitely. `kestrel gateway status` compares the registered task with the current template and warns when it predates it:
 
 ```
 ⚠ Scheduled Task registration predates the current template (missing: RestartOnFailure, LogonTrigger Delay; version 1.3 vs 1.4)
-  Repair: hermes gateway start  (or: hermes gateway install)
+  Repair: kestrel gateway start  (or: kestrel gateway install)
 ```
 
-`hermes gateway start` and `hermes update` run the same comparison and re-register a drifted task from the current template automatically (like the systemd unit refresh on Linux); when `schtasks` refuses without elevation, re-run `hermes gateway install`, which can request administrator approval. The check is silent when the task cannot be queried, and it only inspects a few settings Hermes owns (task version, `RestartOnFailure`, the logon trigger delay and the launcher arguments), so deliberate local edits elsewhere in the task are not flagged.
+`kestrel gateway start` and `kestrel update` run the same comparison and re-register a drifted task from the current template automatically (like the systemd unit refresh on Linux); when `schtasks` refuses without elevation, re-run `kestrel gateway install`, which can request administrator approval. The check is silent when the task cannot be queried, and it only inspects a few settings Hermes owns (task version, `RestartOnFailure`, the logon trigger delay and the launcher arguments), so deliberate local edits elsewhere in the task are not flagged.
 
 ## Platform-Specific Toolsets
 
@@ -928,7 +928,7 @@ Once upstream is healthy, `/platform resume <name>` clears the breaker and re-ar
 
 When the gateway restarts (or is shut down with in-flight sessions), it can send a one-shot "the agent is back" / "the agent was interrupted" message to each platform's home channel. This is controlled per-platform by the `gateway_restart_notification` flag in `config.yaml`, which defaults to `true`:
 
-The "shutting down" and "online" home-channel notices come as a pair: once a home chat was told the gateway is going down, the next start says it is back online, whatever stopped it (a `/restart`, `hermes gateway restart`, or the service manager, such as `systemctl restart`). A `--replace` takeover sends neither, because the replacing gateway keeps serving. When the gateway is stopped over and over in a short time (a restart loop), it sends at most `gateway.restart_loop_guard.max_restarts` shutdown notices (default 3, chained while the gaps between them stay under `max_gap_seconds`) and then goes quiet until it stays up. The same settings drive the restart-loop breaker for session auto-resume.
+The "shutting down" and "online" home-channel notices come as a pair: once a home chat was told the gateway is going down, the next start says it is back online, whatever stopped it (a `/restart`, `kestrel gateway restart`, or the service manager, such as `systemctl restart`). A `--replace` takeover sends neither, because the replacing gateway keeps serving. When the gateway is stopped over and over in a short time (a restart loop), it sends at most `gateway.restart_loop_guard.max_restarts` shutdown notices (default 3, chained while the gaps between them stay under `max_gap_seconds`) and then goes quiet until it stays up. The same settings drive the restart-loop breaker for session auto-resume.
 
 Configure the destination with a `home_channel` object containing both `platform` and `chat_id`:
 
@@ -989,7 +989,7 @@ Telegram is usually a mobile inbox, so the defaults are tuned for that surface:
 - **`interim_assistant_messages`** stays **on** — real mid-turn assistant commentary (the model literally telling you what it's about to do) is signal, not noise.
 - **`long_running_notifications`** stays **on** — a single edit-in-place "⏳ Working — N min" bubble updates every few minutes so you have a heartbeat instead of staring at `typing…` for half an hour.
 
-These per-platform defaults apply only while the same key is unset directly under `display:`. A global `display.tool_progress`, `display.show_reasoning`, `display.busy_ack_detail`, `display.interim_assistant_messages` or `display.long_running_notifications` applies to every platform and replaces its default. A `config.yaml` copied from an older `cli-config.yaml.example` sets all five globally, and an older first-time `hermes setup` wrote `tool_progress: all`; delete those lines to get the per-platform defaults back.
+These per-platform defaults apply only while the same key is unset directly under `display:`. A global `display.tool_progress`, `display.show_reasoning`, `display.busy_ack_detail`, `display.interim_assistant_messages` or `display.long_running_notifications` applies to every platform and replaces its default. A `config.yaml` copied from an older `cli-config.yaml.example` sets all five globally, and an older first-time `kestrel setup` wrote `tool_progress: all`; delete those lines to get the per-platform defaults back.
 
 Opt out of either of the kept-on defaults or opt back into verbose progress per platform:
 

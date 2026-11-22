@@ -3,7 +3,7 @@ title: Obscurify.ai
 repo: https://github.com/Obscurify-ai/hermes-obscurify-provider
 sha: 72ce6f5cf6d297c01d23198a84c21b561fa0698c
 description: >-
-  Obscurify.ai as a Hermes model provider (`--provider obscurify`, or Obscurify.ai in `hermes model`):
+  Obscurify.ai as a Hermes model provider (`--provider obscurify`, or Obscurify.ai in `kestrel model`):
   a privacy-focused, OpenAI-compatible API to 200+ models with zero-data-retention routes and
   account-number sign-up (no email). The model list leaves out decision models and models under
   Hermes' 64K context minimum, context windows come from the catalog, and reasoning effort is sent as

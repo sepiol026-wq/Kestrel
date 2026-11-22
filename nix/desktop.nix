@@ -214,8 +214,8 @@ stdenv.mkDerivation {
   };
 
   meta = with lib; {
-    description = "Native Electron desktop shell for Hermes Agent";
-    homepage = "https://github.com/NousResearch/hermes-agent";
+    description = "Native Electron desktop shell for Kestrel Agent";
+    homepage = "https://github.com/sepiol026-wq/Kestrel";
     license = licenses.mit;
     platforms = platforms.unix;
     mainProgram = "hermes-desktop";

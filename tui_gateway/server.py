@@ -1961,8 +1961,8 @@ _WORKER_BLOCKED_COMMANDS: frozenset[str] = frozenset({"snapshot", "snap"})
 
 # argv shapes that must not run headless in the gateway process → user hint.
 _CLI_EXEC_BLOCKED = {
-    ("setup",): "`hermes setup` needs a full terminal — run it outside the TUI",
-    ("gateway",): "`hermes gateway` is long-running — run it in another terminal",
+    ("setup",): "`kestrel setup` needs a full terminal — run it outside the TUI",
+    ("gateway",): "`kestrel gateway` is long-running — run it in another terminal",
     ("sessions", "browse"): "`hermes sessions browse` is interactive — use /resume here, or run browse in another terminal",
     ("config", "edit"): "`hermes config edit` needs $EDITOR in a real terminal",
 }
@@ -1971,7 +1971,7 @@ _CLI_EXEC_BLOCKED = {
 def _cli_exec_blocked(argv: list[str]) -> str | None:
     """Return user hint if this argv must not run headless in the gateway process."""
     if not argv:
-        return "bare `hermes` is interactive — use `/hermes chat -q …` or run `hermes` in another terminal"
+        return "bare `hermes` is interactive — use `/kestrel chat -q …` or run `kestrel` in another terminal"
     head = tuple(a.lower() for a in argv[:2])
     return _CLI_EXEC_BLOCKED.get(head[:1]) or _CLI_EXEC_BLOCKED.get(head)
 

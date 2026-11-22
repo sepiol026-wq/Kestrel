@@ -41,7 +41,7 @@ The SMS gateway shares credentials with the optional [telephony skill](../../ref
 ### Interactive setup (recommended)
 
 ```bash
-hermes gateway setup
+kestrel gateway setup
 ```
 
 Select **SMS (Twilio)** from the platform list. The wizard will prompt for your credentials.
@@ -106,7 +106,7 @@ SMS_WEBHOOK_PORT=3000
 ## Step 4: Start the Gateway
 
 ```bash
-hermes gateway
+kestrel gateway
 ```
 
 You should see:

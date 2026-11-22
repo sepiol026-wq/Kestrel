@@ -25,7 +25,7 @@ Already subscribed? Skip to step 2.
 ## 2. Run the one-shot setup
 
 ```bash
-hermes setup --portal
+kestrel setup --portal
 ```
 
 This single command does five things:
@@ -45,11 +45,11 @@ OAuth needs a browser, but the loopback callback runs on the machine where Herme
 ```bash
 # Option A: SSH port forwarding (preferred)
 ssh -N -L 8642:127.0.0.1:8642 user@remote-host    # in a local terminal
-hermes setup --portal                              # on the remote, open the printed URL in your local browser
+kestrel setup --portal                              # on the remote, open the printed URL in your local browser
 
 # Option B: device-code login (works from Cloud Shell, Codespaces, EC2 Instance Connect)
 hermes auth add nous --type oauth
-# Then re-run `hermes setup --portal` to wire the provider + gateway
+# Then re-run `kestrel setup --portal` to wire the provider + gateway
 ```
 
 See [OAuth over SSH / Remote Hosts](./oauth-over-ssh.md) for the full walkthrough including ProxyJump chains, mosh/tmux, and ControlMaster gotchas.
@@ -82,7 +82,7 @@ If any line shows something other than "via Nous Portal" or the auth line says "
 ## 4. Run your first conversation
 
 ```bash
-hermes chat
+kestrel chat
 ```
 
 Try something that exercises both the model and the Tool Gateway:
@@ -95,7 +95,7 @@ You should see Hermes call `web_search` (through the gateway) and respond with a
 
 ## 5. Pick the model you actually want
 
-`hermes setup --portal` lets you pick a model during setup, but the whole point of the subscription is access to the full catalog — switch any time with `/model` mid-session:
+`kestrel setup --portal` lets you pick a model during setup, but the whole point of the subscription is access to the full catalog — switch any time with `/model` mid-session:
 
 ```bash
 /model anthropic/claude-sonnet-4.6     # best general-purpose agentic
@@ -151,7 +151,7 @@ You'll see per-tool routing — `via Nous Portal` for the ones routed through th
 Because the Tool Gateway includes OpenAI TTS, [voice mode](../user-guide/features/voice-mode.md) works without a separate OpenAI key:
 
 ```bash
-hermes setup tts
+kestrel setup tts
 # → pick "Nous Subscription" for TTS
 # → pick a speech-to-text backend (local faster-whisper is free, no setup)
 ```
@@ -178,7 +178,7 @@ For team setups where multiple humans share a machine, each human has their own 
 
 ## Troubleshooting
 
-### `hermes portal info` shows "not logged in" after `hermes setup --portal`
+### `hermes portal info` shows "not logged in" after `kestrel setup --portal`
 
 The OAuth flow didn't complete. Re-run it:
 
@@ -199,7 +199,7 @@ hermes config set model.provider nous
 Or interactively:
 
 ```bash
-hermes model
+kestrel model
 # pick Nous Portal
 ```
 

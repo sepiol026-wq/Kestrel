@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Tests for the post-update *import* guard in ``hermes update``.
+"""Tests for the post-update *import* guard in ``kestrel update``.
 
 ``tree_syntax_error`` only parses files, so it cannot detect a
 partially-updated tree: when one package is refreshed and a sibling is not,

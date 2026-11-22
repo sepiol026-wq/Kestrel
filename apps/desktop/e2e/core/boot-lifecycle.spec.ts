@@ -18,9 +18,9 @@
  *  3. quit while a turn is streaming and a tool subprocess is running: every
  *     Electron process is gone, and exactly ONE gateway remains — the same
  *     daemon that served the app, still answering. Desktop is an attach
- *     client of the profile's gateway (`hermes gateway ensure`): closing the
+ *     client of the profile's gateway (`kestrel gateway ensure`): closing the
  *     app never takes cron, messaging adapters, bots or an in-flight turn down
- *     with it. `hermes gateway stop` then proves teardown works when asked.
+ *     with it. `kestrel gateway stop` then proves teardown works when asked.
  *  4. relaunch the same HERMES_HOME repeatedly: each boot ATTACHES to the one
  *     gateway (same PID throughout, never a second backend), and the transcript
  *     persisted by the first launch cold-hydrates exactly once every time.
@@ -184,7 +184,7 @@ test('boot handshake, supervised respawn, and zero orphans on quit', async () =>
             [...sandboxProcesses(sandbox), ...processesTagged(TOOL_TAG)].map(
               p => `${p.pid} ${p.cmdline.slice(0, 120)}`
             ),
-          { timeout: 60_000, message: 'no sandbox process (gateway, tool child) survives hermes gateway stop' }
+          { timeout: 60_000, message: 'no sandbox process (gateway, tool child) survives kestrel gateway stop' }
         )
         .toEqual([])
     })
@@ -275,7 +275,7 @@ test('relaunching the same home: one gateway across every boot, transcript intac
     await expect
       .poll(() => sandboxProcesses(sandbox).map(p => `${p.pid} ${p.cmdline.slice(0, 120)}`), {
         timeout: 60_000,
-        message: 'no sandbox process survives hermes gateway stop'
+        message: 'no sandbox process survives kestrel gateway stop'
       })
       .toEqual([])
   } finally {

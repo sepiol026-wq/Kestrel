@@ -505,7 +505,7 @@ export const $hydrationSyncProfile = atom<string | null>(null)
 
 // ── Hover-intent backend pre-warm ───────────────────────────────────────────
 // A cold switch to a profile whose gateway descriptor isn't cached pays the
-// `hermes gateway ensure` round-trip plus the socket connect before the sidebar
+// `kestrel gateway ensure` round-trip plus the socket connect before the sidebar
 // can repopulate. The pointer entering a profile square in the rail signals the
 // switch a few hundred ms before the click lands, so we run the same dial +
 // connect chain then (openGatewayForProfile — without activating).

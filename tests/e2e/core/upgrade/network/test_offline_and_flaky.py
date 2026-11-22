@@ -35,7 +35,7 @@ from tests.e2e.core.upgrade.network import _seed as S
 
 pytestmark = [
     pytest.mark.platforms("linux"),
-    # Every `hermes update` here targets a throwaway sandboxed install, never the real checkout.
+    # Every `kestrel update` here targets a throwaway sandboxed install, never the real checkout.
     pytest.mark.live_system_guard_bypass,
     pytest.mark.skipif(H.sandbox_required_reason() is not None, reason=str(H.sandbox_required_reason())),
     pytest.mark.skipif(N.netns_required_reason() is not None, reason=str(N.netns_required_reason())),
@@ -64,13 +64,13 @@ def test_offline_update_fails_fast_and_changes_nothing(inst):
 
 def test_offline_provisioning_of_a_missing_tool_fails_loudly(inst):
     """The tool store lost an entry (pruned, antivirus, disk cleanup) and the machine is offline:
-    the documented remedy `hermes pm install <tool>` must fail within bounds, name the tool and
+    the documented remedy `kestrel pm install <tool>` must fail within bounds, name the tool and
     the download, and leave every other tool alone."""
     with S.tool_missing(inst, "ripgrep") as tool:
         before = inst.state()
         r = inst.hermes("pm", "install", "ripgrep", edge=None, timeout=300)
         assert r.secs < FAST, f"offline provisioning took {r.secs:.0f}s to give up\n" + r.report(inst)
-        S.assert_nothing_changed(inst, before, r, "offline `hermes pm install ripgrep`")
+        S.assert_nothing_changed(inst, before, r, "offline `kestrel pm install ripgrep`")
         assert "ripgrep" in r.out and "download failed" in r.out, (
             "the failure does not name the tool and the failed download\n" + r.report(inst))
         assert not (inst.sb.hermes_home / "tools" / tool["entry"]).exists(), (
@@ -138,4 +138,4 @@ def test_pm_download_retries_then_refuses_a_digest_mismatch(inst, tool_name):
             f"{tool_name}: the failure does not say the download failed verification\n" + r.report(inst))
         assert not (inst.sb.hermes_home / "tools" / tool["entry"]).exists(), (
             f"{tool_name}: unverified bytes were published to the tool store\n" + r.report(inst))
-        S.assert_nothing_changed(inst, before, r, f"`hermes pm install {tool_name}` with a digest mismatch")
+        S.assert_nothing_changed(inst, before, r, f"`kestrel pm install {tool_name}` with a digest mismatch")

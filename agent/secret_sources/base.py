@@ -129,10 +129,10 @@ class FetchResult:
 
 
 _GENERIC_REMEDIATION = {
-    ErrorKind.NOT_CONFIGURED: "Run `hermes secrets {name} setup` to finish configuration.",
-    ErrorKind.BINARY_MISSING: "Run `hermes secrets {name} setup` to install the helper CLI.",
-    ErrorKind.AUTH_FAILED: "Credentials rejected — run `hermes secrets {name} setup` to re-authenticate.",
-    ErrorKind.AUTH_EXPIRED: "Credentials expired — run `hermes secrets {name} setup` to re-authenticate.",
+    ErrorKind.NOT_CONFIGURED: "Run `kestrel secrets {name} setup` to finish configuration.",
+    ErrorKind.BINARY_MISSING: "Run `kestrel secrets {name} setup` to install the helper CLI.",
+    ErrorKind.AUTH_FAILED: "Credentials rejected — run `kestrel secrets {name} setup` to re-authenticate.",
+    ErrorKind.AUTH_EXPIRED: "Credentials expired — run `kestrel secrets {name} setup` to re-authenticate.",
     ErrorKind.NETWORK: "Network problem reaching the secrets backend — check connectivity and retry.",
     ErrorKind.TIMEOUT: "Backend was slow — raise secrets.{name}.timeout_seconds if this recurs.",
 }

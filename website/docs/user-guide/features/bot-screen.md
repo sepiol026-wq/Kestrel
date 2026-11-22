@@ -46,7 +46,7 @@ reverse proxy's access log may record an already-spent ticket.
 - The gateway host runs Linux. macOS and Windows hosts already have a real
   display; the pane is not offered there.
 - TigerVNC's `Xvnc` and the Xfce core components are installed on the host.
-  Nothing installs them silently: `hermes update` and fresh installs leave every
+  Nothing installs them silently: `kestrel update` and fresh installs leave every
   machine as it is. When they are missing the Screen pane in Hermes Desktop shows
   **Install on host** — one click runs the package manager on the gateway host
   (it asks for that host's sudo password in a masked card; the password goes to
@@ -147,7 +147,7 @@ Every bot's computer is one click away in three places of Hermes Desktop:
 
 1. Open the Screen with any of the entries above.
    The screen is **off by default** and nothing starts it for you: click
-   **Start screen** in the pane, run `hermes computer-use screen start` on the
+   **Start screen** in the pane, run `kestrel computer-use screen start` on the
    host, or set `bot_desktop.auto_start: true` if you want a headless host to
    start the screen by itself on the bot's first `computer_use` call or first
    headed browser use (`browser.headed: true`) — off so that installing

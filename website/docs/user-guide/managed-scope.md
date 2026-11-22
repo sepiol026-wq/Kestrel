@@ -72,7 +72,7 @@ export HERMES_MANAGED_DIR=/opt/org/hermes-policy
 A user who can set `HERMES_MANAGED_DIR` can repoint managed scope at a directory
 they control, defeating it. In a real deployment this variable should be fixed
 by the administrator (e.g. baked into the service unit / container image), not
-left user-settable. `hermes doctor` reports the *resolved* managed directory so
+left user-settable. `kestrel doctor` reports the *resolved* managed directory so
 a redirect is visible.
 :::
 
@@ -113,7 +113,7 @@ pin the read error still stops Hermes.
 
 ```bash
 hermes config        # shows a header naming the managed source + the pinned keys
-hermes doctor        # reports the resolved managed dir + pinned key counts
+kestrel doctor        # reports the resolved managed dir + pinned key counts
 ```
 
 If you try to change a managed value, Hermes refuses and names the source:
@@ -151,7 +151,7 @@ sudo chmod 0644 /etc/hermes/config.yaml /etc/hermes/.env
 
 Changes take effect on the next Hermes start (a malformed managed file is logged
 loudly and ignored — it never blocks startup, but the admin should check
-`hermes doctor` to confirm the policy is being applied).
+`kestrel doctor` to confirm the policy is being applied).
 
 ## Security model and limitations (v1)
 

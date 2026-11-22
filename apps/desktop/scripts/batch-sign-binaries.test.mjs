@@ -38,7 +38,7 @@ test('getBinaries collects .exe and .dll recursively, case-insensitive, sorted',
   const root = tmpTree()
   fs.mkdirSync(path.join(root, 'resources', 'agent-payload', 'tools', 'python', 'bin'), { recursive: true })
   fs.mkdirSync(path.join(root, 'resources', 'agent-payload', 'tools', 'chromium-1', 'meep'), { recursive: true })
-  fs.writeFileSync(path.join(root, 'Hermes.exe'), 'x')
+  fs.writeFileSync(path.join(root, 'Kestrel.exe'), 'x')
   fs.writeFileSync(path.join(root, 'FFMPEG.DLL'), 'x')
   fs.writeFileSync(path.join(root, 'resources', 'agent-payload', 'tools', 'python', 'bin', 'node.exe'), 'x')
   fs.writeFileSync(path.join(root, 'resources', 'agent-payload', 'tools', 'chromium-1', 'meep', 'chrome.dll'), 'x')
@@ -48,7 +48,7 @@ test('getBinaries collects .exe and .dll recursively, case-insensitive, sorted',
 
   assert.deepEqual(files, [
     path.join('FFMPEG.DLL'),
-    path.join('Hermes.exe'),
+    path.join('Kestrel.exe'),
     path.join('resources', 'agent-payload', 'tools', 'chromium-1', 'meep', 'chrome.dll'),
     path.join('resources', 'agent-payload', 'tools', 'python', 'bin', 'node.exe')
   ])
@@ -59,7 +59,7 @@ test('getBinaries skips symlinks and honors the skip predicate (product exe)', (
   fs.mkdirSync(path.join(root, 'tools'), { recursive: true })
   const target = path.join(root, 'tools', 'real.exe')
   fs.writeFileSync(target, 'x')
-  fs.writeFileSync(path.join(root, 'Hermes.exe'), 'x')
+  fs.writeFileSync(path.join(root, 'Kestrel.exe'), 'x')
   const link = path.join(root, 'tools', 'link.exe')
   try {
     fs.symlinkSync(target, link)
@@ -68,7 +68,7 @@ test('getBinaries skips symlinks and honors the skip predicate (product exe)', (
     // is the skip predicate; symlink skipping is covered on the other OS.
   }
 
-  const exe = path.join(root, 'Hermes.exe')
+  const exe = path.join(root, 'Kestrel.exe')
   const files = getBinaries(root, { skip: file => path.resolve(file) === exe })
 
   assert.equal(files.includes(exe), false)
@@ -150,7 +150,7 @@ test('customSign delegates only the msix package and root product exe to the Azu
 test('batchSignAppTree is a no-op (skipped=true) without the Azure env, and signs via chunked argv-array invocations when set', async () => {
   const root = tmpTree()
   fs.mkdirSync(path.join(root, 'tools'), { recursive: true })
-  const exe = path.join(root, 'Hermes.exe')
+  const exe = path.join(root, 'Kestrel.exe')
   fs.writeFileSync(exe, 'x')
   fs.writeFileSync(path.join(root, 'tools', 'node.exe'), 'x')
   fs.writeFileSync(path.join(root, 'tools', 'FFMPEG.DLL'), 'x')
@@ -220,7 +220,7 @@ test('batchSignAppTree chunks large trees into ~100-file signtool invocations, s
   }
 
   const invocations = []
-  const result = await batchSignAppTree(root, path.join(root, 'Hermes.exe'), {
+  const result = await batchSignAppTree(root, path.join(root, 'Kestrel.exe'), {
     env: {
       AZURE_SIGN_ENDPOINT: 'https://cus.codesigning.azure.net',
       AZURE_SIGN_ACCOUNT: 'codesign2',
@@ -272,7 +272,7 @@ test('sign chunks run concurrently, capped at the configured concurrency', async
     inFlight -= 1
   }
 
-  await batchSignAppTree(root, path.join(root, 'Hermes.exe'), {
+  await batchSignAppTree(root, path.join(root, 'Kestrel.exe'), {
     env: {
       AZURE_SIGN_ENDPOINT: 'https://cus.codesigning.azure.net',
       AZURE_SIGN_ACCOUNT: 'codesign2',
@@ -301,7 +301,7 @@ test.each([false, true])('timestamp retry is bounded; permanent failure=%s', asy
     if (permanent || calls < 3) throw new Error('Invalid Time Stamp Request Length:-1')
   }
 
-  const signing = batchSignAppTree(root, path.join(root, 'Hermes.exe'), {
+  const signing = batchSignAppTree(root, path.join(root, 'Kestrel.exe'), {
     env: {
       AZURE_SIGN_ENDPOINT: 'https://cus.codesigning.azure.net',
       AZURE_SIGN_ACCOUNT: 'codesign2',
@@ -327,7 +327,7 @@ test('batch signing passes its paired toolchain and runtime to both child phases
     dotnetRoot: path.join(root, 'dotnet'),
   }
   const invocations = []
-  const result = await batchSignAppTree(root, path.join(root, 'Hermes.exe'), {
+  const result = await batchSignAppTree(root, path.join(root, 'Kestrel.exe'), {
     ...tools,
     env: {
       AZURE_SIGN_ENDPOINT: 'https://test.invalid',

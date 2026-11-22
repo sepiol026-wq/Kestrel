@@ -342,8 +342,8 @@ phase_update() {
       printf '\n'
       local rc=0
       (cd "$INSTALL_DIR" && source_build_env "${update_cmd[@]}" < /dev/null 2>&1 | ts_prefix > "$LOG_DIR/update.log") || rc=$?
-      log_group "hermes update transcript" "$LOG_DIR/update.log"
-      [ "$rc" -eq 0 ] || fail "hermes update exited $rc; transcript above"
+      log_group "kestrel update transcript" "$LOG_DIR/update.log"
+      [ "$rc" -eq 0 ] || fail "kestrel update exited $rc; transcript above"
       ;;
     installer-script)
       # A dmg user re-running today's install one-liner.
@@ -364,7 +364,7 @@ phase_update() {
     open-app-update)
       # The installed app IS the user surface here (double-click the .app);
       # hand-build the spec Playwright launches from. Env: the redirect set,
-      # which is exactly what the app's children (git, hermes update) need.
+      # which is exactly what the app's children (git, kestrel update) need.
       local app app_bin
       app="$(find_installed_app)" || fail "no installed app to launch"
       app_bin="$(find "$app/Contents/MacOS" -type f -perm +111 | head -1)"

@@ -8,7 +8,7 @@
 Everything runs through ``tests/e2e/core/upgrade/_helpers.py`` (bwrap sandbox, allowlisted env)
 and ``_install_helpers.py`` (local bare origin + URL rewrite, git wrapper). This module only adds
 what a host shape needs on top: a sandbox rooted at an arbitrary path, the configured fake
-provider, a one-shot turn, a background ``hermes gateway run`` and a login-shell probe.
+provider, a one-shot turn, a background ``kestrel gateway run`` and a login-shell probe.
 """
 
 from __future__ import annotations
@@ -109,7 +109,7 @@ def missing_entries(entries: list[str]) -> list[str]:
 
 
 class Gateway:
-    """``hermes gateway run`` in the foreground of its own sandbox, as a user starts it by hand."""
+    """``kestrel gateway run`` in the foreground of its own sandbox, as a user starts it by hand."""
 
     def __init__(self, sb: I.Sandbox):
         self.sb = sb

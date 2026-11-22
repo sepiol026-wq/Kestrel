@@ -108,7 +108,7 @@ export const fr: Translations = {
   status: {
     actionFailed: "Action échouée",
     actionFinished: "Terminé",
-    actionFinishedOwed: "Mis à jour, mais encore en attente (relancez `hermes update` pour terminer)",
+    actionFinishedOwed: "Mis à jour, mais encore en attente (relancez `kestrel update` pour terminer)",
     actions: "Actions",
     agent: "Agent",
     activeSessions: "Sessions actives",

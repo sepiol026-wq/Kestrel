@@ -265,7 +265,7 @@ def enable_windows_vt(streams=None) -> bool:
     """Opt the console behind stdout/stderr in to ANSI escape processing.
 
     ``hermes_cli.colors`` and the skins emit raw SGR codes whenever stdout is a TTY. A
-    conhost console (PowerShell 5.1, cmd.exe, the installer's ``hermes setup``) prints
+    conhost console (PowerShell 5.1, cmd.exe, the installer's ``kestrel setup``) prints
     them as ``←[35m`` until the output handle has ENABLE_VIRTUAL_TERMINAL_PROCESSING, and
     shells hand native children a console with it off. The mode belongs to the console
     buffer, so setting it here also covers the relaunched child. Handles that are not a
@@ -513,7 +513,7 @@ harden_import_path(str(_root))
 
 
 def _settle_interrupted_update() -> None:
-    """Put back the tree a killed ``hermes update`` left half-moved, before PM, launch preparation or
+    """Put back the tree a killed ``kestrel update`` left half-moved, before PM, launch preparation or
     any Hermes package imports from it (``hermes_cli._early_recovery``; ``hermes_cli.main`` repeats the
     call for entries that never reach this module). A killed ZIP swap can leave ``hermes_cli/`` itself
     moved aside: the journal-driven restore then runs from that moved-aside copy, the code that wrote

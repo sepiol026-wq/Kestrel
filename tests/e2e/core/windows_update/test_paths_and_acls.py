@@ -10,7 +10,7 @@ Failure class: paths and ACLs.
 * ``C:\\Users\\Jörg Ñúñez`` is an ordinary Windows account. ``install.ps1`` must get
   through the uv ``python-deps`` stage there (#124526), and ``hermes`` must then work and
   update from that profile.
-* After ``hermes update`` the managed toolchain under ``%LOCALAPPDATA%\\hermes\\tools``
+* After ``kestrel update`` the managed toolchain under ``%LOCALAPPDATA%\\hermes\\tools``
   must still be executable by a non-elevated process: a logon Scheduled Task or Startup
   entry runs with a standard-user token even when the updating session was elevated
   (#122935). The runner session is elevated, so each tool's DACL is checked (kernel
@@ -208,7 +208,7 @@ def test_hermes_works_and_updates_from_that_profile(journey: Journey) -> None:
         m, f"a turn fails from a non-ASCII profile (reply printed={turn.reply_id in turn.run.stdout}, "
            f"prompt reached provider={turn.reached_wire})", turn.run)
     assert update.returncode == 0 and m.installed_head() == m.next, fail_with(
-        m, f"hermes update from a non-ASCII profile exited {update.returncode}, checkout at {m.installed_head()}",
+        m, f"kestrel update from a non-ASCII profile exited {update.returncode}, checkout at {m.installed_head()}",
         update)
 
 

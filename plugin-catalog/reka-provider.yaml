@@ -6,7 +6,7 @@ subdir: reka-provider
 description: >-
   Reka as a Hermes model provider: Reka's agent-capable models on Reka's OpenAI-compatible API,
   each with its context window, tool support and image input declared, and reasoning effort sent
-  as Reka's top-level reasoning_effort. Pick Reka in `hermes model` or use `--provider reka`.
+  as Reka's top-level reasoning_effort. Pick Reka in `kestrel model` or use `--provider reka`.
   Disclosure — registers one model provider at import and nothing else (no tools, hooks,
   middleware, commands, background work or file access); chat requests (prompts, tool schemas and
   results, supported user images) and the model list go to https://api.reka.ai/v1 (or

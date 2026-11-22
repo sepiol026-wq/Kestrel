@@ -152,7 +152,7 @@ is best-effort: an image turn stored by an older Hermes, or one that repair or c
 with another turn, still carries its plugin and gateway notes, and
 other runtime notices a gateway replays after a restart (a cron delivery, a process
 heartbeat, a watch-disabled or batched-completion notice) can still come through. A process
-that resumed a session (`hermes chat --resume`, a gateway after a restart) never ran the previous
+that resumed a session (`kestrel chat --resume`, a gateway after a restart) never ran the previous
 turn's end, so a provider that prepares recall in `queue_prefetch()` can redo that work from it, even
 when it stores no transcript of its own. Older Hermes omits it: read it with `kwargs.get`.
 
@@ -364,12 +364,12 @@ own directory, so a provider installed from the plugin catalog keeps all of them
 | Desktop → Capabilities → Tools → Memory (config panel) | `config_schema.py` (below) |
 | `hermes memory setup` wizard | `get_config_schema()` declares the fields the wizard prompts for, `save_config(config, hermes_home)` persists them, `post_setup(hermes_home, config)` runs afterwards for anything interactive (OAuth, first sync); `get_status_config()` feeds `hermes memory status` |
 | `hermes <provider> …` subcommands | `cli.py` with `register_cli(subparser)` ([Adding CLI Commands](#adding-cli-commands)) |
-| Python dependencies | `pyproject.toml` `[project] dependencies` (or `python_dependencies` in `plugin.yaml`); installed under Hermes' own pins at install time and re-applied across `hermes update` |
+| Python dependencies | `pyproject.toml` `[project] dependencies` (or `python_dependencies` in `plugin.yaml`); installed under Hermes' own pins at install time and re-applied across `kestrel update` |
 
 Your provider's name, `memory.<name>` config section, data directory and tool names are the
 contract with existing users. A provider that moves out of core keeps all four; Hermes then
 installs the catalog plugin automatically for anyone whose `memory.provider` still names it
-(on `hermes update`, and once at agent start when `security.allow_lazy_installs` is on).
+(on `kestrel update`, and once at agent start when `security.allow_lazy_installs` is on).
 
 ## Config Schema
 

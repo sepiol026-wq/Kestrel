@@ -34,7 +34,7 @@ The transport reuses the `anthropic_messages` adapter (MiniMax exposes an Anthro
 
 ```bash
 # Launch the provider and model picker
-hermes model
+kestrel model
 # → Select "MiniMax (OAuth)" from the provider list
 # → Hermes opens your browser to the MiniMax authorization page
 # → Approve access in the browser
@@ -87,7 +87,7 @@ Token refresh (standard OAuth `refresh_token` grant) runs automatically at each 
 ## Checking Login Status
 
 ```bash
-hermes doctor
+kestrel doctor
 ```
 
 The `◆ Auth Providers` section will show:
@@ -105,7 +105,7 @@ or, if not logged in:
 ## Switching Models
 
 ```bash
-hermes model
+kestrel model
 # → Select "MiniMax (OAuth)"
 # → Pick from the model list
 ```
@@ -155,7 +155,7 @@ The `minimax-oauth` provider does **not** use `MINIMAX_API_KEY` or `MINIMAX_BASE
 | `MINIMAX_API_KEY` | Used by `minimax` provider only — ignored for `minimax-oauth` |
 | `MINIMAX_CN_API_KEY` | Used by `minimax-cn` provider only — ignored for `minimax-oauth` |
 
-To use `minimax-oauth` as the active provider, set `model.provider: minimax-oauth` in `config.yaml` (use `hermes setup` for the guided flow), or pass `--provider minimax-oauth` for a single invocation:
+To use `minimax-oauth` as the active provider, set `model.provider: minimax-oauth` in `config.yaml` (use `kestrel setup` for the guided flow), or pass `--provider minimax-oauth` for a single invocation:
 
 ```bash
 hermes --provider minimax-oauth
@@ -180,13 +180,13 @@ Hermes refreshes the token on every session start if it is within 60 seconds of 
 
 When the refresh failure is terminal (HTTP 4xx, `invalid_grant`, revoked grant, etc.), Hermes marks the refresh token as dead and quarantines it locally so it doesn't keep replaying the doomed exchange. The agent surfaces a single "re-authentication required" message and stays out of the way until you log in again.
 
-**Fix:** run `hermes auth add minimax-oauth` again to start a fresh login. The quarantine clears on the next successful exchange.
+**Fix:** run `kestrel auth add minimax-oauth` again to start a fresh login. The quarantine clears on the next successful exchange.
 
 ### Authorization timed out
 
 The device-code flow has a finite expiry window. If you don't approve the login in time, Hermes raises a timeout error.
 
-**Fix:** re-run `hermes auth add minimax-oauth` (or `hermes model`). The flow starts fresh.
+**Fix:** re-run `kestrel auth add minimax-oauth` (or `kestrel model`). The flow starts fresh.
 
 ### State mismatch (possible CSRF)
 
@@ -208,13 +208,13 @@ Hermes prints the URL and code. Open the URL on any device and complete the flow
 
 The auth store has no credentials for `minimax-oauth`. You have not logged in yet, or the credential file was deleted.
 
-**Fix:** run `hermes model` and select MiniMax (OAuth), or run `hermes auth add minimax-oauth`.
+**Fix:** run `kestrel model` and select MiniMax (OAuth), or run `kestrel auth add minimax-oauth`.
 
 ### "Provider 'minimax-oauth' is set in config.yaml but no credentials were found"
 
 The main agent or an auxiliary task (compression, vision, …) is pinned to `minimax-oauth` and the auth store has no login. There is no `MINIMAX_API_KEY`-style environment variable for the OAuth provider — `MINIMAX_API_KEY` belongs to the plain API-key `minimax` provider.
 
-**Fix:** run `hermes auth add minimax-oauth` to sign in, or switch that provider to `minimax` with an API key.
+**Fix:** run `kestrel auth add minimax-oauth` to sign in, or switch that provider to `minimax` with an API key.
 
 ## Logging Out
 
@@ -229,4 +229,4 @@ hermes auth logout minimax-oauth
 - [AI Providers reference](../integrations/providers.md)
 - [Environment Variables](../reference/environment-variables.md)
 - [Configuration](../user-guide/configuration.md)
-- [hermes doctor](../reference/cli-commands.md)
+- [kestrel doctor](../reference/cli-commands.md)

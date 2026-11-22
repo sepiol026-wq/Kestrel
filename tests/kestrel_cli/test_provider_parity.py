@@ -4,7 +4,7 @@
 # Derivative work. All upstream attribution and rights retained.
 
 """End-to-end provider parity contract: the desktop Providers tabs must show
-the SAME provider universe as ``hermes model`` (the CLI/TUI picker).
+the SAME provider universe as ``kestrel model`` (the CLI/TUI picker).
 
 This is the single load-bearing invariant of the unified provider catalog:
 
@@ -69,7 +69,7 @@ def _accounts_tab_providers() -> set[str]:
 
 
 def test_every_hermes_model_provider_is_configurable_in_desktop():
-    """PARITY CONTRACT: GUI (keys ∪ accounts) == the `hermes model` universe (listed providers):
+    """PARITY CONTRACT: GUI (keys ∪ accounts) == the `kestrel model` universe (listed providers):
     every listed provider is configurable, and an unlisted pre-release one is on neither tab."""
     from kestrel_cli.models_catalog_static import listed_canonical_providers
 
@@ -81,7 +81,7 @@ def test_every_hermes_model_provider_is_configurable_in_desktop():
         if slug not in _EXEMPT and slug not in gui
     ]
     assert not missing, (
-        "providers shown in `hermes model` but not configurable in the desktop "
+        "providers shown in `kestrel model` but not configurable in the desktop "
         f"Providers tabs: {missing}"
     )
     leaked = sorted(gui & ({e.slug for e in CANONICAL_PROVIDERS} - listed))

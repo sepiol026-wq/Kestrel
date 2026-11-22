@@ -13,7 +13,7 @@ image: https://raw.githubusercontent.com/arcmira/hermes-plugin/c492fe7abc326afcb
 readme: true
 platforms: []
 known_issues:
-  - "Sign in once after installing: merge examples/oauth.yaml from the plugin repo into your profile, then run hermes mcp login arcmira"
+  - "Sign in once after installing: merge examples/oauth.yaml from the plugin repo into your profile, then run kestrel mcp login arcmira"
   - "On a machine with no browser, open the printed sign-in link on any device and paste the redirect URL back into Hermes, or use ARCMIRA_API_KEY."
   - "Hermes does not prompt for ARCMIRA_API_KEY at install. Set it with hermes config set ARCMIRA_API_KEY <key> only if you skip OAuth."
 capabilities:

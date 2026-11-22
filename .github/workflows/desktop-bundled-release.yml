@@ -50,7 +50,7 @@ name: Desktop Bundled Release
 # dependency caches. Their receipts use releases/channel-builds/<id>/; only the
 # trusted publish-channel controller may CAS the channel after all smoke passes.
 #
-# Payload staging is `hermes pm bundle` on the native runner. There is
+# Payload staging is `kestrel pm bundle` on the native runner. There is
 # no cross-target staging. The darwin legs sign (CSC_LINK) and notarize
 # (afterSign notarize.mjs) when the release-signing environment carries the
 # Apple credentials. Downloadable commit artifacts require the same signing

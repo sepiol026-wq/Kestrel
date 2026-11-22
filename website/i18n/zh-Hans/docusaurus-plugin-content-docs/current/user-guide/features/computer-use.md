@@ -53,7 +53,7 @@ hermes computer-use install
 
 cua-driver 项目会定期发布修复（例如 v0.1.6 修复了 UTM 工作流中的 Safari 窗口焦点问题）。Hermes 在两处刷新二进制文件，避免你停留在过时版本：
 
-- **`hermes update`** — 更新 Hermes 本身时，如果 `cua-driver` 在 PATH 中，更新结束时会重新运行上游安装程序。对非 macOS 用户及未安装 cua-driver 的用户无操作。
+- **`kestrel update`** — 更新 Hermes 本身时，如果 `cua-driver` 在 PATH 中，更新结束时会重新运行上游安装程序。对非 macOS 用户及未安装 cua-driver 的用户无操作。
 - **`hermes computer-use install --upgrade`** — 手动强制刷新。无论 cua-driver 是否已安装，都会重新运行上游安装程序。在不等待下次 Agent 更新的情况下获取最新修复时使用此命令。
 
 `hermes computer-use status` 会在二进制路径旁显示已安装的版本号。

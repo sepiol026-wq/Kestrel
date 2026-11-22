@@ -190,14 +190,14 @@ gateway:
 | 消息分块 | `max_message_length` 用于智能分割 |
 | PII 脱敏 | `pii_safe` 标志 |
 | `hermes status` | 显示带 `(plugin)` 标签的 plugin 平台 |
-| `hermes gateway setup` | Plugin 平台出现在设置菜单中 |
+| `kestrel gateway setup` | Plugin 平台出现在设置菜单中 |
 | `hermes tools` / `hermes skills` | Plugin 平台出现在每平台配置中 |
 | Token 锁（多配置文件） | 在 `connect()` 中使用 `acquire_scoped_lock()` |
 | 孤立配置警告 | Plugin 缺失时输出描述性日志 |
 
 ## 环境变量驱动的自动配置
 
-大多数用户通过将环境变量写入 `~/.hermes/.env` 来配置平台，而不是编辑 `config.yaml`。`env_enablement_fn` hook 允许你的 plugin 在适配器构建**之前**读取这些环境变量，使 `hermes gateway status`、`get_connected_platforms()` 和 cron 投递无需实例化平台 SDK 即可看到正确状态。
+大多数用户通过将环境变量写入 `~/.hermes/.env` 来配置平台，而不是编辑 `config.yaml`。`env_enablement_fn` hook 允许你的 plugin 在适配器构建**之前**读取这些环境变量，使 `kestrel gateway status`、`get_connected_platforms()` 和 cron 投递无需实例化平台 SDK 即可看到正确状态。
 
 ```python
 def _env_enablement() -> dict | None:
@@ -292,7 +292,7 @@ ctx.register_platform(
 
 ### 进程外 cron 投递
 
-`cron_deliver_env_var` 使你的平台成为可识别的 `deliver=` 目标。要在 cron 任务运行于独立进程（即 `hermes cron run` 与 `hermes gateway` 分离）时使实际发送成功，需注册 `standalone_sender_fn`：
+`cron_deliver_env_var` 使你的平台成为可识别的 `deliver=` 目标。要在 cron 任务运行于独立进程（即 `hermes cron run` 与 `kestrel gateway` 分离）时使实际发送成功，需注册 `standalone_sender_fn`：
 
 ```python
 async def _standalone_send(

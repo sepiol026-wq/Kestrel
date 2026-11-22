@@ -51,7 +51,7 @@ jobs:
   # PR code: secret-free build + smoke per arch.
   build:
     if: >-
-      github.repository == 'NousResearch/hermes-agent' &&
+      github.repository == 'sepiol026-wq/Kestrel' &&
       (github.event_name != 'workflow_run' ||
        (github.event.workflow_run.conclusion == 'success' &&
         github.event.workflow_run.head_repository.full_name == github.repository))
@@ -97,7 +97,7 @@ jobs:
   # Trusted source only; the sole Docker Hub credential boundary.
   publish:
     # Every non-PR event publishes, except a dispatch without publish=true.
-    if: github.repository == 'NousResearch/hermes-agent' && github.event_name != 'pull_request' && (github.event_name != 'workflow_dispatch' || inputs.publish)
+    if: github.repository == 'sepiol026-wq/Kestrel' && github.event_name != 'pull_request' && (github.event_name != 'workflow_dispatch' || inputs.publish)
     needs: [build]
     environment: container-publish
     strategy:

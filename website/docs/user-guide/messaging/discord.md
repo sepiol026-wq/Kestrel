@@ -106,7 +106,7 @@ Any knob at `0` disables the whole WebSocket liveness probe. Values that fail to
 `websocket_event_max_silence_seconds` is the exception: it guards a single dimension (event dispatch), so `0` opts out of **that check only** — ready/ACK/latency keep guarding. A socket can stay ESTABLISHED and keep ACKing heartbeats while delivering zero Gateway events; heartbeat ACKs are frames without an event type, so no transport-side check can see that state. The default (4 hours) matches the outage window operators have observed in the field; a quiet guild can legitimately go hours without a single Gateway event, so keep this bound generous unless you know your traffic.
 
 :::tip[Shortcut: let the wizard do Steps 5–7]
-Create the application and copy the bot token (Steps 1–4), then run `hermes gateway setup` and pick **Discord**. Hermes checks the token with Discord, tells you if **Message Content Intent** is off (with a link straight to the toggle), prints a ready-made invite link for your server, and allowlists you as the bot's owner — no Developer Mode needed.
+Create the application and copy the bot token (Steps 1–4), then run `kestrel gateway setup` and pick **Discord**. Hermes checks the token with Discord, tells you if **Message Content Intent** is off (with a link straight to the toggle), prints a ready-made invite link for your server, and allowlists you as the bot's owner — no Developer Mode needed.
 :::
 
 ## Step 1: Create a Discord Application
@@ -224,7 +224,7 @@ These are the minimum permissions your bot needs:
 |-------|-------------------|-----------------|
 | Minimal | `117760` | View Channels, Send Messages, Embed Links, Attach Files, Read Message History |
 | Recommended | `309237763136` | All of the above plus Create Public Threads, Send Messages in Threads, Add Reactions |
-| Full (what `hermes gateway setup` prints) | `309240908864` | Recommended plus Connect and Speak (voice channels) |
+| Full (what `kestrel gateway setup` prints) | `309240908864` | Recommended plus Connect and Speak (voice channels) |
 
 Existing installations do not gain newly requested permissions automatically.
 If you used an older Recommended URL, re-invite the bot with the URL above to
@@ -265,7 +265,7 @@ Developer Mode also lets you copy **Channel IDs** and **Server IDs** the same wa
 Run the guided setup command:
 
 ```bash
-hermes gateway setup
+kestrel gateway setup
 ```
 
 Select **Discord** when prompted and paste your bot token. The wizard verifies it with Discord (a wrong or stale token is rejected before it is saved), checks the privileged intents, prints the invite link, and offers to allowlist the bot's owner — you. Extra users can be added by user ID or username.
@@ -286,13 +286,13 @@ DISCORD_ALLOWED_USERS=284102345871466496
 Then start the gateway:
 
 ```bash
-hermes gateway
+kestrel gateway
 ```
 
 The bot should come online in Discord within a few seconds. Send it a message — either a DM or in a channel it can see — to test.
 
 :::tip
-You can run `hermes gateway` in the background or as a systemd service for persistent operation. See the deployment docs for details.
+You can run `kestrel gateway` in the background or as a systemd service for persistent operation. See the deployment docs for details.
 :::
 
 ## Configuration Reference
@@ -905,7 +905,7 @@ Refreshing the directory (`/channels refresh` on platforms that expose it, or a 
 3. Restart the gateway:
 
    ```bash
-   hermes gateway restart
+   kestrel gateway restart
    ```
 
 If the gateway log says Discord is connected and REST API checks work, but every inbound message is silent, look for this warning in `~/.hermes/logs/gateway.log`:
@@ -924,7 +924,7 @@ Hermes 0.18 intentionally fails closed on externally reachable adapters. A Disco
 
 1. Go to [Developer Portal](https://discord.com/developers/applications) → your app → Bot → Privileged Gateway Intents.
 2. Enable **Message Content Intent** (required). Enable **Server Members Intent** if you use usernames or role allowlists.
-3. Click **Save Changes**, then restart the gateway (`hermes gateway restart`).
+3. Click **Save Changes**, then restart the gateway (`kestrel gateway restart`).
 
 The gateway log should name the exact intent(s) Hermes requested. Until they are enabled, Discord will keep rejecting the connection — this is a portal configuration error, not a flaky network issue.
 
@@ -950,7 +950,7 @@ explicit deny there can override permissions granted by the server role.
 
 **Cause**: The Hermes gateway isn't running, or the token is incorrect.
 
-**Fix**: Check that `hermes gateway` is running. Verify `DISCORD_BOT_TOKEN` in your `.env` file. If you recently reset the token, update it.
+**Fix**: Check that `kestrel gateway` is running. Verify `DISCORD_BOT_TOKEN` in your `.env` file. If you recently reset the token, update it.
 
 ### "User not allowed" / Bot ignores you
 

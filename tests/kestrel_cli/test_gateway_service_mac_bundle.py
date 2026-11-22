@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""`hermes gateway install` from a macOS bundle leaves the signed app untouched.
+"""`kestrel gateway install` from a macOS bundle leaves the signed app untouched.
 
 Anything written into ``Hermes.app`` breaks its code seal, and macOS then holds the next update
 on a Gatekeeper prompt. The service runs the app's own signed ``bin/hermes`` instead.

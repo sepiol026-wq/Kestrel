@@ -62,7 +62,7 @@ function messagingProtocolSection(name: string, roster: RosterRow[] | null | und
     '"tell <name> ...", that is a handoff: message that agent, wait for the',
     'reply, and report back.',
     '',
-    'The roster grows over time — run `hermes profile list` for the LIVE',
+    'The roster grows over time — run `kestrel profile list` for the LIVE',
     'teammate list before a handoff. Teammates when you were created:',
     ...(teammates.length
       ? teammates.map(b => `- \`${b.name}\`${b.description ? ` — ${b.description}` : ''}`)

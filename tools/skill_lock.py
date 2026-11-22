@@ -106,7 +106,7 @@ def skill_refusal(name: str) -> str:
 
 RECORD_REFUSAL = ("skills/.usage.json holds the user's skill locks, so the agent cannot change it "
                   "while any skill is locked.")
-UNLOCK_REFUSAL = ("Only the user can unlock a skill. Ask them to run `hermes curator unlock <skill>` "
+UNLOCK_REFUSAL = ("Only the user can unlock a skill. Ask them to run `kestrel curator unlock <skill>` "
                   "themselves or use the lock switch in Desktop.")
 
 

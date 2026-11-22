@@ -246,7 +246,7 @@ When Honcho is active as the memory provider, five tools become available:
 
 ## CLI Commands
 
-The `hermes honcho` subcommand is **only registered when Honcho is the active memory provider** (`memory.provider: honcho` in `config.yaml`). On a fresh install, configure Honcho directly with `hermes memory setup honcho` (or run `hermes memory setup` and pick it from the list); the `hermes honcho` subcommand then appears on the next invocation.
+The `hermes honcho` subcommand is **only registered when Honcho is the active memory provider** (`memory.provider: honcho` in `config.yaml`). On a fresh install, configure Honcho directly with `hermes memory setup honcho` (or run `kestrel memory setup` and pick it from the list); the `hermes honcho` subcommand then appears on the next invocation.
 
 ```bash
 hermes memory setup honcho    # Configure Honcho directly (works before activation)
@@ -274,7 +274,7 @@ If you previously used the standalone `hermes honcho setup`:
 2. Your server-side data (memories, conclusions, user profiles) is intact
 3. Set `memory.provider: honcho` in config.yaml to reactivate
 
-No re-login or re-setup needed. Run `hermes memory setup` and select "honcho" — the wizard detects your existing config.
+No re-login or re-setup needed. Run `kestrel memory setup` and select "honcho" — the wizard detects your existing config.
 
 ## Full Documentation
 

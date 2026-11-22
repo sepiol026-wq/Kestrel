@@ -21,7 +21,7 @@ screenshots:
 platforms: []
 known_issues:
   - Reports from Discord or Slack reach Capalis only after the report channel and the reporters are added to Hermes's gateway settings. /capalis setup prints the exact hermes config set commands.
-  - Waiting jobs, schedules and alerts need the Hermes gateway running (hermes gateway install).
+  - Waiting jobs, schedules and alerts need the Hermes gateway running (kestrel gateway install).
   - Telegram is used for approvals and alerts. Telegram and Slack-webhook posts can't be read back, so they are marked unverifiable.
 capabilities:
   provides_tools: [capalis_status, capalis_setup, capalis_capabilities, capalis_recipe, capalis_run, capalis_contract, capalis_pause]

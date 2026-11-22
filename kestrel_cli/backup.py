@@ -874,7 +874,7 @@ def run_import(args) -> Optional[int]:
                 # hermes_cli.profiles might not be available (fresh install)
                 if any(profiles_dir.iterdir()):
                     print("\n  Profiles detected but aliases could not be created.")
-                    print("  Run: hermes profile list  (after installing hermes)")
+                    print("  Run: kestrel profile list  (after installing hermes)")
 
         # Guidance
         print()

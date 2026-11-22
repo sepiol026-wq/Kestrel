@@ -12,7 +12,7 @@ readme: true
 platforms: []
 known_issues:
   - Model-scoped RPM cooldowns and fail-closed OAuth routing require the companion Hermes core fix; unpatched cores can still exhaust sibling models or resolve an unavailable OAuth route through another provider.
-  - Older cores may incorrectly warn about this provider's vendor/model IDs in hermes doctor; generic profile namespace support is proposed in upstream PR 134900.
+  - Older cores may incorrectly warn about this provider's vendor/model IDs in kestrel doctor; generic profile namespace support is proposed in upstream PR 134900.
 capabilities:
   provides_tools: []
   provides_hooks: []

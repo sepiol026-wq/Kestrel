@@ -4,7 +4,7 @@
 # Derivative work. All upstream attribution and rights retained.
 
 """Invariants for the terminal-backend doctor lines (tools-runtime-30): each failure names the backend in
-plain words and points at `hermes setup terminal`, never at raw TERMINAL_* env vars."""
+plain words and points at `kestrel setup terminal`, never at raw TERMINAL_* env vars."""
 
 import pytest
 

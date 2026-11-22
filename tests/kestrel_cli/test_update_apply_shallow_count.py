@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Shallow-checkout guard on the ``hermes update`` apply path (#53479, mirroring #86257).
+"""Shallow-checkout guard on the ``kestrel update`` apply path (#53479, mirroring #86257).
 
 ``rev-list --count HEAD..origin/<branch>`` on a shallow install can enumerate
 the entire remote ancestry ("Found 9980 new commit(s)" on a depth-1 clone).

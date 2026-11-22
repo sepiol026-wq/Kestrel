@@ -43,7 +43,7 @@ xAI's backend enforces its own allowlist on the OAuth API surface and has been s
 
 ```bash
 # Launch the provider and model picker
-hermes model
+kestrel model
 # → Select "xAI Grok OAuth (SuperGrok / X Premium+)" from the provider list
 # → Hermes opens or prints an accounts.x.ai verification URL
 # → Enter the displayed code if prompted, then approve access in the browser
@@ -84,7 +84,7 @@ The same device-code flow applies when you sign in from the web dashboard or the
 ## Checking Login Status
 
 ```bash
-hermes doctor
+kestrel doctor
 ```
 
 The `◆ Auth Providers` section will show the current state of every provider, including `xai-oauth`.
@@ -92,7 +92,7 @@ The `◆ Auth Providers` section will show the current state of every provider, 
 ## Switching Models
 
 ```bash
-hermes model
+kestrel model
 # → Select "xAI Grok OAuth (SuperGrok / X Premium+)"
 # → Pick from the model list (grok-4.6 is pinned to the top)
 ```
@@ -175,7 +175,7 @@ The chat catalog is derived live from the on-disk `models.dev` cache; new xAI re
 |----------|--------|
 | `XAI_BASE_URL` | Override the default `https://api.x.ai/v1` endpoint (rarely needed). |
 
-To select xAI as the active provider, set `model.provider: xai-oauth` in `config.yaml` (use `hermes setup` for the guided flow) or pass `--provider xai-oauth` for a single invocation.
+To select xAI as the active provider, set `model.provider: xai-oauth` in `config.yaml` (use `kestrel setup` for the guided flow) or pass `--provider xai-oauth` for a single invocation.
 
 ## Troubleshooting
 
@@ -185,13 +185,13 @@ Hermes refreshes the token before each session and again reactively on a 401. If
 
 When the refresh failure is terminal (HTTP 4xx, `invalid_grant`, revoked grant, etc.), Hermes marks the refresh token as dead and quarantines it locally — subsequent calls skip the doomed refresh attempt instead of replaying the same 401 over and over. The agent surfaces a single "re-authentication required" message and stays out of the way until you log in again.
 
-**Fix:** run `hermes auth add xai-oauth` again to start a fresh login. The quarantine clears on the next successful exchange.
+**Fix:** run `kestrel auth add xai-oauth` again to start a fresh login. The quarantine clears on the next successful exchange.
 
 ### Authorization timed out
 
 Device-code approval has a finite expiry window (xAI sets `expires_in` on the device-code response, typically on the order of tens of minutes). If you do not approve the login in time, Hermes raises a timeout error.
 
-**Fix:** re-run `hermes auth add xai-oauth` (or `hermes model`). The flow starts fresh.
+**Fix:** re-run `kestrel auth add xai-oauth` (or `kestrel model`). The flow starts fresh.
 
 ### Logging in from a remote server
 
@@ -207,7 +207,7 @@ For loopback-redirect providers (Spotify, MCP servers), see [OAuth over SSH / Re
 
 OAuth completed in the browser, tokens are saved, but inference or token refresh returns `HTTP 403` with a message similar to *"The caller does not have permission to execute the specified operation"*.
 
-This is **not** a stale-token problem — re-running `hermes model` won't change it. xAI's backend has been seen to restrict OAuth API access to specific SuperGrok tiers despite the in-app subscription being active (issue [#26847](https://github.com/sepiol026-wq/Kestrel/issues/26847)).
+This is **not** a stale-token problem — re-running `kestrel model` won't change it. xAI's backend has been seen to restrict OAuth API access to specific SuperGrok tiers despite the in-app subscription being active (issue [#26847](https://github.com/sepiol026-wq/Kestrel/issues/26847)).
 
 **Fix:** set `XAI_API_KEY` and switch to the API-key path:
 
@@ -222,7 +222,7 @@ Or upgrade your subscription at [x.ai/grok](https://x.ai/grok) if the OAuth rout
 
 The auth store has no `xai-oauth` entry and no `XAI_API_KEY` is set. You haven't logged in yet, or the credential file was deleted.
 
-**Fix:** run `hermes model` and pick the xAI Grok OAuth provider, or run `hermes auth add xai-oauth`.
+**Fix:** run `kestrel model` and pick the xAI Grok OAuth provider, or run `kestrel auth add xai-oauth`.
 
 ## Logging Out
 
@@ -232,7 +232,7 @@ To remove all stored xAI Grok OAuth credentials:
 hermes auth logout xai-oauth
 ```
 
-This clears both the singleton OAuth entry in `auth.json` and any credential-pool rows for `xai-oauth`. Use `hermes auth remove xai-oauth <index|id|label>` if you only want to drop a single pool entry (run `hermes auth list xai-oauth` to see them).
+This clears both the singleton OAuth entry in `auth.json` and any credential-pool rows for `xai-oauth`. Use `hermes auth remove xai-oauth <index|id|label>` if you only want to drop a single pool entry (run `kestrel auth list xai-oauth` to see them).
 
 ## See Also
 

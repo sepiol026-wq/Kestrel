@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes gateway restart`` must hand an externally-supervised gateway back to its supervisor.
+"""``kestrel gateway restart`` must hand an externally-supervised gateway back to its supervisor.
 
 A custom launchd agent (a plist/label outside the canonical ``ai.hermes.gateway`` path, so
 ``_installed_service_kind_for`` returns None) fell through to the manual stop + foreground

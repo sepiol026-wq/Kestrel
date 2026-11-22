@@ -688,7 +688,7 @@ session or gateway agent rebuild), `agent/prepared_compaction.py` writes the nex
 the trigger fires. When the last provider-reported prompt count is within 12% of the trigger
 (`threshold_tokens`) below it, the turn loop starts one background pass, before a tool batch runs or
 at turn end. Turn-end passes are skipped for cron runs, delegated children and one-shot sessions
-(`hermes chat -q`, `-z`), whose agents end with the turn. The pass plans the same window `compress()` plans (`_plan_compaction_window`) and calls
+(`kestrel chat -q`, `-z`), whose agents end with the turn. The pass plans the same window `compress()` plans (`_plan_compaction_window`) and calls
 the same `_generate_summary` on a copy of the compressor and of the window's messages, so the live
 transcript, the system prompt and the prompt cache are untouched until compaction. There is one pass
 per compaction: while a summary is held, no further pass starts, however much the prompt grows.

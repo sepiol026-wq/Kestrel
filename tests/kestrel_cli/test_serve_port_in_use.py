@@ -227,7 +227,7 @@ def test_headless_serve_announces_both_ready_tokens(tmp_path):
     """#60772 — a headless ``serve`` must announce BOTH ready tokens.
 
     The packaged Desktop artifact can be older than the Python backend (the
-    CLI-only ``hermes update`` path does not rebuild the packaged app). Its
+    CLI-only ``kestrel update`` path does not rebuild the packaged app). Its
     readiness parser may still match only the legacy ``HERMES_DASHBOARD_READY``
     line; a backend that announces only ``HERMES_BACKEND_READY`` then boots
     healthily and gets killed after the port-announcement timeout — the exact

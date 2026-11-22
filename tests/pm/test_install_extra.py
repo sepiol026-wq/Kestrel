@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""`hermes pm install --extra NAME` is the one command every missing-extra hint names."""
+"""`kestrel pm install --extra NAME` is the one command every missing-extra hint names."""
 from types import SimpleNamespace
 
 import pytest

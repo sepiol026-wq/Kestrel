@@ -88,7 +88,7 @@ def test_a_refused_create_answers_with_its_type_and_whole_text(root, monkeypatch
     assert error["message"] == long_text  # Desktop shows it whole
     assert str(refusal_from(rpc_error(error).data)) == long_text  # and the CLI gets it whole too
 
-    huge = "Profile name '" + "n" * 4000 + "' is invalid. Then run `hermes profile create ok`."
+    huge = "Profile name '" + "n" * 4000 + "' is invalid. Then run `kestrel profile create ok`."
     monkeypatch.setattr(profile_provision, "provision_profile", _raise(ValueError(huge)))
     error = server._methods["profiles.create"](1, {"name": "other", "no_alias": True})["error"]
     assert error["message"] == huge

@@ -36,14 +36,14 @@ Hermes 内置了丰富的工具注册表，涵盖网页搜索、浏览器自动�
 如需查看由代码派生的权威注册表，请参阅 [内置工具参考](../../reference/tools-reference.md) 和 [工具集参考](../../reference/toolsets-reference.md)。
 
 :::tip Nous Tool Gateway
-付费 [Nous Portal](https://portal.nousresearch.com) 订阅者可通过 **[Tool Gateway](tool-gateway.md)** 使用网页搜索、图像生成、TTS 和浏览器自动化——无需单独配置 API 密钥。运行 `hermes model` 启用，或通过 `hermes tools` 配置各工具。
+付费 [Nous Portal](https://portal.nousresearch.com) 订阅者可通过 **[Tool Gateway](tool-gateway.md)** 使用网页搜索、图像生成、TTS 和浏览器自动化——无需单独配置 API 密钥。运行 `kestrel model` 启用，或通过 `hermes tools` 配置各工具。
 :::
 
 ## 使用工具集
 
 ```bash
 # 使用指定工具集
-hermes chat --toolsets "web,terminal"
+kestrel chat --toolsets "web,terminal"
 
 # 查看所有可用工具
 hermes tools
@@ -139,13 +139,13 @@ hermes config set terminal.vercel_runtime node24
 对于本地一次性开发，Hermes 也接受短期 Vercel OIDC token：
 
 ```bash
-VERCEL_OIDC_TOKEN="$(vc project token <project-name>)" hermes chat
+VERCEL_OIDC_TOKEN="$(vc project token <project-name>)" kestrel chat
 ```
 
 在已关联的 Vercel 项目目录中：
 
 ```bash
-VERCEL_OIDC_TOKEN="$(vc project token)" hermes chat
+VERCEL_OIDC_TOKEN="$(vc project token)" kestrel chat
 ```
 
 启用 `container_persistent: true` 后，Hermes 使用 Vercel 快照在同一任务的沙箱重建时保留文件系统状态，其中可包含沙箱内 Hermes 同步的凭据、技能和缓存文件。快照不保留活跃进程、PID 空间或相同的活跃沙箱标识。

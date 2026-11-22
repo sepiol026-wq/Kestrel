@@ -36,7 +36,7 @@ and the `display.pet` config — it does not generate sprites.
 
 ## How to Run
 
-Use the `terminal` tool to run `hermes pets <subcommand>`.
+Use the `terminal` tool to run `kestrel pets <subcommand>`.
 
 ## Quick Reference
 

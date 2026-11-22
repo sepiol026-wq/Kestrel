@@ -89,7 +89,7 @@ fn acquire_refuses_while_a_live_updater_owns_the_marker() {
 
     // A live *foreign* updater holds it. We must NOT clobber the marker and
     // run concurrently over the same checkout — that race is what let a
-    // dashboard `hermes update` and install-mode bootstrap mutate one tree
+    // dashboard `kestrel update` and install-mode bootstrap mutate one tree
     // at once. Own-pid markers are adoptable (#74761), so the foreign pid
     // must be a real sibling process.
     let mut foreign = spawn_foreign_holder();
@@ -154,7 +154,7 @@ fn own_pid_with_a_creation_time_6ms_off_is_not_us() {
 
 // ---- exit-2 self-marker heal (#75788) --------------------------------
 // The deadlock: the updater holds the marker with its own PID; a stale
-// checkout's `hermes update` reads it as a live foreign update and exits
+// checkout's `kestrel update` reads it as a live foreign update and exits
 // 2; the generic retry deliberately skips exit 2 — so the refusal loops
 // forever. These tests pin the heal decision's full contract. On
 // merge-base product code (no heal) the decision function does not exist
@@ -758,7 +758,7 @@ fn compare_and_delete_spares_changed_bytes() {
 
 #[test]
 fn live_delegate_keeps_a_dead_owner_marker_live() {
-    // Rule 6: `hermes update` running under a claim appends line 4; the
+    // Rule 6: `kestrel update` running under a claim appends line 4; the
     // marker is live while EITHER the owner or the delegate is.
     let mut foreign = spawn_foreign_holder();
     let dir = unique_tmp_dir("marker-delegate");
@@ -1253,7 +1253,7 @@ fn unique_tmp_dir(tag: &str) -> PathBuf {
 // ---- R6: a dead marker is never reclaimed while the checkout lock is held ----
 
 /// Take `lock`'s checkout kernel lock on its OWN open file description, as a process an
-/// earlier `hermes update` started would; held until the returned file is dropped.
+/// earlier `kestrel update` started would; held until the returned file is dropped.
 fn hold_checkout_lock(lock: &Path) -> std::fs::File {
     std::fs::create_dir_all(lock.parent().unwrap()).unwrap();
     let file = std::fs::OpenOptions::new()

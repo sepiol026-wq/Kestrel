@@ -26,7 +26,7 @@ U=$(mktemp -d -t "hermes-interrupted-pull-ab-$LABEL.XXXXXX")
 export HOME=$U/fakehome HERMES_HOME=$U/fakehome/.hermes
 unset PYTEST_CURRENT_TEST
 cat > "$U/pull.py" <<'PYEOF'
-# `hermes update` after its fetch: the REAL autostash + _pull_updates, imported from the install's tree.
+# `kestrel update` after its fetch: the REAL autostash + _pull_updates, imported from the install's tree.
 import pathlib
 import sys
 

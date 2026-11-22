@@ -2,7 +2,7 @@
 sidebar_position: 3
 sidebar_label: "Git Worktrees"
 title: "Git Worktrees"
-description: "Run multiple Hermes agents safely on the same repository using git worktrees and isolated checkouts"
+description: "Run multiple Kestrel agents safely on the same repository using git worktrees and isolated checkouts"
 ---
 
 # Git Worktrees
@@ -20,7 +20,7 @@ This page shows how to combine worktrees with Hermes so each session has a clean
 
 Hermes treats the **current working directory** as the project root:
 
-- CLI: the directory where you run `hermes` or `hermes chat`
+- CLI: the directory where you run `kestrel` or `kestrel chat`
 - Messaging gateways: the directory set by `terminal.cwd` in `~/.hermes/config.yaml`
 
 If you run multiple agents in the **same checkout**, their changes can interfere with each other:
@@ -180,7 +180,7 @@ This is the easiest way to get worktree isolation. You can also combine it with 
 hermes -w -z "Fix issue #123"
 ```
 
-For parallel agents, open multiple terminals and run `hermes -w` in each — every invocation gets its own worktree and branch automatically.
+For parallel agents, open multiple terminals and run `kestrel -w` in each — every invocation gets its own worktree and branch automatically.
 
 ### Leaving a session with unfinished work
 

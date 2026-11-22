@@ -163,7 +163,7 @@ it.each([
 it.each([
   ['uses classic groups', { driver: false, persistent_process: false }, 'Hermes on This device is too old to run group chats. Update Hermes there, then retry.'],
   ['ends with Desktop', { ...HOME, persistent_process: false },
-    'Hermes on This device can’t seat bots from other computers yet. Update Hermes there and run its gateway (hermes gateway run), then retry.']
+    'Hermes on This device can’t seat bots from other computers yet. Update Hermes there and run its gateway (kestrel gateway run), then retry.']
 ])('never makes a Desktop-driven group chat when the owner %s: it says what to change and offers Retry', async (_case, capabilities, words) => {
   gateways(home(method => method === 'groups.capabilities' ? capabilities : undefined))
   const { baseElement } = render(<CreateGroupChatDialog onClose={vi.fn()} open roster={roster} />)

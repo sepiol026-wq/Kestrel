@@ -66,6 +66,6 @@ def test_an_api_client_still_reads_the_reason_as_json(monkeypatch, tmp_path):
     stale = _spa(monkeypatch, _stale_bundle(tmp_path), surface="webapp").get("/")
 
     assert missing.status_code == 404
-    assert missing.json() == {"error": "The Webapp is not built. Run: hermes webapp"}
+    assert missing.json() == {"error": "The Webapp is not built. Run: kestrel webapp"}
     assert stale.status_code == 503
     assert "hermes webapp" in stale.json()["error"]

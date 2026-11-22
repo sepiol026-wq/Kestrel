@@ -39,7 +39,7 @@ def _home(tmp_path: Path, name: str = "home", *, env: str = "", config: str = ""
 
 # The uncommented platform_toolsets block cli-config.yaml.example carried (the homeassistant row from
 # 1aa7badb3c until fb9fc8a3dd). The installers (install.sh, install.ps1, the Docker hook) and
-# `hermes doctor` seed config.yaml from that file, so the block alone says nothing about use.
+# `kestrel doctor` seed config.yaml from that file, so the block alone says nothing about use.
 _EXAMPLE_PLATFORM_TOOLSETS = (
     "platform_toolsets:\n"
     "  cli: [hermes-cli]\n"
@@ -268,7 +268,7 @@ def test_an_agent_start_install_of_a_platform_keeps_the_restart_hint(tmp_path, m
     assert lcm.recover_at_startup(gateway_start=gateway_start) == ["homeassistant"]
     kept = lcm._claim_notices(home)
     assert kept[0].startswith("✓ Home Assistant moved out of core")
-    assert any("hermes gateway restart" in message for message in kept) is not gateway_start
+    assert any("kestrel gateway restart" in message for message in kept) is not gateway_start
 
 
 
@@ -284,7 +284,7 @@ def test_a_malformed_route_url_does_not_abort_the_home_migration(tmp_path, monke
 
 
 def test_the_migration_installs_once_so_a_removal_sticks(tmp_path, monkeypatch):
-    """At most one automatic install per home: after `hermes plugins remove`, neither `hermes update`
+    """At most one automatic install per home: after `hermes plugins remove`, neither `kestrel update`
     nor startup reinstalls it. Until an install succeeds (catalog miss, failed install) it retries."""
     import kestrel_cli.memory_provider_migration as mpm
     import pm.install
@@ -316,7 +316,7 @@ def test_the_migration_installs_once_so_a_removal_sticks(tmp_path, monkeypatch):
 
 def test_a_failed_startup_install_backs_off_and_reports_one_line(tmp_path, monkeypatch):
     """With the catalog or git unreachable, only the first agent start in a while pays the network
-    round trip, and its notice is one line naming the cause; `hermes update` always retries."""
+    round trip, and its notice is one line naming the cause; `kestrel update` always retries."""
     import kestrel_cli.memory_provider_migration as mpm
     import pm.install
     home = _home(tmp_path, env="HASS_TOKEN=abc\n")
@@ -334,7 +334,7 @@ def test_a_failed_startup_install_backs_off_and_reports_one_line(tmp_path, monke
     assert len(said) == 1 and "\n" not in said[0] and "Could not resolve host: github.com" in said[0]
     assert "plugins install homeassistant" in said[0]
 
-    lcm._attempted.clear()  # the next `hermes chat` process
+    lcm._attempted.clear()  # the next `kestrel chat` process
     assert lcm.recover_at_startup(say=said.append) == []
     assert lookups == ["homeassistant"] and len(said) == 1
     assert lcm.migrate_home(home, install=failing, say=said.append) == []

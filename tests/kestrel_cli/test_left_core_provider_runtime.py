@@ -123,7 +123,7 @@ def test_a_route_configured_outside_the_main_model_installs_when_resolved(tmp_pa
 
 
 def test_doctor_installs_nothing_and_names_the_install(tmp_path, monkeypatch, installs, capsys):
-    """`hermes doctor` is read-only: its auxiliary routing check resolves through the runtime resolver,
+    """`kestrel doctor` is read-only: its auxiliary routing check resolves through the runtime resolver,
     which must not fetch the plugin there; the failed check names the install command instead."""
     from types import SimpleNamespace
     from kestrel_cli import doctor
@@ -235,14 +235,14 @@ def test_a_resolution_outcome_reaches_the_first_agent_of_any_process_once(tmp_pa
     assert capsys.readouterr().err == ""
     first, second = _agent_start_in_another_process(), _agent_start_in_another_process()
     assert first.count("GitHub Copilot moved out of core") == 1
-    assert "run `hermes auth add copilot`" in first  # no token the plugin reads: the gh-only hint rides along
+    assert "run `kestrel auth add copilot`" in first  # no token the plugin reads: the gh-only hint rides along
     assert "moved out of core" not in second
 
 
 def test_a_tty_without_a_declared_front_end_keeps_the_outcome_for_the_chat_agent(tmp_path, monkeypatch, installs_ok,
                                                                                  capsys):
-    """A foreground `hermes gateway run` has a TTY, but its resolutions serve the chat user: the outcome (and
-    its "run `hermes auth add copilot`" instruction) stays kept for the chat agent, not the gateway terminal."""
+    """A foreground `kestrel gateway run` has a TTY, but its resolutions serve the chat user: the outcome (and
+    its "run `kestrel auth add copilot`" instruction) stays kept for the chat agent, not the gateway terminal."""
     _copilot_home(tmp_path, monkeypatch)
     monkeypatch.setattr(lcm, "_interactive", lambda: True)
     lcm.recover_for_provider("copilot")
@@ -254,7 +254,7 @@ def test_a_tty_without_a_declared_front_end_keeps_the_outcome_for_the_chat_agent
 
 def test_a_piped_cli_front_end_prints_the_outcome_and_what_another_process_kept(tmp_path, monkeypatch,
                                                                                installs_ok, capsys):
-    """``hermes chat -q`` with output piped: its turn runs in the gateway, and a resolution that fails
+    """``kestrel chat -q`` with output piped: its turn runs in the gateway, and a resolution that fails
     before any agent exists (no credentials) leaves none to deliver what the migration kept. The classic
     CLI is a terminal front end: it prints outcomes on stderr, also one its gateway kept, exactly once."""
     home = _copilot_home(tmp_path, monkeypatch)
@@ -280,7 +280,7 @@ register_provider(ProviderProfile(name="copilot", display_name="Stand-in", auth_
 
 def test_a_provider_installed_during_resolution_resolves_in_that_same_call(tmp_path, monkeypatch):
     """A fast (cached) install lands inside the plugin-dir stamp TTL: the resolution that triggered it must
-    see the new profile, not answer "installed but not loaded: run hermes plugins enable"."""
+    see the new profile, not answer "installed but not loaded: run kestrel plugins enable"."""
     import sys
 
     import providers

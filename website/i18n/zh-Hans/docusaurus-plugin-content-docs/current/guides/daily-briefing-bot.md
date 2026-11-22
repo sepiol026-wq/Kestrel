@@ -29,10 +29,10 @@ description: "构建一个自动化每日简报机器人，研究主题、汇总
 - **已安装 Kestrel Agent** — 参见[安装指南](../getting-started/installation.md)
 - **Gateway 正在运行** — gateway 守护进程负责处理 cron 执行：
   ```bash
-  hermes gateway install   # Install as a user service
-  sudo hermes gateway install --system   # Linux servers: boot-time system service
+  kestrel gateway install   # Install as a user service
+  sudo kestrel gateway install --system   # Linux servers: boot-time system service
   # or
-  hermes gateway           # Run in foreground
+  kestrel gateway           # Run in foreground
   ```
 - **Firecrawl API 密钥** — 在环境变量中设置 `FIRECRAWL_API_KEY` 以启用网页搜索
 - **已配置消息推送**（可选但推荐）— 已设置 [Telegram](../user-guide/messaging/telegram.md) 或 Discord 并配置了 home channel
@@ -248,9 +248,9 @@ hermes cron status
 如果 gateway 未运行，你的任务将不会执行。将其安装为后台服务以确保可靠性：
 
 ```bash
-hermes gateway install
+kestrel gateway install
 # or on Linux servers
-sudo hermes gateway install --system
+sudo kestrel gateway install --system
 ```
 
 ## 进一步探索

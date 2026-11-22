@@ -1,4 +1,4 @@
-# nix/hermes-agent.nix — Overridable Hermes Agent package
+# nix/hermes-agent.nix — Overridable Kestrel Agent package
 #
 # callPackage auto-wires nixpkgs args; flake inputs are passed explicitly.
 # Users override via:
@@ -166,7 +166,7 @@ let
     filter = path: _type: !(lib.hasInfix "/__pycache__/" path);
   };
 
-  # Tools come from pm/lock.json, the same builds `hermes pm install`
+  # Tools come from pm/lock.json, the same builds `kestrel pm install`
   # provisions elsewhere. git and openssh are nixpkgs': the lock pins them for
   # win32 only. hermesNpmLib.nodejs is the pinned node with the pinned npm.
   runtimeDeps = [
@@ -455,7 +455,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description = "AI agent with advanced tool-calling capabilities";
-    homepage = "https://github.com/NousResearch/hermes-agent";
+    homepage = "https://github.com/sepiol026-wq/Kestrel";
     mainProgram = "hermes";
     license = licenses.mit;
     platforms = platforms.unix;

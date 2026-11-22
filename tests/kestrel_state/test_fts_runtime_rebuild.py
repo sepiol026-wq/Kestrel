@@ -150,7 +150,7 @@ class TestRuntimeFtsRebuild:
                 "ssh",
                 "--cmd=python -m hermes_cli.main gateway",
             ),
-            ("tmux", "new-session", "/opt/kestrel-agent/.venv/bin/hermes gateway"),
+            ("tmux", "new-session", "/opt/kestrel-agent/.venv/bin/kestrel gateway"),
             ("python3", "/opt/kestrel-agent/tools/check_state.py"),
             ("hermes-monitor", "gateway"),
             ("hermesctl", "serve"),

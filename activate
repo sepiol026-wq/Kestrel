@@ -18,8 +18,8 @@
 #
 # Sync through setup before selecting the environment. PM owns freshness;
 # activation does not maintain a second dependency stamp. It trusts the
-# recorded tool digest instead of re-hashing every entry. `hermes pm
-# install` and `hermes update` keep that check.
+# recorded tool digest instead of re-hashing every entry. `kestrel pm
+# install` and `kestrel update` keep that check.
 # ============================================================================
 _HERMES_REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Options: `--test-extras a,b` selects the test environment's runtime extras

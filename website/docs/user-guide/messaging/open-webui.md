@@ -40,13 +40,13 @@ hermes config set API_SERVER_KEY your-secret-key
 `hermes config set` auto-routes the flag to `config.yaml` and the secret to `~/.hermes/.env`. If the gateway is already running, restart it so the change takes effect:
 
 ```bash
-hermes gateway stop && hermes gateway
+kestrel gateway stop && kestrel gateway
 ```
 
 ### 2. Start Kestrel Agent gateway
 
 ```bash
-hermes gateway
+kestrel gateway
 ```
 
 You should see:

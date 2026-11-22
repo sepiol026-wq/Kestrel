@@ -133,7 +133,7 @@ def _web_project_root(web_dir: Path) -> Path:
 
 def _web_dist_dir(web_dir: Path) -> Path:
     """Vite outputs to ``hermes_cli/web_dist/`` (vite.config.ts outDir), NOT ``web/dist/``."""
-    return _web_project_root(web_dir) / "hermes_cli" / "web_dist"
+    return _web_project_root(web_dir) / "kestrel_cli" / "web_dist"
 
 
 def _web_ui_build_needed(web_dir: Path) -> bool:

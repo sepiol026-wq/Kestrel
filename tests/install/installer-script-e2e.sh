@@ -37,7 +37,7 @@
 #   --install-method installer-script          the plain one-liner (default)
 #                    installer-script+desktop  the one-liner with its desktop
 #                                              stage opted in (--include-desktop)
-#   --update-method  hermes-update      `hermes update`
+#   --update-method  hermes-update      `kestrel update`
 #                    installer-script   re-run install.sh (HEAD's copy)
 #                    installer-script+desktop  re-run with --include-desktop
 #                    hermes-desktop-app-update  launch the app via `hermes
@@ -280,7 +280,7 @@ close_running_desktop() {
     "$HERMES_DESKTOP_USER_DATA_DIR/SingletonCookie"
 }
 
-# The redirect must stay at TRANSPORT level. `hermes update` resolves its
+# The redirect must stay at TRANSPORT level. `kestrel update` resolves its
 # update channel from the release archive and validates the record against
 # `git config --get remote.origin.url`; if the configured URL ever looked like
 # the rehearsal source, channel resolution would fail outright and the leg
@@ -436,8 +436,8 @@ case "$UPDATE_METHOD" in
     build_source_update_command "$HERMES" "$help"
     rc=0
     (cd "$INSTALL_DIR" && source_build_env "${update_cmd[@]}" < /dev/null 2>&1 | ts_prefix > "$LOG_DIR/update.log") || rc=$?
-    log_group "hermes update transcript" "$LOG_DIR/update.log"
-    [ "$rc" -eq 0 ] || fail "hermes update exited $rc; transcript above, log at $LOG_DIR/update.log"
+    log_group "kestrel update transcript" "$LOG_DIR/update.log"
+    [ "$rc" -eq 0 ] || fail "kestrel update exited $rc; transcript above, log at $LOG_DIR/update.log"
     ;;
   installer-script)
     # A user re-running the one-liner today gets the CURRENT script.

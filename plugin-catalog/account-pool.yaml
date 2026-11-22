@@ -19,7 +19,7 @@ screenshots:
   - https://raw.githubusercontent.com/roqianjas/hermes-account-pool/7a4fc9fd976ed68de9e6f70ba326ef2053741e69/docs/screenshots/add-account.png
   - https://raw.githubusercontent.com/roqianjas/hermes-account-pool/7a4fc9fd976ed68de9e6f70ba326ef2053741e69/docs/screenshots/add-account-codex.png
 known_issues:
-  - "After installing, run `hermes account <provider> setup` (add --timer for the 5-minute balance timer): it lists the plugin in every profile for the Desktop page and links it into every profile for the session tracker. Coming from 3.x it also removes account-pool-tracker."
+  - "After installing, run `kestrel account <provider> setup` (add --timer for the 5-minute balance timer): it lists the plugin in every profile for the Desktop page and links it into every profile for the session tracker. Coming from 3.x it also removes account-pool-tracker."
   - "Hermes can let a parked account back into rotation early (`hermes auth reset`, or a Codex quota it sees come back); the next balance run parks it again, and doctor names it until then. A park without --until is held for 30 days, and a balance run renews it once less than 15 days are left, so without the timer it ends after 30 days."
   - "Windows: tested with a stand-in Task Scheduler and, up to 3.13, with Windows' own Python, cmd.exe and wscript.exe under Wine; not yet on a Windows machine. On Windows the timer runs only while the user is signed in."
   - "Built for plugins.isolation: in_process (the default). Under host, Hermes skips plugin CLI commands, so `hermes account` and the timer's balance are unavailable."

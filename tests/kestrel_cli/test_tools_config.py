@@ -500,7 +500,7 @@ class TestBrowserExecEngineCheckedForEveryBrowserRow:
         ensure.assert_called_once()
 
     def test_ensure_helper_missing_harness_is_non_fatal(self):
-        """A missing harness must warn and point at `hermes update`, never raise."""
+        """A missing harness must warn and point at `kestrel update`, never raise."""
         from kestrel_cli.tools_config import _ensure_browser_use_cli
 
         with patch("tools.browser_use_cli._find_cli", return_value=None), patch(
@@ -509,7 +509,7 @@ class TestBrowserExecEngineCheckedForEveryBrowserRow:
             _ensure_browser_use_cli()  # must not raise
 
         assert any("browser-harness" in c.args[0] for c in warn.call_args_list)
-        assert any("hermes update" in c.args[0] for c in info.call_args_list)
+        assert any("kestrel update" in c.args[0] for c in info.call_args_list)
 
 
 class TestImagegenBackendRegistry:

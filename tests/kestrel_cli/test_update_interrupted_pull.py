@@ -3,12 +3,12 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""A `hermes update` killed while git writes the new tree must leave a recoverable install.
+"""A `kestrel update` killed while git writes the new tree must leave a recoverable install.
 
 Git rewrites the checkout file by file and moves HEAD last, so a kill in between leaves HEAD on the
 old commit with some files already new — a mix that fails at import in every entry point. The
 updater brackets the move with a marker; the next launch (``_early_recovery``, before any other
-checkout import) puts the old tree back so ``hermes update`` can simply run again.
+checkout import) puts the old tree back so ``kestrel update`` can simply run again.
 """
 
 from __future__ import annotations
@@ -151,7 +151,7 @@ def test_killed_pull_is_restored_on_next_launch_and_update_reruns(checkout, monk
     assert not (root / "newpkg").exists() and not (root / ".git" / "index.lock").exists()
     assert not marker.exists()
     (root / "other.py").write_text("a = 1\n", encoding="utf-8", newline="")
-    _pull(root)  # `hermes update` again: a normal fast-forward
+    _pull(root)  # `kestrel update` again: a normal fast-forward
     assert _git(root, "rev-parse", "HEAD") == b and not marker.exists()
 
 
@@ -187,7 +187,7 @@ def test_restore_runs_the_installers_store_git_when_path_has_none(checkout, monk
     assert calls.read_text(encoding="utf-8-sig").count("rev-parse HEAD") >= 1, "the store's git ran the restore"
     assert _git(root, "rev-parse", "HEAD") == a and _git(root, "status", "--porcelain") == ""
     assert not (root / ".git" / "index.lock").exists() and not er.interrupted_pull_marker(root).exists()
-    _pull(root)  # the next `hermes update` is not refused on the lock
+    _pull(root)  # the next `kestrel update` is not refused on the lock
     assert _git(root, "rev-parse", "HEAD") == b
 
     # Every console script (`hermes`, `kestrel-agent`, `hermes-acp`) repairs before its entry module imports

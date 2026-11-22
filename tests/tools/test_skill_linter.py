@@ -178,7 +178,7 @@ def test_lint_skill_reads_from_disk(tmp_path):
 
 
 def test_author_caps_warned():
-    content = CLEAN.replace("author: Kestrel Agent", "author: hermes agent")
+    content = CLEAN.replace("author: Kestrel Agent", "author: kestrel agent")
     findings = lint_content(content)
     assert "author-caps" in _rules(findings)
 

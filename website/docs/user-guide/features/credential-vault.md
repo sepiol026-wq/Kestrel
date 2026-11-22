@@ -176,7 +176,7 @@ That is why keychain storage is opt-in rather than the default.
 
 ## Headless sessions
 
-Cron jobs, webhooks, the API server and `hermes chat -q` have nobody to answer a
+Cron jobs, webhooks, the API server and `kestrel chat -q` have nobody to answer a
 prompt. Saved local logins keep working there; a locked password manager reports
 `unavailable_in_this_session` and a missing login reports `prompt_unavailable`.
 Unlock or save from an interactive session first, or give 1Password a service

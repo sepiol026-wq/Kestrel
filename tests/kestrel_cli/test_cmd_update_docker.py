@@ -3,11 +3,11 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Tests for ``hermes update`` / ``--check`` inside the Docker container.
+"""Tests for ``kestrel update`` / ``--check`` inside the Docker container.
 
 Background: ``.dockerignore`` excludes ``.git``, so the existing git-pull
 update path can never succeed inside the published image.  Before this
-fix, ``hermes update`` would fall through to ``"✗ Not a git repository.
+fix, ``kestrel update`` would fall through to ``"✗ Not a git repository.
 Please reinstall: curl ... install.sh"`` — that script installs a *new*
 host-side Hermes, not an update to the running container, so the message
 was actively misleading.
@@ -37,7 +37,7 @@ from kestrel_cli.main import cmd_update
 def test_cmd_update_in_docker_prints_guidance_and_exits(
     mock_run, _mock_version, _mock_method, _mock_managed, capsys
 ):
-    """``hermes update`` inside Docker → friendly message + exit 2, no git calls.
+    """``kestrel update`` inside Docker → friendly message + exit 2, no git calls.
 
     Exit 2 = refused-by-contract (#91277 Phase 3), distinct from exit-1 errors.
     """

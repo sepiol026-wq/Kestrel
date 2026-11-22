@@ -61,7 +61,7 @@ def test_backend_off_is_dropped_with_a_notice(tmp_path, monkeypatch, capsys):
 
 
 def test_quiet_migration_hands_the_notice_to_the_caller(tmp_path, monkeypatch, capsys):
-    """`hermes update` migrates quietly and re-prints only ``config_added``; the notice must be in it."""
+    """`kestrel update` migrates quietly and re-prints only ``config_added``; the notice must be in it."""
     monkeypatch.setenv("HERMES_HOME", str(tmp_path / "launch"))
     home = _home(tmp_path / "a", {"_config_version": 51, "browser": {"backend": "off"}})
     results = _migrate(home, quiet=True)
@@ -195,7 +195,7 @@ def test_relative_profile_keeps_the_directory_core_used(tmp_path, monkeypatch):
 
 def test_a_pinned_relative_profile_names_the_absolute_path_on_update_and_boot(tmp_path, monkeypatch):
     """The relative AGENT_BROWSER_PROFILE was resolved against whatever directory the migrating process ran
-    in: `hermes update` and the first agent after a boot migration both name the absolute path pinned."""
+    in: `kestrel update` and the first agent after a boot migration both name the absolute path pinned."""
     import kestrel_cli.left_core_migration as lcm
 
     monkeypatch.delenv("CAMOFOX_URL", raising=False)

@@ -114,14 +114,14 @@ coder config set model.default anthropic/claude-sonnet-4
 ```bash
 hermes -p coder chat
 hermes --profile=coder doctor
-hermes chat -p coder -q "hello"    # 可在任意位置使用
+kestrel chat -p coder -q "hello"    # 可在任意位置使用
 ```
 
 ### 粘性默认值（`hermes profile use`）
 
 ```bash
 hermes profile use coder
-hermes chat                   # 现在指向 coder
+kestrel chat                   # 现在指向 coder
 hermes tools                  # 配置 coder 的工具
 hermes profile use default    # 切换回默认
 ```
@@ -221,10 +221,10 @@ coder config set terminal.cwd /absolute/path/to/project
 
 ## 更新
 
-`hermes update` 拉取一次代码（共享），并自动将新的内置技能同步到**所有** profile：
+`kestrel update` 拉取一次代码（共享），并自动将新的内置技能同步到**所有** profile：
 
 ```bash
-hermes update
+kestrel update
 # → Code updated (12 commits)
 # → Skills synced: default (up to date), coder (+2 new), assistant (+2 new)
 ```

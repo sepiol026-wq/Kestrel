@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Fetch-failure classification for `hermes update` / `hermes update --check`.
+"""Fetch-failure classification for `kestrel update` / `kestrel update --check`.
 
 A GitHub-side HTTP 429 (rate limit / outage) used to be reported as the
 generic "Failed to fetch updates from origin." — or worse, matched the
@@ -154,7 +154,7 @@ class TestPrintFetchFailure:
 def test_update_network_git_calls_never_prompt_for_credentials():
     """Every `git fetch`/`pull`/`push` in the updater runs with prompts disabled.
 
-    Live incident (Sep 2026): a GitHub-side 401 made `hermes update` sit on
+    Live incident (Sep 2026): a GitHub-side 401 made `kestrel update` sit on
     ``Username for 'https://github.com':`` instead of failing with a diagnosis.
     """
     import os

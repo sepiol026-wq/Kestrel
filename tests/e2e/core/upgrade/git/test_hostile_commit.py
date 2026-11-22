@@ -3,10 +3,10 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""The source swap of ``hermes update`` is one crash-safe commit point (lane LP-COMMIT).
+"""The source swap of ``kestrel update`` is one crash-safe commit point (lane LP-COMMIT).
 
 Each cell drives a real install (HEAD's own ``scripts/install.sh`` in a bwrap sandbox) through a
-real ``hermes update`` against a local origin, breaks it at one named point with a real SIGKILL or a
+real ``kestrel update`` against a local origin, breaks it at one named point with a real SIGKILL or a
 real git failure, and then judges the next real launch from the files the updater itself owns:
 
 * ``kill_after_tree_moved``: git finished the fast-forward of a release with NO dependency change

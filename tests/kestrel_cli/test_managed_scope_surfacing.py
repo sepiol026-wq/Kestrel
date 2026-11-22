@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Surfacing tests — managed scope shown in `config show` and `hermes doctor`."""
+"""Surfacing tests — managed scope shown in `config show` and `kestrel doctor`."""
 import pytest
 from kestrel_cli import doctor_config
 

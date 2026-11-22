@@ -38,7 +38,7 @@ function killPid(pid: number | undefined): void {
 
 // The decision itself, on every CI host (the host is data); the live EBUSY proof below needs Windows.
 test('a packaged Windows app leaves a CWD inside its install folder and keeps one outside it', () => {
-  const app = { platform: 'win32', isPackaged: true, execPath: 'C:\\Hermes\\win-unpacked\\Hermes.exe' } as const
+  const app = { platform: 'win32', isPackaged: true, execPath: 'C:\\Hermes\\win-unpacked\\Kestrel.exe' } as const
   const home = 'C:\\Users\\ada'
 
   const target = (cwd: string, facts: Partial<Parameters<typeof packagedWorkingDirectoryTarget>[0]> = {}) =>
@@ -62,7 +62,7 @@ test('a home folder that cannot be entered leaves the CWD and does not crash sta
   const facts = {
     platform: 'win32',
     isPackaged: true,
-    execPath: 'C:\\Hermes\\win-unpacked\\Hermes.exe',
+    execPath: 'C:\\Hermes\\win-unpacked\\Kestrel.exe',
     cwd: 'C:\\Hermes\\win-unpacked',
     homedir: 'H:\\offline-roaming-profile'
   } as const
@@ -100,7 +100,7 @@ test.skipIf(process.platform !== 'win32')(
           platform: 'node',
           format: 'esm',
           define: {
-            'process.execPath': JSON.stringify(path.join(install, 'Hermes.exe')),
+            'process.execPath': JSON.stringify(path.join(install, 'Kestrel.exe')),
             'process.env.HERMES_DESKTOP_IS_PACKAGED': 'undefined'
           },
           plugins: [

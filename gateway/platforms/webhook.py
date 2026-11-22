@@ -443,7 +443,7 @@ class WebhookAdapter(BasePlatformAdapter):
             return False
         if not is_dispatchable_target(deliver := route.get("deliver", "log")):
             logger.warning("[webhook] Dynamic route '%s' skipped: unknown delivery target %r. "
-                           "Run `hermes webhook list` for a repair command that keeps its settings.", name, deliver)
+                           "Run `kestrel webhook list` for a repair command that keeps its settings.", name, deliver)
             return False
         try:
             # Hot-reloaded from the request handler: a malformed block must skip the route, not 500 the request.

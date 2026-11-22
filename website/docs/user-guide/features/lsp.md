@@ -48,7 +48,7 @@ Concretely, on every successful `write_file` or `patch`:
    diagnostics introduced by your earlier edit of <path>`. If the model
    tries to finish the turn while a check is still running, Hermes waits
    up to 5 s for it. Any problems it finds go to the model as a new
-   message before the answer is accepted, so a one-shot `hermes chat -q`
+   message before the answer is accepted, so a one-shot `kestrel chat -q`
    run still sees them. Earlier messages are never rewritten.
 
 If the same file is edited again before its check finishes, the newer
@@ -223,7 +223,7 @@ won't auto-pull. `typescript-language-server` and `@vue/language-server`
 require the `typescript` SDK importable from the same `node_modules`
 tree — Hermes installs `typescript@6` (the last JavaScript-based line;
 TypeScript 7 is the Go port and ships no `tsserver.js`) together with
-the server when you run `hermes lsp install typescript` /
+the server when you run `kestrel lsp install typescript` /
 `hermes lsp install vue-language-server` or auto-install fires on first use.
 
 Vue is pinned to `@vue/language-server@2`, started with
@@ -233,7 +233,7 @@ Neovim setup) that Hermes's generic client does not run, so it never
 publishes diagnostics. If an earlier Hermes installed 3.x, the log shows a
 one-time `vue-language-server: ... 3.x` warning; delete
 `<HERMES_HOME>/lsp/node_modules/@vue` and `<HERMES_HOME>/lsp/bin/vue-language-server*`,
-then run `hermes lsp install vue-language-server` (the recipe co-installs the
+then run `kestrel lsp install vue-language-server` (the recipe co-installs the
 TypeScript SDK).
 
 ## CLI
@@ -513,7 +513,7 @@ subsequent edits picking them up.
 **Server crashed**
 
 A crashed server is added to the broken-set and won't be retried for
-the rest of the session. Run `hermes lsp restart` to clear the set;
+the rest of the session. Run `kestrel lsp restart` to clear the set;
 the next edit re-spawns.
 
 **Editing a file outside any git repo**

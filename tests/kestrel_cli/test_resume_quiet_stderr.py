@@ -6,7 +6,7 @@
 """Tests for /resume status lines going to stderr in quiet mode (#11793).
 
 The fix in cli._init_agent routes three messages to stderr when
-``tool_progress_mode == "off"`` (set by ``hermes chat --quiet``):
+``tool_progress_mode == "off"`` (set by ``kestrel chat --quiet``):
 
   * "Session not found: ..."
   * "↻ Resumed session ... (N user messages, M total messages)"
@@ -124,7 +124,7 @@ class TestResumeQuietStderr:
 
     def test_resume_policy_refusal_is_a_usage_error_not_an_agent_init_failure(self, capsys):
         """`--resume X --max-turns 1 -q ...` printed the agent-init failure copy ("couldn't start the model
-        connection ... hermes doctor") and exited 1; it is interactive startup's `Error:` line on stderr
+        connection ... kestrel doctor") and exited 1; it is interactive startup's `Error:` line on stderr
         with exit 2. Any other failed open keeps the agent-init copy."""
         from kestrel_cli.gateway_chat import _RESUME_POLICY_MISMATCH
         from kestrel_cli.gateway_client import GatewayClientError

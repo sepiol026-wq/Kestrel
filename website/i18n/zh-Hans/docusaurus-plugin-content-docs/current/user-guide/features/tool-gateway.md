@@ -40,7 +40,7 @@ hermes status
 
 ### 在模型配置流程中
 
-运行 `hermes model` 并选择 Nous Portal 作为提供商时，Hermes 会主动询问是否启用 Tool Gateway：
+运行 `kestrel model` 并选择 Nous Portal 作为提供商时，Hermes 会主动询问是否启用 Tool Gateway：
 
 ```
 Your Nous subscription includes the Tool Gateway.
@@ -102,7 +102,7 @@ browser:
 3. **TTS** — `text_to_speech` 走网关的 OpenAI Audio 端点  
 4. **浏览器** — `browser_exec` 等浏览器工具驱动网关 Browser Use 端点提供的云端浏览器会话  
 
-网关使用 Nous Portal 凭据认证（在 `hermes model` 完成后写入 `~/.hermes/auth.json`）。
+网关使用 Nous Portal 凭据认证（在 `kestrel model` 完成后写入 `~/.hermes/auth.json`）。
 
 ### 优先级
 
@@ -184,4 +184,4 @@ FIRECRAWL_GATEWAY_URL=https://...         # 单独覆盖 Firecrawl 端点
 
 ### Modal 算在 Tool Gateway 里吗？
 
-Modal（无服务器终端后端）可作为 Nous 订阅的可选附加能力，但**不会**由 Tool Gateway 安装向导一并打开——请单独通过 `hermes setup terminal` 或在 `config.yaml` 中配置。
+Modal（无服务器终端后端）可作为 Nous 订阅的可选附加能力，但**不会**由 Tool Gateway 安装向导一并打开——请单独通过 `kestrel setup terminal` 或在 `config.yaml` 中配置。

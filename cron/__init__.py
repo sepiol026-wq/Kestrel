@@ -4,7 +4,7 @@
 # Derivative work. All upstream attribution and rights retained.
 
 """Cron job scheduling for Kestrel Agent: scheduled tasks (cron expressions, intervals, one-shot),
-self-scheduled reminders, isolated sessions. The gateway daemon (``hermes gateway [install]``) ticks
+self-scheduled reminders, isolated sessions. The gateway daemon (``kestrel gateway [install]``) ticks
 the scheduler every 60 seconds; a file lock prevents duplicate execution across processes.
 """
 

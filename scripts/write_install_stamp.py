@@ -52,7 +52,7 @@ _REPO_ROOT = Path(__file__).parent.parent.resolve()
 
 # Who applies the next update to the tree this stamp describes. REQUIRED —
 # stamp readers hard-fail a stamp without it.
-#   self             — `hermes update` owns the tree (installer-created
+#   self             — `kestrel update` owns the tree (installer-created
 #                      source checkouts).
 #   electron-updater — the in-app updater replaces the artifact (NSIS,
 #                      mac .app, AppImage).
@@ -310,7 +310,7 @@ def main() -> int:
         "--update-mechanism",
         required=True,
         choices=UPDATE_MECHANISMS,
-        help="Who applies the next update: 'self' (hermes update), "
+        help="Who applies the next update: 'self' (kestrel update), "
         "'app-installer' (Windows App Installer), 'electron-updater' (in-app updater), "
         "'external' (nix/docker/store)",
     )

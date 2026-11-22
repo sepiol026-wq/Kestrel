@@ -17,7 +17,7 @@ If you only run one Kestrel agent, you don't need this page — see
 
 ## When to use this
 
-You want this setup when you have two or more Hermes agents that should all
+You want this setup when you have two or more Kestrel agents that should all
 be online at the same time. Common reasons:
 
 - A personal assistant on one Telegram bot and a coding agent on another
@@ -29,7 +29,7 @@ be online at the same time. Common reasons:
 Every profile already gets its own per-platform supervisor entry: a LaunchAgent
 (`ai.hermes.gateway-<name>.plist`), a systemd user service
 (`hermes-gateway-<name>.service`), a systemd **system** service when installed with
-`sudo hermes gateway install --system` (runs as the invoking user via `User=`), a
+`sudo kestrel gateway install --system` (runs as the invoking user via `User=`), a
 Windows Scheduled Task, or an s6/Docker service — and the Desktop app spawns its own
 per-profile `hermes serve` backend. This guide adds the patterns for managing them
 collectively.
@@ -76,18 +76,18 @@ stop or restart just their own bots without stopping the host:
   exits 0. If `<name>` is not served yet, it asks the host gateway to re-scan
   `profiles/` and attaches once the answer includes it; it refuses (non-zero)
   only when the host gateway cannot be made to serve it.
-- `hermes gateway start --all` / `restart --all` mean *the one host
+- `kestrel gateway start --all` / `restart --all` mean *the one host
   multiplexer*. They never sweep every gateway process on the box; a profile
   that still runs its own gateway is reported, never killed, with the
-  `hermes gateway migrate --multiplex` one-liner.
-- `hermes gateway run --replace` takes over the process **serving this
+  `kestrel gateway migrate --multiplex` one-liner.
+- `kestrel gateway run --replace` takes over the process **serving this
   profile**, whichever profile launched it. When the host owner is another
   profile's standalone gateway (an unmigrated per-profile fleet) it never serves
   this profile, so `--replace` starts beside it exactly as a plain `run` does,
   instead of refusing and respawn-storming under the supervisor. An older Hermes
   wrote a systemd drop-in (`hermes-gateway.service.d/20-replace.conf`) that
-  forced `--replace` onto the unit; `hermes update` / `hermes gateway restart`
-  now remove that file. `hermes gateway run --force` starts a separate gateway
+  forced `--replace` onto the unit; `kestrel update` / `kestrel gateway restart`
+  now remove that file. `kestrel gateway run --force` starts a separate gateway
   without asking the host process at all (the escape hatch when it is wedged or
   answering wrongly).
 - Under a service supervisor the attach exits 75, not 0 — systemd, s6 and
@@ -101,7 +101,7 @@ stop or restart just their own bots without stopping the host:
 Multiplexing is **on by default** (`gateway.multiplex_profiles` defaults to
 `true`), with one safety rule: an *unset* flag is a request the default gateway
 settles at boot, never a verdict. Each start it runs the same preflight as
-[`hermes gateway migrate --multiplex`](#migrating-from-per-profile-gateways) and
+[`kestrel gateway migrate --multiplex`](#migrating-from-per-profile-gateways) and
 multiplexes only when the fold would have been safe — two
 or more profiles, no secondary still running its own gateway (live process or
 installed service, or under s6 a per-profile slot that is actually *up*), no
@@ -112,7 +112,7 @@ writes `gateway.multiplex_profiles: true` into the default profile's
 Otherwise it comes up serving the default profile only and says so **loudly** on
 a host with other profiles: a boxed warning at gateway start naming the profiles
 that are not served, the blocker, and the fix; the same box in the `hermes
-update` summary and `hermes gateway status`; a banner in the dashboard
+update` summary and `kestrel gateway status`; a banner in the dashboard
 (`/api/status` carries `multiplex_standalone_reason`). A single-profile install
 is not warned — there is nothing to serve. Nothing is written on a refusal.
 
@@ -125,7 +125,7 @@ profile that opts out with `gateway.standalone: true`:
   it is written for you. An unset key resolves on and is made explicit in the
   default profile's `config.yaml`. `false` is **retired**: the gateway rewrites
   it to `true` in place and prints a one-time boxed notice at that start and in
-  the next `hermes update` summary — never a silent flip. A per-profile gateway
+  the next `kestrel update` summary — never a silent flip. A per-profile gateway
   is `gateway.standalone: true` in that profile's own config (a temporary shim,
   not a supported topology) or `--force` for the boundary cases below.
 - `GATEWAY_MULTIPLEX_PROFILES` in the process environment overrides the
@@ -139,7 +139,7 @@ profile that opts out with `gateway.standalone: true`:
   default profile it is ignored with a warning — the default profile is the
   host gateway. There is no environment variable for this key.
 
-Other processes (`hermes -p <name> gateway start`, the dashboard, `hermes gateway
+Other processes (`hermes -p <name> gateway start`, the dashboard, `kestrel gateway
 migrate`) never guess how an unset flag was settled: they read the running
 default gateway's `served_profiles` record, and fall back to the explicit flag
 only when no gateway runs.
@@ -169,7 +169,7 @@ where the boot preflight would have held back (`false` is retired and ignored):
 
 ```bash
 hermes config set gateway.multiplex_profiles true
-hermes gateway restart
+kestrel gateway restart
 ```
 
 Equivalently, in the default profile's `~/.hermes/config.yaml`:
@@ -267,11 +267,11 @@ a host gateway is running right now:
 
   Install or start the host gateway from the default profile; it serves this one too:
 
-    hermes gateway install
+    kestrel gateway install
 
   Or fold an existing per-profile fleet onto one host gateway:
 
-    hermes gateway migrate --multiplex
+    kestrel gateway migrate --multiplex
 
   A separate per-profile gateway (for a fleet split across UNIX users or a
   HERMES_HOME outside profiles/) needs --force:  hermes -p coder gateway install --force
@@ -280,7 +280,7 @@ a host gateway is running right now:
   gateway.standalone: true in profiles/coder/config.yaml,
   then wait for the host gateway to rescan (<=30s) or send its rescan-profiles control verb.
   (gateway.standalone is a temporary compatibility shim while multiplexing gaps are fixed;
-  it will be removed once they are — plan to fold this profile with `hermes gateway migrate --multiplex`.)
+  it will be removed once they are — plan to fold this profile with `kestrel gateway migrate --multiplex`.)
 ```
 
 When the host gateway is already running and serves the profile, the first
@@ -338,8 +338,8 @@ two gateways left on the defaults both try to bind them. The cron destination pi
 
 `hermes -p coder gateway status` prints `standalone by config
 (gateway.standalone: true)` before the profile's own gateway state, and
-`hermes gateway status` (default) lists it as `standalone by config: coder`
-after the served set. `hermes gateway migrate --multiplex` leaves the profile
+`kestrel gateway status` (default) lists it as `standalone by config: coder`
+after the served set. `kestrel gateway migrate --multiplex` leaves the profile
 alone and prints it as `Standalone by config (gateway.standalone: true), left
 alone`. The WhatsApp bridge and relay run in the profile's own gateway, as in
 any standalone gateway.
@@ -362,7 +362,7 @@ With a multiplexer running, a named profile's `gateway run` attaches to it;
 `gateway install` refuses to create another process (exit code 78). The CLI
 refuses before touching a service manager, preventing a permanently failed
 systemd unit or a launchd respawn loop. Use the per-profile `stop`, `start`, and
-`restart` commands above to manage a satellite inside the host. `hermes gateway
+`restart` commands above to manage a satellite inside the host. `kestrel gateway
 stop` on the default profile still takes every served profile offline.
 The dashboard and Desktop app follow the CLI: for a served profile the "Stop" action
 parks it and "Start" unparks it (see above); "Start" on an unparked named profile
@@ -522,14 +522,14 @@ console:
 ```
 $ hermes -p coder gateway status
 ✓ Gateway is running via the default-profile multiplexer
-  Manage it from the default profile: hermes gateway status
+  Manage it from the default profile: kestrel gateway status
 
 Inbound callback URLs on the shared listener:
   line: http://127.0.0.1:8642/p/coder/line/webhook
   sms: http://127.0.0.1:8642/p/coder/webhooks/twilio
 ```
 
-`hermes gateway status` and `hermes status` on the default profile list the same
+`kestrel gateway status` and `hermes status` on the default profile list the same
 URLs per served profile, and the dashboard's Channels page and the Desktop
 Messaging page show them as each platform's `ingress_url` when viewing that
 profile. The default's own `api_server` and `webhook` are reported the same way
@@ -582,7 +582,7 @@ There is a single process-level PID and lock (the multiplexer, under the default
 
 `hermes -p coder cron status` names the single host gateway and the profiles it serves — `Scheduler host: the host gateway (PID 4211) serving profiles default, coder` — then checks coder's own ticker heartbeat and last successful tick. A missing or stale heartbeat produces a warning rather than an unconditional running verdict. `cron list` and `cron create` also warn when a served profile has no fresh heartbeat. `cron status` adds tick-failure details that those lightweight checks do not read.
 
-When no gateway owns the host role, `cron status` tells you to start the **one** host gateway (`hermes --profile default gateway install` / `gateway run`) and to make sure it serves this profile. Installing a per-profile service is shown only under `LEGACY (pre-multiplex topology, not recommended)`: it would start a second gateway process on the host. `hermes doctor` follows the same rule — under s6 it reports `Host gateway: the host gateway (PID 4211) serving profiles default, coder` instead of a per-profile slot count, flags any still-supervised per-profile slot as LEGACY, and checks the host systemd unit's linger even when you run doctor from a served profile. The `state.db` holder lines name the shared host process too, so "3 process(es) holding the DB open" says which gateway and which profiles stopping it would affect.
+When no gateway owns the host role, `cron status` tells you to start the **one** host gateway (`hermes --profile default gateway install` / `gateway run`) and to make sure it serves this profile. Installing a per-profile service is shown only under `LEGACY (pre-multiplex topology, not recommended)`: it would start a second gateway process on the host. `kestrel doctor` follows the same rule — under s6 it reports `Host gateway: the host gateway (PID 4211) serving profiles default, coder` instead of a per-profile slot count, flags any still-supervised per-profile slot as LEGACY, and checks the host systemd unit's linger even when you run doctor from a served profile. The `state.db` holder lines name the shared host process too, so "3 process(es) holding the DB open" says which gateway and which profiles stopping it would affect.
 
 #### What does **not** change
 
@@ -752,10 +752,10 @@ hot-added profile that reuses another profile's token is parked with a
 Hot-serving also grows the multiplexer's **profile reservation**: the new
 profile's `gateway.lock` is taken and its own session authority is built, so
 `hermes -p <name>` finds the multiplexer as its owner (no stray per-profile
-daemon) and the next `hermes gateway restart` reserves the whole set cleanly.
+daemon) and the next `kestrel gateway restart` reserves the whole set cleanly.
 A profile whose `state.db` cannot be opened is **parked** — logged as
 `Profile '<name>' not served`, left out of `served_profiles` — and every other
-profile keeps booting; fix the store and re-run `hermes profile create` or wait
+profile keeps booting; fix the store and re-run `kestrel profile create` or wait
 for the periodic rescan.
 
 ### Routing shared-bot chats to profiles (`profile_routes`)
@@ -941,7 +941,7 @@ run_for_profile() {
   profile="$1"
   action="$2"
   if [ "$profile" = "default" ]; then
-    hermes gateway "$action"
+    kestrel gateway "$action"
   else
     hermes -p "$profile" gateway "$action"
   fi
@@ -956,7 +956,7 @@ case "$action" in
     done
     ;;
   list)
-    hermes gateway list
+    kestrel gateway list
     ;;
   *)
     usage
@@ -972,11 +972,11 @@ hermes-gateways start      # start every configured profile
 hermes-gateways stop       # stop every configured profile
 hermes-gateways restart    # restart all
 hermes-gateways status     # status across all
-hermes-gateways list       # delegates to `hermes gateway list`
+hermes-gateways list       # delegates to `kestrel gateway list`
 ```
 
 :::tip
-The `default` profile is targeted with `hermes gateway <action>` (no `-p`),
+The `default` profile is targeted with `kestrel gateway <action>` (no `-p`),
 not `hermes -p default gateway <action>`. The wrapper above handles both forms.
 :::
 
@@ -1151,14 +1151,14 @@ grep -H 'TELEGRAM_BOT_TOKEN\|DISCORD_BOT_TOKEN' \
 If your profiles each run their own gateway today (one systemd unit or launchd
 agent per profile, from a release before multiplex-only), the default gateway's
 boot preflight keeps it standalone until they are folded (the unset default
-never double-binds a running fleet). `hermes update` folds them for you unless a
+never double-binds a running fleet). `kestrel update` folds them for you unless a
 real boundary blocks it (below); the same fold is one command, and re-running it
 on a half-migrated host (flag on, a unit left behind, a crash between the two)
 finishes the job instead of reporting "already multiplexed":
 
 ```bash
-hermes gateway migrate --multiplex --dry-run   # print the plan and any blockers; changes nothing
-hermes gateway migrate --multiplex             # apply (asks for confirmation on a TTY; -y skips)
+kestrel gateway migrate --multiplex --dry-run   # print the plan and any blockers; changes nothing
+kestrel gateway migrate --multiplex             # apply (asks for confirmation on a TTY; -y skips)
 ```
 
 There is no `--standalone` reverse command: a per-profile fleet is not a
@@ -1166,7 +1166,7 @@ supported target. A blocked fleet keeps running as it is, and each profile
 keeps `hermes -p <name> gateway install --force` as its path — or opts out of
 the host gateway with `gateway.standalone: true` (see
 [No new per-profile gateways](#no-new-per-profile-gateways)), which
-`hermes gateway migrate --multiplex` respects.
+`kestrel gateway migrate --multiplex` respects.
 
 ### Docker / Hermes Cloud (s6-supervised container)
 
@@ -1174,7 +1174,7 @@ Inside the official image every profile has an s6 slot
 (`/run/hermes-service/gateway-<profile>`). The container's boot registers every *named*
 slot down and folds its autostart intent into the root slot, so a fresh boot
 already multiplexes. An **in-place** update no longer needs a container restart
-to converge either: `hermes gateway migrate --multiplex` (and the hook `hermes
+to converge either: `kestrel gateway migrate --multiplex` (and the hook `hermes
 update` runs) parks any named slot that is still up (`s6-svc -d` plus a `down`
 file so a supervisor restart does not revive it), folds its intent into the root
 slot through the same rule the boot uses, and restarts the root slot. A
@@ -1182,25 +1182,25 @@ registered-down slot is never a blocker — only a slot that is actually up is.
 The one thing the command still cannot do from inside is create a root slot the
 boot never registered; that case names itself and asks for a container restart.
 
-### What `hermes update` does
+### What `kestrel update` does
 
 After a successful update, when the install has two or more profiles, at least
 one secondary profile runs its own gateway (a live process or an installed
-service) and `gateway.multiplex_profiles` is off, `hermes update` runs the same
+service) and `gateway.multiplex_profiles` is off, `kestrel update` runs the same
 preflight:
 
 - **Nothing blocks it** → the migration runs automatically (the same code path
-  as `hermes gateway migrate --multiplex --yes`) and prints what it did. This
+  as `kestrel gateway migrate --multiplex --yes`) and prints what it did. This
   is deterministic and never prompts, so it also runs on headless/cron updates.
 - **Something blocks it** → a warning block lists each blocker with its exact
   fix and the one-liner to run later. Nothing is changed.
 
 Single-profile installs are never migrated (there is nothing to gain), and an
-install that is already multiplexing is left alone. `hermes update` also does
+install that is already multiplexing is left alone. `kestrel update` also does
 nothing when no secondary profile runs its own gateway — it never flips modes
 on an install where nothing was running.
 
-### Boundaries `hermes update` never crosses on its own
+### Boundaries `kestrel update` never crosses on its own
 
 The unattended hook only folds profiles that share **one UNIX user, one service
 domain and one `profiles/` tree** — the shape `hermes profile create` produces.
@@ -1213,14 +1213,14 @@ A standalone secondary behind any of these boundaries stops the automatic path:
 | different UNIX user | a system unit with its own `User=`, or a live gateway owned by another uid; a system unit whose `User=` this host cannot resolve — on the secondary **or** on the default — counts as unknown, never as "same user" |
 | `HERMES_HOME` outside `<default home>/profiles/` | a unit pinning `HERMES_HOME=/opt/hermes/profiles/emma` |
 
-In that case `hermes update` prints the boundary it found plus
-`hermes gateway migrate --multiplex`, and changes nothing — no unit is removed
+In that case `kestrel update` prints the boundary it found plus
+`kestrel gateway migrate --multiplex`, and changes nothing — no unit is removed
 and the per-profile gateways keep running (`--force` remains their path where
 a boundary like these blocks the fold; a profile free of them opts out with
 `gateway.standalone: true`). Collapsing such a fleet replaces a
 kernel-enforced boundary (file ownership, `User=`) with in-process isolation,
 which is an operator's decision. The explicit command still makes it: the same
-findings appear as **notices** in `hermes gateway migrate --multiplex --dry-run`
+findings appear as **notices** in `kestrel gateway migrate --multiplex --dry-run`
 so you can read them first, and `--multiplex` proceeds when you confirm.
 
 ### Opting out of the automatic migration
@@ -1232,13 +1232,13 @@ the automatic fold from ever running on this install:
 hermes config set gateway.auto_multiplex_migration false
 ```
 
-`hermes update` then leaves per-profile gateways exactly as they are, with no
+`kestrel update` then leaves per-profile gateways exactly as they are, with no
 output and no changes, however eligible the install looks. The setting lives in
 config, so it survives updates — the decision is made once rather than
 re-litigated on every release. It is read from the effective config like every
 other setting, so a value pinned in the managed scope (`/etc/hermes/config.yaml`)
 wins over the profile's own file. It governs the **automatic** path only:
-`hermes gateway migrate --multiplex` is an explicit request and still migrates
+`kestrel gateway migrate --multiplex` is an explicit request and still migrates
 (and is the supported way to opt back in). Absent or `true` keeps the default
 behaviour described above.
 
@@ -1247,11 +1247,11 @@ Normally, once you create a second profile (Desktop's New Agent or
 `hermes profile create`), that gateway starts serving every profile in place,
 with no restart. With `auto_multiplex_migration: false` it keeps serving only
 its own profile, and the new profile is refused with that reason until you run
-`hermes gateway migrate --multiplex` or set the key back to `true`. The key is
+`kestrel gateway migrate --multiplex` or set the key back to `true`. The key is
 re-read on every profile rescan, so setting it back takes effect within about
 30 seconds, with no restart.
 
-The explicit command is different: `hermes gateway migrate --multiplex` with
+The explicit command is different: `kestrel gateway migrate --multiplex` with
 two or more profiles and **no** standalone secondary gateway still applies the
 one remaining step — it sets `gateway.multiplex_profiles: true` and (re)starts
 the default gateway. You asked for multiplex; you get multiplex.
@@ -1308,7 +1308,7 @@ prefixed URL; nothing else about the key changes.
 
 A profile created while the multiplexer runs is served without a restart (see
 above). `hermes profile create` confirms this when the live multiplexer picked the
-profile up; it prints the `hermes gateway restart` reminder only when it could not
+profile up; it prints the `kestrel gateway restart` reminder only when it could not
 reach the multiplexer (for example, a gateway started from an older build).
 
 ### Failure handling and resuming
@@ -1320,7 +1320,7 @@ per-profile gateway is stopped. Anything that fails after the manifest is
 written — the flag write, a later secondary's stop or unit removal, the
 default's install or start — rolls back through the manifest on the spot, so no
 profile is left without a gateway. Should the process die anywhere in that
-window, the next `hermes gateway migrate --multiplex` sees the flag on, the
+window, the next `kestrel gateway migrate --multiplex` sees the flag on, the
 manifest, and no live multiplexer serving the migrated profiles (an installed
 but stopped default unit does not count) and resumes from the manifest instead
 of reporting "already multiplexed". A manifest on disk always means
@@ -1337,11 +1337,11 @@ eligible install.
 
 ## Updating the code
 
-`hermes update` pulls the latest code once and syncs new bundled skills into
+`kestrel update` pulls the latest code once and syncs new bundled skills into
 every profile:
 
 ```bash
-hermes update
+kestrel update
 hermes-gateways restart
 ```
 
@@ -1358,7 +1358,7 @@ User-modified skills are never overwritten.
 
 ### "Could not find service in domain for user gui: 501"
 
-You ran `hermes gateway start` after a previous `hermes gateway stop`. The
+You ran `kestrel gateway start` after a previous `kestrel gateway stop`. The
 CLI's `stop` does a full `launchctl unload`, which removes the service from
 launchd's registry. The CLI catches this specific error on `start` and
 automatically re-loads the plist (`↻ launchd job was unloaded; reloading
@@ -1390,6 +1390,6 @@ systemctl --user restart hermes-gateway-<profile>.service
 ### Health check
 
 ```bash
-hermes doctor                  # default profile
+kestrel doctor                  # default profile
 hermes -p <profile> doctor     # one profile
 ```

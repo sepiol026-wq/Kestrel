@@ -48,7 +48,7 @@ approvals:
 
 YOLO 模式会绕过当前会话中**所有**危险命令审批提示。可通过以下三种方式激活：
 
-1. **CLI 标志**：使用 `hermes --yolo` 或 `hermes chat --yolo` 启动会话
+1. **CLI 标志**：使用 `hermes --yolo` 或 `kestrel chat --yolo` 启动会话
 2. **斜杠命令**：在会话中输入 `/yolo` 以切换开/关
 3. **环境变量**：设置 `HERMES_YOLO_MODE=1`
 
@@ -583,7 +583,7 @@ security:
 7. **设置 `MESSAGING_CWD`** — 不要让 Agent 在敏感目录中操作
 8. **以非 root 用户运行** — 切勿以 root 身份运行 gateway
 9. **监控日志** — 检查 `~/.hermes/logs/` 中的未授权访问尝试
-10. **保持更新** — 定期运行 `hermes update` 以获取安全补丁
+10. **保持更新** — 定期运行 `kestrel update` 以获取安全补丁
 
 ### 保护 API 密钥
 
@@ -620,14 +620,14 @@ Hermes 内置了一个公告扫描器，用于标记活跃 venv 中与已知受�
 
 运行方式：
 
-- **CLI 启动横幅。** 若有任何公告匹配，会打印一行警告，并指向 `hermes doctor` 获取完整修复方案。
-- **`hermes doctor`。** 显示所有活跃公告的版本详情和 2-4 步修复说明。
+- **CLI 启动横幅。** 若有任何公告匹配，会打印一行警告，并指向 `kestrel doctor` 获取完整修复方案。
+- **`kestrel doctor`。** 显示所有活跃公告的版本详情和 2-4 步修复说明。
 - **Gateway 启动。** 记录到 `gateway.log`；第一条交互消息会附带简短的操作者横幅。
 
 每条公告都有一个稳定 ID。阅读并处理后，可以永久忽略它：
 
 ```bash
-hermes doctor --ack <advisory-id>
+kestrel doctor --ack <advisory-id>
 ```
 
 确认信息持久化到 `config.security.acked_advisories`，重启后仍有效。旧公告**不会**从目录中删除——保留它们可以确保新安装的用户收到关于历史受损版本的警告，这些版本可能仍缓存在私有镜像中。
@@ -664,5 +664,5 @@ hermes config set security.allow_lazy_installs false
 该设置不是禁止显式插件准入或手动包管理命令的沙箱。
 官方 Docker 镜像还通过内部策略关闭按需安装，仅更改配置不能覆盖它。
 
-用 `hermes tools` 和 `hermes doctor` 检查缺失需求。
+用 `hermes tools` 和 `kestrel doctor` 检查缺失需求。
 不要向签名载荷或系统 Python 执行 pip 安装。详见[包管理](../reference/package-management.md)。

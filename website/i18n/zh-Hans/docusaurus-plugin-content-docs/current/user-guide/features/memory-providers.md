@@ -263,7 +263,7 @@ hermes honcho sync
 
 #### 从内置 Honcho 升级
 
-早期 Hermes 版本内置了 Honcho。如果某个 profile 仍配置 `memory.provider: honcho`，Hermes 会在下次启动或运行 `hermes update` 时自动安装插件目录中的插件——你的 `~/.honcho/config.json`（或 `$HERMES_HOME/honcho.json`）、host 块、peer 和会话映射都按原样读取，记忆不会丢失。如需手动安装，或启动时机器无法联网，请运行 `hermes plugins install honcho`。
+早期 Hermes 版本内置了 Honcho。如果某个 profile 仍配置 `memory.provider: honcho`，Hermes 会在下次启动或运行 `kestrel update` 时自动安装插件目录中的插件——你的 `~/.honcho/config.json`（或 `$HERMES_HOME/honcho.json`）、host 块、peer 和会话映射都按原样读取，记忆不会丢失。如需手动安装，或启动时机器无法联网，请运行 `hermes plugins install honcho`。
 
 
 ---

@@ -5,7 +5,7 @@
 
 """#101789 on the real Windows hand-off script: a Desktop swap blocked by a program outside Hermes.
 
-A real ``windows.ps1`` drives a published launcher whose ``hermes update`` is a scripted stand-in
+A real ``windows.ps1`` drives a published launcher whose ``kestrel update`` is a scripted stand-in
 printing exactly what ``hermes_cli.desktop_release_holders`` prints when Windows refused the
 promotion rename. The result the relaunched Desktop reads must name that program (message and a
 structured ``release_holders`` list), so the Desktop can offer to close exactly it, and the retry
@@ -150,7 +150,7 @@ def test_close_and_retry_runs_under_its_own_run_even_from_a_relaunched_desktop(t
     home.mkdir()
     source = tmp_path / 'desktop.cs'
     source.write_text(RELAUNCHED_DESKTOP, encoding='utf-8')
-    # Named apart from other tests' stand-in Hermes.exe: the explorer rung takes any fresh process of
+    # Named apart from other tests' stand-in Kestrel.exe: the explorer rung takes any fresh process of
     # this name as its launch. A GUI-subsystem exe, so no console window satisfies the focus wait.
     relaunch = tmp_path / 'release' / 'win-unpacked' / 'HermesRetryDesktop.exe'
     relaunch.parent.mkdir(parents=True)

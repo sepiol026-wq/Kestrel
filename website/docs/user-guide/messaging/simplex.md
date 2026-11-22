@@ -2,12 +2,12 @@
 
 [SimpleX Chat](https://simplex.chat/) is a private, decentralised messaging platform where users own their contacts and groups. Unlike other platforms, SimpleX assigns no persistent user IDs — every contact is identified by an opaque internal ID generated at connection time, which makes it one of the most private messengers available.
 
-> Run `hermes gateway setup` and pick **SimpleX** for a guided walk-through.
+> Run `kestrel gateway setup` and pick **SimpleX** for a guided walk-through.
 
 ## Prerequisites
 
 - The **simplex-chat** CLI installed and running as a daemon
-- Python package **websockets** (`hermes pm repair`)
+- Python package **websockets** (`kestrel pm repair`)
 
 ## Install simplex-chat
 
@@ -34,7 +34,7 @@ The daemon listens on WebSocket at `ws://127.0.0.1:5225` by default.
 ### Via setup wizard
 
 ```bash
-hermes gateway setup
+kestrel gateway setup
 ```
 
 Select **SimpleX Chat** and follow the prompts.
@@ -146,6 +146,6 @@ hermes send simplex:<contact-id> "Done!"
 
 **"Cannot reach daemon"** — Ensure `simplex-chat -p 5225` is running and the port matches `SIMPLEX_WS_URL`.
 
-**"websockets not installed"** — Run `hermes pm repair`.
+**"websockets not installed"** — Run `kestrel pm repair`.
 
 **Messages not received** — Check that the contact's ID is in `SIMPLEX_ALLOWED_USERS` or approve them via DM pairing.

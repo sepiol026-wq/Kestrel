@@ -45,7 +45,7 @@ A fresh install with **no web credentials at all** gets working `web_search` and
 **Choosing free vs paid explicitly:** in `hermes tools`, Exa, Parallel, and Keenable each appear as two rows — **Free (keyless)** and **Paid (API key)**. Picking Free pins that vendor's anonymous endpoint (even if you later add a key); picking Paid pins the keyed path (a missing key then errors instead of silently downgrading to the free tier). The selection is stored as `web.provider_tier.<name>: free|paid`; leave it unset for auto (key present → paid, otherwise the keyless ring).
 
 :::tip Nous Subscribers
-If you have a paid [Nous Portal](https://portal.nousresearch.com) subscription, web search and extract are available through the **[Tool Gateway](tool-gateway.md)** as managed web search — no API key needed. New installs can run `hermes setup --portal` to log in and turn on all gateway tools at once; existing installs can flip just web via `hermes tools`.
+If you have a paid [Nous Portal](https://portal.nousresearch.com) subscription, web search and extract are available through the **[Tool Gateway](tool-gateway.md)** as managed web search — no API key needed. New installs can run `kestrel setup --portal` to log in and turn on all gateway tools at once; existing installs can flip just web via `hermes tools`.
 :::
 
 ---
@@ -110,7 +110,7 @@ If you're researching genuinely live data (scores, prices, breaking news) and ne
 
 ### Quick setup via `hermes tools`
 
-Run `hermes tools`, navigate to **Web Search & Extract**, and pick a provider. The wizard prompts for the required URL or API key and writes it to your config.
+Run `kestrel tools`, navigate to **Web Search & Extract**, and pick a provider. The wizard prompts for the required URL or API key and writes it to your config.
 
 ```bash
 hermes tools
@@ -458,7 +458,7 @@ xAI Web Search is **not** in the auto-detection chain — having `XAI_API_KEY` s
 
 ## Verify your setup
 
-Run `hermes setup` to see which web backend is detected:
+Run `kestrel setup` to see which web backend is detected:
 
 ```
 ✅ Web Search & Extract (searxng)

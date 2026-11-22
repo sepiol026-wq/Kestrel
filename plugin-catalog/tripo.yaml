@@ -22,7 +22,7 @@ description: >-
   the plugin's data folder. The Desktop backend reads your balance and recent tasks from Tripo's API,
   serves models only from the plugin's data folder or your home folder, and downloads results only
   from Tripo's result storage; the Desktop renderer shows task previews from Tripo's short-lived result
-  links. Through Hermes's terminal tool the skills run `hermes config path`, file-size checks and
+  links. Through Hermes's terminal tool the skills run `kestrel config path`, file-size checks and
   background sleep timers on chat apps, and, when asked, a preview-video renderer (headless Chromium
   and ffmpeg already on the machine; its first run downloads three.js 0.180.0 from npm,
   integrity-checked), Python's http.server on 127.0.0.1 for the web prototype (which loads three.js

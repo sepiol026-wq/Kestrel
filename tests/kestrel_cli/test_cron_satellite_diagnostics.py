@@ -34,7 +34,7 @@ def served_root(tmp_path, monkeypatch):
         "gateway.status.is_gateway_runtime_lock_active",
         lambda lock_path=None: lock_path == root / "gateway.lock",
     )
-    monkeypatch.setattr("gateway.status._read_process_cmdline", lambda pid: "hermes gateway run")
+    monkeypatch.setattr("gateway.status._read_process_cmdline", lambda pid: "kestrel gateway run")
     root.joinpath("gateway.pid").write_text(json.dumps({"pid": os.getpid()}))
     root.joinpath("config.yaml").write_text("gateway:\n  multiplex_profiles: true\n")
     return root
@@ -83,7 +83,7 @@ def test_status_preserves_profile_health_contract(served_root, capsys, monkeypat
         # install is something to FOLD IN, not something to reinstall.
         assert "gateway migrate --multiplex" in output
         assert "LEGACY" not in output
-        assert "hermes gateway install   # starts a SECOND gateway" not in output
+        assert "kestrel gateway install   # starts a SECOND gateway" not in output
     if mode == "external":
         assert "managed scheduler" in output
         assert "STALLED" not in output
@@ -94,7 +94,7 @@ def test_host_record_rung_names_the_roster_and_a_runnable_restart(served_root, c
 
     Both rungs print a "Scheduler host: the host gateway…" line, so they are only distinguishable
     by their full text — and the remediation they print must actually run for THIS audience:
-    `hermes gateway restart` exits 78 for a served named profile.
+    `kestrel gateway restart` exits 78 for a served named profile.
     """
     import os
 
@@ -112,7 +112,7 @@ def test_host_record_rung_names_the_roster_and_a_runnable_restart(served_root, c
     assert f"Scheduler host: the host gateway (PID {os.getpid()}) serving profiles default, probe" in output
     assert "Scheduler host: the host gateway (multiplexing this profile)" not in output
     assert "hermes --profile default gateway restart" in output
-    assert "\n  If heartbeat never appears, restart: hermes gateway restart" not in output
+    assert "\n  If heartbeat never appears, restart: kestrel gateway restart" not in output
 
 
 @pytest.mark.parametrize("heartbeat", ["missing", "fresh", "stale"])
@@ -299,7 +299,7 @@ def test_doctor_reports_persisted_dispatch_health(served_root, capsys, dispatch)
     output = capsys.readouterr().out
     expected = {"catch_up": "catch-up", "late": "last fire was late", "forward_error": "loopback unavailable"}
     assert expected[dispatch] in output
-    assert "Review the findings above, then run `hermes cron doctor` again." in output
+    assert "Review the findings above, then run `kestrel cron doctor` again." in output
     jobs.mark_job_run(job["id"], success=True)
     if dispatch == "forward_error":
         assert cron_doctor() == 0

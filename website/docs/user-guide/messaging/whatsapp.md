@@ -8,7 +8,7 @@ description: "Set up Kestrel Agent as a WhatsApp bot via the built-in Baileys br
 
 Hermes connects to WhatsApp through a built-in bridge based on **Baileys**. This works by emulating a WhatsApp Web session — **not** through the official WhatsApp Business API. No Meta developer account or Business verification is required.
 
-> Run `hermes gateway setup` and pick **WhatsApp** for a guided walk-through.
+> Run `kestrel gateway setup` and pick **WhatsApp** for a guided walk-through.
 
 :::tip Two WhatsApp integrations
 This page is for the **Baileys bridge** — quick to set up, personal accounts, no public URL needed, ban risk.
@@ -34,7 +34,7 @@ bot stops working after a WhatsApp update, pull the latest Hermes version and re
 ## Multiple profiles
 
 The host multiplexer can serve a separate paired WhatsApp session for each profile.
-Run `hermes -p work whatsapp` to pair a secondary profile, then enable WhatsApp
+Run `kestrel -p work whatsapp` to pair a secondary profile, then enable WhatsApp
 for that profile. An enabled profile without `creds.json` is skipped with the
 `whatsapp_unpaired` status and its pairing command.
 
@@ -53,7 +53,7 @@ what a gateway crash leaves behind. An unhealthy one is reaped by that same
 identity and restarted. Any other process bound on the port is a fatal error
 for that profile only. Set `platforms.whatsapp.extra.bridge_port` to a
 distinct free port, or stop the process holding it. Other
-profiles continue running. `hermes gateway status --profile work` reports the
+profiles continue running. `kestrel gateway status --profile work` reports the
 profile's own WhatsApp adapter rather than shared ingress.
 
 Profiles that each run their own gateway, rather than one multiplexed gateway,
@@ -194,7 +194,7 @@ After getting the number:
 
 1. Install WhatsApp on a phone (or use WhatsApp Business app with dual-SIM)
 2. Register the new number with WhatsApp
-3. Run `hermes whatsapp` and scan the QR code from that WhatsApp account
+3. Run `kestrel whatsapp` and scan the QR code from that WhatsApp account
 
 ---
 
@@ -252,9 +252,9 @@ turn reuses that transcript).
 Then start the gateway:
 
 ```bash
-hermes gateway              # Foreground
-hermes gateway install      # Install as a user service
-sudo hermes gateway install --system   # Linux only: boot-time system service
+kestrel gateway              # Foreground
+kestrel gateway install      # Install as a user service
+sudo kestrel gateway install --system   # Linux only: boot-time system service
 ```
 
 The gateway starts the WhatsApp bridge automatically using the saved session.
@@ -423,7 +423,7 @@ platforms:
 | **Logged out unexpectedly** | WhatsApp unlinks devices after long inactivity. Keep the phone on and connected to the network, then re-pair with `hermes whatsapp` if needed. |
 | **Bridge crashes or reconnect loops** | Restart the gateway, update Hermes, and re-pair if the session was invalidated by a WhatsApp protocol change. |
 | **Bot stops working after WhatsApp update** | Update Hermes to get the latest bridge version, then re-pair. |
-| **macOS: "Node.js not installed" but node works in terminal** | launchd services don't inherit your shell PATH. Run `hermes gateway install` to re-snapshot your current PATH into the plist, then `hermes gateway start`. See the [Gateway Service docs](./index.md#macos-launchd) for details. |
+| **macOS: "Node.js not installed" but node works in terminal** | launchd services don't inherit your shell PATH. Run `kestrel gateway install` to re-snapshot your current PATH into the plist, then `kestrel gateway start`. See the [Gateway Service docs](./index.md#macos-launchd) for details. |
 | **Messages not being received** | Verify `WHATSAPP_ALLOWED_USERS` includes the sender's number (with country code, no `+` or spaces), or set it to `*` to allow everyone. Set `WHATSAPP_DEBUG=true` in `.env` and restart the gateway to see raw message events in `bridge.log`. |
 | **Bot replies to strangers with a pairing code** | Set `whatsapp.unauthorized_dm_behavior: ignore` in `~/.hermes/config.yaml` if you want unauthorized DMs to be silently ignored instead. |
 

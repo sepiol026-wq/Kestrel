@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes update --list-venv-holders``: read-only JSON twin of the Windows venv-holder refusal.
+"""``kestrel update --list-venv-holders``: read-only JSON twin of the Windows venv-holder refusal.
 
 Drives ``cmd_update`` (the production entry point) so the wiring in ``_update_preflight_handled``
 is what is proven, not the helper alone.

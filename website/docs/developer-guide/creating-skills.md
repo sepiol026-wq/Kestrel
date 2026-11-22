@@ -327,7 +327,7 @@ Trust scoping: community hub installs never auto-execute snippets, even with the
 Run the skill and verify the agent follows the instructions correctly:
 
 ```bash
-hermes chat --toolsets skills -q "Use the X skill to do Y"
+kestrel chat --toolsets skills -q "Use the X skill to do Y"
 ```
 
 ## Where Should the Skill Live?

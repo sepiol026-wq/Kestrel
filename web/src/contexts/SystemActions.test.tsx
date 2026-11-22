@@ -94,7 +94,7 @@ describe("SystemActionsProvider update toast", () => {
     expect(text).toContain("exit 1");
     expect(text).toContain(`local_changes: ${INSTRUCTION}`);
     // A rerun does not restore a parked stash.
-    expect(text).not.toContain("re-run `hermes update`");
+    expect(text).not.toContain("re-run `kestrel update`");
   });
 
   it("never names another run's debt", async () => {

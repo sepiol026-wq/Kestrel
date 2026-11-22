@@ -48,14 +48,14 @@ def test_bare_user_unit_pinning_this_custom_home_is_adopted_by_lifecycle_command
 
     # A bare unit that pins ANOTHER home is someone else's service: this home keeps its own name.
     legacy_unit.write_text(
-        f'[Service]\nEnvironment="HERMES_HOME={tmp_path / "other"}"\nExecStart=/usr/bin/hermes gateway run\n',
+        f'[Service]\nEnvironment="HERMES_HOME={tmp_path / "other"}"\nExecStart=/usr/bin/kestrel gateway run\n',
         encoding="utf-8",
     )
     assert gateway.get_service_name() != "hermes-gateway"
     assert not gateway._systemd_unit_installed()
 
     legacy_unit.write_text(
-        f'[Service]\nEnvironment="HERMES_HOME={custom_root}"\nRestart=always\nExecStart=/usr/bin/hermes gateway run\n',
+        f'[Service]\nEnvironment="HERMES_HOME={custom_root}"\nRestart=always\nExecStart=/usr/bin/kestrel gateway run\n',
         encoding="utf-8",
     )
     assert gateway.get_service_name() == "hermes-gateway"

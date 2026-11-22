@@ -1121,7 +1121,7 @@ class TestOptionalSkillSourceBinaryAssets:
 
 class TestOptionalSkillSourceLiveRepoFallback:
     """Skills merged to main after the local install was cut must still be
-    searchable and installable without `hermes update` (live-repo fallback)."""
+    searchable and installable without `kestrel update` (live-repo fallback)."""
 
     def _make_source(self, tmp_path, remote_dirs):
         optional_root = tmp_path / "optional-skills"

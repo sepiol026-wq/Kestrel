@@ -10,7 +10,7 @@ description: '`hermes import-agent`: import an OpenClaw (~/.openclaw, or legacy 
   MCP servers land in config.yaml, skills are copied, and `--sync` re-imports sources that changed.
   OpenClaw (core''s former `hermes claw migrate`; the plugin keeps that spelling, `hermes claw cleanup` and
   the openclaw-migration skill): persona, memories, skills, model and messaging settings, MCP servers and
-  agent behaviour. Formerly built into Hermes core; `hermes setup` offers to install it when it finds one
+  agent behaviour. Formerly built into Hermes core; `kestrel setup` offers to install it when it finds one
   of these agents, and profiles with a registered sync source are migrated automatically. Disclosure — no
   Python dependencies, no network calls and no model calls. Claude Code / Codex / Cursor: reads those
   agents'' local config trees (never their credential files; secret-looking MCP env vars and headers are

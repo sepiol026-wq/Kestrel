@@ -236,11 +236,11 @@ describe('managed local model server down', () => {
 
     expect(card(true).body).toMatch(/retry/i)
     expect(card(false).body).not.toMatch(/retry/i)
-    expect(card(false).body).toContain('hermes model')
+    expect(card(false).body).toContain('kestrel model')
 
     for (const copy of Object.values(TRANSLATIONS)) {
       expect(card(false, copy.assistant.thread).body).not.toBe(card(true, copy.assistant.thread).body)
-      expect(card(false, copy.assistant.thread).body).toContain('hermes model')
+      expect(card(false, copy.assistant.thread).body).toContain('kestrel model')
     }
   })
 })

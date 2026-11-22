@@ -11,11 +11,11 @@ description: "Complete guide to migrating your OpenClaw / Clawdbot setup to Kest
 The command comes from the official **`agent-importers` plugin** in the [plugin catalog](../user-guide/features/plugins.md), which also imports Claude Code, Codex CLI and Cursor setups ([Import from Other Agents](../user-guide/import-from-other-agents.md)). The older spelling `hermes claw migrate` still works once the plugin is installed and runs the same import.
 
 :::tip The easy way
-On a fresh install, run `hermes setup`. When it finds `~/.openclaw` it asks **"Import your setup from OpenClaw?"**. Say yes and setup installs the plugin and runs `hermes import-agent openclaw --migrate-secrets`, preview and confirmation included, then continues with the sections the import did not already fill in.
+On a fresh install, run `kestrel setup`. When it finds `~/.openclaw` it asks **"Import your setup from OpenClaw?"**. Say yes and setup installs the plugin and runs `hermes import-agent openclaw --migrate-secrets`, preview and confirmation included, then continues with the sections the import did not already fill in.
 :::
 
 :::tip
-If your OpenClaw setup was multi-provider, `hermes setup --portal` collapses it to one OAuth — 300+ models plus the Tool Gateway in a single login. See [Nous Portal](../integrations/nous-portal.md).
+If your OpenClaw setup was multi-provider, `kestrel setup --portal` collapses it to one OAuth — 300+ models plus the Tool Gateway in a single login. See [Nous Portal](../integrations/nous-portal.md).
 :::
 
 ## Quick start
@@ -82,7 +82,7 @@ Skill conflicts are handled by `--skill-conflict`: `skip` leaves the existing He
 | What | OpenClaw config path | Hermes destination | Notes |
 |------|---------------------|-------------------|-------|
 | Default model | `agents.defaults.model` | `config.yaml` → `model` | Can be a string or `{primary, fallbacks}` object |
-| Custom providers | `models.providers.*` | `config.yaml` → `custom_providers` (auto-migrated to the canonical `providers:` dict on the next `hermes update` config migration) | Maps `baseUrl`, `apiType`/`api` — handles both short ("openai", "anthropic") and hyphenated ("openai-completions", "anthropic-messages", "google-generative-ai") values |
+| Custom providers | `models.providers.*` | `config.yaml` → `custom_providers` (auto-migrated to the canonical `providers:` dict on the next `kestrel update` config migration) | Maps `baseUrl`, `apiType`/`api` — handles both short ("openai", "anthropic") and hyphenated ("openai-completions", "anthropic-messages", "google-generative-ai") values |
 | Provider API keys | `models.providers.*.apiKey` | `~/.hermes/.env` | Requires `--migrate-secrets`. See [API key resolution](#api-key-resolution) below. |
 
 ### Agent behavior
@@ -228,15 +228,15 @@ The migration resolves all three formats. For env templates and SecretRef object
 
 3. **Start a new session** — imported skills and memory entries take effect in new sessions, not the current one.
 
-4. **Verify API keys** — run `hermes status` to check provider authentication.
+4. **Verify API keys** — run `kestrel status` to check provider authentication.
 
 5. **Test messaging** — if you migrated platform tokens, restart the gateway: `systemctl --user restart hermes-gateway`
 
 6. **Check session archives** — review archived advanced settings; idle and daily reset timers are intentionally not imported.
 
-7. **Re-pair WhatsApp** — WhatsApp uses QR code pairing (Baileys), not token migration. Run `hermes whatsapp` to pair.
+7. **Re-pair WhatsApp** — WhatsApp uses QR code pairing (Baileys), not token migration. Run `kestrel whatsapp` to pair.
 
-8. **Archive cleanup** — after confirming everything works, run `hermes claw cleanup` to rename leftover OpenClaw directories to `.pre-migration/` (prevents state confusion).
+8. **Archive cleanup** — after confirming everything works, run `kestrel claw cleanup` to rename leftover OpenClaw directories to `.pre-migration/` (prevents state confusion).
 
 ## Troubleshooting
 
@@ -258,4 +258,4 @@ OpenClaw stores TTS settings in two places: `messages.tts.providers.*` and the t
 
 ## Upgrading from a version with `hermes claw` built in
 
-OpenClaw migration used to ship inside Hermes core as `hermes claw migrate` and the optional `openclaw-migration` skill. Both moved into the `agent-importers` plugin, with the same flags and the same secrets rule (keys come over only with `--migrate-secrets`). Running `hermes claw` without the plugin prints the install command, and a fresh `hermes setup` that finds `~/.openclaw` offers to install it. The guided migration skill comes with the plugin as `agent-importers:openclaw-migration`. The old `official/migration/openclaw-migration` optional skill is gone. Nothing changes for an OpenClaw setup you have already migrated.
+OpenClaw migration used to ship inside Hermes core as `hermes claw migrate` and the optional `openclaw-migration` skill. Both moved into the `agent-importers` plugin, with the same flags and the same secrets rule (keys come over only with `--migrate-secrets`). Running `hermes claw` without the plugin prints the install command, and a fresh `kestrel setup` that finds `~/.openclaw` offers to install it. The guided migration skill comes with the plugin as `agent-importers:openclaw-migration`. The old `official/migration/openclaw-migration` optional skill is gone. Nothing changes for an OpenClaw setup you have already migrated.

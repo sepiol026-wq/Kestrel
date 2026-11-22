@@ -373,7 +373,7 @@ def test_refresh_xai_oauth_pure_403_marked_tier_denied_not_relogin(monkeypatch):
 
     Regression test for #26847 — xAI's backend has been seen to 403
     standard SuperGrok subscribers despite the in-app subscription
-    being active. Re-running ``hermes model`` won't help in that
+    being active. Re-running ``kestrel model`` won't help in that
     case, so the AuthError must NOT set ``relogin_required=True``,
     and must carry the dedicated ``xai_oauth_tier_denied`` code so
     ``format_auth_error`` doesn't append the misleading re-auth hint.
@@ -494,7 +494,7 @@ def test_xai_oauth_discovery_validates_endpoints(monkeypatch):
 
 
 def test_credential_pool_seeds_xai_oauth_from_singleton(tmp_path, monkeypatch):
-    """After `hermes model` -> xai-oauth, the singleton holds tokens.  load_pool
+    """After `kestrel model` -> xai-oauth, the singleton holds tokens.  load_pool
     must surface that as a pool entry so `hermes auth list` reflects truth and
     refreshes route through the pool consistently with codex.
 
@@ -588,12 +588,12 @@ def test_auth_remove_xai_oauth_clears_singleton_and_sticks(tmp_path, monkeypatch
 
 
 def test_login_xai_oauth_relogin_clears_suppression_and_reseeds(tmp_path, monkeypatch):
-    """remove -> ``hermes model`` re-login (``_login_xai_oauth``) must clear the
+    """remove -> ``kestrel model`` re-login (``_login_xai_oauth``) must clear the
     ``device_code`` suppression marker so the singleton seed re-creates the
     pool entry.
 
     Pre-fix: ``auth_remove_command`` set ``["device_code"]`` suppression but
-    only ``auth_add_command`` cleared it — the ``hermes model`` re-login path did
+    only ``auth_add_command`` cleared it — the ``kestrel model`` re-login path did
     not. So after remove -> re-login the seed kept skipping and ``hermes auth
     list`` showed no xAI entry even though the agent still worked via the
     singleton fallback. The fix calls ``unsuppress_credential_source`` on
@@ -866,7 +866,7 @@ def test_pool_sync_back_preserves_active_provider(tmp_path, monkeypatch):
     picking a provider.  ``_save_provider_state`` flips ``active_provider``;
     using it on the sync-back path means every xAI/Codex/Nous refresh in a
     multi-provider setup silently overrides the user's chosen active
-    provider (visible to ``hermes auth status``, ``hermes setup``, and the
+    provider (visible to ``hermes auth status``, ``kestrel setup``, and the
     ``hermes`` no-arg dispatcher).  Pin the ``set_active=False`` contract so
     no future refactor regresses to the legacy semantic."""
     from agent.credential_pool import load_pool

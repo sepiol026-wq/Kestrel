@@ -5,7 +5,7 @@
 
 """Focused tests for Upstage Solar first-class provider wiring.
 
-Regression guard for the bug where `hermes model` saved `provider: upstage`
+Regression guard for the bug where `kestrel model` saved `provider: upstage`
 correctly but, on re-entry, showed a different provider as active. Root cause:
 `hermes_cli/providers.py` (the resolver behind `resolve_provider_full`) had no
 `upstage` overlay, so `resolve_provider_full("upstage")` returned None, the

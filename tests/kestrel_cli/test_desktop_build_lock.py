@@ -182,7 +182,7 @@ def test_gui_releases_lock_before_packaged_electron_handoff(tmp_path, monkeypatc
     if sys.platform == "darwin":
         executable = desktop_dir / "release" / "mac-arm64" / "Hermes.app" / "Contents" / "MacOS" / "Hermes"
     elif sys.platform == "win32":
-        executable = desktop_dir / "release" / "win-unpacked" / "Hermes.exe"
+        executable = desktop_dir / "release" / "win-unpacked" / "Kestrel.exe"
     else:
         executable = desktop_dir / "release" / "linux-unpacked" / "hermes"
     executable.parent.mkdir(parents=True)
@@ -242,7 +242,7 @@ def test_gui_releases_lock_after_build_failure(tmp_path, monkeypatch, capsys):
 
 
 def test_update_path_waits_for_a_held_lock(tmp_path, monkeypatch, capsys):
-    """`hermes update`'s desktop rebuild queues behind a holder instead of failing the update."""
+    """`kestrel update`'s desktop rebuild queues behind a holder instead of failing the update."""
     from kestrel_cli import source_build as source_build_mod
     from kestrel_cli.main_desktop import _refresh_installed_desktop_apps
 

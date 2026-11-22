@@ -268,7 +268,7 @@ A ticker whose checkout was updated under it (boot revision ≠ disk revision) y
 only to a gateway that can actually take it over: the runtime-lock holder must be a live gateway
 whose `gateway_state.json` heartbeat is fresh and whose stamped `code_sha` is the on-disk revision.
 A lock held by a process that is itself still running the pre-update code — the common case right
-after `hermes update` with a single gateway — never counts as a fresh gateway, so the ticker keeps
+after `kestrel update` with a single gateway — never counts as a fresh gateway, so the ticker keeps
 dispatching instead of yielding every tick to nobody.
 
 In CLI mode, cron jobs only fire when `hermes cron` commands are run or during active CLI sessions.
@@ -450,7 +450,7 @@ The scheduler uses cross-process file-based locking (`fcntl.flock` on Unix, `msv
 
 ### Stale-code yield
 
-Before the tick lock, a gateway whose checkout was updated under it (boot revision ≠ disk revision) yields the tick when another process holds the gateway runtime lock — a fresher gateway's ticker dispatches instead, and the stale one must not race it with mixed `sys.modules`. The yield is raised (`CronTickYielded`) and persisted as the ticker's last error, so `hermes cron status` reports **"Gateway is running STALE code — its cron ticker yields every tick and fires NOTHING"** with both revisions and the restart command, even though the liveness heartbeat keeps refreshing. `hermes update` closes the loop: a gateway the post-update fleet version matrix proves stale is handed to the drain-first `request_restart` path (SIGUSR1) instead of being left running; a supervised gateway respawns on the new code, a bare `gateway run` is stopped and listed under "Restart manually".
+Before the tick lock, a gateway whose checkout was updated under it (boot revision ≠ disk revision) yields the tick when another process holds the gateway runtime lock — a fresher gateway's ticker dispatches instead, and the stale one must not race it with mixed `sys.modules`. The yield is raised (`CronTickYielded`) and persisted as the ticker's last error, so `hermes cron status` reports **"Gateway is running STALE code — its cron ticker yields every tick and fires NOTHING"** with both revisions and the restart command, even though the liveness heartbeat keeps refreshing. `kestrel update` closes the loop: a gateway the post-update fleet version matrix proves stale is handed to the drain-first `request_restart` path (SIGUSR1) instead of being left running; a supervised gateway respawns on the new code, a bare `gateway run` is stopped and listed under "Restart manually".
 
 ## CLI Interface
 

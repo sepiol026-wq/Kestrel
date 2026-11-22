@@ -7,7 +7,7 @@ Root TypeScript style rules apply.
 
 Electron + React + nanostores (`@assistant-ui/react`) talks JSON-RPC over the existing
 `@hermes/shared` client. Normal local primary and pooled launches invoke
-`hermes gateway ensure --json`, consume its credential-free endpoint, and authenticate
+`kestrel gateway ensure --json`, consume its credential-free endpoint, and authenticate
 WebSockets with fresh private control tickets. The app never acquires the gateway PID as
 an owned child. Closing, switching or evicting a Desktop connection disconnects the viewer;
 only explicit gateway lifecycle commands stop the owner.

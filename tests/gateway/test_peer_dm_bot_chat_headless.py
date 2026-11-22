@@ -255,7 +255,7 @@ async def _peer_minted(headless):
 
 def _local_owner(authority, user_id='uid:1000'):
     """The Desktop/CLI's own connection: an interactive ticket redeemed on the loopback socket
-    (``gateway/run_api.py``), the identity ``hermes chat``, the Desktop and ``bot_relay.deliver`` use.
+    (``gateway/run_api.py``), the identity ``kestrel chat``, the Desktop and ``bot_relay.deliver`` use.
     *user_id*: the login a same-user peer forwards on that ticket (control socket, #138915)."""
     from gateway.runtime_bootstrap import _PURPOSE_CAPABILITIES
     from gateway.session_controls import AuthorityConnection
@@ -286,7 +286,7 @@ async def test_peer_minted_bot_chat_is_listed_for_the_local_owner(headless):
 async def test_peer_minted_bot_chat_resumes_by_title_and_admits_a_local_turn(headless, monkeypatch):
     session_id = await _peer_minted(headless)
     local = _local_owner(headless.authority)
-    # ``hermes chat -c "Bot Chat"``: the owner resolves the title.
+    # ``kestrel chat -c "Bot Chat"``: the owner resolves the title.
     resumed = await _rpc(local, 'session.resume', title='Bot Chat')
     assert resumed['session_id'] == session_id
     monkeypatch.setattr(headless.authority, '_schedule', lambda ref: None)  # admission only, no agent

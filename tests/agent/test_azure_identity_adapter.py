@@ -451,7 +451,7 @@ class TestHasAzureIdentityCredentials:
 
 
 # ---------------------------------------------------------------------------
-# describe_active_credential — used by hermes doctor + hermes auth
+# describe_active_credential — used by kestrel doctor + hermes auth
 # ---------------------------------------------------------------------------
 
 
@@ -472,7 +472,7 @@ class TestDescribeActiveCredential:
         )
         assert info["ok"] is False
         assert "lazy installs disabled" in info["error"]
-        assert "hermes pm install --extra azure-identity" in info["hint"]
+        assert "kestrel pm install --extra azure-identity" in info["hint"]
 
     def test_reports_env_sources_for_managed_identity(self, fake_azure_identity, monkeypatch):
         from agent.azure_identity_adapter import describe_active_credential

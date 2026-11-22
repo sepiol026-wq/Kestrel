@@ -500,7 +500,7 @@ def browser_vault_fill(handle: str, task_id: Optional[str] = None, *, with_ident
                 "success": False,
                 "error": (
                     f"No vault item with handle {handle!r}. Use browser_vault action=list. "
-                    "To save a credential: run `hermes vault add` in a terminal, or "
+                    "To save a credential: run `kestrel vault add` in a terminal, or "
                     "in the desktop app open Settings → Credential Vault."
                 ),
             }

@@ -80,7 +80,7 @@ def activate_multi_profile_hosting_eagerly() -> bool:
     home. Everything the host had already done by then (idle-reaper ticks, cron start, adapter
     connects, MCP discovery) ran under single-profile assumptions and is never re-scoped, and the
     launch profile's env had already been mutated by then, so ``capture_launch_env`` froze a
-    polluted snapshot. One ``hermes serve`` / ``hermes gateway run`` per host means the process
+    polluted snapshot. One ``hermes serve`` / ``kestrel gateway run`` per host means the process
     knows at boot whether it can be asked for a second home: decide there, once. Call it as the LAST
     boot step: the frozen snapshot is the only source for launch keys with no ``.env`` to rebuild
     from, so every credential the boot still injects must already be in ``os.environ``.

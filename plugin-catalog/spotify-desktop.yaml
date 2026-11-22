@@ -19,4 +19,4 @@ capabilities:
   provides_middleware: []
   requires_env: []
 known_issues:
-  - "On Hermes releases where Spotify moved out of core, install the official spotify plugin and run `hermes spotify login`. This pin includes that client switch (cruzlxyz/hermes-spotify-desktop#2)."
+  - "On Hermes releases where Spotify moved out of core, install the official spotify plugin and run `kestrel spotify login`. This pin includes that client switch (cruzlxyz/hermes-spotify-desktop#2)."

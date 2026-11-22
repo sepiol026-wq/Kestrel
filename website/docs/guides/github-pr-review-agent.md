@@ -37,9 +37,9 @@ If you have a public endpoint available, check out [Automated GitHub PR Comments
 - **Kestrel Agent installed** — see the [Installation guide](../getting-started/installation.md)
 - **Gateway running** for cron jobs:
   ```bash
-  hermes gateway install   # Install as a service
+  kestrel gateway install   # Install as a service
   # or
-  hermes gateway           # Run in foreground
+  kestrel gateway           # Run in foreground
   ```
 - **GitHub CLI (`gh`) installed and authenticated**:
   ```bash
@@ -285,7 +285,7 @@ The gateway runs in a minimal environment. Ensure `gh` is in the system PATH and
 
 ### Cron job doesn't run
 ```bash
-hermes gateway status    # Is the gateway running?
+kestrel gateway status    # Is the gateway running?
 hermes cron list         # Is the job enabled?
 ```
 

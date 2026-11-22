@@ -61,7 +61,7 @@ describe("fetchJSON error contract", () => {
     const body = {
       detail: {
         error: "state_db_corrupt",
-        message: "state.db corrupt — run `hermes doctor` (then `hermes doctor --fix` or `hermes sessions repair`).",
+        message: "state.db corrupt — run `kestrel doctor` (then `kestrel doctor --fix` or `hermes sessions repair`).",
         path: "/home/u/.hermes/state.db",
       },
     };

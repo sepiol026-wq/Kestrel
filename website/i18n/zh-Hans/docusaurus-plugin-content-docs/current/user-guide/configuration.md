@@ -49,7 +49,7 @@ hermes config set OPENROUTER_API_KEY sk-or-...  # 保存到 .env
 
 设置按以下顺序解析（优先级从高到低）：
 
-1. **CLI 参数** —— 例如 `hermes chat --model anthropic/claude-sonnet-4`（单次调用覆盖）
+1. **CLI 参数** —— 例如 `kestrel chat --model anthropic/claude-sonnet-4`（单次调用覆盖）
 2. **`~/.hermes/config.yaml`** —— 所有非机密设置的主配置文件
 3. **`~/.hermes/.env`** —— 环境变量的回退；机密（API 密钥、token、密码）**必须**放这里
 4. **内置默认值** —— 未设置任何内容时的硬编码安全默认值
@@ -60,7 +60,7 @@ hermes config set OPENROUTER_API_KEY sk-or-...  # 保存到 .env
 
 ### Hermes 写入的凭据
 
-当 Hermes 自身为某个配置字段写入凭据时，值保存到当前 profile 的 `.env`，`config.yaml` 中只写入对它的引用。适用于对下列字段执行的 `hermes config set`、dashboard / 桌面端的模型与辅助模型选择器，以及 `hermes model` 的自定义端点和辅助模型流程：
+当 Hermes 自身为某个配置字段写入凭据时，值保存到当前 profile 的 `.env`，`config.yaml` 中只写入对它的引用。适用于对下列字段执行的 `hermes config set`、dashboard / 桌面端的模型与辅助模型选择器，以及 `kestrel model` 的自定义端点和辅助模型流程：
 
 | 字段 | `.env` 中的变量名 | `config.yaml` 中保存 |
 |---|---|---|
@@ -279,13 +279,13 @@ python -c "import pm; pm.sync_venv(['vercel'], explicit=True)"
 对于一次性本地开发，Hermes 也接受短期 Vercel OIDC token：
 
 ```bash
-VERCEL_OIDC_TOKEN="$(vc project token <project-name>)" hermes chat
+VERCEL_OIDC_TOKEN="$(vc project token <project-name>)" kestrel chat
 ```
 
 在已链接的 Vercel 项目目录中，可以省略项目名称：
 
 ```bash
-VERCEL_OIDC_TOKEN="$(vc project token)" hermes chat
+VERCEL_OIDC_TOKEN="$(vc project token)" kestrel chat
 ```
 
 OIDC token 是短期的，不应作为文档化的部署路径使用。
@@ -326,7 +326,7 @@ terminal:
 - **Local** —— 无特殊要求。入门时最安全的默认选项。
 - **Docker** —— 运行 `docker version` 验证 Docker 是否正常工作。如果失败，修复 Docker 或执行 `hermes config set terminal.backend local`。
 - **SSH** —— `TERMINAL_SSH_HOST` 和 `TERMINAL_SSH_USER` 都必须设置。如果缺少任一项，Hermes 会记录清晰的错误。
-- **Modal** —— 需要 `MODAL_TOKEN_ID` 环境变量或 `~/.modal.toml`。运行 `hermes doctor` 检查。
+- **Modal** —— 需要 `MODAL_TOKEN_ID` 环境变量或 `~/.modal.toml`。运行 `kestrel doctor` 检查。
 - **Daytona** —— 需要 `DAYTONA_API_KEY`。Daytona SDK 处理服务器 URL 配置。
 - **Singularity** —— 需要 `$PATH` 中有 `apptainer` 或 `singularity`。HPC 集群上常见。
 
@@ -813,7 +813,7 @@ Qwen Cloud（阿里巴巴 DashScope）上游将缓存 TTL 限制为 5 分钟，�
 
 ## 辅助模型 {#auxiliary-models}
 
-Hermes 使用"辅助"模型处理图像分析、浏览器截图分析、会话标题生成和上下文压缩等附带任务。默认情况下（`auxiliary.*.provider: "auto"`），Hermes 将每个辅助任务路由到您的**主聊天模型** —— 与您在 `hermes model` 中选择的相同 provider/模型。您无需配置任何内容即可开始，但请注意，在昂贵的推理模型（Opus、MiniMax M2.7 等）上，辅助任务会增加显著成本。如果您希望无论主模型如何都使用便宜且快速的附带任务，请显式设置 `auxiliary.<task>.provider` 和 `auxiliary.<task>.model`（例如，在 OpenRouter 上使用 Gemini Flash 进行视觉分析）。（网页提取不是辅助任务：`web_extract` 和浏览器快照会确定性截断长内容，并将完整文本存储供 `read_file` 分页读取 —— 不涉及 LLM。）
+Hermes 使用"辅助"模型处理图像分析、浏览器截图分析、会话标题生成和上下文压缩等附带任务。默认情况下（`auxiliary.*.provider: "auto"`），Hermes 将每个辅助任务路由到您的**主聊天模型** —— 与您在 `kestrel model` 中选择的相同 provider/模型。您无需配置任何内容即可开始，但请注意，在昂贵的推理模型（Opus、MiniMax M2.7 等）上，辅助任务会增加显著成本。如果您希望无论主模型如何都使用便宜且快速的附带任务，请显式设置 `auxiliary.<task>.provider` 和 `auxiliary.<task>.model`（例如，在 OpenRouter 上使用 Gemini Flash 进行视觉分析）。（网页提取不是辅助任务：`web_extract` 和浏览器快照会确定性截断长内容，并将完整文本存储供 `read_file` 分页读取 —— 不涉及 LLM。）
 
 :::note 为什么 "auto" 使用您的主模型
 早期版本将聚合器用户（OpenRouter、Nous Portal）分流到便宜的 provider 端默认值。这令人惊讶 —— 付费购买聚合器订阅的用户会看到不同的模型处理其辅助流量。`auto` 现在对所有人使用主模型，`config.yaml` 中的每任务覆盖仍然优先（见下方[完整辅助配置参考](#full-auxiliary-config-reference)）。
@@ -821,10 +821,10 @@ Hermes 使用"辅助"模型处理图像分析、浏览器截图分析、会话�
 
 ### 交互式配置辅助模型
 
-无需手动编辑 YAML，运行 `hermes model` 并从菜单中选择**"配置辅助模型"**。您将获得交互式的每任务选择器：
+无需手动编辑 YAML，运行 `kestrel model` 并从菜单中选择**"配置辅助模型"**。您将获得交互式的每任务选择器：
 
 ```
-$ hermes model
+$ kestrel model
 → Configure auxiliary models
 
 [ ] vision               currently: auto / main model
@@ -865,11 +865,11 @@ Hermes 中的每个模型槽位 —— 辅助任务、压缩、回退 —— 使
 辅助任务的可用 providers：`auto`、`main`，以及[provider 注册表](../reference/environment-variables.md)中的任何 provider —— `openrouter`、`nous`、`openai-codex`、`anthropic`、`gemini`、`qwen-oauth`、`zai`、`kimi-coding`、`kimi-coding-cn`、`minimax`、`minimax-cn`、`minimax-oauth`、`deepseek`、`nvidia`、`xai`、`xai-oauth`、`ollama-cloud`、`alibaba`、`bedrock`、`huggingface`、`arcee`、`xiaomi`、`kilocode`、`opencode-zen`、`opencode-go`、`ai-gateway`、`azure-foundry` —— 或您 `custom_providers` 列表中任何命名的自定义 provider（例如 `provider: "beans"`）。
 
 :::tip MiniMax OAuth
-`minimax-oauth` 通过浏览器 OAuth 登录（无需 API 密钥）。运行 `hermes model` 并选择 **MiniMax (OAuth)** 进行认证。辅助任务自动使用 `MiniMax-M2.7-highspeed`。参阅 [MiniMax OAuth 指南](../guides/minimax-oauth.md)。
+`minimax-oauth` 通过浏览器 OAuth 登录（无需 API 密钥）。运行 `kestrel model` 并选择 **MiniMax (OAuth)** 进行认证。辅助任务自动使用 `MiniMax-M2.7-highspeed`。参阅 [MiniMax OAuth 指南](../guides/minimax-oauth.md)。
 :::
 
 :::tip xAI Grok OAuth
-`xai-oauth` 通过浏览器 OAuth 为 SuperGrok 和 X Premium+ 订阅者登录（无需 API 密钥）。运行 `hermes model` 并选择 **xAI Grok OAuth (SuperGrok / Premium+)** 进行认证。相同的 OAuth token 可重用于每个直接到 xAI 的接口（聊天、辅助任务、TTS、图像生成、视频生成、转录）。参阅 [xAI Grok OAuth 指南](../guides/xai-grok-oauth.md)，如果 Hermes 在远程主机上，请参阅 [SSH/远程主机上的 OAuth](../guides/oauth-over-ssh.md)。
+`xai-oauth` 通过浏览器 OAuth 为 SuperGrok 和 X Premium+ 订阅者登录（无需 API 密钥）。运行 `kestrel model` 并选择 **xAI Grok OAuth (SuperGrok / Premium+)** 进行认证。相同的 OAuth token 可重用于每个直接到 xAI 的接口（聊天、辅助任务、TTS、图像生成、视频生成、转录）。参阅 [xAI Grok OAuth 指南](../guides/xai-grok-oauth.md)，如果 Hermes 在远程主机上，请参阅 [SSH/远程主机上的 OAuth](../guides/oauth-over-ssh.md)。
 :::
 
 :::warning `"main"` 仅用于辅助任务
@@ -1016,10 +1016,10 @@ AUXILIARY_VISION_MODEL=openai/gpt-4o
 | `"auto"` | 最佳可用（默认）。Vision 尝试 OpenRouter → Nous → Codex。 | — |
 | `"openrouter"` | 强制 OpenRouter —— 路由到任何模型（Gemini、GPT-4o、Claude 等） | `OPENROUTER_API_KEY` |
 | `"nous"` | 强制 Nous Portal | `hermes auth` |
-| `"codex"` | 强制 Codex OAuth（ChatGPT 账户）。请显式设置 `model`（例如 `gpt-5.4`）。 | `hermes model` → ChatGPT or Codex Subscription |
-| `"minimax-oauth"` | 强制 MiniMax OAuth（浏览器登录，无需 API 密钥）。辅助任务使用 MiniMax-M2.7-highspeed。 | `hermes model` → MiniMax (OAuth) |
-| `"xai-oauth"` | 强制 xAI Grok OAuth（SuperGrok 或 X Premium+ 订阅者的浏览器登录，无需 API 密钥）。相同的 OAuth token 涵盖聊天、TTS、图像、视频和转录。 | `hermes model` → xAI Grok OAuth (SuperGrok / Premium+) |
-| `"main"` | 使用您的活跃自定义/主端点。可以来自 `OPENAI_BASE_URL` + `OPENAI_API_KEY` 或通过 `hermes model` / `config.yaml` 保存的自定义端点。适用于 OpenAI、本地模型或任何 OpenAI 兼容 API。**仅限辅助任务 —— 对 `model.provider` 无效。** | 自定义端点凭据 + 基础 URL |
+| `"codex"` | 强制 Codex OAuth（ChatGPT 账户）。请显式设置 `model`（例如 `gpt-5.4`）。 | `kestrel model` → ChatGPT or Codex Subscription |
+| `"minimax-oauth"` | 强制 MiniMax OAuth（浏览器登录，无需 API 密钥）。辅助任务使用 MiniMax-M2.7-highspeed。 | `kestrel model` → MiniMax (OAuth) |
+| `"xai-oauth"` | 强制 xAI Grok OAuth（SuperGrok 或 X Premium+ 订阅者的浏览器登录，无需 API 密钥）。相同的 OAuth token 涵盖聊天、TTS、图像、视频和转录。 | `kestrel model` → xAI Grok OAuth (SuperGrok / Premium+) |
+| `"main"` | 使用您的活跃自定义/主端点。可以来自 `OPENAI_BASE_URL` + `OPENAI_API_KEY` 或通过 `kestrel model` / `config.yaml` 保存的自定义端点。适用于 OpenAI、本地模型或任何 OpenAI 兼容 API。**仅限辅助任务 —— 对 `model.provider` 无效。** | 自定义端点凭据 + 基础 URL |
 
 当您希望附带任务绕过默认路由器时，主 provider 目录中的直接 API 密钥 providers 也在这里工作。配置 `GMI_API_KEY` 后，`gmi` 有效：
 
@@ -1080,7 +1080,7 @@ model:
   provider: minimax-oauth
   base_url: https://api.minimax.io/anthropic
 ```
-运行 `hermes model` 并选择 **MiniMax (OAuth)** 自动登录并设置此项。对于中国区域，基础 URL 将是 `https://api.minimaxi.com/anthropic`。完整演练请参阅 [MiniMax OAuth 指南](../guides/minimax-oauth.md)。
+运行 `kestrel model` 并选择 **MiniMax (OAuth)** 自动登录并设置此项。对于中国区域，基础 URL 将是 `https://api.minimaxi.com/anthropic`。完整演练请参阅 [MiniMax OAuth 指南](../guides/minimax-oauth.md)。
 
 **使用本地/自托管模型：**
 ```yaml
@@ -1471,7 +1471,7 @@ quick_commands:
     command: df -h /
   update:
     type: exec
-    command: hermes update
+    command: kestrel update
   gpu:
     type: exec
     command: nvidia-smi --query-gpu=name,utilization.gpu,memory.used,memory.total --format=csv,noheader
@@ -1577,7 +1577,7 @@ browser:
   dialog_timeout_s: 300          # must_respond 下的安全自动关闭（秒）
 ```
 
-**可执行文件解析顺序。** Hermes 启动它找到的第一个 Chromium：`browser.executable_path` → Hermes 包管理器安装的 Chromium（`hermes pm install chromium`）→ `/etc/hermes/chromium-executable-path`（官方 Docker 镜像）→ `PATH` 上的系统 `chromium` / `chromium-browser`（Termux 以及没有打包构建的平台）。都找不到时，浏览器工具会给出提示，而不是静默失败。
+**可执行文件解析顺序。** Hermes 启动它找到的第一个 Chromium：`browser.executable_path` → Hermes 包管理器安装的 Chromium（`kestrel pm install chromium`）→ `/etc/hermes/chromium-executable-path`（官方 Docker 镜像）→ `PATH` 上的系统 `chromium` / `chromium-browser`（Termux 以及没有打包构建的平台）。都找不到时，浏览器工具会给出提示，而不是静默失败。
 
 **关闭浏览功能。** 浏览器没有配置开关：通过 `hermes tools`（或 `hermes tools disable browser [--platform NAME]`）禁用 `browser` 工具集。
 
@@ -1689,7 +1689,7 @@ approvals:
 
 ```yaml
 checkpoints:
-  enabled: false                 # 启用自动检查点（也可：hermes chat --checkpoints）。默认：false（选择加入）。
+  enabled: false                 # 启用自动检查点（也可：kestrel chat --checkpoints）。默认：false（选择加入）。
   max_snapshots: 20              # 每个目录保留的最大检查点数（默认：20）
 ```
 

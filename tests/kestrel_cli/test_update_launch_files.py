@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes update`` rewrites the launch files it owns before it starts or restarts any gateway.
+"""``kestrel update`` rewrites the launch files it owns before it starts or restarts any gateway.
 
 A service manager starts a gateway from the definition it holds, so the rewrite has to land
 after the update steps that change what the generators write (the Node dependency preparation

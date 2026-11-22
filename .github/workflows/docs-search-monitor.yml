@@ -31,7 +31,7 @@ concurrency:
 
 jobs:
   probe:
-    if: github.repository == 'NousResearch/hermes-agent'
+    if: github.repository == 'sepiol026-wq/Kestrel'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:

@@ -24,7 +24,7 @@ Curator 由空闲检查触发，而非 cron 守护进程。在 CLI 会话启动�
 若两个条件均满足，则会派生一个 `AIAgent` 的后台 fork——与内存/技能自我改进 nudge 使用的模式相同。该 fork 在自己的 prompt（提示词）缓存中运行，绝不触碰当前活跃的对话。
 
 :::info 首次运行行为
-在全新安装时（或 pre-curator 版本在 `hermes update` 后首次 tick 时），curator **不会立即运行**。首次观测会将 `last_run_at` 设为"当前时间"，并将第一次真正的运行推迟整整一个 `interval_hours`。这给了你一个完整的间隔时间来审查技能库、固定重要内容，或在 curator 真正触碰它之前完全退出。
+在全新安装时（或 pre-curator 版本在 `kestrel update` 后首次 tick 时），curator **不会立即运行**。首次观测会将 `last_run_at` 设为"当前时间"，并将第一次真正的运行推迟整整一个 `interval_hours`。这给了你一个完整的间隔时间来审查技能库、固定重要内容，或在 curator 真正触碰它之前完全退出。
 
 如果你想在 curator 真正运行之前查看它*会*做什么，请运行 `hermes curator run --dry-run`——它会生成相同的审查报告，但不会修改技能库。
 :::
@@ -55,10 +55,10 @@ curator:
 
 Curator 的 LLM 审查 pass 是一个常规辅助任务槽——`auxiliary.curator`——与 Vision、Compression、Session Search 等并列。"Auto" 表示"使用我的主聊天模型"；可覆盖该槽以为审查 pass 指定特定的 provider + model。
 
-**最简单——`hermes model`：**
+**最简单——`kestrel model`：**
 
 ```bash
-hermes model                   # → "Auxiliary models — side-task routing"
+kestrel model                   # → "Auxiliary models — side-task routing"
                                # → pick "Curator" → pick provider → pick model
 ```
 
@@ -77,7 +77,7 @@ auxiliary:
 保持 `provider: auto`（默认值）会将审查 pass 路由到主聊天模型，与所有其他辅助任务的行为一致。
 
 :::note 旧版配置
-早期版本使用独立的 `curator.auxiliary.{provider,model}` 块。该路径仍然有效，但会输出一条弃用日志——请迁移到上方的 `auxiliary.curator`，使 curator 与其他所有辅助任务共享相同的管道（`hermes model`、控制台 Models 标签页、`base_url`、`api_key`、`timeout`、`extra_body`）。
+早期版本使用独立的 `curator.auxiliary.{provider,model}` 块。该路径仍然有效，但会输出一条弃用日志——请迁移到上方的 `auxiliary.curator`，使 curator 与其他所有辅助任务共享相同的管道（`kestrel model`、控制台 Models 标签页、`base_url`、`api_key`、`timeout`、`extra_body`）。
 :::
 
 ## CLI

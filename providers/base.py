@@ -278,7 +278,7 @@ class ProviderProfile:
     start_device_login: Callable[[], Any] | None = None
     poll_device_login: Callable[[Any], Any] | None = None
     save_device_login: Callable[[Any], None] | None = None
-    # ``model_setup_flow(config, current_model, args)``: this provider's own ``hermes model`` step
+    # ``model_setup_flow(config, current_model, args)``: this provider's own ``kestrel model`` step
     # (credential prompt, catalog, persist); None = the generic flow for its auth_type.
     model_setup_flow: Callable[[Any, str, Any], Any] | None = None
     # ``setup_reasoning_efforts(model) -> tuple | None``: levels the setup effort picker offers for

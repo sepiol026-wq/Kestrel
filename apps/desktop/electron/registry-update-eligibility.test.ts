@@ -4,7 +4,7 @@
 // Derivative work. All upstream attribution and rights retained.
 
 /**
- * "Update all instances" never runs `hermes update` against a Hermes Cloud
+ * "Update all instances" never runs `kestrel update` against a Hermes Cloud
  * agent, however it was saved: as a Cloud connection or as a plain URL remote.
  */
 

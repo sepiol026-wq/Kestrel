@@ -76,18 +76,18 @@ hermes             # 开始聊天！
 如需稍后重新配置单项设置，使用以下专用命令：
 
 ```bash
-hermes model          # 选择 LLM 提供商和模型
+kestrel model          # 选择 LLM 提供商和模型
 hermes tools          # 配置启用的工具
-hermes gateway setup  # 配置消息平台
+kestrel gateway setup  # 配置消息平台
 hermes config set     # 设置单个配置项
-hermes setup          # 或运行完整的设置向导一次性配置所有内容
+kestrel setup          # 或运行完整的设置向导一次性配置所有内容
 ```
 
 :::tip 最快路径：Nous Portal
 一个订阅涵盖 300+ 个模型以及 [Tool Gateway](../user-guide/features/tool-gateway.md)（网络搜索、图像生成、TTS、云端浏览器）。无需逐一管理各工具的密钥：
 
 ```bash
-hermes setup --portal
+kestrel setup --portal
 ```
 
 该命令一次性完成登录、设置 Nous 为提供商并开启 Tool Gateway。
@@ -118,7 +118,7 @@ Hermes 要求 Python 3.14（`>=3.14,<3.15`），工具版本由 `pm/lock.json` �
 以目标服务用户运行源码安装脚本。由管理员预先安装构建所需工具和 Chromium 的系统库。
 当前脚本不运行 Playwright 的 `--with-deps`，也不提供按发行版选择的 sudo 回退。
 
-安装后，将 `$HOME/.local/bin` 加入服务用户的 PATH，并运行 `hermes doctor`。
+安装后，将 `$HOME/.local/bin` 加入服务用户的 PATH，并运行 `kestrel doctor`。
 请使用脚本生成的包装器，不要硬编码 `venv/bin/hermes`。
 Linux 用户服务需要在注销后继续运行时，由管理员为该用户启用 lingering。
 详见 [消息 Gateway](../user-guide/messaging/index.md)。
@@ -130,11 +130,11 @@ Linux 用户服务需要在注销后继续运行时，由管理员为该用户�
 | 问题                        | 解决方案                                                                           |
 | --------------------------- | ---------------------------------------------------------------------------------- |
 | `hermes: command not found` | 重新加载 shell（`source ~/.bashrc`）或检查 PATH                                    |
-| `API key not set`           | 运行 `hermes model` 配置提供商，或 `hermes config set OPENROUTER_API_KEY your_key` |
+| `API key not set`           | 运行 `kestrel model` 配置提供商，或 `hermes config set OPENROUTER_API_KEY your_key` |
 | 更新后配置丢失              | 运行 `hermes config check`，然后运行 `hermes config migrate`                       |
 
-如需更多诊断信息，运行 `hermes doctor`——它会告诉你确切缺少什么以及如何修复。
+如需更多诊断信息，运行 `kestrel doctor`——它会告诉你确切缺少什么以及如何修复。
 
 ## 安装方式自动检测
 
-Hermes 会自动检测安装方式（git 安装程序、Docker 或 NixOS），`hermes update` 会打印对应路径的更新命令。无需设置任何环境变量——检测基于安装目录结构（`~/.hermes/kestrel-agent/` 检出、Docker 镜像标记或 Nix store 路径）。`hermes doctor` 也会在其环境摘要中显示检测到的安装方式。
+Hermes 会自动检测安装方式（git 安装程序、Docker 或 NixOS），`kestrel update` 会打印对应路径的更新命令。无需设置任何环境变量——检测基于安装目录结构（`~/.hermes/kestrel-agent/` 检出、Docker 镜像标记或 Nix store 路径）。`kestrel doctor` 也会在其环境摘要中显示检测到的安装方式。

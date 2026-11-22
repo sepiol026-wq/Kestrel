@@ -684,7 +684,7 @@ When both exist the `pyproject.toml` wins. What Hermes does with them:
 - **Atomic publication** — PM prepares a fresh environment generation before publishing
   an enablement or an active plugin replacement. Resolution, download, or build failure
   preserves the previous environment and plugin selection; no existing plugin is sacrificed.
-- **Updates retain the union** — `hermes update` includes enabled plugins while preparing
+- **Updates retain the union** — `kestrel update` includes enabled plugins while preparing
   its new generation. There is no post-update pip reinstall. `hermes plugins update` prepares
   active replacements before swapping their code and dependency generation together.
 - **Requirement hygiene** — malformed PEP 508 requirements are refused. Environment markers
@@ -707,7 +707,7 @@ When both exist the `pyproject.toml` wins. What Hermes does with them:
 - `security.allow_lazy_installs: false` blocks on-demand acquisition. Explicit dependency
   consent and explicit enablement authorize PM preparation; discovery never installs.
 
-`HERMES_HOME/plugins/` survives `hermes update` and Desktop updates: the updater only rebuilds the
+`HERMES_HOME/plugins/` survives `kestrel update` and Desktop updates: the updater only rebuilds the
 venv and the checkout, never the home directory.
 
 ### Dependency security policy
@@ -1118,7 +1118,7 @@ hermes logs --level WARNING | grep -i plugin
 
 Common reasons a plugin doesn't appear:
 
-- **Not enabled in config** — plugins are opt-in. Run `hermes plugins enable <name>` (the name comes from the `plugins list` output, which can be `<category>/<plugin>` for nested layouts).
+- **Not enabled in config** — plugins are opt-in. Run `kestrel plugins enable <name>` (the name comes from the `plugins list` output, which can be `<category>/<plugin>` for nested layouts).
 - **Wrong directory layout:** Native packages use `~/.hermes/plugins/<plugin-name>/plugin.yaml` (flat) or one category level. Portable packages use root `plugin.json` in the same locations. Anything deeper is ignored.
 - **Missing `__init__.py`:** Native packages need both `plugin.yaml` and `__init__.py` with a `register(ctx)` function. Portable packages do not import Python and do not require `__init__.py`.
 - **Wrong `kind`** — gateway adapters need `kind: platform` in their manifest. Memory providers are auto-detected as `kind: exclusive` and routed through the `memory.provider` config instead of `plugins.enabled`.
@@ -1386,7 +1386,7 @@ requires_env:
 
 If `WEATHER_API_KEY` isn't set, the plugin is disabled with a clear message. No crash, no error in the agent — just "Plugin weather disabled (missing: WEATHER_API_KEY)".
 
-When users run `hermes plugins install`, they're **prompted interactively** for any missing `requires_env` variables. Values are saved to `.env` automatically.
+When users run `kestrel plugins install`, they're **prompted interactively** for any missing `requires_env` variables. Values are saved to `.env` automatically.
 
 For a better install experience, use the rich format with descriptions and signup URLs:
 
@@ -1899,7 +1899,7 @@ def register(ctx):
     )
 ```
 
-After registration, users can run `hermes my-plugin status`, `hermes my-plugin config`, etc.
+After registration, users can run `kestrel my-plugin status`, `hermes my-plugin config`, etc.
 
 **Memory provider plugins** use a convention-based approach instead: add a `register_cli(subparser)` function to your plugin's `cli.py` file. The memory plugin discovery system finds it automatically — no `ctx.register_cli_command()` call needed. See the [Memory Provider Plugin guide](../memory-provider-plugin.md#adding-cli-commands) for details.
 
@@ -1967,7 +1967,7 @@ def register(ctx):
 
 `source` is transport identity, not an authorization grant: authorize from stable ids (`source.user_id`, `source.chat_id`), never from display names or the command text, and fail closed when a sensitive command gets `source=None`. Handler exceptions propagate; Hermes never retries the call with fewer arguments.
 
-**Where handlers run:** a slash command handler runs in the gateway process that owns the session, also when the user types the command in the classic `hermes chat` CLI. The handler is not running in the user's terminal or directory, so:
+**Where handlers run:** a slash command handler runs in the gateway process that owns the session, also when the user types the command in the classic `kestrel chat` CLI. The handler is not running in the user's terminal or directory, so:
 
 - Return the text to show. `print()` writes to the gateway's stdout, and the user never sees it.
 - Take the session's working directory from `agent.runtime_cwd.resolve_agent_cwd()`, not `os.getcwd()`, which is the gateway's own directory. Resolve relative paths against it.
@@ -2059,7 +2059,7 @@ This is the public, stable interface for tool dispatch from plugin commands. Plu
 
 ### Act from inside a hook (profile + tools)
 
-`ctx._cli_ref` is only populated in an **interactive CLI** session. It is `None` in the gateway, in non-interactive `hermes chat -q` runs, and in **kanban-spawned worker sessions** — so any plugin logic that reaches through `_cli_ref` silently no-ops in exactly those contexts. Two stable, session-agnostic APIs cover what hooks actually need:
+`ctx._cli_ref` is only populated in an **interactive CLI** session. It is `None` in the gateway, in non-interactive `kestrel chat -q` runs, and in **kanban-spawned worker sessions** — so any plugin logic that reaches through `_cli_ref` silently no-ops in exactly those contexts. Two stable, session-agnostic APIs cover what hooks actually need:
 
 - **`ctx.profile_name`** — the active profile name (e.g. `"default"`, or the assignee profile in a kanban worker). Derived from `HERMES_HOME`, so it works everywhere with no `_cli_ref` dependency.
 - **`ctx.dispatch_tool(name, args)`** — invoke any registered tool (built-in or plugin), including the `kanban_*` tools, `delegate_task`, `terminal`, `read_file`, etc. Works from hook callbacks regardless of which process the hook fires in.
@@ -2133,8 +2133,8 @@ listens for the event frame of type `plugin.<plugin_id>.pane.changed`:
   started (the host may not know which plugin it belongs to), so use `ctx.emit_to_session` there. In-process the helper takes
   `plugin_id` as given.
 - **Where it works:** on a gateway that owns sessions (its session authority, as on the shared
-  `hermes gateway run` gateway that attached frontends use). A backend without one answers the method
-  with `-32601`. In a process without one (`hermes chat`, cron, a
+  `kestrel gateway run` gateway that attached frontends use). A backend without one answers the method
+  with `-32601`. In a process without one (`kestrel chat`, cron, a
   `dashboard.turn_isolation` compute child) `emit_to_session` returns `False`.
 - **Detect it first.** An owner that serves plugin methods lists `plugin-rpc-v1` in
   `runtime.describe`'s `capabilities`. With it, `-32601` means that plugin method is not loaded (the
@@ -2485,7 +2485,7 @@ def register(ctx):
         check_fn=check_requirements,
         required_env=["MYPLATFORM_TOKEN"],
         # Auto-populate PlatformConfig.extra from env so env-only setups
-        # show up in `hermes gateway status` without SDK instantiation.
+        # show up in `kestrel gateway status` without SDK instantiation.
         env_enablement_fn=_env_enablement,
         # Opt in to cron delivery: `deliver=myplatform` routes to this var.
         cron_deliver_env_var="MYPLATFORM_HOME_CHANNEL",
@@ -2807,7 +2807,7 @@ It is discovery, not permission to inject packages into a PM-selected generation
 For managed installs, distribute a directory plugin with `pyproject.toml` or
 manifest Python requirements and use `hermes plugins install` / `enable` so PM
 can admit it transactionally. Restart Hermes after a new environment is selected.
-`hermes pm install` accepts managed tool names, not arbitrary PyPI packages.
+`kestrel pm install` accepts managed tool names, not arbitrary PyPI packages.
 
 ## Distribute for NixOS
 

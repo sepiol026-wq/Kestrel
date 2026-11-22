@@ -5,7 +5,7 @@
 
 """The session teardown stops processes left running against this run's Hermes homes.
 
-A test that runs a real ``hermes chat -q`` child gets a grandchild ``gateway run`` in its own
+A test that runs a real ``kestrel chat -q`` child gets a grandchild ``gateway run`` in its own
 session; no per-test subprocess patch sees it, and pytest's tmp cleanup removes only directories.
 """
 from __future__ import annotations

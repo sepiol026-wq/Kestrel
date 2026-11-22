@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes update`` from a PM environment's workspace goes to the checkout that owns it (#122627)."""
+"""``kestrel update`` from a PM environment's workspace goes to the checkout that owns it (#122627)."""
 import sys
 
 from kestrel_cli.update_owning_install import owning_install_root

@@ -6,7 +6,7 @@
 """`hermes profile alias <name> --remove` must clean up an ORPHAN alias (#90983).
 
 An orphan alias is a wrapper in ``~/.local/bin`` whose profile no longer exists;
-``hermes doctor`` lists it together with the remove command. Removal used to die on
+``kestrel doctor`` lists it together with the remove command. Removal used to die on
 the profile-exists check before it looked at ``--remove``.
 """
 

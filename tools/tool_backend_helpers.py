@@ -47,7 +47,7 @@ def nous_tool_gateway_unavailable_message(capability: str = "the Nous Tool Gatew
             return message
     except Exception:
         pass
-    return (f"{capability} is unavailable. Run `hermes model` to refresh your "
+    return (f"{capability} is unavailable. Run `kestrel model` to refresh your "
             "Nous Portal login and billing status.")
 
 

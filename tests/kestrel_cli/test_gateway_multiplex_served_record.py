@@ -107,7 +107,7 @@ def test_setup_wizard_skips_service_install_for_profile_served_by_multiplexer(
 
 
 def test_setup_gateway_service_step_skips_install_for_served_profile(served_root, monkeypatch, capsys):
-    """``hermes -p <profile> setup gateway`` (and ``hermes setup`` / ``hermes import``) reach the service
+    """``hermes -p <profile> setup gateway`` (and ``kestrel setup`` / ``hermes import``) reach the service
     step through ``ensure_gateway_service``: a served profile gets the multiplexer note and no unit/plist
     (#111958), and a named profile the live record does not list gets no unit/plist either — one host
     gateway serves every profile, so setup must not grow a standalone fleet member that
@@ -213,7 +213,7 @@ def test_satellite_gateway_identity_does_not_imply_cron_health(served_root, monk
     # the FULL line, so this cannot pass on the sibling "(multiplexing this profile)" rung.
     assert f"Scheduler host: the host gateway (PID {os.getpid()}) serving profiles default, coder" \
         in buf.getvalue()
-    # The remediation this rung prints must run for a served NAMED profile (`hermes gateway
+    # The remediation this rung prints must run for a served NAMED profile (`kestrel gateway
     # restart` exits 78 there).
     assert "restart: hermes --profile default gateway restart" in buf.getvalue()
     # A live scheduler host alone does not prove this satellite's ticker is healthy.

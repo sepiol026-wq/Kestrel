@@ -7,7 +7,7 @@
 
 Built on ``_helpers`` (bwrap sandbox, allowlisted env) and ``_install_helpers`` (local bare origin,
 HEAD's own ``scripts/install.sh``). Every cell starts from a real install and then drives the real
-user entry points (``hermes update``, ``hermes pm ...``, ``hermes doctor``, ``hermes gateway ...``).
+user entry points (``kestrel update``, ``kestrel pm ...``, ``kestrel doctor``, ``kestrel gateway ...``).
 
 What a PM install looks like on disk, and what the cells read back:
 
@@ -17,7 +17,7 @@ What a PM install looks like on disk, and what the cells read back:
 * ``$HERMES_HOME/installs/<key>/source-completion-pending`` is the owed update tail.
 
 A PM generation is keyed on the bytes of ``uv.lock`` (plus extras, Python, plugin members), so a
-release that changes ``uv.lock`` is what makes ``hermes update`` build a NEW generation.
+release that changes ``uv.lock`` is what makes ``kestrel update`` build a NEW generation.
 ``publish_dependency_release`` publishes exactly that: ``uv.lock`` plus a trailing TOML comment,
 which ``uv sync --locked`` accepts unchanged but which moves the generation key.
 """
@@ -167,7 +167,7 @@ def arm_pending_tail(sb: I.Sandbox) -> None:
 
 
 class Gateway:
-    """``hermes gateway run`` in the sandbox (the user's foreground/systemd ``ExecStart``)."""
+    """``kestrel gateway run`` in the sandbox (the user's foreground/systemd ``ExecStart``)."""
 
     def __init__(self, sb: I.Sandbox, env: dict[str, str], log: Path, argv0: list[str] | None = None):
         self.sb, self.log = sb, log

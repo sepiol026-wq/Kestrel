@@ -53,7 +53,7 @@ suggest:
 
 post_install: |
   On first connection Hermes opens a browser to authorize with
-  Better Stack (or run `hermes mcp login betterstack`). Approve access,
+  Better Stack (or run `kestrel mcp login betterstack`). Approve access,
   then restart the session so tools load.
 
   Heads-up: this server exposes a LARGE tool surface (~106 tools as of

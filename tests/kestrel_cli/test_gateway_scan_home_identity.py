@@ -25,7 +25,7 @@ import pytest
 from kestrel_cli import gateway
 from kestrel_cli import dashboard_procs
 
-# Named ``hermes`` so ``python <dir>/hermes gateway run`` satisfies the canonical gateway matcher.
+# Named ``hermes`` so ``python <dir>/kestrel gateway run`` satisfies the canonical gateway matcher.
 _GATEWAY_STUB = """
 import os, time
 open(os.environ["STUB_READY"], "w").close()

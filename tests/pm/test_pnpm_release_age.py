@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""`hermes pm update --pnpm` drops the release-age excludes a refreshed lock no longer holds."""
+"""`kestrel pm update --pnpm` drops the release-age excludes a refreshed lock no longer holds."""
 import pytest
 
 import kestrel_yaml

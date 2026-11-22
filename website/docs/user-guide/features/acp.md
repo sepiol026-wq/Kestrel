@@ -260,7 +260,7 @@ Configure Hermes as a custom agent server in Zed settings:
 
 Prerequisites:
 
-- Configure Hermes provider credentials first with `hermes model`, or set them in `~/.hermes/.env` / `~/.hermes/config.yaml`.
+- Configure Hermes provider credentials first with `kestrel model`, or set them in `~/.hermes/.env` / `~/.hermes/config.yaml`.
 
 ### JetBrains
 
@@ -280,7 +280,7 @@ command -v hermes-acp || command -v hermes
 ```
 
 Recent installs write both `hermes` and `hermes-acp` launchers into
-`~/.local/bin`; running `hermes update` adds the `hermes-acp` launcher to
+`~/.local/bin`; running `kestrel update` adds the `hermes-acp` launcher to
 older installs. As a manual fallback, configure Buzz's agent command as
 `hermes` with args `["acp"]`.
 
@@ -289,13 +289,13 @@ older installs. As a manual fallback, configure Buzz's agent command as
 Buzz Desktop (v0.5.1+) renders Hermes' full model menu in the agent's runtime
 settings. The list comes from Hermes itself over ACP: it shows every model
 from providers you have authenticated in Hermes (the same inventory behind
-`hermes model` and the `/model` command), so a model missing from the menu
+`kestrel model` and the `/model` command), so a model missing from the menu
 means its provider has no credentials configured on the Hermes side.
 
 Entry IDs take the form `provider:model` (e.g. `openrouter:z-ai/glm-5.1`), or
 `custom:<name>:<model>` for custom OpenAI-compatible endpoints defined in
 `config.yaml`. Picking a model applies to that agent's session; it does not
-change your Hermes-wide default — use `hermes model` for that.
+change your Hermes-wide default — use `kestrel model` for that.
 
 #### Keep Buzz agents owner-only
 
@@ -444,7 +444,7 @@ Try these checks:
 ```bash
 hermes acp --version
 hermes acp --check
-hermes doctor
+kestrel doctor
 hermes status
 ```
 
@@ -453,7 +453,7 @@ hermes status
 ACP mode uses Hermes' existing provider setup. Configure credentials with:
 
 ```bash
-hermes model
+kestrel model
 ```
 
 or by editing `~/.hermes/.env`. The terminal auth flow (`hermes acp --setup`) can also trigger the interactive provider/model setup.

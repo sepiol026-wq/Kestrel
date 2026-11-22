@@ -5,7 +5,7 @@
 
 """An admitted plugin provider is selectable and status-accurate on every surface (#116408).
 
-Residue after picker admission: `hermes model` had no flow for a plugin profile (selection was a silent
+Residue after picker admission: `kestrel model` had no flow for a plugin profile (selection was a silent
 no-op), OAuth-shaped plugins had no ``_STATUS_BY_AUTH_TYPE`` builder (``authenticated`` stayed False with
 a live pool entry) and external-process sign-in evidence existed for one bundled vendor only, so the
 Desktop ``explicit_only`` picker hid out-of-tree ACP rows.
@@ -59,7 +59,7 @@ def _pool_entry(provider: str, **fields):
 
 
 def test_hermes_model_routes_registered_plugin_profiles_to_the_generic_flow(plugin, monkeypatch, tmp_path):
-    """Selecting an admitted external-process or OAuth plugin in `hermes model` persists config.model;
+    """Selecting an admitted external-process or OAuth plugin in `kestrel model` persists config.model;
     an api_key profile still takes the api-key flow and an unknown slug stays a no-op."""
     from kestrel_cli import main
     from kestrel_cli import auth

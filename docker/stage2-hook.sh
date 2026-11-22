@@ -308,7 +308,7 @@ fi
 # Always reset ownership of pairing data on every boot, same docker-exec/
 # root-write reason as profiles/ and cron/. `docker exec <container>
 # hermes pairing approve …` defaults to uid=0 and writes 0600 root-owned
-# approval files that the unprivileged hermes gateway cannot read,
+# approval files that the unprivileged kestrel gateway cannot read,
 # silently leaving the approved user unauthorized (#10270). The targeted
 # data-volume chown above only runs when the top-level $HERMES_HOME is
 # mis-owned, so warm boots skip it — this block makes a container restart
@@ -423,7 +423,7 @@ fi
 # bind-mounted from the host (~/.hermes:/opt/data) and sometimes shared with a
 # host-side Desktop/CLI install. Stamping 'docker' here clobbered that host
 # install's marker, so its in-app updater read 'docker' and refused to run
-# 'hermes update'. To heal homes already poisoned by older images, remove a
+# 'kestrel update'. To heal homes already poisoned by older images, remove a
 # stale 'docker' stamp from $HERMES_HOME if one is present (the host install's
 # own installer re-creates its code-scoped stamp; a genuine container relies on
 # the baked /opt/hermes stamp, so deleting the data-dir copy is safe).
@@ -644,7 +644,7 @@ fi
 # --- Migrate persisted config schema ---
 # Docker image upgrades replace the code under $INSTALL_DIR but preserve
 # $HERMES_HOME on the mounted volume. Run the same safe, non-interactive
-# config-schema migrations that `hermes update` runs for non-Docker installs,
+# config-schema migrations that `kestrel update` runs for non-Docker installs,
 # after first-boot seeding and before supervised gateway services start.
 # Set HERMES_SKIP_CONFIG_MIGRATION=1 for controlled/manual migrations.
 # Remote config mode (HERMES_CONFIG_BACKEND=remote) has no local config to migrate: the agent

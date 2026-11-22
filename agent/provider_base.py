@@ -57,7 +57,7 @@ class CatalogProviderBase(ProviderBase):
         """True when this provider can service calls (API key present, SDK importable).
 
         Must NOT raise and must NOT make network calls — the picker and
-        ``hermes setup`` call it on every paint.
+        ``kestrel setup`` call it on every paint.
         """
         return True
 

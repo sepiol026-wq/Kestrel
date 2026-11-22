@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes doctor`` dead-IPv6 probe (#114265 secondary finding 1).
+"""``kestrel doctor`` dead-IPv6 probe (#114265 secondary finding 1).
 
 An advertised-but-blackholed IPv6 route stalls every serial connect for the full timeout;
 the racer hides most of it, but nothing told the user that ``network.force_ipv4`` exists.

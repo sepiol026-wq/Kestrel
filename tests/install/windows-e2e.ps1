@@ -8,13 +8,13 @@
 #
 #   INSTALL   - downloads the production Hermes-Setup.exe from the website,
 #               launches it HEADED, and AutoHotkey clicks Install, waits,
-#               then clicks Launch. The real Electron Hermes.exe must appear.
+#               then clicks Launch. The real Electron Kestrel.exe must appear.
 #               The exe runs EXACTLY as shipped against serve.git, whose
 #               `main` is parked at OLD (-InstallRef, default: the newest
 #               release tag) -- so the install lands on OLD the same way a
 #               user's install landed on whatever main served that day.
 #   UPDATE    - OLD -> HEAD through the route selected by -Route:
-#                 desktop    (implemented) launch the installed Hermes.exe
+#                 desktop    (implemented) launch the installed Kestrel.exe
 #                            under Playwright's Electron driver and CLICK
 #                            Settings -> About -> "Update now". The
 #                            production hand-off chain runs untouched:
@@ -23,7 +23,7 @@
 #                            target sha, marker cleanup, result JSON (when
 #                            the script path wrote one), working hermes,
 #                            and the relaunched app window.
-#                 update     run `hermes update` from the installed command
+#                 update     run `kestrel update` from the installed command
 #                            (the CLI route a GUI user might take).
 #                 installer  re-run the bootstrap installer over the
 #                            existing install (download Hermes-Setup.exe
@@ -35,7 +35,7 @@
 #   canonical repo URLs, via a driver-owned gitconfig selected with
 #   GIT_CONFIG_GLOBAL. (NOT GIT_CONFIG_COUNT/KEY_n/VALUE_n env config --
 #   install.ps1 sets those itself and silently clobbers them.) The
-#   installer's `git clone` and `hermes update`'s `git fetch origin`
+#   installer's `git clone` and `kestrel update`'s `git fetch origin`
 #   transparently hit OUR bare repo. Its `main` serves OLD for the install
 #   phase; the update phase advances it to HEAD -- an update becomes
 #   available exactly the way it does for a real user. Installer and
@@ -127,7 +127,7 @@ $OutputEncoding = [Console]::OutputEncoding
 # store) and HERMES_PYTHON for this job's tooling. A user's machine has one
 # store, <HERMES_HOME>\tools, and the desktop smoke already launches the app
 # that way (smoke-env.mjs drops every HERMES_* override). When install.ps1
-# and `hermes update` saw the job's store while the smoke did not, a leg
+# and `kestrel update` saw the job's store while the smoke did not, a leg
 # settled onto two stores and the update rewrote its own running launcher
 # ("source launcher publication failed"). No product step (installer, app,
 # update, chat) sees the job's variables; the driver keeps setup-pm only
@@ -361,8 +361,8 @@ function Get-InstalledHead {
 
 function Get-DesktopExe {
     foreach ($c in @(
-        (Join-Path $InstallDir "apps\desktop\release\win-unpacked\Hermes.exe"),
-        (Join-Path $InstallDir "apps\desktop\release\win-arm64-unpacked\Hermes.exe")
+        (Join-Path $InstallDir "apps\desktop\release\win-unpacked\Kestrel.exe"),
+        (Join-Path $InstallDir "apps\desktop\release\win-arm64-unpacked\Kestrel.exe")
     )) {
         if (Test-Path -LiteralPath $c) { return $c }
     }
@@ -404,7 +404,7 @@ function Test-HermesRuns([string]$Label) {
     try {
         $hermesExe = Get-SourceHermes $InstallDir
     } catch {
-        # A pre-handoff release cannot complete inside `hermes update`: its
+        # A pre-handoff release cannot complete inside `kestrel update`: its
         # update path reaches no retired-hook seam, so the update ends with the
         # tree at HEAD and no published launcher. The NEXT ordinary startup
         # completes it (hermes_bootstrap -> prepare_launch -> sync PM, publish
@@ -542,15 +542,15 @@ function Invoke-HermesUpdate {
         $ErrorActionPreference = $prevEap
         Stop-HangWatchdog $watchdog
     }
-    Write-LogGroup "hermes update transcript" $log
+    Write-LogGroup "kestrel update transcript" $log
     if (Test-Path -LiteralPath $hangLog) {
-        Write-LogGroup "hermes update hang evidence (process table, Python stacks)" $hangLog
-        throw "E2E ASSERTION FAILED: hermes update was still running after $UpdateDeadlineMinutes minutes (its output pipe never closed); the process table above shows which process held it"
+        Write-LogGroup "kestrel update hang evidence (process table, Python stacks)" $hangLog
+        throw "E2E ASSERTION FAILED: kestrel update was still running after $UpdateDeadlineMinutes minutes (its output pipe never closed); the process table above shows which process held it"
     }
-    Assert-True ($updateExit -eq 0) "hermes update exited $updateExit (expected 0)"
+    Assert-True ($updateExit -eq 0) "kestrel update exited $updateExit (expected 0)"
 }
 
-# install.ps1 (with -IncludeDesktop) and `hermes update` normally finish in
+# install.ps1 (with -IncludeDesktop) and `kestrel update` normally finish in
 # under 25 minutes. Past these deadlines the watchdog records every process
 # (pid, parent, start time, command line) plus a py-spy stack of each Python
 # process, then stops this leg's processes, so a hang fails with evidence --
@@ -613,11 +613,11 @@ function Stop-HangWatchdog($Job) {
 function Invoke-ManualCardUpdate([string]$ReceiptPath, [string]$TargetSha) {
     Assert-True (Test-Path -LiteralPath $ReceiptPath) "manual update card produced a receipt"
     $manual = Get-Content -LiteralPath $ReceiptPath -Raw | ConvertFrom-Json
-    Assert-True ($manual.command -match '^hermes update(?:\s|$)') "manual update card instructed hermes update"
+    Assert-True ($manual.command -match '^kestrel update(?:\s|$)') "manual update card instructed kestrel update"
     Invoke-HermesUpdate
     Assert-True ((Get-InstalledHead) -eq $TargetSha) "manual update landed on target commit"
     Test-HermesRuns "post-manual-update"
-    Assert-True ($null -ne (Get-DesktopExe)) "Hermes.exe still present after manual update"
+    Assert-True ($null -ne (Get-DesktopExe)) "Kestrel.exe still present after manual update"
 }
 
 function Clear-HistoricalInstallerChurn {
@@ -754,7 +754,7 @@ function Invoke-HermesDesktopAppUpdate([string]$TargetSha) {
 }
 
 # Evidence for a GUI-driver failure, taken while the installer is still alive: which Hermes
-# processes exist (was Hermes.exe ever started, and by whom), the installer's thread states,
+# processes exist (was Kestrel.exe ever started, and by whom), the installer's thread states,
 # and a full memory dump of the installer. The installer's tracing log is buffered and never
 # reaches disk when the job kills it; the dump still holds it. A Launch that left the
 # installer on LAUNCHING had no other trace (tests/install/e2e-assets/install-and-launch.ahk).
@@ -849,13 +849,13 @@ function Stop-DesktopRecorder($proc, [string]$OutDir) {
 
 function Stop-HermesAppProcesses([string]$Label) {
     # Close the desktop app the blunt way between phases (a user quitting).
-    # Only Hermes.exe (Electron) -- never hermes.exe (the venv CLI shim).
+    # Only Kestrel.exe (Electron) -- never hermes.exe (the venv CLI shim).
     $procs = @(Get-Process -Name "Hermes" -ErrorAction SilentlyContinue)
     foreach ($p in $procs) {
         try { Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue } catch {}
     }
     if ($procs.Count -gt 0) {
-        Write-Host "  [$Label] stopped $($procs.Count) Hermes.exe process(es)"
+        Write-Host "  [$Label] stopped $($procs.Count) Kestrel.exe process(es)"
         Start-Sleep -Seconds 3
     }
 }
@@ -1040,7 +1040,7 @@ function Invoke-PhaseInstallGui {
         }
         Write-Host "  Hermes-Setup.exe launched (pid $($installer.Id))"
 
-        # Drive it: Install click -> wait -> Launch click -> Hermes.exe window.
+        # Drive it: Install click -> wait -> Launch click -> Kestrel.exe window.
         # Arg 3 lets the AHK script use the installer's own log as the
         # install-finished fallback signal.
         $ahk = Start-Process -FilePath $ahkExe `
@@ -1066,7 +1066,7 @@ function Invoke-PhaseInstallGui {
 
         # The Launch hand-off under test: the app the installer spawned must
         # actually be running.
-        Assert-True ($null -ne (Get-Process -Name "Hermes" -ErrorAction SilentlyContinue)) "Hermes.exe process is running (installer Launch hand-off worked)"
+        Assert-True ($null -ne (Get-Process -Name "Hermes" -ErrorAction SilentlyContinue)) "Kestrel.exe process is running (installer Launch hand-off worked)"
 
         # Installer should have exited after Launch.
         if (-not $installer.HasExited) {
@@ -1095,7 +1095,7 @@ function Invoke-PhaseInstallGui {
         Assert-True ($installedSha -ne $state.current) "installed checkout differs from HEAD (an update is genuinely available)"
     }
     Test-HermesRuns "post-$Mode-gui"
-    Assert-True ($null -ne (Get-DesktopExe)) "packaged Desktop Hermes.exe exists"
+    Assert-True ($null -ne (Get-DesktopExe)) "packaged Desktop Kestrel.exe exists"
 
     # The installer Launch proof above must pass before a test-owned launch.
     $script:ChatFailure = $true
@@ -1131,7 +1131,7 @@ function Invoke-GuiUpdateDesktopRoute([string]$TargetSha) {
     Write-Host "  serve.git main advanced to $TargetSha"
 
     $desktopExe = Get-DesktopExe
-    Assert-True ($null -ne $desktopExe) "packaged Hermes.exe present before update"
+    Assert-True ($null -ne $desktopExe) "packaged Kestrel.exe present before update"
 
     $resultPath = Join-Path $HermesHome ".hermes-update-result.json"
     $markerPath = Join-Path $HermesHome ".hermes-update-in-progress"
@@ -1167,7 +1167,7 @@ function Invoke-GuiUpdateDesktopRoute([string]$TargetSha) {
         Assert-True ($driveExit -eq 0) "GUI driver clicked Update now and the app quit for hand-off"
 
         # The detached updater (spawned by the app, NOT by us) now runs
-        # `hermes update` + desktop rebuild + relaunch. Which updater depends
+        # `kestrel update` + desktop rebuild + relaunch. Which updater depends
         # on the installed checkout, and BOTH are production paths:
         #   * checkouts shipping scripts/desktop-update.ps1 -> that script,
         #     which writes .hermes-update-result.json on every exit;
@@ -1222,11 +1222,11 @@ function Invoke-GuiUpdateDesktopRoute([string]$TargetSha) {
 
         Assert-True ((Get-InstalledHead) -eq $TargetSha) "checkout landed on target commit"
         Test-HermesRuns "post-update"
-        Assert-True ($null -ne (Get-DesktopExe)) "Hermes.exe still present after update"
+        Assert-True ($null -ne (Get-DesktopExe)) "Kestrel.exe still present after update"
 
         # The production hand-off relaunches the desktop (RelaunchExe).
         # A relaunched window is the user-visible proof the update loop closed.
-        Write-Host "  waiting for the relaunched Hermes.exe ..."
+        Write-Host "  waiting for the relaunched Kestrel.exe ..."
         $rDeadline = (Get-Date).AddMinutes(5)
         $relaunched = $null
         while ((Get-Date) -lt $rDeadline) {
@@ -1353,7 +1353,7 @@ function Invoke-UserStateActions {
         $ErrorActionPreference = 'Continue'
 
         # Probe, do not assume (the harness rule for old refs).
-        $chatHelp = (& $hermes chat --help 2>&1 | Out-String)
+        $chatHelp = (& $kestrel chat --help 2>&1 | Out-String)
         if (-not ($chatHelp -match '(^|\s)-q(\s|,|$)' -or $chatHelp -match '--quiet')) {
             throw 'the installed CLI has no one-shot chat flag; this leg cannot produce a session through the user path'
         }
@@ -1369,7 +1369,7 @@ function Invoke-UserStateActions {
         # a console screen buffer: piping the CLI's stdout into the log takes that away
         # and the turn dies with NoConsoleScreenBufferError. Run it under a real
         # pseudoconsole (pty-run.py) and keep the capture.
-        & $DriverPython -B (Join-Path $AssetsDir 'pty-run.py') --out $log --timeout 300 -- $hermes chat -q "Reply with the single word: ok" @oneshot
+        & $DriverPython -B (Join-Path $AssetsDir 'pty-run.py') --out $log --timeout 300 -- $kestrel chat -q "Reply with the single word: ok" @oneshot
         $chatExit = $LASTEXITCODE
         Write-LogGroup 'first real chat turn' $log
         if ($chatExit -eq 124) {
@@ -1479,7 +1479,7 @@ function Invoke-UserStateVerify {
 }
 
 function Assert-RedirectIsTransportOnly {
-    # The redirect must stay at TRANSPORT level: `hermes update` resolves its
+    # The redirect must stay at TRANSPORT level: `kestrel update` resolves its
     # channel from the release archive and validates the record against
     # `git config --get remote.origin.url`. If the configured URL ever looked
     # like the rehearsal source, channel resolution would fail and this leg
@@ -1695,7 +1695,7 @@ function Invoke-PhaseVerifyStamp {
     # (epoch seconds) instead of "completedAt", and a null pinnedCommit when git
     # is not on PATH. #125053 fixed the writer, but the installer .exe is not
     # rebuilt, so every Desktop-installer machine carries this receipt until the
-    # next `hermes update` rewrites it (hermes_cli/source_stamp.py). No reader
+    # next `kestrel update` rewrites it (hermes_cli/source_stamp.py). No reader
     # depends on those two fields: Desktop's launch gate is runtime usability,
     # and the receipt's other readers check only that it exists. So the contract
     # for that shape is: exactly those two FAIL lines, an integer

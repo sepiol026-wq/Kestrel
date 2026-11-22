@@ -17,15 +17,15 @@ For hands-free session start — saying "hey hermes" (or any phrase) to open a f
 Before using voice features, make sure you have:
 
 1. **Kestrel Agent installed** — via the install script (see [Installation](../../getting-started/installation.md))
-2. **An LLM provider configured** — run `hermes model` or set your preferred provider credentials in `~/.hermes/.env`
-3. **A working base setup** — run `hermes` to verify the agent responds to text before enabling voice
+2. **An LLM provider configured** — run `kestrel model` or set your preferred provider credentials in `~/.hermes/.env`
+3. **A working base setup** — run `kestrel` to verify the agent responds to text before enabling voice
 
 :::tip
-The `~/.hermes/` directory and default `config.yaml` are created automatically the first time you run `hermes`. You only need to create `~/.hermes/.env` manually for API keys.
+The `~/.hermes/` directory and default `config.yaml` are created automatically the first time you run `kestrel`. You only need to create `~/.hermes/.env` manually for API keys.
 :::
 
 :::tip Nous Portal covers both
-A paid [Nous Portal](./tool-gateway.md) subscription supplies the LLM (step 2) **and** OpenAI TTS via the Tool Gateway — no separate OpenAI key needed. On a fresh install, `hermes setup --portal` wires both up at once.
+A paid [Nous Portal](./tool-gateway.md) subscription supplies the LLM (step 2) **and** OpenAI TTS via the Tool Gateway — no separate OpenAI key needed. On a fresh install, `kestrel setup --portal` wires both up at once.
 :::
 
 ## Overview
@@ -120,7 +120,7 @@ Disabling Xet avoids authentication failures from Xet's separate CAS hosts when 
 
 ## CLI Voice Mode
 
-Voice mode is available in both the **classic CLI** (`hermes chat`) and the **TUI** (`hermes --tui`). Behavior is identical across both — same slash commands, same VAD silence detection, same streaming TTS, same hallucination filter. The TUI additionally forwards crash-forensic logs to `~/.hermes/logs/` so push-to-talk failures on exotic audio backends can be reported with a full stack trace rather than disappearing silently.
+Voice mode is available in both the **classic CLI** (`kestrel chat`) and the **TUI** (`hermes --tui`). Behavior is identical across both — same slash commands, same VAD silence detection, same streaming TTS, same hallucination filter. The TUI additionally forwards crash-forensic logs to `~/.hermes/logs/` so push-to-talk failures on exotic audio backends can be reported with a full stack trace rather than disappearing silently.
 
 ### Quick Start
 
@@ -243,7 +243,7 @@ Not supported in this mode: the Nous-managed audio proxy (direct key only), the 
 
 ### Voice chat model
 
-Spoken turns can run on a different (usually faster) model than the one you type to. Set the `voice_chat` auxiliary slot, in Settings → Models → Auxiliary models on Desktop, in `hermes model` → Auxiliary models, or in config.yaml:
+Spoken turns can run on a different (usually faster) model than the one you type to. Set the `voice_chat` auxiliary slot, in Settings → Models → Auxiliary models on Desktop, in `kestrel model` → Auxiliary models, or in config.yaml:
 
 ```yaml
 auxiliary:
@@ -287,8 +287,8 @@ If you haven't set up your messaging bots yet, see the platform-specific guides:
 Start the gateway to connect to your messaging platforms:
 
 ```bash
-hermes gateway        # Start the gateway (connects to configured platforms)
-hermes gateway setup  # Interactive setup wizard for first-time configuration
+kestrel gateway        # Start the gateway (connects to configured platforms)
+kestrel gateway setup  # Interactive setup wizard for first-time configuration
 ```
 
 ### Discord: Channels vs DMs
@@ -433,7 +433,7 @@ DISCORD_ALLOWED_USERS=your-user-id
 ### Start the Gateway
 
 ```bash
-hermes gateway        # Start with existing configuration
+kestrel gateway        # Start with existing configuration
 ```
 
 The bot should come online in Discord within a few seconds.

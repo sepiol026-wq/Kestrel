@@ -85,7 +85,7 @@ def test_cli_exit_code_follows_the_action_outcome(monkeypatch, tmp_path, capsys,
     else:
         monkeypatch.setattr(cli_hub, target, lambda *a, **k: outcome)
     if argv[1] == "update":
-        # Never run hermes_cli.main with `update` in argv (it can turn into a real self-update): drive
+        # Never run kestrel_cli.main with `update` in argv (it can turn into a real self-update): drive
         # the same router `hermes skills` returns its exit code from.
         from argparse import Namespace
         exit_code = cli_hub.skills_command(Namespace(skills_action="update", name=None, force=False)) or 0

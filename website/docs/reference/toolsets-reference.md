@@ -21,9 +21,9 @@ Every tool belongs to exactly one toolset. When you enable a toolset, all tools 
 ### Per-session (CLI)
 
 ```bash
-hermes chat --toolsets web,file,terminal
-hermes chat --toolsets debugging        # composite — expands to file + terminal + web
-hermes chat --toolsets all              # everything
+kestrel chat --toolsets web,file,terminal
+kestrel chat --toolsets debugging        # composite — expands to file + terminal + web
+kestrel chat --toolsets all              # everything
 ```
 
 ### Per-platform (config.yaml)

@@ -21,9 +21,9 @@ description: "Hermes 核心、复合、平台及动态工具集参考"
 ### 按会话（CLI）
 
 ```bash
-hermes chat --toolsets web,file,terminal
-hermes chat --toolsets debugging        # composite — expands to file + terminal + web
-hermes chat --toolsets all              # everything
+kestrel chat --toolsets web,file,terminal
+kestrel chat --toolsets debugging        # composite — expands to file + terminal + web
+kestrel chat --toolsets all              # everything
 ```
 
 ### 按平台（config.yaml）

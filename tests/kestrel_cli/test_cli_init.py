@@ -382,7 +382,7 @@ class TestHistoryDisplay:
             {
                 "id": "20260401_201329_d85961",
                 "title": "Checking Running Kestrel Agent",
-                "preview": "check running gateways for hermes agent",
+                "preview": "check running gateways for kestrel agent",
                 "last_active": 0,
             },
         ]
@@ -410,7 +410,7 @@ class TestHistoryDisplay:
             {
                 "id": "20260401_201329_d85961",
                 "title": "Checking Running Kestrel Agent",
-                "preview": "check running gateways for hermes agent",
+                "preview": "check running gateways for kestrel agent",
                 "last_active": 0,
             },
         ]

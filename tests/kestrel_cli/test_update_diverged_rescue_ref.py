@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""`hermes update` must not drop local commits without leaving a named way back.
+"""`kestrel update` must not drop local commits without leaving a named way back.
 
 When the checkout sits on the update's target branch and its history has
 diverged, the update resets hard to ``origin/<branch>``. Divergence there has

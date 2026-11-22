@@ -5,7 +5,7 @@ subdir: requesty
 title: Requesty
 description: >-
   Requesty LLM gateway as a Hermes model provider (`--provider requesty`, alias `rq`, or Requesty
-  in `hermes model`). The picker lists Requesty's managed routing policies (curated routes with
+  in `kestrel model`). The picker lists Requesty's managed routing policies (curated routes with
   failover, `@eu` variants for EU-only hosting); any Requesty model id or org policy also works.
   `/reasoning` maps onto Requesty's `reasoning_effort` for reasoning-capable models, the Hermes
   session id is sent as `requesty.trace_id`, and context windows and estimated cost come from the

@@ -30,8 +30,8 @@ CMDLINES = [
     ("hermes -m serve kanban --preserve-cache " + LOOPBACK, "kanban", False, False),
     ("python -m hermes_cli.main kanban --preserve-cache " + LOOPBACK, "kanban", False, False),
     ("hermes --reasoning high dashboard " + LOOPBACK, "dashboard", False, False),
-    ("hermes gateway run --replace", "gateway", False, False),
-    ("hermes chat --model serve", "chat", False, False),
+    ("kestrel gateway run --replace", "gateway", False, False),
+    ("kestrel chat --model serve", "chat", False, False),
     ("python observer.py serve " + LOOPBACK, None, False, False),
 ]
 
@@ -75,7 +75,7 @@ def test_profile_liveness_is_the_shared_ladder(tmp_path, monkeypatch):
 
 
 # ``hermes serve`` is a substring of ``hermes server``: a terminal multiplexer started as
-# ``herdr --session hermes server`` was SIGTERMed by ``hermes update`` and its unit restarted (#121156).
+# ``herdr --session hermes server`` was SIGTERMed by ``kestrel update`` and its unit restarted (#121156).
 DECOY = "tool --name hermes server 30"
 BACKENDS = [
     "/opt/hermes/venv/bin/python -m hermes_cli.main serve --port 0",

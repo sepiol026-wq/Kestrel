@@ -15,7 +15,7 @@ readme: true
 platforms: []
 known_issues:
   - "Paid: every web_search routed to yandex and every yandex_generative_search call is billed by Yandex Cloud to the folder that owns YANDEX_API_KEY; the Search API must be enabled for that folder, with billing active"
-  - "Installing does not switch web_search over: run hermes config set web.search_backend yandex. The backend is search-only, so web_extract stays with another backend. yandex_generative_search is offered to the agent as soon as the plugin is enabled (toolset yandex_search; hermes tools turns it off per platform)"
+  - "Installing does not switch web_search over: run kestrel config set web.search_backend yandex. The backend is search-only, so web_extract stays with another backend. yandex_generative_search is offered to the agent as soon as the plugin is enabled (toolset yandex_search; hermes tools turns it off per platform)"
   - "Searches the Russian market (SEARCH_TYPE_RU) unless YANDEX_SEARCH_TYPE names another: SEARCH_TYPE_COM, SEARCH_TYPE_TR, SEARCH_TYPE_KK, SEARCH_TYPE_BE or SEARCH_TYPE_UZ"
 capabilities:
   provides_tools:

@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""The real terminal tool on native Windows, driven by a model turn through ``hermes chat -q``.
+"""The real terminal tool on native Windows, driven by a model turn through ``kestrel chat -q``.
 
 On Windows the terminal tool runs every command through Git Bash (``_find_bash``). The
 model reaches native shells from there, so each case is one scripted turn:

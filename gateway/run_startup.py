@@ -121,7 +121,7 @@ class GatewayStartupMixin:
         if not (self._external_drain_active or self._draining or not self._running):
             self._update_runtime_status(self._serving_state())
         logger.error(
-            "%s is parked after a non-retryable error (fix it, then `hermes gateway restart`). The gateway "
+            "%s is parked after a non-retryable error (fix it, then `kestrel gateway restart`). The gateway "
             "is DEGRADED — it serves local clients and cron with no messaging platform. %s: %s",
             adapter.platform.value, adapter.fatal_error_code or "unknown",
             adapter.fatal_error_message or "unknown error",
@@ -978,7 +978,7 @@ class GatewayStartupMixin:
             _adv_msg = gateway_log_message(detect_compromised())
             if _adv_msg:
                 logger.warning("%s", _adv_msg)
-                logger.warning("Run `hermes doctor` on the gateway host for full remediation steps.")
+                logger.warning("Run `kestrel doctor` on the gateway host for full remediation steps.")
 
     def _start_log_retired_session_reset(self) -> None:
         """Warn per served profile whose config still declares an idle/daily ``session_reset``,
@@ -1006,7 +1006,7 @@ class GatewayStartupMixin:
                 logger.warning(
                     "Stale systemd unit detected: %s has TimeoutStopSec=%.0fs but drain_timeout=%.0fs "
                     "cron_drain_timeout=%.0fs (expected >=%.0fs). systemd may SIGKILL the gateway "
-                    "mid-drain. Run `hermes gateway install --force` to regenerate the unit, or shorten "
+                    "mid-drain. Run `kestrel gateway install --force` to regenerate the unit, or shorten "
                     "agent.restart_drain_timeout / agent.cron_drain_timeout.",
                     _alignment.get("unit", "(unknown)"), _alignment["timeout_stop_sec"],
                     _alignment["drain_timeout"],
@@ -1464,7 +1464,7 @@ class GatewayStartupMixin:
                 self._startup_parked_platforms = True
                 logger.error(
                     "%d configured platform(s) failed to start and are parked (fix the reported error, "
-                    "then `hermes gateway restart`): %s. The gateway is DEGRADED — it serves the "
+                    "then `kestrel gateway restart`): %s. The gateway is DEGRADED — it serves the "
                     "remaining platform(s) with those unserved.",
                     len(startup_nonretryable_errors), "; ".join(startup_nonretryable_errors),
                 )
@@ -1481,7 +1481,7 @@ class GatewayStartupMixin:
             self._startup_parked_platforms = True
             logger.error(
                 "%d configured platform(s) failed to start and are parked (fix the reported error, then "
-                "`hermes gateway restart`): %s. The gateway is DEGRADED — it serves local clients and "
+                "`kestrel gateway restart`): %s. The gateway is DEGRADED — it serves local clients and "
                 "cron with no messaging platform.",
                 len(startup_nonretryable_errors), "; ".join(startup_nonretryable_errors),
             )

@@ -160,7 +160,7 @@ class GroupsCapabilitiesParams(ProfileParams):
 
 class GroupsCapabilitiesResult(Result):
     protocol_version: int
-    #: On the canonical gateway (hermes gateway run, also via forwarding hermes serve),
+    #: On the canonical gateway (kestrel gateway run, also via forwarding hermes serve),
     #: owning a group chat with peer members requires a running driver on the home.
     driver: bool
     #: The canonical home must be persistent to drive the group chat with Desktop closed.

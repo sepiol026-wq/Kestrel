@@ -14,7 +14,7 @@
 # last recorded state was `running` — see hermes_cli/container_boot.py.
 #
 # Per-profile gateway slots are registered at runtime by the hermes
-# user (profile create/delete hooks, `hermes gateway start`), so they
+# user (profile create/delete hooks, `kestrel gateway start`), so they
 # live in their own scandir, $GATEWAY_SCANDIR, watched by an s6-svscan
 # that itself runs as hermes (the `profile-gateways` s6-rc service).
 # The root scandir /run/service and its .s6-svscan control files stay

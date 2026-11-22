@@ -73,7 +73,7 @@ class TestChatVerboseArg:
         (["chat"], {}),
     ])
     def test_cmd_chat_forwards_the_launch_key_and_endpoint_to_the_classic_cli(self, monkeypatch, argv, expected):
-        """`hermes chat --cli --api-key K --base-url U` must launch the classic CLI on K and U, not on the
+        """`kestrel chat --cli --api-key K --base-url U` must launch the classic CLI on K and U, not on the
         profile's credential; the TUI refuses both flags and points here."""
         import types
 
@@ -107,7 +107,7 @@ class TestAcceptHooksOnAgentSubparsers:
     position (before the subcommand, between group/subcommand, and
     after the leaf subcommand) for gateway/cron/acp.  Regression
     against prior behaviour where the flag only worked on the root
-    parser and `chat`, so `hermes gateway run --accept-hooks` failed
+    parser and `chat`, so `kestrel gateway run --accept-hooks` failed
     with `unrecognized arguments`."""
 
     ARGVS = [

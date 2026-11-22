@@ -28,7 +28,7 @@ test('the exe identity stamp is wired to afterExtract with ASAR integrity kept o
   assert.equal(builderConfig.disableAsarIntegrity, undefined)
 })
 
-test('stamps the stock electron.exe on win32 only, before it is renamed to Hermes.exe', async () => {
+test('stamps the stock electron.exe on win32 only, before it is renamed to Kestrel.exe', async () => {
   stampExeIdentity.mockClear()
   const appOutDir = path.join('tmp', 'win-unpacked')
 

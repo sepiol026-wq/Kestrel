@@ -26,7 +26,7 @@ The agent processes the event and can respond by posting comments on PRs, sendin
 
 ## Quick Start
 
-1. Enable via `hermes gateway setup` or environment variables
+1. Enable via `kestrel gateway setup` or environment variables
 2. Define routes in `config.yaml` **or** create them dynamically with `hermes webhook subscribe`
 3. Point your service at `http://your-server:8644/webhooks/<route-name>`
 
@@ -39,7 +39,7 @@ There are two ways to enable the webhook adapter.
 ### Via setup wizard
 
 ```bash
-hermes gateway setup
+kestrel gateway setup
 ```
 
 Follow the prompts to enable webhooks, set the port, and set a global HMAC secret.
@@ -201,7 +201,7 @@ How it works:
 - When more than one event was coalesced, the prompt gets a short note telling the agent how many earlier events were superseded.
 - If the `key` does not resolve for an event (the payload lacks the field — e.g. an `issue_comment` event on a route keyed by `pull_request.number`), that event is **dispatched immediately** instead of being coalesced, so unrelated entities never collapse into one group. Pick a key present on every event type the route accepts.
 - Coalesced requests return HTTP 202 with `{"status": "coalesced"}`. Delivery-ID idempotency still runs first, so provider retries of the same delivery are dropped rather than counted.
-- Pending groups are flushed (dispatched immediately) when the adapter disconnects — a gateway reconnect or `hermes gateway stop` — not dropped. Buffered events live in memory, so a hard process kill loses at most the current window's buffered burst.
+- Pending groups are flushed (dispatched immediately) when the adapter disconnects — a gateway reconnect or `kestrel gateway stop` — not dropped. Buffered events live in memory, so a hard process kill loses at most the current window's buffered burst.
 - `coalesce` applies to agent-mode routes only; combining it with `deliver_only` or `cron_job` is rejected at startup.
 
 ### Script Filters and Transforms
@@ -712,7 +712,7 @@ This is the same trust model that applies to everything the agent reads: web pag
 
 ### Agent not responding
 
-- Run the gateway in foreground to see logs: `hermes gateway run`
+- Run the gateway in foreground to see logs: `kestrel gateway run`
 - Check that the prompt template is rendering correctly
 - Verify the delivery target is configured and connected
 

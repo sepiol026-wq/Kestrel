@@ -113,7 +113,7 @@ Approval gates prevent damage; [checkpoints](../user-guide/checkpoints-and-rollb
 Checkpoints are opt-in. Enable per-session:
 
 ```bash
-hermes chat --checkpoints
+kestrel chat --checkpoints
 ```
 
 Or globally:

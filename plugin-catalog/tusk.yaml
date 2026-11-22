@@ -17,7 +17,7 @@ readme: true
 platforms: [linux, macos, windows]
 known_issues:
   - "The Walrus Memory relayer has no per-memory delete yet (whole-namespace erasure only), so removing a built-in memory entry does not delete its Walrus copy."
-  - "Writes are paced (about 6 per minute) and take 20-30 s each; one-shot hermes chat -q runs usually exit before the queue drains. Queued writes go out on the next run or with hermes tusk flush."
+  - "Writes are paced (about 6 per minute) and take 20-30 s each; one-shot kestrel chat -q runs usually exit before the queue drains. Queued writes go out on the next run or with hermes tusk flush."
   - "The dashboard tab appears after hermes plugins enable tusk (memory providers are otherwise activated through memory.provider only)."
 capabilities:
   provides_tools: []

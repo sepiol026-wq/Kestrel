@@ -9,7 +9,7 @@ The retained desktop stage used to call helpers deleted by the PM
 consolidation (Resolve-UvCmd, Test-Node, the electron-dist recovery set) —
 runtime failures under `-Stage desktop`. The stage must use the CURRENT
 path: the shared completion tail (source_completion.py --desktop) that
-`hermes update` also runs. The $Stages table must be
+`kestrel update` also runs. The $Stages table must be
 the ONE list: -Manifest prints it and the no-flag ladder runs it, so
 -IncludeDesktop affects the real loop exactly as the manifest advertises.
 `-Stage desktop` stays directly dispatchable without the flag (the
@@ -60,7 +60,7 @@ public static class FakePy {
                 Environment.GetEnvironmentVariable("FAKE_INSTALL_DIR"),
                 "apps", "desktop", "release", "win-unpacked");
             Directory.CreateDirectory(dir);
-            File.WriteAllText(Path.Combine(dir, "Hermes.exe"), "fake");
+            File.WriteAllText(Path.Combine(dir, "Kestrel.exe"), "fake");
         }
         return 0;
     }
@@ -227,7 +227,7 @@ def test_complete_stage_writes_pinned_install_marker(tmp_path: Path) -> None:
 def test_desktop_stage_uses_pm_sync_and_product_cli(tmp_path: Path) -> None:
     """-Stage desktop (without -IncludeDesktop — the standalone contract)
     runs the CURRENT path: the shared completion tail (source_completion.py
-    --desktop, the same call `hermes update` makes) builds the products; the produced
+    --desktop, the same call `kestrel update` makes) builds the products; the produced
     artifact is probed, ACL-granted, and shortcut-ed — with icacls,
     ie4uinit.exe, and WScript.Shell intercepted in the wrapper boundary so
     nothing outside the temp dirs is touched."""
@@ -282,7 +282,7 @@ def test_desktop_stage_uses_pm_sync_and_product_cli(tmp_path: Path) -> None:
     assert len(completion) == 1 and "--desktop" in completion[0], calls
     assert not any(c[-2:] == ["desktop", "--build-only"] or "sync_venv" in " ".join(c) for c in calls), calls
     # 3. the stage probed the artifact the fake build produced.
-    exe = install_dir / "apps" / "desktop" / "release" / "win-unpacked" / "Hermes.exe"
+    exe = install_dir / "apps" / "desktop" / "release" / "win-unpacked" / "Kestrel.exe"
     assert exe.is_file(), calls
     # 4. ACL grant hit the intercepted icacls with the produced exe's dir.
     icacls_lines = icacls_log.read_text().splitlines()

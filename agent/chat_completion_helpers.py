@@ -1889,7 +1889,7 @@ def _log_fallback_activated(agent, reason, old_model, old_provider, fb_model, fb
         return
     from kestrel_constants import get_kestrel_home, profile_name_for_home
     profile = profile_name_for_home(get_kestrel_home()) or "default"
-    remedy = "hermes model" if profile == "default" else f"hermes -p {profile} model"
+    remedy = "kestrel model" if profile == "default" else f"hermes -p {profile} model"
     logger.warning(
         "Profile %s: %s via %s refused for billing/credits — using fallback %s via %s. "
         "Top up credits, or run `%s` to pick a model this account can use.",

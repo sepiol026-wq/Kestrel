@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes update`` refreshes the installed macOS ``Hermes.app`` from the rebuilt bundle (#52339).
+"""``kestrel update`` refreshes the installed macOS ``Hermes.app`` from the rebuilt bundle (#52339).
 
 ``hermes desktop --build-only`` only packages into ``apps/desktop/release/``; Finder launches the
 copy in ``/Applications``. These pin the contract of ``_install_rebuilt_macos_bundles``: a stale

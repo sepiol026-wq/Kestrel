@@ -40,7 +40,7 @@ Artifacts, scheduled jobs, the host file tree, Git review, previews and the term
 
 ```bash
 hermes config set webapp.enabled true
-hermes gateway restart
+kestrel gateway restart
 hermes webapp
 ```
 
@@ -51,14 +51,14 @@ serves the CLI, the native Desktop and messaging, so every surface sees one conv
 
 **Signing in.** The link works once, within 60 seconds. The browser exchanges it for a sign-in that it
 keeps in that tab, so reloading keeps you signed in, and so does a gateway restart. A fresh tab or a
-bare URL shows instructions instead of access: run `hermes webapp` again for a new link. **New
+bare URL shows instructions instead of access: run `kestrel webapp` again for a new link. **New
 Window**, profile windows and session pop-outs hand the sign-in over with their own one-use link. On
 Linux the gateway checks that the browser's connection belongs to your OS user; on Windows the link
 travels only in the browser launcher's command line, which other standard users cannot read. On macOS,
 the BSDs and illumos neither holds, so the command writes the link into a page only your OS user can
 read (in the gateway home's `webapp` folder) and opens that page: the launcher sees only its path.
 On macOS a browser can open where you don't see it (over SSH, on the Mac's own screen): if none did,
-run `hermes webapp --no-open` for the link. Where it cannot open a browser (`--no-open`, an SSH session
+run `kestrel webapp --no-open` for the link. Where it cannot open a browser (`--no-open`, an SSH session
 on the BSDs or illumos) and on WSL (where the Windows browser reaches the gateway through WSL's
 relay), it prints the one-use link for you to open instead; until it
 is used it signs a browser in as you, so keep it private. `hermes webapp --sign-out` signs out every
@@ -104,7 +104,7 @@ a sign-in provider. Prefer an SSH tunnel, Tailscale or another trusted VPN.
 taken, sign-in is required and no sign-in provider is set up, or the Webapp's browser sign-in file
 `webapp/session-token` in the Hermes home cannot be read or written), the gateway still serves native
 clients and the status says why. The gateway reads these settings when it starts, so restart it after
-fixing the cause (`hermes gateway restart`). When the port was taken, the gateway also replaces the
+fixing the cause (`kestrel gateway restart`). When the port was taken, the gateway also replaces the
 Webapp's sign-in, so open tabs need `hermes webapp` again. When the Webapp's bundle has not been built
 yet, the status says so instead: `hermes webapp` builds it, and the running gateway serves it without a
 restart.
@@ -119,7 +119,7 @@ in browser** for sites that refuse embedding. Native-only features stay in Elect
 always-on-top overlays, OS-window inspection, external-terminal launch and the updater.
 
 Chats written before the gateway owned sessions show their history but cannot be continued from the
-browser until they are adopted: run `hermes sessions adopt` once on the host (`hermes -p <profile>
+browser until they are adopted: run `kestrel sessions adopt` once on the host (`hermes -p <profile>
 sessions adopt` for another profile), or open them once in the native Desktop, TUI or CLI. That
 includes chats a phone app started through the dashboard login under its own label (`mobile`, `ios`):
 they continue like Desktop chats. Rows a separate WebUI process wrote with its own agent, and old cron
@@ -157,7 +157,7 @@ writes `HERMES_DASHBOARD_OAUTH_CLIENT_ID` in `.env`, so turning Web Access on ne
 standalone dashboard's Nous sign-in. A standalone profile with its own gateway serves its Webapp on a
 port of its own: when its `webapp.port` is unset, the first Start picks the first free port above 9120
 that no other profile uses and saves it as that profile's `webapp.port`, so its address stays the same
-after restarts. A `webapp.port` you set is always kept. `hermes update` rebuilds the Webapp
+after restarts. A `webapp.port` you set is always kept. `kestrel update` rebuilds the Webapp
 whenever a profile has it turned on.
 If that build fails, the gateway reports the Webapp unavailable, and the page says so, until
 `hermes webapp` rebuilds it.
@@ -445,15 +445,15 @@ The pre-window reader is a small YAML subset, not the full parser the rest of He
 Manage providers, models, tools, and credentials from a real UI instead of editing YAML. First-run onboarding gets you to your first message in seconds. The settings panes cover providers/keys, model selection, toolset configuration, MCP servers, the gateway, and session management.
 
 - **Providers settings pane** — a dedicated place to manage inference providers, with an Accounts / API-keys UX for signing in and storing credentials per provider. Accounts, API keys, and Custom Endpoints share the Settings **Applies to** selection: credential reads and edits, OAuth account removal, custom-endpoint save/test, and sign-in launched here target the selected profile, not the active chat profile. The sign-in flow keeps that target through credential saving and model selection. Changing **Applies to** discards unsaved credential drafts. Closing sign-in cancels polling and ignores late results; a credential write already sent may still finish in its original profile. Externally managed CLI credentials use their own CLI and are not covered by this profile selector. Its **Local Models** view installs and manages an on-device llama.cpp runtime — see [Local Models](./local-models.md).
-- **Every provider and model in the menus** — the GUI surfaces the full provider list and every model that `hermes model` knows about, so you pick from the same catalog the CLI sees rather than a curated subset.
-- **Custom endpoints with an API mode** — **Settings → Providers → Custom Endpoints** has an **API Mode** selector (**Auto-detect**, **Chat Completions**, **Responses API**, **Anthropic Messages**) — the same choice `hermes model` offers for a custom provider. It is saved as `providers.<id>.api_mode` in `config.yaml`, so a Responses-only or Anthropic-compatible host is no longer called on `/chat/completions`. **Test** checks the transport you will actually use, not just `/v1/models`: it sends a one-token request to the pinned mode's route (or to the mode Auto-detect resolves to) and fails with the transport named when the host does not serve it. **Test** also keeps the alias metadata a gateway advertises in `/v1/models` (`canonical_model`, `reasoning_effort`): picking an alias such as `gpt-5.6-sol-high` saves the canonical model and pins its effort under `agent.reasoning_overrides`.
+- **Every provider and model in the menus** — the GUI surfaces the full provider list and every model that `kestrel model` knows about, so you pick from the same catalog the CLI sees rather than a curated subset.
+- **Custom endpoints with an API mode** — **Settings → Providers → Custom Endpoints** has an **API Mode** selector (**Auto-detect**, **Chat Completions**, **Responses API**, **Anthropic Messages**) — the same choice `kestrel model` offers for a custom provider. It is saved as `providers.<id>.api_mode` in `config.yaml`, so a Responses-only or Anthropic-compatible host is no longer called on `/chat/completions`. **Test** checks the transport you will actually use, not just `/v1/models`: it sends a one-token request to the pinned mode's route (or to the mode Auto-detect resolves to) and fails with the transport named when the host does not serve it. **Test** also keeps the alias metadata a gateway advertises in `/v1/models` (`canonical_model`, `reasoning_effort`): picking an alias such as `gpt-5.6-sol-high` saves the canonical model and pins its effort under `agent.reasoning_overrides`.
 - **xAI Grok OAuth** — Grok is a first-class OAuth provider in the launcher; sign in through the browser flow like the other OAuth providers.
 - **Tool-backend installs from the GUI** — run a tool backend's post-setup install steps directly from the app instead of dropping to a terminal. In the terminal backend picker, selecting a backend marked **Needs setup** asks for confirmation first; declining leaves the current backend selected.
 - **Terminal font picker** — choose an installed font in **Settings → Appearance**. Nerd Fonts such as `MesloLGS NF` render Powerlevel10k separators and icons in both interactive and agent terminals; the setting is saved per profile.
 - **Reasoning Blocks** — **Settings → Chat → Reasoning Blocks** (`display.show_reasoning` in `config.yaml`) shows or hides the model's thinking in the transcript (off shows answers only). Open chats update as soon as the setting saves. Typing `/reasoning hide` or `/reasoning show` in the composer flips the same setting and the open transcript follows immediately.
 - **Reopen Last Chat on Launch** — by default the app picks up where you left off on cold start. Turn it off in **Settings → Appearance** (or set `display.resume_last_session: false` in `config.yaml`) to always begin with a fresh chat. Deep links and explicit destinations are never overridden either way.
 - **Auxiliary-model warning** — if you switch the main model to a new provider while auxiliary tasks (titling, summarization, and similar helpers) are still pinned to another provider, the app warns you so you don't unknowingly split work across two providers.
-- **Per-task reasoning effort** — each row under **Settings → Model → Auxiliary models** has a reasoning selector next to its provider/model pick: a level, **Off**, or **inherit · main model effort** (the default, which removes the task's override). It is saved as `auxiliary.<task>.reasoning_effort` in `config.yaml`, the same key `hermes model` writes, and shows in the row's summary when set. Use it to run frequent helpers such as compression or titling at low or no reasoning while the main agent stays at high.
+- **Per-task reasoning effort** — each row under **Settings → Model → Auxiliary models** has a reasoning selector next to its provider/model pick: a level, **Off**, or **inherit · main model effort** (the default, which removes the task's override). It is saved as `auxiliary.<task>.reasoning_effort` in `config.yaml`, the same key `kestrel model` writes, and shows in the row's summary when set. Use it to run frequent helpers such as compression or titling at low or no reasoning while the main agent stays at high.
 - **VS Code Marketplace themes** — beyond the built-in theme presets, the appearance settings include a live VS Code Marketplace search: pick any color theme and the app downloads, converts, and installs it as a desktop theme. The same importer is available from the command palette (*Install theme*), and imported themes can be removed again from the appearance settings.
 - **Keep computer awake** — **Settings → Advanced → Keep computer awake** stops the machine from sleeping so long or overnight agent runs keep going (the display can still dim). **While working** holds the machine awake only while a turn is in flight and lets it sleep normally once the run finishes or fails; **Always** holds it whenever Hermes is open. **While working** is the default on a computer where nobody has picked a mode. If you turned it **Off** and a timed sleep interrupts a turn, Hermes offers **Keep awake while working** once on wake. Closing the lid or choosing Sleep still sleeps the machine, and on battery Windows may still sleep after its own timeout. This is a per-computer setting.
 
@@ -602,11 +602,11 @@ Preview GUI cleanup with `hermes uninstall --gui --dry-run`. It lists the remova
 Running `hermes uninstall --gui` from a **source checkout** (a `hermes desktop` dev build) removes `apps/desktop/{dist,release,node_modules}` and the desktop build stamp. The workspace-root `node_modules` stays installed because it is shared with the TUI, dashboard and other workspaces. Rebuild the GUI with `hermes desktop` if you need it again.
 :::
 
-`hermes update` keeps a desktop app current once it has been built in the checkout, even on a server that never opens it. On a headless Linux host, or when the desktop app's own Node dependencies fail to install (for example a compiler too old for `node-pty`), the update still builds the TUI and web UI, reports the desktop build as owed, and suggests `hermes uninstall --gui`. After that uninstall, later updates skip the desktop app.
+`kestrel update` keeps a desktop app current once it has been built in the checkout, even on a server that never opens it. On a headless Linux host, or when the desktop app's own Node dependencies fail to install (for example a compiler too old for `node-pty`), the update still builds the TUI and web UI, reports the desktop build as owed, and suggests `hermes uninstall --gui`. After that uninstall, later updates skip the desktop app.
 
 ## CLI reference: `hermes desktop`
 
-To launch via the CLI, simply run `hermes desktop`. By default it installs workspace Node dependencies, builds the current OS's unpacked Electron app, then launches that packaged artifact.
+To launch via the CLI, simply run `kestrel desktop`. By default it installs workspace Node dependencies, builds the current OS's unpacked Electron app, then launches that packaged artifact.
 
 On Linux, launches refresh `$XDG_DATA_HOME/applications/hermes.desktop` (by default `~/.local/share/applications/hermes.desktop`) so Hermes appears in the application menu. To preserve a hand-edited entry, disable refreshes:
 
@@ -622,7 +622,7 @@ When you start Hermes from the application grid or menu (the launcher sets `DESK
 | -------------------- | ----------------------------------------------------------------------------------------- |
 | `--skip-build`       | Skip pnpm install/package and launch the existing unpacked app from `apps/desktop/release` |
 | `--force-build`      | Force a full rebuild even if the content stamp matches                                    |
-| `--build-only`       | Build the desktop app but do not launch it (used by `hermes update`)                      |
+| `--build-only`       | Build the desktop app but do not launch it (used by `kestrel update`)                      |
 | `--source`           | Launch via `electron .` against `apps/desktop/dist` instead of the packaged app           |
 | `--cwd PATH`         | Initial project directory for desktop chat sessions (sets `HERMES_DESKTOP_CWD`)           |
 | `--hermes-root PATH` | Override the Hermes source root the app uses (sets `HERMES_DESKTOP_HERMES_ROOT`)          |
@@ -631,7 +631,7 @@ When you start Hermes from the application grid or menu (the launcher sets `DESK
 
 ## How it works
 
-The packaged app ships the Electron shell and a native React chat surface. On first launch it can install the Kestrel Agent runtime into `HERMES_HOME` (`~/.hermes`, or `%LOCALAPPDATA%\hermes` on Windows) — **the same layout a CLI install uses**, which is why the two are interchangeable. Bundled apps use their included backend. Without a bundled backend, resolution honours `HERMES_DESKTOP_HERMES_ROOT`, then the development checkout, then an explicit `HERMES_DESKTOP_HERMES` command override for packagers such as Nix, and finally a usable managed install. The command override takes precedence over the managed install so a Nix desktop cannot silently launch an older mutable runtime. The React renderer talks to the profile's **gateway**: on first use of a local profile the app runs `hermes gateway ensure`, which attaches to the gateway that serves that profile or, when there is none, starts it (an already-installed systemd/launchd service where one exists, otherwise a detached daemon; `ensure` never installs a service). One gateway per host serves every profile unless a profile is marked `gateway.standalone: true`, and Desktop dials it over `/api/ws` with one-use tickets — the same process `hermes chat`, the TUI and messaging channels use. That gateway is not tied to the app's lifetime: it keeps running after you quit and has no idle shutdown; stop it with `hermes gateway stop` (or the gateway controls in Settings). The desktop app is **self-contained**: it needs no separate `hermes serve` process and never opens or requires the [web dashboard](./features/web-dashboard.md). Install, backend-resolution, and self-update logic live in the Electron main process.
+The packaged app ships the Electron shell and a native React chat surface. On first launch it can install the Kestrel Agent runtime into `HERMES_HOME` (`~/.hermes`, or `%LOCALAPPDATA%\hermes` on Windows) — **the same layout a CLI install uses**, which is why the two are interchangeable. Bundled apps use their included backend. Without a bundled backend, resolution honours `HERMES_DESKTOP_HERMES_ROOT`, then the development checkout, then an explicit `HERMES_DESKTOP_HERMES` command override for packagers such as Nix, and finally a usable managed install. The command override takes precedence over the managed install so a Nix desktop cannot silently launch an older mutable runtime. The React renderer talks to the profile's **gateway**: on first use of a local profile the app runs `kestrel gateway ensure`, which attaches to the gateway that serves that profile or, when there is none, starts it (an already-installed systemd/launchd service where one exists, otherwise a detached daemon; `ensure` never installs a service). One gateway per host serves every profile unless a profile is marked `gateway.standalone: true`, and Desktop dials it over `/api/ws` with one-use tickets — the same process `kestrel chat`, the TUI and messaging channels use. That gateway is not tied to the app's lifetime: it keeps running after you quit and has no idle shutdown; stop it with `kestrel gateway stop` (or the gateway controls in Settings). The desktop app is **self-contained**: it needs no separate `hermes serve` process and never opens or requires the [web dashboard](./features/web-dashboard.md). Install, backend-resolution, and self-update logic live in the Electron main process.
 
 ## Connecting to a remote backend
 
@@ -660,7 +660,7 @@ Further down the same **Settings → Gateways** page, **Registered gateways** ma
 - Cloud entries come from the Hermes Cloud sign-in/discovery flow above, not from a hand-typed URL.
 - The list and its credentials live in your Hermes home, shared by the native app and the [Webapp](#reach-your-other-gateways-from-one-webapp): `gateway-connections.json` (connections, including session tokens and extra headers) and `gateway-connection-tokens.json` (sign-in credentials). Both are owner-only (0600) files holding the secrets as plain text, so the Webapp's server can read them; the OS keychain option does not apply to them. See [Security notes](./multi-connection-desktop.md#security-notes).
 
-Side-by-side routing is live: each registered gateway dials its own backends and sockets on demand (keyed per connection + profile), the plugin SDK exposes the union agent roster (`host.agents()` / `host.ensureAgent()`), and **Update all instances** on the Gateways page dispatches `hermes update` to every eligible gateway at once — Hermes Cloud entries are skipped (the platform updates them), and each instance reports its own result.
+Side-by-side routing is live: each registered gateway dials its own backends and sockets on demand (keyed per connection + profile), the plugin SDK exposes the union agent roster (`host.agents()` / `host.ensureAgent()`), and **Update all instances** on the Gateways page dispatches `kestrel update` to every eligible gateway at once — Hermes Cloud entries are skipped (the platform updates them), and each instance reports its own result.
 
 
 :::info The remote backend is a running `hermes serve` process
@@ -855,9 +855,9 @@ here.
 
 If a Desktop chat or bot stops responding while the connection still shows **Connected**, select that bot/profile or gateway, open the status bar's gateway menu, and click **Reconnect gateway**. Reconnect stays available for open, connecting, and disconnected transports. It redials the active route without restarting Desktop or deliberately closing other routes' sockets. In-flight requests on the selected socket can be interrupted; this is an explicit recovery action, not a backend or model restart.
 
-### The app vanished after `hermes update`
+### The app vanished after `kestrel update`
 
-An earlier update that replaced the checkout without keeping `apps/desktop/release/` leaves no packaged app to launch. As long as `HERMES_HOME/desktop-build-stamp.json` (written only by a successful Desktop build) still exists, the next `hermes update` notices the missing app and rebuilds it. To rebuild by hand: `hermes desktop --build-only --force-build`. On Windows the ZIP fallback also keeps the built app, its renderer bundle and its Electron `node_modules` across the swap.
+An earlier update that replaced the checkout without keeping `apps/desktop/release/` leaves no packaged app to launch. As long as `HERMES_HOME/desktop-build-stamp.json` (written only by a successful Desktop build) still exists, the next `kestrel update` notices the missing app and rebuilds it. To rebuild by hand: `hermes desktop --build-only --force-build`. On Windows the ZIP fallback also keeps the built app, its renderer bundle and its Electron `node_modules` across the swap.
 
 ### The local backend stopped in the background
 
@@ -921,7 +921,7 @@ On Ubuntu 23.10 and later, `kernel.apparmor_restrict_unprivileged_userns=1` bloc
 
 `hermes desktop --install-apparmor-profile` is the opt-in alternative that survives rebuilds: it installs a profile under `/etc/apparmor.d/` (sudo required) that grants user namespaces to this app's path. Chrome and VS Code get the same grant, but for root-owned binaries. This app's path is usually in a checkout your account can write, so any program running as you could put its own binary there and get the user namespaces the restriction withholds. For your account, that is about the same as turning the restriction off. The command refuses install paths containing AppArmor pattern characters (`? * [ ] { } ^ " \` and non-printable characters; see apparmor.d(5) "Globbing"). It checks the profile with `apparmor_parser --skip-kernel-load` before writing anything, and removes the file again if loading it fails.
 
-If Python dependencies are damaged, run the installation's `hermes pm repair`.
+If Python dependencies are damaged, run the installation's `kestrel pm repair`.
 Then restart Desktop. Do not delete guessed `venv` paths or PM facts. For
 damaged application files, repair through the
 [installation owner](../reference/package-management.md#source-installs-and-packaged-builds).
@@ -960,7 +960,7 @@ clearing the entry — the latch resets and the next boot dials fresh.
 
 The build downloads the Electron runtime (~114&nbsp;MB) from `github.com/electron/electron/releases`. If the installer hangs on the **Build desktop app** step with the live output repeating `retrying attempt=…`, GitHub is being blocked or throttled on your network (firewall, proxy, or region).
 
-The build does not fall back to a mirror on its own and does not retry a failed download: a build that fails for any reason leaves the previous app untouched (stage-and-swap, see [Updating](../getting-started/updating.md#what-happens-during-an-update)), the update itself fails, and `hermes desktop --build-only --force-build` (or the next `hermes update`) runs the build again. If the failure was a corrupt cached Electron zip, delete it from `@electron/get`'s cache (`~/.cache/electron/` on Linux, `~/Library/Caches/electron/` on macOS, `%LOCALAPPDATA%\electron\Cache` on Windows) before rebuilding. `@electron/get` SHASUM-checks every download, but the checksums come from the same host, so a mirror you point it at is trusted for both.
+The build does not fall back to a mirror on its own and does not retry a failed download: a build that fails for any reason leaves the previous app untouched (stage-and-swap, see [Updating](../getting-started/updating.md#what-happens-during-an-update)), the update itself fails, and `hermes desktop --build-only --force-build` (or the next `kestrel update`) runs the build again. If the failure was a corrupt cached Electron zip, delete it from `@electron/get`'s cache (`~/.cache/electron/` on Linux, `~/Library/Caches/electron/` on macOS, `%LOCALAPPDATA%\electron\Cache` on Windows) before rebuilding. `@electron/get` SHASUM-checks every download, but the checksums come from the same host, so a mirror you point it at is trusted for both.
 
 To **use a mirror** (e.g. a corporate one, or `npmmirror.com`, the de-facto Electron community mirror), set `ELECTRON_MIRROR` before installing or rebuild manually — the build honors it and never overrides one you've set:
 
@@ -969,7 +969,7 @@ ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/ \
   bash -c 'cd "$HOME/.hermes/kestrel-agent/apps/desktop" && CSC_IDENTITY_AUTO_DISCOVERY=false pnpm run pack'
 ```
 
-**Other native downloads (e.g. the `get-windows` prebuilt on Windows) that need a mirror:** put the npm keys in `$HERMES_HOME/npmrc` (`%LOCALAPPDATA%\hermes\npmrc` on Windows, `~/.hermes/npmrc` elsewhere) — for example `node_get_windows_binary_host_mirror=https://<mirror>/sindresorhus/get-windows/releases/download/`. Every dependency install and build the updater spawns (desktop, web and TUI builds) points `NPM_CONFIG_USERCONFIG` at that file when it exists (pnpm reads its registry and auth from it) and hands its other keys to the build's child processes as `npm_config_<key>` environment variables (the `get-windows` prebuilt is fetched by node-pre-gyp, which `stage-native-deps.mjs` runs during the build), so the config survives `hermes update`. Credentials (`_authToken`, `_auth`, `_password` and any other `_`-key or `//host/:` key), scoped keys (`@scope:registry`), `otp`, `key`, `cert` and `key[]=` array lines are never handed to install scripts. Hermes's own npm downloads (pinned tool archives, `hermes pm update` lookups) use the `registry=` from the same file. When this file exists it replaces `~/.npmrc` for those builds and downloads (npm's userconfig rule; the two are not merged), so copy any `registry=` or auth line you need from `~/.npmrc` into it; `~/.npmrc` may be missed because the desktop hand-off inherits the GUI's environment. An `NPM_CONFIG_USERCONFIG` you set yourself is never overridden. The pnpm and npm executables that Hermes installs for those builds come from the same `registry=` (or `npm_config_registry`), which may be a plain-`http://` LAN mirror; see [Release age and package mirrors](../reference/package-management.md#release-age-and-package-mirrors).
+**Other native downloads (e.g. the `get-windows` prebuilt on Windows) that need a mirror:** put the npm keys in `$HERMES_HOME/npmrc` (`%LOCALAPPDATA%\hermes\npmrc` on Windows, `~/.hermes/npmrc` elsewhere) — for example `node_get_windows_binary_host_mirror=https://<mirror>/sindresorhus/get-windows/releases/download/`. Every dependency install and build the updater spawns (desktop, web and TUI builds) points `NPM_CONFIG_USERCONFIG` at that file when it exists (pnpm reads its registry and auth from it) and hands its other keys to the build's child processes as `npm_config_<key>` environment variables (the `get-windows` prebuilt is fetched by node-pre-gyp, which `stage-native-deps.mjs` runs during the build), so the config survives `kestrel update`. Credentials (`_authToken`, `_auth`, `_password` and any other `_`-key or `//host/:` key), scoped keys (`@scope:registry`), `otp`, `key`, `cert` and `key[]=` array lines are never handed to install scripts. Hermes's own npm downloads (pinned tool archives, `kestrel pm update` lookups) use the `registry=` from the same file. When this file exists it replaces `~/.npmrc` for those builds and downloads (npm's userconfig rule; the two are not merged), so copy any `registry=` or auth line you need from `~/.npmrc` into it; `~/.npmrc` may be missed because the desktop hand-off inherits the GUI's environment. An `NPM_CONFIG_USERCONFIG` you set yourself is never overridden. The pnpm and npm executables that Hermes installs for those builds come from the same `registry=` (or `npm_config_registry`), which may be a plain-`http://` LAN mirror; see [Release age and package mirrors](../reference/package-management.md#release-age-and-package-mirrors).
 
 **If `get-windows` is missing or half-installed:** the build no longer fails — it prints `[stage-native-deps] get-windows not installed ... read_window_below will be unavailable in this build` and ships without the `read_window_below` tool. When the package directory exists but is not loadable (a Windows in-place update interrupted by a running Hermes window, `TAR_ENTRY_ERROR` in the install log), the same warning names the directory, and the next `hermes desktop --force-build` or update removes it before its pnpm install so the package is re-extracted — close every Hermes window and gateway first so the extract is not interrupted again. A package whose native binding or macOS helper is missing is likewise shipped without window enumeration rather than failing the build.
 
@@ -1025,8 +1025,8 @@ with Hermes' stable signing identities it survives every update:
 2. Enable your terminal app — and **Hermes.app** if you use Desktop.
 3. Fully quit and relaunch them once.
 
-`hermes doctor` reports whether the current terminal context already has the
-grant, and `hermes setup` shows this tip on macOS when it doesn't.
+`kestrel doctor` reports whether the current terminal context already has the
+grant, and `kestrel setup` shows this tip on macOS when it doesn't.
 
 macOS remembers permission grants (Full Disk Access, Desktop/Downloads/Documents,
 Accessibility, Automation, microphone) against the app's *code-signing identity*,

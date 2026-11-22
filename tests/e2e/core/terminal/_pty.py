@@ -315,7 +315,7 @@ class PtyHermes:
     def leftover_processes(self, timeout: float = 15.0) -> list[str]:
         """Processes still alive in the child's session, or seen as its descendants, after exit.
 
-        The profile's ``gateway run`` is not a leftover: ``hermes chat`` attaches to it and it
+        The profile's ``gateway run`` is not a leftover: ``kestrel chat`` attaches to it and it
         keeps serving (cron, messaging, the next client) after the client exits; ``close()`` still
         tears it down with the rest of this harness's tree. Neither is that gateway's owner-death
         supervisor while the gateway lives: it belongs to the gateway, and after the gateway's last

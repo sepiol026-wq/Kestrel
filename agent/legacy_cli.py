@@ -18,9 +18,9 @@ from __future__ import annotations
 try:
     import kestrel_bootstrap
 except ModuleNotFoundError:
-    pass  # partial `hermes update` — only skips the Windows UTF-8 stdio setup
+    pass  # partial `kestrel update` — only skips the Windows UTF-8 stdio setup
 
-# The `kestrel-agent` console script lands here without hermes_cli.main: repair a `hermes update` killed
+# The `kestrel-agent` console script lands here without hermes_cli.main: repair a `kestrel update` killed
 # while git wrote the new tree before importing anything else from the checkout.
 from kestrel_cli import _early_recovery
 
@@ -76,7 +76,7 @@ def main(argv: Optional[list[str]] = None, *, run: Optional[Callable[..., object
     query = args.query or positional or None
     if query is None and not args.list_tools:
         parser.print_help()
-        print("\nNo query given: pass one with --query (or run `hermes` for the interactive CLI).")
+        print("\nNo query given: pass one with --query (or run `kestrel` for the interactive CLI).")
         return 0
 
     if run is None:

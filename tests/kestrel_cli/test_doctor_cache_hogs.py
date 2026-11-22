@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes doctor`` names cache-root dirs that no pruner covers once they are big enough."""
+"""``kestrel doctor`` names cache-root dirs that no pruner covers once they are big enough."""
 
 from kestrel_cli.doctor_state import unpruned_cache_hogs
 

@@ -1222,7 +1222,7 @@ class GatewayAdapterLifecycleMixin(GatewaySecondaryReconnectMixin):
 
     def _note_unserved_secondary_platform(self, profile_name: str, platform: Platform) -> None:
         """Report unpaired WhatsApp or secondary-only Relay. Log the reason and remedy and stamp a
-        ``<profile>:<platform>`` status entry so ``hermes gateway status --profile X`` and the
+        ``<profile>:<platform>`` status entry so ``kestrel gateway status --profile X`` and the
         dashboard show *why* the channel is dead instead of nothing at all.
 
         A shared-ingress platform the default profile runs is not unserved: the secondary is reached

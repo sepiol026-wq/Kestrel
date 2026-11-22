@@ -928,7 +928,7 @@ def _install_default_tools_after_update() -> None:
             pm.ensure(name, explicit=True)
         except (pm.InstallError, OSError) as exc:
             print(f"  ⚠ {name} was not installed: {exc}")
-            print(f"    Retry with: hermes pm install {name}")
+            print(f"    Retry with: kestrel pm install {name}")
 
 
 def _print_checkpoint_footprint_notice() -> None:

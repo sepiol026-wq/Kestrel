@@ -5,7 +5,7 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { isHermesCloudUrl } from './hermes-cloud'
+import { isHermesCloudUrl } from './kestrel-cloud'
 
 describe('isHermesCloudUrl', () => {
   it('recognises production and staging agent hosts, nothing else', () => {

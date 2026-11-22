@@ -277,7 +277,7 @@ _DESKTOP_E2E_SHARED = (
 # The Tauri updater (update.rs, its marker claim marker.rs, the paths.rs both resolve) is
 # compiled and tested by ``cargo test`` alone (the ``rust`` lane, via ``.rs``): no slow lane
 # builds the bootstrap installer, so none of the three starts one.
-# What `hermes update` runs outside the update_* module family: the steps of the
+# What `kestrel update` runs outside the update_* module family: the steps of the
 # pipeline (entry, lock, early recovery, completion tail, launchers, fleet
 # restart/verify, Windows pause/resume) and the lock / marker / recovery state
 # the update_* modules import. Editing any of these changes what a real update
@@ -327,10 +327,10 @@ _UPDATE_PIPELINE = (
     "gateway/restart.py",
     "gateway/host_topology.py",  # update --force: the served homes of a host multiplexer
     "tools/process_registry.py",  # update --force: sweeps a killed gateway's background processes
-    "scripts/desktop-update/",  # the hand-off scripts run `hermes update`
+    "scripts/desktop-update/",  # the hand-off scripts run `kestrel update`
 )
 # Selectors are owned by the import graph, not remembered. The update
-# transaction's own modules (what `hermes update` and the launch-time completion
+# transaction's own modules (what `kestrel update` and the launch-time completion
 # run between the lock and the receipt) are the entry points;
 # tests/ci/test_update_ci_routing.py reads every repo module they import (AST,
 # module level and lazy) and every build script they run, and fails until each

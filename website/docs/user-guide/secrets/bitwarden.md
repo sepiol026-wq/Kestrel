@@ -84,7 +84,7 @@ When the machine-account token expires, gets revoked, or the account is deleted,
 
 ```
 Bitwarden Secrets Manager: Bitwarden rejected the machine-account access token (BWS_ACCESS_TOKEN) — it was likely revoked, expired, or belongs to another region.  (...)
-Bitwarden Secrets Manager: → Run `hermes secrets bitwarden token` to paste a fresh access token ...
+Bitwarden Secrets Manager: → Run `kestrel secrets bitwarden token` to paste a fresh access token ...
 ```
 
 Fix it without re-running the whole wizard:
@@ -133,11 +133,11 @@ Bitwarden never blocks Hermes startup. If anything goes wrong, you'll see a one-
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| `BWS_ACCESS_TOKEN is not set` | Enabled in config but token cleared from `.env` | Re-run `hermes secrets bitwarden setup` |
-| `Bitwarden rejected the machine-account access token … invalid_client` | Token revoked, expired, machine account deleted — or the token belongs to another region (e.g. EU token hitting the US identity endpoint) | Run `hermes secrets bitwarden token` to paste a fresh token; for region mismatches re-run setup and pick EU/self-hosted (or set `secrets.bitwarden.server_url`) |
-| `bws exited 1: invalid access token` | Token revoked or wrong | Run `hermes secrets bitwarden token` with a new token |
+| `BWS_ACCESS_TOKEN is not set` | Enabled in config but token cleared from `.env` | Re-run `kestrel secrets bitwarden setup` |
+| `Bitwarden rejected the machine-account access token … invalid_client` | Token revoked, expired, machine account deleted — or the token belongs to another region (e.g. EU token hitting the US identity endpoint) | Run `kestrel secrets bitwarden token` to paste a fresh token; for region mismatches re-run setup and pick EU/self-hosted (or set `secrets.bitwarden.server_url`) |
+| `bws exited 1: invalid access token` | Token revoked or wrong | Run `kestrel secrets bitwarden token` with a new token |
 | `bws timed out` | Network blocked or Bitwarden API slow | Check connectivity to `api.bitwarden.com` (or your `server_url`) |
-| `bws binary not available` | No PM selection or executable on `PATH`, and automatic installation is disabled or failed | Run `hermes secrets bitwarden install` and read its diagnostic. |
+| `bws binary not available` | No PM selection or executable on `PATH`, and automatic installation is disabled or failed | Run `kestrel secrets bitwarden install` and read its diagnostic. |
 | Checksum failure | The download does not match the PM lock | Stop and investigate the download source. Do not bypass the hash check. |
 
 Startup warnings now include a `→` remediation line telling you exactly which command fixes the failure.

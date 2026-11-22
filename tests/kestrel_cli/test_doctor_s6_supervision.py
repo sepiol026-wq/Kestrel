@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes doctor``'s s6 section probes the image's static s6-rc services in the root scandir and
+"""``kestrel doctor``'s s6 section probes the image's static s6-rc services in the root scandir and
 lists profile gateway slots from the separate, unprivileged gateway scandir."""
 from __future__ import annotations
 

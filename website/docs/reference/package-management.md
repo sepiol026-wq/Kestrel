@@ -5,7 +5,7 @@ description: "PM tool pins, Python environments, optional dependencies, and inst
 
 # Package management
 
-`hermes pm` manages Hermes tool binaries and Python dependency environments.
+`kestrel pm` manages Hermes tool binaries and Python dependency environments.
 It is not the application updater. Use the installation's
 [update method](../getting-started/updating.md) to update Hermes itself.
 
@@ -23,7 +23,7 @@ Each file has a separate role:
 | Payload `manifest.json` | Relative payload layout and the completed launch contract from the bundle builder. |
 | `install-stamp.json` | Build provenance and the declared distribution/update owner. |
 
-A lockfile entry does not prove that a package is installed. `hermes pm doctor`
+A lockfile entry does not prove that a package is installed. `kestrel pm doctor`
 compares the installed state with the lock and checks the realized bytes.
 Startup uses a cheaper check. It does not query upstream versions on every launch.
 For self-managed source installs, the pre-import launcher compares PM's recorded
@@ -49,7 +49,7 @@ The original command keeps the update lock while waiting; a missing or failed
 completion result cannot report success. Correlated PM failures remain in the
 update receipt, and interrupted restarts retain their fleet obligation.
 Dependency or build failures never retry through pip or a source re-download.
-Use `hermes pm repair` for damaged dependency files. See the developer
+Use `kestrel pm repair` for damaged dependency files. See the developer
 [source completion ownership note](../developer-guide/source-update-completion.md).
 
 ## Source installs and packaged builds
@@ -207,7 +207,7 @@ working. Those extras are carried, not requested: if one no longer builds (a
 native package such as Matrix's `python-olm` whose compiler or CMake is
 missing), the update installs everything else, prints which extra it left out,
 and records that beside the install's dependency state, so a later scan of the
-old venv does not carry it again. `hermes pm install --extra NAME` adds it back
+old venv does not carry it again. `kestrel pm install --extra NAME` adds it back
 once the build is fixed. A carried extra that fails only for the moment (a
 download or a missing tool) is never dropped: the update fails before it
 publishes anything, so the next update scans the old venv again and retries
@@ -268,7 +268,7 @@ Use an ordinary terminal outside the packaged Hermes app. Leave any existing
 Python virtual environment first. On Windows, use native PowerShell with Git.
 On ARM64, PM prepares Visual Studio C++ tools, Clang, native Rust, and static
 OpenSSL development libraries before every dependency build from a checkout:
-setup, `activate.ps1`, `install.ps1`, `hermes update`, and repair alike. It
+setup, `activate.ps1`, `install.ps1`, `kestrel update`, and repair alike. It
 reuses existing installations and installs missing prerequisites. Missing
 Visual Studio components need administrator rights: an interactive install
 asks through a UAC prompt, while CI, ssh and scheduled runs need an
@@ -357,7 +357,7 @@ against the managed Python on the next invocation; subsequent invocations reuse 
 `pm.venv_is_current()` checks through an existing PM worker, even when lazy
 installs are disabled. It never bootstraps PM for a probe. If the manager
 runtime is unavailable, it returns false without downloading tools or
-dependencies. Run an explicit `hermes pm install` to prepare PM first.
+dependencies. Run an explicit `kestrel pm install` to prepare PM first.
 
 Native bundles and Docker images stage this same PM lock through the shared
 runtime builder. Termux supplies its verified offline wheelhouse to that
@@ -384,7 +384,7 @@ assuming that a Zsh startup file has Bash semantics; fish has its own
 Each activation invokes PM's install/sync path and trusts the recorded tool
 digest instead of re-hashing every entry. PM still installs a missing tool and
 rebuilds a stale dependency generation; a deliberate install keeps the byte
-check. Run `python -m pm.cli install` or `hermes update` to re-check realized
+check. Run `python -m pm.cli install` or `kestrel update` to re-check realized
 bytes. A setup failure returns an error before changing the activated shell
 environment, including when re-sourcing an already active environment.
 
@@ -434,7 +434,7 @@ worktree the function refuses, so it cannot run another checkout's tree or
 fall through to an installed command:
 
 ```bash
-hermes setup
+kestrel setup
 hermes
 hermes --tui
 python -m pm.cli status
@@ -502,7 +502,7 @@ python -m pm.cli install
 
 After a standalone sync, reactivate the environment. Restart affected processes.
 Use `python -m pm.cli doctor` for tool diagnostics and `python -m pm.cli status`
-for the latest sync receipt. Do not run `hermes update` just to refresh a
+for the latest sync receipt. Do not run `kestrel update` just to refresh a
 feature branch: it is an application update and can change the source branch.
 
 Managed tool names and Python extra names are different interfaces:
@@ -527,18 +527,18 @@ before starting another Python process.
 2. Relock:
 
    ```bash
-   hermes pm lock
+   kestrel pm lock
    ```
 
    This re-resolves `uv.lock` from `pyproject.toml` with the same settings CI
    checks, including the 3-day `exclude-newer` release-age check. It changes no
    environment. When the lock is already current, it says so and writes
-   nothing. (`hermes pm lock --bump NAME VERSION` is a different operation: it
+   nothing. (`kestrel pm lock --bump NAME VERSION` is a different operation: it
    pins a managed tool in `pm/lock.json` and does not touch `uv.lock`.)
 3. Source the activation script again (`source ./activate`, or
    `. .\activate.ps1` in PowerShell) to sync the application venv and the test
    interpreter to the new lock. Activation covers `[all]`. If you added an
-   opt-in extra outside `[all]`, `hermes pm lock` prints the command that also
+   opt-in extra outside `[all]`, `kestrel pm lock` prints the command that also
    puts it in the test interpreter, for example
    `source ./activate --test-extras all,NAME`.
 4. Commit `pyproject.toml` and `uv.lock` together.
@@ -616,23 +616,23 @@ sandboxes do not manage Hermes itself.
 ## Commands
 
 ```bash
-hermes pm --help
-hermes pm doctor
-hermes pm status
-hermes pm install
-hermes pm install chromium
+kestrel pm --help
+kestrel pm doctor
+kestrel pm status
+kestrel pm install
+kestrel pm install chromium
 ```
 
 | Command | Effect |
 |---|---|
 | `pm install [names...]` | Install named packages. With no names, provision required tools plus Python, put those tools on PATH, and then sync the `all` extra. A bare install also installs the default optional tools (`chromium`, the browser Hermes launches, and `cua-driver`); a failed download of these prints a warning and does not fail the install. Naming a package you declined earlier undoes that choice. |
-| `pm install --without NAME` | Do a bare install without the default optional package `NAME` (`chromium` or `cua-driver`), and record that choice. Later bare installs and `hermes update` also leave it out. The installers' `--skip-browser` / `-SkipBrowser` and `--skip-computer-use` / `-SkipComputerUse` (`--without cua-driver`) use this. The browser opt-out passes the legacy name `--without agent-browser`, which every PM release accepts and this one reads as `chromium`; a choice recorded under that name still skips `chromium`. |
-| `pm install --without EXTRA` | Drop a recorded Python extra that `[all]` does not include (for example `matrix`, which a migration from a pre-PM venv carries forward when that venv held its packages). The bare install's sync builds a generation without it, and the choice is recorded beside the install's dependency state: `hermes update`, the pre-PM venv scan, the update's install of configured platforms' extras, and a lazy install at first use never add it back. Packages another recorded extra also pulls in (a recorded `messaging` includes Slack, Telegram and Discord) stay until that extra goes too. `pm install --extra EXTRA` opts back in. Extras inside `[all]` (`web`, `mcp`, ...) are refused, since every sync selects them. |
+| `pm install --without NAME` | Do a bare install without the default optional package `NAME` (`chromium` or `cua-driver`), and record that choice. Later bare installs and `kestrel update` also leave it out. The installers' `--skip-browser` / `-SkipBrowser` and `--skip-computer-use` / `-SkipComputerUse` (`--without cua-driver`) use this. The browser opt-out passes the legacy name `--without agent-browser`, which every PM release accepts and this one reads as `chromium`; a choice recorded under that name still skips `chromium`. |
+| `pm install --without EXTRA` | Drop a recorded Python extra that `[all]` does not include (for example `matrix`, which a migration from a pre-PM venv carries forward when that venv held its packages). The bare install's sync builds a generation without it, and the choice is recorded beside the install's dependency state: `kestrel update`, the pre-PM venv scan, the update's install of configured platforms' extras, and a lazy install at first use never add it back. Packages another recorded extra also pulls in (a recorded `messaging` includes Slack, Telegram and Discord) stay until that extra goes too. `pm install --extra EXTRA` opts back in. Extras inside `[all]` (`web`, `mcp`, ...) are refused, since every sync selects them. |
 | `pm install --tools-only` | Install that tool closure and put it on PATH, then stop. The venv sync does not run. |
 | `pm env [names...]` | Print installed packages' PM-contributed environment values as JSON. It does not install missing packages, though a cold Hermes launch may prepare its own Python runtime first. |
 | `pm doctor` | Check installed tool identities, files, and digests against the lock, and look for corrupt entries in PM's uv cache. `--repair` removes those entries so they are fetched again. |
 | `pm repair` | Rebuild the recorded Python dependency set in a new generation, validate it, then select it. Does not update pins, features, or plugin configuration. |
-| `pm environment NAME --extra EXTRA` / `--requirement REQ` | Make the isolated side environment `HERMES_HOME/environments/NAME` current and print only its Python path on stdout (progress goes to stderr), for shell callers such as skills: `PY="$(hermes pm environment documents --extra documents --extra documents-pdf)"`. `--extra` installs the pinned requirements of extras declared in `pyproject.toml`; `--requirement` takes bounded ad hoc requirements. The environment records its own lock, and only a changed requirement set or Python pin builds a new generation. Concurrent calls serialize on the environment's lock, and a rebuild lands in a new generation, so a caller already using the previous one keeps its files. An explicit install: it runs even where lazy installs are off. Never `pip install` into the result. |
+| `pm environment NAME --extra EXTRA` / `--requirement REQ` | Make the isolated side environment `HERMES_HOME/environments/NAME` current and print only its Python path on stdout (progress goes to stderr), for shell callers such as skills: `PY="$(kestrel pm environment documents --extra documents --extra documents-pdf)"`. `--extra` installs the pinned requirements of extras declared in `pyproject.toml`; `--requirement` takes bounded ad hoc requirements. The environment records its own lock, and only a changed requirement set or Python pin builds a new generation. Concurrent calls serialize on the environment's lock, and a rebuild lands in a new generation, so a caller already using the previous one keeps its files. An explicit install: it runs even where lazy installs are off. Never `pip install` into the result. |
 | `pm status` | Print the latest sync/update receipt as JSON, or report that no receipt exists. |
 | `pm gc` | Remove unreferenced tool-store entries, eligible download partials, unused lease-managed Python generations, and the `installs/INSTALL_KEY/` state of deleted checkouts (a worktree removed from a `.worktrees/` dir that still exists, or a clone under the data root; a missing checkout anywhere else, such as a host install viewed from a container sharing the data root, is kept until its state has gone unused, with no sync and no launch, for `worktrees.install_state_retention_days` (default 14, 0 = forever); state whose install lock or generation lease is still held is always kept). The worktree pruner that runs at startup reclaims those orphaned state dirs too. |
 
@@ -702,13 +702,13 @@ is CA trust stores (`certifi`): a release that distrusts a compromised CA is
 locked the day it ships, since waiting keeps the bad root trusted. Set a mirror with `index-url` in `pip.conf`,
 which Hermes passes to uv, or with `UV_INDEX_URL`.
 
-`hermes pm lock` is the one step that applies the check. Run against a mirror
+`kestrel pm lock` is the one step that applies the check. Run against a mirror
 without upload times, it stops with `has no publish time`; use
 `https://pypi.org/simple` for that step.
 
 JavaScript workspace dependencies follow the same rule through
 `minimumReleaseAge` in `pnpm-workspace.yaml` (in minutes: `20160` is 14 days).
-When a range's only matches are younger than that, `hermes pm update --pnpm`
+When a range's only matches are younger than that, `kestrel pm update --pnpm`
 stops and prints the entries that would let it through, for example
 `- pele@1.13.0  # <why it cannot wait>` (it lists them by repeating the update
 on a scratch copy of the manifests and lock). To exempt one, add it to
@@ -734,11 +734,11 @@ download stays HTTPS-only.
 ## Diagnostics
 
 - **Slow Python dependency builds:** PM's streamed uv commands enable verbose output. Bundle and build logs show package activity and build-backend stdout/stderr while the build runs, not only after failure.
-- **Missing or outdated tool:** read `hermes pm doctor`, then use an explicit PM install on a writable installation.
+- **Missing or outdated tool:** read `kestrel pm doctor`, then use an explicit PM install on a writable installation.
 - **New environment requires restart:** restart the affected Hermes process. Do not add a second site-packages tree to its live imports.
-- **Dependency conflict:** read `hermes pm status`. Correct the plugin requirements before retrying admission.
-- **Damaged Python dependencies:** run `hermes pm repair`, then restart Hermes. Repair replays the selected generation's saved workspace and lock without parsing plugin configuration. An unreadable record or missing saved lock fails without selecting a reduced dependency set. Before a generation exists, repair uses the shipped or committed lock and recorded feature set.
-- **Corrupt cached package** (`The wheel is invalid`, `RECORD file is invalid`): a machine stop during an install can leave a uv cache entry whose files are empty or NUL-filled. Installs remove the damaged package from PM's uv cache and retry on their own; `hermes pm doctor` reports such entries and `hermes pm doctor --repair` removes them. If the same package is still invalid after a fresh download, the package source is serving a broken wheel.
+- **Dependency conflict:** read `kestrel pm status`. Correct the plugin requirements before retrying admission.
+- **Damaged Python dependencies:** run `kestrel pm repair`, then restart Hermes. Repair replays the selected generation's saved workspace and lock without parsing plugin configuration. An unreadable record or missing saved lock fails without selecting a reduced dependency set. Before a generation exists, repair uses the shipped or committed lock and recorded feature set.
+- **Corrupt cached package** (`The wheel is invalid`, `RECORD file is invalid`): a machine stop during an install can leave a uv cache entry whose files are empty or NUL-filled. Installs remove the damaged package from PM's uv cache and retry on their own; `kestrel pm doctor` reports such entries and `kestrel pm doctor --repair` removes them. If the same package is still invalid after a fresh download, the package source is serving a broken wheel.
 - **Interrupted dependency install:** startup requests the same PM repair before dependency activation. Automatic attempts are bounded; `pm repair` retries explicitly. A failed repair preserves the previous selection and its retry marker.
 - **Damaged Python executable or application source:** repair or reinstall through the package owner. PM cannot run without those files. Signed payload files are never modified by dependency repair.
 - **Unknown package or extra:** use the declared name. `pm install` takes package names, not Python extra names or pip specifications.

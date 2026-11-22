@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Regression test: hermes update must not load cryptography eagerly."""
+"""Regression test: kestrel update must not load cryptography eagerly."""
 
 import sys
 import subprocess
@@ -81,7 +81,7 @@ sys.exit(0)
         )
 
     def test_update_check_no_cryptography(self) -> None:
-        """Running hermes update --check should NOT load cryptography._rust."""
+        """Running kestrel update --check should NOT load cryptography._rust."""
         # Write a small script in the repo root so hermes_cli is importable,
         # and use a filename that doesn't trigger the live-system guard.
         repo_root = Path(__file__).parent.parent.parent

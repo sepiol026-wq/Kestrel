@@ -124,7 +124,7 @@ print(json.dumps({k: os.environ.get(k) for k in json.loads(sys.argv[3])}))
 
 @pytest.mark.parametrize("shell", ["hermes_subprocess_env", "terminal"])
 def test_a_gateway_restarted_from_an_agent_shell_applies_the_tightened_yaml(tmp_path, monkeypatch, shell):
-    """The agent's shell runs ``hermes gateway restart``: the bridged allowlists it inherited are the
+    """The agent's shell runs ``kestrel gateway restart``: the bridged allowlists it inherited are the
     bridge's, so the new gateway must re-derive them from config.yaml, not keep them as operator-set."""
     from gateway.config import load_gateway_config
     from tools.environments.local import (

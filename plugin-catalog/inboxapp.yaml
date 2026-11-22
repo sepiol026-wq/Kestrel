@@ -12,7 +12,7 @@ requires_hermes: ">=0.21.6"
 readme: true
 platforms: []
 known_issues:
-  - "Hermes runs OAuth for a remote MCP server only when config.yaml sets auth: oauth, which a package cannot set. Add mcp_servers.inboxapp with url https://mcp.inboxapp.com/mcp, auth: oauth and trust: untrusted to ~/.hermes/config.yaml, then run hermes mcp login inboxapp. That entry replaces the package's server, so keep trust: untrusted in it."
+  - "Hermes runs OAuth for a remote MCP server only when config.yaml sets auth: oauth, which a package cannot set. Add mcp_servers.inboxapp with url https://mcp.inboxapp.com/mcp, auth: oauth and trust: untrusted to ~/.hermes/config.yaml, then run kestrel mcp login inboxapp. That entry replaces the package's server, so keep trust: untrusted in it."
   - "Needs an Inboxapp team with API v2 access, which is in private rollout; the server answers 404 for teams without it."
 capabilities:
   provides_tools: []

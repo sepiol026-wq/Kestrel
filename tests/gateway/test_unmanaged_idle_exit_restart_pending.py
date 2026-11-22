@@ -5,7 +5,7 @@
 
 """An auto-started gateway that installed a dependency it cannot load retires once its turn ends.
 
-Without this the CLI's next attempt (or a fresh ``hermes chat``) reattached to the same process and
+Without this the CLI's next attempt (or a fresh ``kestrel chat``) reattached to the same process and
 failed the same way until the idle window ran out. Real asyncio and a real ticket store; the runner
 is a stand-in exposing only what the idle predicate reads.
 """

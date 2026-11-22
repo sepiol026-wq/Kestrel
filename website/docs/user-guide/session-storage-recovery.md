@@ -25,7 +25,7 @@ refusal exists precisely so nothing gets lost.
 1. **Quit every Hermes process on that profile.** Desktop app, gateway, dashboard, cron:
 
    ```bash
-   hermes gateway stop          # add -p <profile> for a named profile
+   kestrel gateway stop          # add -p <profile> for a named profile
    ```
 
    then quit the Desktop app from its menu and stop any dashboard (`hermes dashboard --stop`)
@@ -35,7 +35,7 @@ refusal exists precisely so nothing gets lost.
 2. **Ask doctor who is still holding the log.**
 
    ```bash
-   hermes doctor                # add -p <profile> for a named profile
+   kestrel doctor                # add -p <profile> for a named profile
    ```
 
    While anything still holds the retired log, doctor prints each holder as
@@ -48,7 +48,7 @@ refusal exists precisely so nothing gets lost.
 
 ## Do not
 
-- **Do not run `hermes doctor --fix` while the processes are running.** Doctor refuses the
+- **Do not run `kestrel doctor --fix` while the processes are running.** Doctor refuses the
   checkpoint while it can see a process holding the retired log, but on a host where it cannot
   inspect processes the fix path is exactly the second writer that caused the problem.
 - **Do not delete `state.db-wal` or `state.db-shm`.** The log holds committed conversations
@@ -68,11 +68,11 @@ and refuse while another process holds the database:
 
 ```text
 Refusing `hermes sessions optimize-storage`: another process is using ~/.hermes/state.db.
-  PID 41230 (hermes gateway run): state.db, state.db-shm, state.db-wal
+  PID 41230 (kestrel gateway run): state.db, state.db-shm, state.db-wal
   PID 41355 (hermes serve --profile work): state.db-wal
 Rewriting the database under a live writer is how every agent ends up refusing turns with the
 retired state.db-wal error. Nothing is lost.
-Stop them first (`hermes gateway stop`, quit the Desktop app, pause cron), then re-run.
+Stop them first (`kestrel gateway stop`, quit the Desktop app, pause cron), then re-run.
 Override with --force if you accept the risk.
 ```
 
@@ -95,11 +95,11 @@ no gateway is running and some other process holds the database.
 | `state.db.retired-wal-<timestamp>-<pid>/` | A capture Hermes made of the log copy a process was still holding when it refused to write, plus a `manifest.json` describing it. Forensic evidence, not a backup you restore blindly. | Keep it. If conversations from just before the incident are missing after recovery, attach the directory to a bug report; a maintainer can tell from `manifest.json` whether those frames belong on top of the current file. |
 | `state.db.pre-update-emergency-<timestamp>.bak` | A snapshot the Desktop updater takes before it touches the store. | Keep it until you have used the updated app for a while. Restore only with every Hermes process stopped: `hermes sessions recover --source <file> --inspect-only` first. |
 | `state.db.corrupt.<timestamp>.bak`, `*.malformed-backup` | Copies of a file Hermes found damaged before it repaired or quarantined it. | Do not restore them over `state.db` — they are the same damage. Keep for a report; safe to delete once you are back to normal. |
-| `state-snapshots/` | Quick snapshots `hermes update` and `hermes backup` take. | Restore with every Hermes process stopped; see [`hermes backup`](../reference/cli-commands.md#hermes-backup). |
+| `state-snapshots/` | Quick snapshots `kestrel update` and `hermes backup` take. | Restore with every Hermes process stopped; see [`hermes backup`](../reference/cli-commands.md#hermes-backup). |
 
 ## When the three steps do not work
 
-If every Hermes process is stopped, `hermes doctor` no longer lists a holder, and the
+If every Hermes process is stopped, `kestrel doctor` no longer lists a holder, and the
 gateway still refuses to write when you start it, the file itself may be damaged. Stop
 everything again and inspect without writing:
 

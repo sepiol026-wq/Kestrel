@@ -1346,8 +1346,8 @@ def _configured_plugin_inputs() -> Path | None:
     if config_path is None and (legacy_vars := configured_legacy_relay_env_vars(os.environ)):
         logger.warning(
             "Legacy NeMo Relay exporter variables are set but no %s was provided. %s no longer configure "
-            "Relay exporters; any standard user or system plugins.toml still applies. Run `hermes migrate "
-            "relay` (or `hermes update`, which runs it for every profile) to generate %s and select it in .env.",
+            "Relay exporters; any standard user or system plugins.toml still applies. Run `kestrel migrate "
+            "relay` (or `kestrel update`, which runs it for every profile) to generate %s and select it in .env.",
             RELAY_PLUGINS_CONFIG_ENV,
             ", ".join(legacy_vars),
             get_kestrel_home() / "relay-plugins.toml",

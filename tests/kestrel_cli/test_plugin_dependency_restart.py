@@ -9,7 +9,7 @@
 reload its plugins. Activation is a boot decision, so that gateway (and a running dashboard) keeps
 the generation it booted with and cannot import the new dependencies. Enable used to report
 "Gateway reloaded plugins; nothing of this plugin needs a session or restart", and discovery
-logged "run hermes pm repair" — on a hosted container the terminal backend then failed with
+logged "run kestrel pm repair" — on a hosted container the terminal backend then failed with
 ``No module named '<dep>'`` until something restarted the gateway. The honest answer is: restart.
 """
 
@@ -133,7 +133,7 @@ def test_enable_reports_restart_when_the_running_gateway_cannot_import_the_depen
     assert result["activation"]["missing_dependencies"] == [REQ]
     assert result["activation"]["missing_in"] == ["gateway"]
     assert "nothing of this plugin needs" not in hint
-    assert "installed after the running gateway" in hint and "hermes gateway restart" in hint
+    assert "installed after the running gateway" in hint and "kestrel gateway restart" in hint
 
 
 def test_restart_names_only_the_process_that_cannot_import(home, monkeypatch):
@@ -148,7 +148,7 @@ def test_restart_names_only_the_process_that_cannot_import(home, monkeypatch):
     hint = plugins_activation.activation_hint(result)
 
     assert result["restart_required"] is True and result["activation"]["missing_in"] == ["backend"]
-    assert "desktop app" in hint and "hermes gateway restart" not in hint
+    assert "desktop app" in hint and "kestrel gateway restart" not in hint
 
 
 def test_enable_reports_repair_when_the_dependency_was_never_installed(home, monkeypatch):

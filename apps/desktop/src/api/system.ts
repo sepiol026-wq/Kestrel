@@ -273,7 +273,7 @@ export function getElevenLabsVoices(profile?: null | string): Promise<ElevenLabs
 }
 
 // ---------------------------------------------------------------------------
-// Maintenance operations (parity with `hermes doctor` / `hermes security
+// Maintenance operations (parity with `kestrel doctor` / `hermes security
 // audit` / `hermes backup` / `hermes debug share` and the dashboard System
 // page). All except debug share are spawn-based background actions tailed via
 // getActionStatus().

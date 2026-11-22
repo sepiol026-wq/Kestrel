@@ -77,14 +77,14 @@ print(js("[...document.querySelectorAll('article h2 a')].slice(0, 10).map(a => a
 **使用哪个 Chromium。** Hermes 按顺序选择第一个存在的：
 
 1. `browser.executable_path`（如已设置）。
-2. Hermes 包管理器安装的 Chromium（Chrome for Testing）——安装脚本和 `hermes update` 默认会安装它。
+2. Hermes 包管理器安装的 Chromium（Chrome for Testing）——安装脚本和 `kestrel update` 默认会安装它。
 3. 官方 Docker 镜像中的 `/etc/hermes/chromium-executable-path`。
 4. `PATH` 上的系统 `chromium` / `chromium-browser`（Android/Termux，以及包管理器没有 Chromium 构建的平台）。
 
 如果都找不到，浏览器工具会给出明确提示，而不是静默失败。如果您安装时使用了 `--skip-browser` / `-SkipBrowser`，或下载失败，可以这样安装：
 
 ```bash
-hermes pm install chromium
+kestrel pm install chromium
 ```
 
 这也会撤销之前的 `--skip-browser` 选择，使后续更新继续保持浏览器为最新。在 Linux 上，Chromium 可能还需要发行版的系统库（在 Debian/Ubuntu 上可用 `npx playwright install-deps chromium` 安装）。在 Android/Termux 上，如果您的软件源提供，请运行 `pkg install chromium`；没有系统 Chromium 时，该设备上无法使用浏览器。
@@ -120,7 +120,7 @@ browser:
 ## 云端浏览器
 
 :::tip Nous 订阅用户
-如果您拥有付费 [Nous Portal](https://portal.nousresearch.com) 订阅，可通过 **[Tool Gateway](tool-gateway.md)** 使用云端浏览器，无需单独的 API 密钥。新安装可运行 `hermes setup --portal` 登录并一次性开启所有 gateway 工具；已有安装可通过 `hermes model` 或 `hermes tools` 选择 **Nous Subscription** 作为浏览器提供商。
+如果您拥有付费 [Nous Portal](https://portal.nousresearch.com) 订阅，可通过 **[Tool Gateway](tool-gateway.md)** 使用云端浏览器，无需单独的 API 密钥。新安装可运行 `kestrel setup --portal` 登录并一次性开启所有 gateway 工具；已有安装可通过 `kestrel model` 或 `hermes tools` 选择 **Nous Subscription** 作为浏览器提供商。
 :::
 
 在 `hermes tools` → Browser Automation 中选择提供商。之后 `browser_exec` 驱动该提供商的浏览器，方式与驱动本地 Chromium 完全相同。
@@ -251,14 +251,14 @@ Hermes 会自己启动 `lightpanda serve --host 127.0.0.1 --port <free>`——�
 
 Lightpanda 没有图形渲染器，因此 `capture_screenshot()` 不可用，工具描述会让模型以文本为主；它每个会话只保持一个页面，因此模型会被告知只调用一次 `new_tab()`，之后使用 `goto_url()`（上游跟踪：[lightpanda-io/browser#1962](https://github.com/lightpanda-io/browser/issues/1962)）。
 
-**引擎何时被忽略。** `browser.engine` 是优先级最低的浏览器设置：云端提供商（包括 Nous 订阅浏览器）、`browser.cdp_url` / `/browser connect` 覆盖，或 `browser.use_real_profile` 都优先于它。`/browser status` 和 `hermes doctor` 会报告引擎已配置但被覆盖的情况，以及被什么覆盖。
+**引擎何时被忽略。** `browser.engine` 是优先级最低的浏览器设置：云端提供商（包括 Nous 订阅浏览器）、`browser.cdp_url` / `/browser connect` 覆盖，或 `browser.use_real_profile` 都优先于它。`/browser status` 和 `kestrel doctor` 会报告引擎已配置但被覆盖的情况，以及被什么覆盖。
 
 ## 通过 CDP 连接你自己的浏览器（`/browser connect`）
 
 除了 Hermes 自己启动的 Chromium 或云端提供商，您还可以通过 Chrome DevTools Protocol（CDP）将浏览器工具连接到本地运行的 Chrome、Brave、Chromium 或 Edge 实例。当您希望实时查看 Agent 操作、与需要自身 Cookie/会话的页面交互，或避免云端浏览器费用时，此方式非常有用。
 
 :::note
-`/browser connect` 是**交互式 CLI 斜杠命令** — 不由 gateway 分发。若在 WebUI、Telegram、Discord 或其他 gateway 聊天中尝试运行，消息将作为纯文本发送给 Agent，命令不会执行。请从终端启动 Hermes（`hermes` 或 `hermes chat`）并在那里执行 `/browser connect`。
+`/browser connect` 是**交互式 CLI 斜杠命令** — 不由 gateway 分发。若在 WebUI、Telegram、Discord 或其他 gateway 聊天中尝试运行，消息将作为纯文本发送给 Agent，命令不会执行。请从终端启动 Hermes（`hermes` 或 `kestrel chat`）并在那里执行 `/browser connect`。
 :::
 
 在 CLI 中使用：

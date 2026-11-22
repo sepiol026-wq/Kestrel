@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes update``'s .env backfill must never copy the default's secrets into a profile.
+"""``kestrel update``'s .env backfill must never copy the default's secrets into a profile.
 
 Secrets are profile-scoped, and one bot token can't be consumed twice: a copied TELEGRAM_BOT_TOKEN only
 ever surfaces as a ``duplicate_credential`` fatal next to the default's live adapter.

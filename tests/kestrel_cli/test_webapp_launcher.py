@@ -124,7 +124,7 @@ def test_a_gateway_started_before_the_webapp_was_turned_on_asks_for_a_restart(wo
     world["answers"]["webapp-status"] = {"ok": True, "result": {"state": "off", "url": None, "reason": None}}
     assert launcher.cmd_webapp(_args()) == 1
     out = capsys.readouterr().out
-    assert "hermes gateway restart" in out
+    assert "kestrel gateway restart" in out
     assert world["calls"]["opened"] == []
 
 
@@ -137,14 +137,14 @@ def test_a_webapp_the_gateway_could_not_serve_reports_why_and_how_to_retry(world
                                                                "reason": reason}}
     assert launcher.cmd_webapp(_args()) == 1
     out = capsys.readouterr().out
-    assert reason in out and "hermes gateway restart" in out
+    assert reason in out and "kestrel gateway restart" in out
     assert launcher.cmd_webapp(_args(status=True)) == 0
     out = capsys.readouterr().out
-    assert reason in out and "hermes gateway restart" in out
+    assert reason in out and "kestrel gateway restart" in out
 
 
 def test_a_launch_refused_for_a_stale_bundle_asks_for_a_build_not_a_restart(world, capsys):
-    """A bundle that is missing or that hermes update could not rebuild is served as soon as it is
+    """A bundle that is missing or that kestrel update could not rebuild is served as soon as it is
     built, and a restart keeps the stale mark: the refusal says to build it and never sends the user
     to restart the gateway, as --status already does."""
     from gateway.webapp_listener import NOT_REBUILT

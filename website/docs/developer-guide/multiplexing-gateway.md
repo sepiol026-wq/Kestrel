@@ -9,7 +9,7 @@ One gateway process can serve every profile in the install. The mode is on by
 default (`gateway.multiplex_profiles`, default `true`), and everything it
 changes reverts the moment the flag is off. An *unset* flag is settled at boot
 by `hermes_cli/gateway_multiplex_mode.py::resolve_multiplex_mode`, which runs
-the `hermes gateway migrate` preflight and keeps the gateway standalone when a
+the `kestrel gateway migrate` preflight and keeps the gateway standalone when a
 secondary still runs its own gateway, a blocker exists, or the host cannot be
 migrated (see "The mode flag"). This document is the design rationale
 referenced from `agent/secret_scope.py` ("Workstream A"): what is isolated per

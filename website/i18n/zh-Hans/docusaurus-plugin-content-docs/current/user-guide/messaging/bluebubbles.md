@@ -26,7 +26,7 @@
 运行设置向导：
 
 ```bash
-hermes gateway setup
+kestrel gateway setup
 ```
 
 选择 **BlueBubbles (iMessage)** 并输入服务端 URL 和密码。
@@ -62,7 +62,7 @@ BLUEBUBBLES_ALLOW_ALL_USERS=true
 ### 5. 启动 Gateway
 
 ```bash
-hermes gateway run
+kestrel gateway run
 ```
 
 Hermes 将连接至你的 BlueBubbles 服务端，注册 webhook，并开始监听 iMessage 消息。

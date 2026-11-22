@@ -176,7 +176,7 @@ def build_source_web(project_root: Path, *, env: dict, icons: Path | None = None
     # Default-brand icons are committed; installs never render them.
     icons = icons or project_root
     run_source_script(project_root, "scripts/build/web.mjs", "--source", str(project_root),
-                      "--icons", str(icons), "--out", str(project_root / "hermes_cli/web_dist"), env=env,
+                      "--icons", str(icons), "--out", str(project_root / "kestrel_cli/web_dist"), env=env,
                       label="Building the web UI")
 
 
@@ -283,7 +283,7 @@ def build_update_products(project_root: Path, *, desktop: bool, after_dependenci
                     publish_stage("Building the TUI")
                     attempt("TUI build", lambda: build_source_tui(project_root, env=env))
             if "web" in frontends:
-                if source_product_current(project_root, "web", project_root / "hermes_cli/web_dist"):
+                if source_product_current(project_root, "web", project_root / "kestrel_cli/web_dist"):
                     print("  ✓ Web UI is up to date")
                 else:
                     publish_stage("Building the web UI")

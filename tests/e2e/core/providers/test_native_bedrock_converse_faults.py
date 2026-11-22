@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Bedrock Converse / ConverseStream fault semantics through the real ``hermes chat -q`` CLI.
+"""Bedrock Converse / ConverseStream fault semantics through the real ``kestrel chat -q`` CLI.
 
 Each scenario owns a loopback Bedrock fake (``tests/fakes/providers/bedrock_converse.py``) that the real
 boto3 client reaches via ``AWS_ENDPOINT_URL_BEDROCK_RUNTIME``; faults are the service's documented ones

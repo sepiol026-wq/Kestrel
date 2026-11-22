@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Worker-side board contracts through the real dispatcher and a real ``hermes chat -q`` worker.
+"""Worker-side board contracts through the real dispatcher and a real ``kestrel chat -q`` worker.
 
 * ``kanban_complete(artifacts=[...])``: a declared file inside the task workspace is staged as a
   ``task_attachments`` row; a declared file OUTSIDE the workspace must be reported (attached or the

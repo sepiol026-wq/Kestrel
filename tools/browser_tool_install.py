@@ -5,7 +5,7 @@
 
 """Frozen old-updater compatibility stub (tests/compat/old_updater_surface.json, ``bare`` list).
 
-The extraction-era home of ``warm_agent_browser_npx_cache``: a pre-PM ``hermes update`` still running
+The extraction-era home of ``warm_agent_browser_npx_cache``: a pre-PM ``kestrel update`` still running
 mid-swap may import it from the NEW tree. agent-browser is gone; nothing else belongs here.
 """
 

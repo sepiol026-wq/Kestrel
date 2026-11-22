@@ -7,7 +7,7 @@
 still running when housekeeping stops never records afterwards.
 
 The curator tick also polls the plugins' idle tasks (``run_idle_jobs``). That thread stamps the
-runtime heartbeat, which ``hermes gateway status`` and ``/api/status`` read to tell a live gateway
+runtime heartbeat, which ``kestrel gateway status`` and ``/api/status`` read to tell a live gateway
 from a wedged one, and it runs every other chore (the cron delivery drain, misfire catch-up, the
 plugin update check, state.db maintenance). An idle task that makes model calls for minutes must
 not stall any of them, so each due run goes to its own thread and the tick moves on.

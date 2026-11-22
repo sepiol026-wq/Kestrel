@@ -58,7 +58,7 @@ Field notes:
 
 | When | What happens |
 |---|---|
-| `/model` or `hermes model` | Fetches if disk cache is stale, else uses cache |
+| `/model` or `kestrel model` | Fetches if disk cache is stale, else uses cache |
 | Gateway running | Background refresh every `ttl_minutes` (default 20), so the picker never lags the published manifest by more than one window |
 | Disk cache fresh (< TTL) | No network hit |
 | Network failure with cache | Silent fallback to cache, one log line |
@@ -108,7 +108,7 @@ model_catalog:
     - openai
 ```
 
-The exclusion is matched case-insensitively against every key a provider can surface under — the Hermes id and models.dev id (built-in mapped providers), the overlay pid and resolved Hermes slug (overlay providers), and the canonical slug (canonical providers) — so a single entry like `copilot` hides the provider regardless of which section emits it. It is honored by every `/model` picker surface: the gateway interactive/text pickers, the TUI picker, and the interactive `hermes model` CLI picker. An empty list (or omitting the key) has no effect.
+The exclusion is matched case-insensitively against every key a provider can surface under — the Hermes id and models.dev id (built-in mapped providers), the overlay pid and resolved Hermes slug (overlay providers), and the canonical slug (canonical providers) — so a single entry like `copilot` hides the provider regardless of which section emits it. It is honored by every `/model` picker surface: the gateway interactive/text pickers, the TUI picker, and the interactive `kestrel model` CLI picker. An empty list (or omitting the key) has no effect.
 
 ## Updating the manifest
 

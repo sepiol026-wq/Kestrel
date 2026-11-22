@@ -80,7 +80,7 @@ PM 不会自动删除已有目录。不要通过原始 pip 或 uv 命令修改 H
 Windows 上通过 Bash 运行 `scripts/run_tests.sh`，并预先准备本机 C++ 编译环境。
 
 独立测试环境不替代 PM 工具存储或应用的依赖选择。不要修改签名应用的载荷。
-运行开发实例前，选择临时的 `HERMES_HOME`，再使用 `hermes setup` 配置它。
+运行开发实例前，选择临时的 `HERMES_HOME`，再使用 `kestrel setup` 配置它。
 不要把生产凭据复制到 checkout。
 
 从仓库根目录运行 `pnpm install --frozen-lockfile` 安装 JS workspaces。网站是独立的 npm 项目：

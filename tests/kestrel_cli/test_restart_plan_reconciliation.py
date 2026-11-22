@@ -374,7 +374,7 @@ def test_unaccounted_serve_report_names_serve_remedy_not_gateway_restart(capsys)
     out = capsys.readouterr().out
     assert "serve [default] pid 900" in out
     assert "relaunch `hermes serve`" in out
-    assert "hermes gateway restart" not in out
+    assert "kestrel gateway restart" not in out
 
 
 def test_mixed_fleet_only_the_missed_one_escalates(capsys):

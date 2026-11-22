@@ -9,7 +9,7 @@ The gateway serves the Webapp from its built bundle (``apps/desktop/dist-webapp`
 has its ``index.html`` the gateway reports the Webapp unavailable, says to run ``hermes webapp`` (which
 builds it), mints no launch link and answers ``/`` with that instruction rather than the dashboard's
 build command. The listener picks the bundle up as soon as it is built, without a restart. A bundle
-``hermes update`` could not rebuild is reported the same way until ``hermes webapp`` rebuilds it. The
+``kestrel update`` could not rebuild is reported the same way until ``hermes webapp`` rebuilds it. The
 live cases run a real gateway listener in a child process (``fixtures/webapp_fallback_peer.py``).
 """
 import pytest
@@ -54,7 +54,7 @@ def update_failed(tmp_path_factory):
 
 
 def test_a_bundle_hermes_update_could_not_rebuild_is_unavailable_and_says_how_to_rebuild_it(update_failed):
-    """``hermes update`` keeps the previous bundle when it cannot rebuild it, built for the code
+    """``kestrel update`` keeps the previous bundle when it cannot rebuild it, built for the code
     before the update. The gateway then reports the Webapp unavailable with what to run (``hermes
     webapp``, which rebuilds it) rather than serving that bundle as current: no launch link, and
     ``/`` answers with the same instruction instead of the old page."""

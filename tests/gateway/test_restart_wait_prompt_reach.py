@@ -47,7 +47,7 @@ def test_ensure_hands_out_the_restart_wait_owner_as_draining_with_its_endpoint(t
 
 @pytest.mark.platforms("linux")
 def test_update_fence_hands_out_only_the_draining_owners_restart_wait(tmp_path):
-    """`hermes update`'s drain (pause-for-update) is a restart wait: while the update marker is live,
+    """`kestrel update`'s drain (pause-for-update) is a restart wait: while the update marker is live,
     ensure still hands that owner out so a parked prompt can be answered; anything else (a ready owner,
     a stopping one, none at all) stays ``update_paused`` and nothing is ever started."""
     import os

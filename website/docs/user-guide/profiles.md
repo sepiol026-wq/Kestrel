@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Profiles: Running Multiple Agents
 
-Run multiple independent Hermes agents on the same machine — each with its own config, API keys, memory, sessions, skills, and gateway state.
+Run multiple independent Kestrel agents on the same machine — each with its own config, API keys, memory, sessions, skills, and gateway state.
 
 ## What are profiles?
 
@@ -54,7 +54,7 @@ That's it. `coder` is now its own Hermes profile with its own config, memory, an
 ## Creating a profile
 
 :::tip
-Quickest setup: run `hermes setup --portal` inside the new profile to wire up models + tools at once. See [Nous Portal](../integrations/nous-portal.md).
+Quickest setup: run `kestrel setup --portal` inside the new profile to wire up models + tools at once. See [Nous Portal](../integrations/nous-portal.md).
 :::
 
 ### Blank profile
@@ -108,7 +108,7 @@ hermes profile create backup --clone-all
 Copies **everything** — config, API keys, personality, all memories, skills, plugins. A complete working snapshot. Per-profile history is excluded (session history, `state.db`, `backups/`, `state-snapshots/`, `checkpoints/`) — these belong to the source profile and can reach tens of GB. When cloning from the default profile, the local-model runtime trees (`models/`, `runtimes/`, `node/` — downloaded weights and managed binaries, re-fetched on demand) are skipped too, as `hermes backup` already does. **Cron jobs are not cloned** either: they are scheduled work bound to the source profile and its delivery channel, and a clone that inherited them would run every job twice (two gateways, same job ids). The new profile starts with an empty `cron/`. For a full backup including history and cron jobs, use `hermes profile export` or `hermes backup` instead.
 
 :::note OAuth logins are shared, not copied
-Anthropic (Claude Pro/Max), OpenAI Codex, and xAI OAuth logins use **single-use refresh tokens** — a copy of one is not a second credential, it is the same credential with two owners, and the first profile to refresh it revokes it for every other copy. `--clone-all` (and a logins copy made by `--isolated-auth` or from a named profile) therefore drops those OAuth rows from the copy. The new profile keeps reading the login from the root `~/.hermes/auth.json`, and a token refresh performed inside any profile is written back to root, so all profiles stay signed in. Static API keys are copied as usual. To give a profile its own separate OAuth login, run `hermes -p <name> auth add <provider>` inside it. That login is saved in the profile's own `auth.json`, also when root has no login for the provider yet, and from then on the profile uses it instead of the root login; root's `auth.json` is not changed. If the login cannot be saved, the command fails with an error instead of printing `Added`.
+Anthropic (Claude Pro/Max), OpenAI Codex, and xAI OAuth logins use **single-use refresh tokens** — a copy of one is not a second credential, it is the same credential with two owners, and the first profile to refresh it revokes it for every other copy. `--clone-all` (and a logins copy made by `--isolated-auth` or from a named profile) therefore drops those OAuth rows from the copy. The new profile keeps reading the login from the root `~/.hermes/auth.json`, and a token refresh performed inside any profile is written back to root, so all profiles stay signed in. Static API keys are copied as usual. To give a profile its own separate OAuth login, run `kestrel -p <name> auth add <provider>` inside it. That login is saved in the profile's own `auth.json`, also when root has no login for the provider yet, and from then on the profile uses it instead of the root login; root's `auth.json` is not changed. If the login cannot be saved, the command fails with an error instead of printing `Added`.
 :::
 
 ### Clone from a specific profile
@@ -136,7 +136,7 @@ platforms were left behind.
 
 The reason is that a bot can only belong to one profile: two standalone gateways holding the
 same token fight over its long-poll, and a [multiplexed gateway](./multi-profile-gateways.md)
-parks the duplicate adapter (and `hermes gateway migrate --multiplex` refuses with one
+parks the duplicate adapter (and `kestrel gateway migrate --multiplex` refuses with one
 duplicate-credential blocker per platform). Configure the new profile's own bots with
 `hermes -p <name> setup` or the dashboard Messaging page.
 
@@ -176,7 +176,7 @@ never start adapters on a half-copied tree. A symlinked source `.env`/`config.ya
 materialized as a private copy first — the clone never writes through to the source.
 
 :::tip Honcho memory + profiles
-Memory providers get a hook when a profile that selects them is created or renamed. Honcho (1.2.0 and later) uses it to give a cloned profile its own AI peer in the same user workspace, and keeps that peer on rename; for an imported profile, run `hermes honcho sync`. Each profile builds its own observations and identity. See [Honcho -- Multi-agent / Profiles](./features/memory-providers.md#honcho) for details.
+Memory providers get a hook when a profile that selects them is created or renamed. Honcho (1.2.0 and later) uses it to give a cloned profile its own AI peer in the same user workspace, and keeps that peer on rename; for an imported profile, run `kestrel honcho sync`. Each profile builds its own observations and identity. See [Honcho -- Multi-agent / Profiles](./features/memory-providers.md#honcho) for details.
 :::
 
 ## Using profiles
@@ -203,14 +203,14 @@ You can also target a profile explicitly with any command:
 ```bash
 hermes -p coder chat
 hermes --profile=coder doctor
-hermes chat -p coder -q "hello"    # works in any position
+kestrel chat -p coder -q "hello"    # works in any position
 ```
 
 ### Sticky default (`hermes profile use`)
 
 ```bash
 hermes profile use coder
-hermes chat                   # now targets coder
+kestrel chat                   # now targets coder
 hermes tools                  # configures coder's tools
 hermes profile use default    # switch back
 ```
@@ -330,10 +330,10 @@ to edit a profile from the dashboard, use the switcher instead.
 
 ## Updating
 
-`hermes update` pulls code once (shared) and syncs new bundled skills to **all** profiles automatically:
+`kestrel update` pulls code once (shared) and syncs new bundled skills to **all** profiles automatically:
 
 ```bash
-hermes update
+kestrel update
 # → Code updated (12 commits)
 # → Skills synced: default (up to date), coder (+2 new), assistant (+2 new)
 ```

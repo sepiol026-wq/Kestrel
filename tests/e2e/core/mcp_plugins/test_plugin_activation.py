@@ -75,7 +75,7 @@ KNOWN: dict[str, tuple[str, str]] = {
         r"^the portable plugin's server received the literal placeholder: ENV:NO-CANARY:\$\{E2E_PORTABLE_KEY\}",
         "#120526 portable mcp.json env ${VAR} reaches the server literally"),
     "test_enabled_portable_plugin_server_is_not_reported_as_an_unknown_toolset": (
-        r"^`hermes chat` warned about the enabled plugin's MCP server: \[.*Unknown toolsets: .*\bplug\b",
+        r"^`kestrel chat` warned about the enabled plugin's MCP server: \[.*Unknown toolsets: .*\bplug\b",
         "#119457 startup 'Unknown toolsets' warning names a plugin-provided MCP server"),
     "test_same_name_backup_dir_does_not_shadow_the_live_plugin": (
         r"^(`hermes plugins list` shows the backup copy instead of plugins/foo \(v2\.0\.0\)"
@@ -215,7 +215,7 @@ def test_resource_only_plugin_activated_live_is_reported_connected(tmp_path: Pat
 
 @pytest.fixture(scope="module")
 def env_echo_results(tmp_path_factory: pytest.TempPathFactory) -> dict[str, str]:
-    """One ``hermes chat -q`` turn calling ``env_echo`` on a portable-plugin server AND a native
+    """One ``kestrel chat -q`` turn calling ``env_echo`` on a portable-plugin server AND a native
     ``mcp_servers`` server, each told to echo a var whose value is ``${VAR}`` from the profile .env.
     Returns ``{server: tool result, "output": the process's stdout+stderr}``."""
     root = tmp_path_factory.mktemp("env_interp")
@@ -270,7 +270,7 @@ def test_enabled_portable_plugin_server_is_not_reported_as_an_unknown_toolset(en
     startup warning calling it an unknown toolset is a false alarm the user sees on every launch."""
     warned = [line for line in env_echo_results["output"].splitlines() if "Unknown toolsets" in line]
     with known_gate(KNOWN, request.node.name, raises=KnownSymptom):
-        symptom(not warned, f"`hermes chat` warned about the enabled plugin's MCP server: {warned}")
+        symptom(not warned, f"`kestrel chat` warned about the enabled plugin's MCP server: {warned}")
 
 
 # 4. #121078 same manifest name in two user plugin dirs ------------------------------------------

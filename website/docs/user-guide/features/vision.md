@@ -244,7 +244,7 @@ vision:
 
 ### Images in follow-up turns: `vision.replay_recent_images`
 
-The session database stores user messages as text, with one `[screenshot]` line per attached image. A turn whose history is rebuilt from the database (every request to the [API server](api-server.md) that continues a session with `X-Hermes-Session-Id`, `hermes chat --resume`, a gateway restart) used to show the model that placeholder, so a follow-up question about a photo sent one message earlier got a guess.
+The session database stores user messages as text, with one `[screenshot]` line per attached image. A turn whose history is rebuilt from the database (every request to the [API server](api-server.md) that continues a session with `X-Hermes-Session-Id`, `kestrel chat --resume`, a gateway restart) used to show the model that placeholder, so a follow-up question about a photo sent one message earlier got a guess.
 
 When the model takes images natively (see [Image Routing](#image-routing-vision-capable-vs-text-only-models)), Hermes now sends the most recent images again, in their original message:
 

@@ -849,7 +849,7 @@ def _probe_failure_next_step(name: str, exc: BaseException) -> str:
     from tools.mcp_tool_node_abi import NodeAbiMismatchError
     root = _unwrap_exception_group(exc)
     if _is_auth_error(root) or getattr(getattr(root, "response", None), "status_code", None) in (401, 403):
-        return f"The server rejected the sign-in. Run: hermes mcp login {name}"
+        return f"The server rejected the sign-in. Run: kestrel mcp login {name}"
     if isinstance(root, NodeAbiMismatchError):
         return f"After rebuilding it under Hermes's Node as above, run: hermes mcp test {name}"
     if "missing executable" in _format_connect_error(exc):

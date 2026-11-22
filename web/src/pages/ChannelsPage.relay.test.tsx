@@ -29,7 +29,7 @@ function slack(overrides: Partial<MessagingPlatform>): MessagingPlatform {
 
 async function render(platform: MessagingPlatform) {
   getMessagingPlatforms.mockResolvedValue({
-    env_path: "~/.hermes/.env", gateway_start_command: "hermes gateway start", platforms: [platform],
+    env_path: "~/.hermes/.env", gateway_start_command: "kestrel gateway start", platforms: [platform],
   });
   await act(async () => { root.render(<ChannelsPage />); });
 }

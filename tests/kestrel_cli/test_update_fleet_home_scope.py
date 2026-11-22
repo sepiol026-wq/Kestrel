@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""#93349 — ``hermes update`` restarts only the gateways of the home it is updating.
+"""#93349 — ``kestrel update`` restarts only the gateways of the home it is updating.
 
 ``hermes-gateway*`` units and ``gateway run`` processes are host-wide namespaces shared by every
 Hermes install under the account. A scratch home's update used to drain and restart the account's

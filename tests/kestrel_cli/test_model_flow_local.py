@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes model`` → Local models runs the desktop's Local Models setup in the terminal."""
+"""``kestrel model`` → Local models runs the desktop's Local Models setup in the terminal."""
 
 from __future__ import annotations
 

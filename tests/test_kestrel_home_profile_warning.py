@@ -130,7 +130,7 @@ class TestBootReadersBeforeProfileOverride:
     def test_explicit_home_scratch_dir_never_reads_the_effective_home(
         self, fresh_constants, tmp_path, capsys
     ):
-        """A caller that passes a home (`hermes doctor` for another profile) stays silent."""
+        """A caller that passes a home (`kestrel doctor` for another profile) stays silent."""
         hermes_dir = tmp_path / ".hermes"
         profile_dir = hermes_dir / "profiles" / "coder"
         profile_dir.mkdir(parents=True)

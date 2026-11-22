@@ -5545,7 +5545,7 @@ export const deOverrides = {
       success: platform => `Übergeben an ${platform}. Jederzeit hier fortsetzen.`,
       systemNote: platform => `↻ Übergeben an ${platform} — jederzeit hier fortsetzen.`,
       failed: error => `Übergabe fehlgeschlagen: ${error}`,
-      timedOut: 'Zeitüberschreitung beim Warten auf das Gateway. Läuft `hermes gateway`?',
+      timedOut: 'Zeitüberschreitung beim Warten auf das Gateway. Läuft `kestrel gateway`?',
       startMessaging: 'Messaging starten'
     }
   },

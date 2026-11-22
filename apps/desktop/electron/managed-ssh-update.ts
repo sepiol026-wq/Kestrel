@@ -10,7 +10,7 @@
  * maps, while this file owns the security-sensitive ordering and the remote
  * wire protocol:
  *
- *   gate dials -> drain every captured scope -> detached `hermes update`
+ *   gate dials -> drain every captured scope -> detached `kestrel update`
  *   -> correlated terminal marker + durable receipt -> restore every scope
  *   -> lift the gate
  *
@@ -541,7 +541,7 @@ function managedUpdateMessage(
     // Only follow-ups are finished by a rerun; a user action (e.g. a parked
     // stash) is the producer's exact manual instruction, shown verbatim.
     (followups.length
-      ? ` Re-run \`hermes update\` on the remote to finish ${followups.map(step => step.step).join(', ')}.`
+      ? ` Re-run \`kestrel update\` on the remote to finish ${followups.map(step => step.step).join(', ')}.`
       : '') +
     (userAction?.reason ? ` ${userAction.reason}` : '')
 
@@ -1049,7 +1049,7 @@ function managedSshDrainBlocker(
     reason: DARWIN_DRAIN_UNSUPPORTED,
     message:
       `Skipped: Desktop cannot safely stop its running Hermes serve on this macOS remote (${blocked.join(', ')}). ` +
-      'Disconnect it, or run `hermes update` on the remote, then retry.'
+      'Disconnect it, or run `kestrel update` on the remote, then retry.'
   }
 }
 

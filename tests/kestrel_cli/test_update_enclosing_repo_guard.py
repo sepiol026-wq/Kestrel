@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""A checkout git no longer recognizes must never let ``hermes update`` act on an enclosing repo.
+"""A checkout git no longer recognizes must never let ``kestrel update`` act on an enclosing repo.
 
 git walks up from a damaged ``.git`` to the nearest parent repository, so an install under a home
 directory that is itself a git repo would otherwise stash, reset and clean the user's home (#146032).

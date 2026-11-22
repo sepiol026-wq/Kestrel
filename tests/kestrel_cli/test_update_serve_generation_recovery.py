@@ -5,7 +5,7 @@
 
 """Regression coverage for stale ``hermes serve`` generations after an abort.
 
-Issue #92145: ``hermes update`` moves the checkout from generation N to N+1
+Issue #92145: ``kestrel update`` moves the checkout from generation N to N+1
 while the updater still holds the pre-pull module graph.  When the in-process
 restart phase raises, a fresh process retries the *gateway* profiles — but
 ``hermes serve`` is not a gateway profile.  It hosts ``tui_gateway.server``,

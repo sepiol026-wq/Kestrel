@@ -250,7 +250,7 @@ _SPLIT_TOOLSETS = {"cli": ["terminal", "browser", "file"]}
 
 
 def test_upgrade_converts_after_the_config_step(tmp_path, monkeypatch):
-    """`hermes update` / Desktop migrate config.yaml to v52 before the left-core pass: the v52 step
+    """`kestrel update` / Desktop migrate config.yaml to v52 before the left-core pass: the v52 step
     records the core-era Camofox use, so the pass still converts the home."""
     monkeypatch.setenv("HERMES_HOME", str(tmp_path / "launch"))
     home = _home(tmp_path, env=_SPLIT_ENV, config={"_config_version": 51, "platform_toolsets": _SPLIT_TOOLSETS})

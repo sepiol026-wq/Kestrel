@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""`hermes gateway tickets`: HTTP and WebSocket tickets for a client that reaches the gateway over SSH.
+"""`kestrel gateway tickets`: HTTP and WebSocket tickets for a client that reaches the gateway over SSH.
 
 The real CLI runs as a subprocess, as an SSH exec would run it: `--probe` against nothing, and
 `--serve` against a real control socket with a real ticket store, then against a real gateway

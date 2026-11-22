@@ -26,14 +26,14 @@ From the existing installation, run:
 
 ```bash
 hermes backup
-hermes gateway status
+kestrel gateway status
 ```
 
 Keep the backup outside any directory you plan to remove. Backups can contain
 credentials, so protect them accordingly.
 
 Quit the desktop and stop gateways/services that you own before the handoff.
-Desktop quit and `hermes gateway stop` are different operations: quitting the
+Desktop quit and `kestrel gateway stop` are different operations: quitting the
 app does not necessarily stop an independently managed messaging gateway.
 
 The per-profile gateway lock prevents duplicate gateways. Session locks and
@@ -97,7 +97,7 @@ POSIX example:
 
 ```bash
 export HERMES_HOME="$HOME/hermes-source-data"
-hermes setup
+kestrel setup
 hermes
 ```
 
@@ -105,7 +105,7 @@ PowerShell example:
 
 ```powershell
 $env:HERMES_HOME = Join-Path $HOME 'hermes-source-data'
-hermes setup
+kestrel setup
 hermes
 ```
 
@@ -113,7 +113,7 @@ If you change the home after preparing PM state, run the bootstrap for that
 home before relying on its selected dependencies. Do not assume that changing
 the environment variable moves data or copies runtime state.
 
-To build a source desktop, run `hermes desktop` from the prepared
+To build a source desktop, run `kestrel desktop` from the prepared
 checkout. Opening the old packaged app still starts its packaged backend.
 
 ## Docker users
@@ -164,7 +164,7 @@ diagnostics and garbage collection rather than deleting the shared data root.
   from the activated checkout.
 - **Missing dependencies:** run `python -m pm.cli install` from the intended
   source environment, then restart the affected Hermes process.
-- **Gateway already running:** inspect `hermes gateway status` for the
+- **Gateway already running:** inspect `kestrel gateway status` for the
   selected profile. Stop the identified owner; do not kill unrelated processes.
 - **Different skills after first run:** newer code can sync bundled skills into
   the data home. A source checkout is not a read-only view of that home.

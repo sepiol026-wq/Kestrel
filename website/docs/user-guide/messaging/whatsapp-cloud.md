@@ -147,7 +147,7 @@ Once your tunnel is running:
    python -c "import secrets; print(secrets.token_urlsafe(32))"
    ```
    Save it as `WHATSAPP_CLOUD_VERIFY_TOKEN` in `~/.hermes/.env`.
-3. Start the Hermes gateway: `hermes gateway`.
+3. Start the Hermes gateway: `kestrel gateway`.
 4. In the Meta App Dashboard → **WhatsApp → Configuration** (or **Use cases → Customize → Configuration** depending on UI version) → click **Edit** on the Webhook section.
 5. Fill in:
    - **Callback URL**: `https://abc123.trycloudflare.com/whatsapp/webhook`
@@ -333,7 +333,7 @@ Almost always one of:
 
 - **Tunnel URL is wrong or stale** — cloudflared quick tunnels rotate.  Get a fresh URL and update both `.env` and Meta's dashboard.
 - **Verify token mismatch** — the token in `~/.hermes/.env`'s `WHATSAPP_CLOUD_VERIFY_TOKEN` must match exactly what you typed into Meta's dashboard.  Run the curl probe above to confirm the gateway's verify handshake works locally first.
-- **Gateway not running** — check `hermes gateway` is up.
+- **Gateway not running** — check `kestrel gateway` is up.
 - **App Secret not set** — without it, Hermes refuses inbound POSTs with 503.  Meta interprets that as "can't validate."
 
 ### `graph error 100`: Object with ID '...' does not exist
@@ -373,7 +373,7 @@ The default `stt.provider: local` requires `python -c "import pm; pm.sync_venv([
 
 ```bash
 hermes config set stt.provider nous
-hermes gateway restart
+kestrel gateway restart
 ```
 
 This uses your Nous Portal access token instead of needing a separate OpenAI key. (Older docs suggested `stt.use_gateway true` — that flag is legacy; the provider selection alone controls routing now.)

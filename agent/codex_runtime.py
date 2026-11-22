@@ -640,7 +640,7 @@ def _ensure_codex_session(agent, messages: list[dict[str, Any]] | None = None) -
     from agent.transports.codex_app_server_session import CodexAppServerSession, _ServerRequestRouting
     from kestrel_cli.codex_runtime_switch import get_configured_codex_binary
     from kestrel_cli.config import load_config
-    # Approval callback: Hermes' standard prompt flow when a CLI thread installed one. `hermes chat -q`, cron and
+    # Approval callback: Hermes' standard prompt flow when a CLI thread installed one. `kestrel chat -q`, cron and
     # unattended platforms can have one registered with nobody to answer it, so they get none and fail closed at once.
     approval_callback = None
     with suppress(Exception):

@@ -5,7 +5,7 @@ subdir: model-providers/ngrok
 title: ngrok AI Gateway
 description: >-
   The ngrok AI Gateway as a Hermes model provider (`--provider ngrok`, or ngrok AI Gateway in
-  `hermes model`): one access key for all your model providers, with failover. The model list
+  `kestrel model`): one access key for all your model providers, with failover. The model list
   comes live from your gateway, and gateway errors (unrouted model, access-policy and upstream-key
   failures, out of credit) map onto Hermes' fallback instead of a generic error. Disclosure —
   registers one model provider at import and nothing else (no tools, hooks, commands or threads);

@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""`hermes doctor` reports a plugin listed in both plugins.enabled and plugins.disabled.
+"""`kestrel doctor` reports a plugin listed in both plugins.enabled and plugins.disabled.
 
 Such a plugin loads nowhere because the disable wins. Older updates left plugins in that state when
 they had to turn them off (#131216), and nothing else said so.

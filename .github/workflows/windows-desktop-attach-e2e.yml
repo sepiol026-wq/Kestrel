@@ -2,8 +2,8 @@ name: Windows Desktop attach E2E
 
 # Desktop attaching to a local gateway on a real Windows host (#134889 W3):
 # apps/desktop/e2e/core/local-gateway-attach.spec.ts against a gateway that is
-# already running (`hermes gateway run`, as a login item or console leaves it),
-# driven through Electron main's real attach path (`hermes gateway ensure`, the
+# already running (`kestrel gateway run`, as a login item or console leaves it),
+# driven through Electron main's real attach path (`kestrel gateway ensure`, the
 # SID-checked named-pipe ticket mint through the runtime helper), first on the
 # dev tree, then on the electron-builder `--dir` build of the same commit.
 #

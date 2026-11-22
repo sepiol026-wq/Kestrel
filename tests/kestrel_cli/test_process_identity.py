@@ -10,7 +10,7 @@ Layer context (Aug 2026, after the 12-minute Windows update hang): reapers
 previously inferred process lineage from PPIDs and cmdline shape. These
 primitives make identity positive instead: spawners stamp children
 (HERMES_SPAWN), long-lived processes self-register (pid, create_time,
-purpose, spawner) in spawn-ledger.json, and `hermes update` reaps holders the
+purpose, spawner) in spawn-ledger.json, and `kestrel update` reaps holders the
 ledger PROVES are orphaned backends — in any update context, no hand-off
 contract needed.
 
@@ -246,7 +246,7 @@ def test_ledger_entries_filters_dead_reused_and_foreign(tmp_path):
 
 @pytest.mark.platforms("posix")
 def test_ledger_entries_excludes_a_killed_but_unreaped_process(tmp_path):
-    """A zombie is dead even though it keeps its create_time until reaped: ``hermes update``
+    """A zombie is dead even though it keeps its create_time until reaped: ``kestrel update``
     books the stopped dashboard gone, then must not find it again as a pre-update survivor."""
     import psutil
 

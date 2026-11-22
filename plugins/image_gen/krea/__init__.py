@@ -577,11 +577,11 @@ class KreaImageGenProvider(StaticImageGenProvider):
             auth_token = get_secret("KREA_API_KEY")
             if not auth_token:
                 return error_factory("krea", aspect)(
-                    "KREA_API_KEY not set. Run `hermes tools` → Image "
+                    "KREA_API_KEY not set. Run `kestrel tools` → Image "
                     "Generation → Krea to configure, get a key at "
                     "https://www.krea.ai/settings/api-tokens, or sign in to "
                     "a Nous account with the managed Krea gateway enabled "
-                    "(`hermes setup`).",
+                    "(`kestrel setup`).",
                     "auth_required")
 
         model_id, meta = _resolve_model(kwargs.get("model"))

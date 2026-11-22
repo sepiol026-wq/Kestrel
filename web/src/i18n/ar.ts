@@ -108,7 +108,7 @@ export const ar = defineLocale({
   status: {
     actionFailed: "فشلت الإجراء",
     actionFinished: "انتهى",
-    actionFinishedOwed: "تم التحديث، لكن لا تزال هناك خطوات معلّقة (أعد تشغيل `hermes update` لإكمالها)",
+    actionFinishedOwed: "تم التحديث، لكن لا تزال هناك خطوات معلّقة (أعد تشغيل `kestrel update` لإكمالها)",
     actions: "إجراءات",
     agent: "العامل",
     activeSessions: "الجلسات النشطة",

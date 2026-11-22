@@ -11,7 +11,7 @@ Mixture of Agents is a virtual model provider. Each named MoA preset appears as 
 When you select a MoA preset, the preset's aggregator is the acting model. It is the model that writes the assistant response and emits tool calls. Reference models run first and provide analysis for the aggregator to use.
 
 :::info Who pays for a MoA run
-The **aggregator is billed for the whole run**: it runs every step of the tool loop, so almost all of a preset's cost lands on the aggregator's provider. References only advise once per user turn (with the default `fanout`). If your main model is on a subscription provider but the aggregator sits elsewhere, the run is billed to the aggregator's provider, not to your subscription — `hermes moa configure` and `hermes moa list` print a one-line notice whenever the aggregator's provider differs from `model.provider`, and the Desktop editor, `hermes model`, and `/model` mark the aggregator slot as the acting, billed model.
+The **aggregator is billed for the whole run**: it runs every step of the tool loop, so almost all of a preset's cost lands on the aggregator's provider. References only advise once per user turn (with the default `fanout`). If your main model is on a subscription provider but the aggregator sits elsewhere, the run is billed to the aggregator's provider, not to your subscription — `hermes moa configure` and `hermes moa list` print a one-line notice whenever the aggregator's provider differs from `model.provider`, and the Desktop editor, `kestrel model`, and `/model` mark the aggregator slot as the acting, billed model.
 :::
 
 Use MoA when a hard task benefits from multiple model perspectives but still needs Hermes' normal agent loop: tool calls, follow-up iterations, interrupts, transcript persistence, and the same session context as any other message.
@@ -28,7 +28,7 @@ You can select a preset through the normal model picker surfaces:
 MoA presets are selectable on **every Hermes surface**, because MoA is a normal provider in the model system:
 
 - **CLI / gateway / TUI `/model`** — `/model <preset> --provider moa`, or `/model --provider moa` for the default preset. A bare `/model <preset>` also works when the name exactly matches a configured preset.
-- **`hermes model`** and the **Dashboard model picker** — a `Mixture of Agents` provider row appears with your preset names as its models.
+- **`kestrel model`** and the **Dashboard model picker** — a `Mixture of Agents` provider row appears with your preset names as its models.
 - **Desktop GUI app** — the model dropdown shows an `MoA presets` section; selecting one (`MoA: <preset>`) switches the active model to that preset. The Desktop settings panel also creates and edits presets.
 
 Configured presets therefore show up wherever you would pick any other model.

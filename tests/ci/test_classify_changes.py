@@ -213,7 +213,7 @@ CASES = {
     # its tests spawn the real script and poll its loopback server. They run
     # when the script, the Electron side that launches it, or their own test
     # files change — not on every hermes_state.py PR. The script runs a real
-    # `hermes update`, and the Windows crash cells that kill it mid-run live in
+    # `kestrel update`, and the Windows crash cells that kill it mid-run live in
     # the install + update journey, so it starts e2e_upgrade as well.
     "windows.ps1 → desktop_updater": (
         ["scripts/desktop-update/windows.ps1"],
@@ -517,7 +517,7 @@ def test_every_slow_lane_path_matches_a_tracked_file():
     assert dead == set()
 
 
-# Every file the `hermes update` pipeline runs on the update path (the step
+# Every file the `kestrel update` pipeline runs on the update path (the step
 # tables of the updater audit's cli-update and desktop-update code maps). A
 # PR that edits only one of these must start the real-update suite that would
 # catch the regression; before, main.py / _early_recovery.py / relaunch.py /

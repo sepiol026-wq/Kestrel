@@ -53,7 +53,7 @@ A small, deterministic Electron suite that guards three issue classes end to end
   titled (#121062) and is its own sidebar row; switching branch ↔ parent (3
   round trips + reload) never renders the other session's turn or a duplicate
   part (in-page sampler). `lineage-rotation.spec.ts`: REAL rotated
-  compression rows (`hermes chat -q` with `compression.in_place: false` on the
+  compression rows (`kestrel chat -q` with `compression.in_place: false` on the
   same `HERMES_HOME`, compacting against the fake provider), then the Desktop
   shows one row per lineage live, after rotations, after reload and after a
   cold relaunch (#121148). `lineage-compaction-prompt.spec.ts`: a redirect

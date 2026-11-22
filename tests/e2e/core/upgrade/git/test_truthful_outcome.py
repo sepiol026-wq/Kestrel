@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Truthful outcome of ``hermes update`` when the git transport fails.
+"""Truthful outcome of ``kestrel update`` when the git transport fails.
 
 The origin is a real smart-HTTP ``git http-backend``; faults are injected at the HTTP layer, where
 GitHub's own failures happen: 429 rate limiting, 5xx on the ref advertisement or the fetch, a

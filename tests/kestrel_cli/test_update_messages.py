@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""User-facing wording contracts for ``hermes update`` failure/partial output.
+"""User-facing wording contracts for ``kestrel update`` failure/partial output.
 
 Invariants only (what the user must be able to read and act on), never whole-string snapshots.
 """
@@ -29,7 +29,7 @@ class TestFleetMatrixVerdict:
         ]
         assert ur.print_fleet_version_matrix(fleet) is True
         out = capsys.readouterr().out
-        assert "hermes gateway restart" in out
+        assert "kestrel gateway restart" in out
 
     def test_unknown_rows_print_no_verdict(self, capsys):
         fleet = [{"profile": "default", "pid": 1, "code_sha": None, "state": "unknown"}]

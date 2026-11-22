@@ -131,7 +131,7 @@ Every `ctx.*` API below is available inside a plugin's `register(ctx)` function.
 | Register an inference backend (LLM provider) | `register_provider(ProviderProfile(...))` in `plugins/model-providers/<name>/__init__.py` — see [Model Provider Plugins](../../developer-guide/model-provider-plugin.md) (uses a separate discovery system) |
 
 :::note Slash command handlers run in the gateway
-A `/command` registered with `ctx.register_command()` runs in the gateway process that owns the session, beside the plugin's hooks, tools and MCP servers. That includes commands typed in the classic `hermes chat` CLI. So a handler should:
+A `/command` registered with `ctx.register_command()` runs in the gateway process that owns the session, beside the plugin's hooks, tools and MCP servers. That includes commands typed in the classic `kestrel chat` CLI. So a handler should:
 
 - **Return its text** instead of calling `print()`. Printed output goes to the gateway's stdout, not to the user's chat.
 - **Read the session's working directory with `agent.runtime_cwd.resolve_agent_cwd()`**, not `os.getcwd()`, which is the gateway's own directory. The gateway pins the session's directory while the handler runs.
@@ -269,7 +269,7 @@ SSH sources (`git@host:owner/repo.git`) authenticate through your ssh-agent as
 before. The same resolution applies to `hermes plugins update`, catalog MCP
 installs from git, and profile distributions fetched from a git URL.
 
-`hermes doctor` sends a configured `GITHUB_TOKEN`/`GH_TOKEN` to `api.github.com`
+`kestrel doctor` sends a configured `GITHUB_TOKEN`/`GH_TOKEN` to `api.github.com`
 (under **API Connectivity**) and, when GitHub rejects it, names the variable and the
 `.env` file that carries the expired token so you can remove or replace it.
 
@@ -459,7 +459,7 @@ that check does not turn them into Git-managed installs.
 
 `hermes plugins check-updates` leaves plugin files unchanged. A scheduled gateway
 check runs when `plugins.auto_update_check_hours` is due: default 24 hours,
-`0` disables it. Its receipt is available through `hermes pm status` and the
+`0` disables it. Its receipt is available through `kestrel pm status` and the
 desktop sync-status view. This is not a hard once-per-day limit if you configure
 a different interval.
 
@@ -476,7 +476,7 @@ it prints the list and updates nothing unless you pass `--yes`; with `--yes`,
 consent prompts fail closed as in any non-interactive update (new
 capabilities stay ungranted, a widened catalog pin is not applied).
 
-By default, plugins only update when you run `hermes plugins update`. Turning
+By default, plugins only update when you run `kestrel plugins update`. Turning
 on auto-update (`plugins.auto_apply: true`) lets the gateway's scheduled check
 apply the same catalog re-pins and tracked Git pulls on its own. Both routes
 use the update security scan, and an unattended update never accepts a widened
@@ -511,7 +511,7 @@ Python tools load in new sessions. Two
 updates of the same plugin never run at once: the second one is refused and
 changes nothing.
 
-`hermes update` can move catalog pins. Installed catalog plugins stay on their
+`kestrel update` can move catalog pins. Installed catalog plugins stay on their
 old pin until updated, so the update names them for every profile and asks
 that profile's gateway to check again on its next tick (which applies them
 when auto-update is on).
@@ -1053,7 +1053,7 @@ What each surface does:
 | Messaging platforms that can edit (Telegram, Discord, Slack, Matrix, ...) | the adapter's normal `send` into the chat/thread | edits the same message in place |
 | Platforms without edit support (SMS, email, plugin adapters that do not implement `edit_message`) | `send` | sends a new message; the handle follows it (`edited: False, fallback: True`) |
 | Desktop and the Ink TUI | a keyed notice to the session's viewers (Desktop toast, TUI status line) | replaces that notice in place |
-| Classic CLI (`hermes chat`) | queued as a notice line, printed at the end of the next turn (the classic CLI has no live notice slot) | each edit queues another line |
+| Classic CLI (`kestrel chat`) | queued as a notice line, printed at the end of the next turn (the classic CLI has no live notice slot) | each edit queues another line |
 
 Text is clamped to the platform's message limit with an ellipsis (never split). It is plain text: an
 adapter may render its own formatting, but the plugin should not depend on it. No permission is needed,
@@ -1102,7 +1102,7 @@ Plugins run in the gateway on every local surface (classic CLI, TUI and Desktop)
 Without a session key (`session_key` and `origin` both omitted), when the plugin runs in the gateway (or its plugin host) — which is where plugins run for classic CLI, TUI and Desktop sessions — the gateway picks the chat:
 
 1. If the plugin is handling a local session's own call (its slash command, a hook fired for that session, or a tool or hook in its turn), the message goes to that session. This never guesses, however many sessions are open.
-2. With no session in the calling context (a timer, a background thread — a thread the plugin starts does not inherit the call's context), it goes to the one local session of the plugin's profile that was started by the classic CLI (`hermes chat`) and has a viewer attached. TUI and Desktop sessions, messaging chats and other profiles' sessions are never picked this way.
+2. With no session in the calling context (a timer, a background thread — a thread the plugin starts does not inherit the call's context), it goes to the one local session of the plugin's profile that was started by the classic CLI (`kestrel chat`) and has a viewer attached. TUI and Desktop sessions, messaging chats and other profiles' sessions are never picked this way.
 3. Otherwise (no such session, or several) it is refused: `False`, nothing is injected anywhere, and the gateway log names the plugin and says to pass a session key.
 
 The chosen session receives the text as a queued input, the same way as a keyed injection; it needs the `allow_gateway_injection` permission below. When that is a classic CLI session, the turn and its reply are in the session's transcript, but the attached classic CLI does not display them. A call made for a messaging chat without a key is refused, as before. Prefer passing `session_key`: a key-less call can be refused when the chat is ambiguous, and key-less injection may be retired later.
@@ -1164,14 +1164,14 @@ In the classic CLI process itself (for example a plugin slash command), `ctx.ses
 
 ## A plugin with its own chat client
 
-A plugin can add a command (`hermes <name>`, through `ctx.register_cli_command`) that starts its own chat frontend. The frontend attaches to the profile's shared gateway with `hermes gateway attach --json` (see [Programmatic integration](../../developer-guide/programmatic-integration.md)).
+A plugin can add a command (`hermes <name>`, through `ctx.register_cli_command`) that starts its own chat frontend. The frontend attaches to the profile's shared gateway with `kestrel gateway attach --json` (see [Programmatic integration](../../developer-guide/programmatic-integration.md)).
 
 The command exists only when the plugin runs inside the Hermes process (`plugins.isolation: in_process`, the default). With `plugins.isolation: host`, Hermes skips `ctx.register_cli_command`, and `hermes <name>` is not a command.
 
 Three imports do what the Hermes terminal client's launcher does around its own client:
 
 - `hermes_cli.gateway_chat.shell_client_env()` returns the allowlisted variables of the shell that ran your command, as a dict. Call it in the launcher, before you change the environment, and send the dict as `client_env` on `session.create`. The session's commands then run with the user's `PATH`, virtual environment and toolchain variables. Names that look like credentials are left out, and the gateway filters the dict again by its own rules.
-- `hermes_cli.chat_launch.hermes_command(args)` returns the argv that runs this Hermes install with `args`. It needs no `PYTHONPATH`; the child serves the profile named by the inherited `HERMES_HOME`. Give it to your frontend for `hermes gateway attach`, instead of `hermes` from `PATH` (which may be another install) or `sys.executable` (which an update may replace).
+- `hermes_cli.chat_launch.hermes_command(args)` returns the argv that runs this Hermes install with `args`. It needs no `PYTHONPATH`; the child serves the profile named by the inherited `HERMES_HOME`. Give it to your frontend for `kestrel gateway attach`, instead of `hermes` from `PATH` (which may be another install) or `sys.executable` (which an update may replace).
 - `hermes_cli.chat_launch.print_exit_summary(session_id, command=...)` prints the lines Hermes shows when a chat ends: how to resume the session, its id, title, message count and tokens. Call it after your frontend exits, with your own command name. It prints nothing for a session with no messages. The lines name two ways to resume, `--resume <id>` (a short id) and `-c "<title>"`, so your command must accept both.
 
 ```python

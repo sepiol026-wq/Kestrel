@@ -17,7 +17,7 @@ Kestrel Agent 提供了一个 Nix flake，支持三个层级的集成：
 :::info 与标准安装的区别
 `curl | bash` 安装程序自行管理 Python、Node 及依赖项。Nix flake 替代了所有这些——每个 Python 依赖都是由 [uv2nix](https://github.com/pyproject-nix/uv2nix) 构建的 Nix derivation，运行时工具（Node.js、git、ripgrep、ffmpeg）已封装进二进制文件的 PATH 中。不需要运行时 pip，不需要激活 venv，不需要 `npm install`。
 
-**对于非 NixOS 用户**，这只影响安装步骤。之后的操作（`hermes setup`、`hermes gateway install`、编辑配置）与标准安装完全相同。
+**对于非 NixOS 用户**，这只影响安装步骤。之后的操作（`kestrel setup`、`kestrel gateway install`、编辑配置）与标准安装完全相同。
 
 **对于 NixOS 模块用户**，整个生命周期有所不同：配置存放在 `configuration.nix` 中，密钥通过 sops-nix/agenix 管理，服务是一个 systemd 单元，CLI 配置命令被屏蔽。管理 hermes 的方式与管理其他 NixOS 服务相同。
 :::
@@ -51,11 +51,11 @@ nix run github:sepiol026-wq/Kestrel -- chat
 
 # 或持久化安装
 nix profile install github:sepiol026-wq/Kestrel
-hermes setup
-hermes chat
+kestrel setup
+kestrel chat
 ```
 
-执行 `nix profile install` 后，`hermes`、`kestrel-agent` 和 `hermes-acp` 将出现在你的 PATH 中。之后的工作流与[标准安装](./installation.md)完全相同——`hermes setup` 引导你完成提供商选择，`hermes gateway install` 设置 launchd（macOS）或 systemd 用户服务，配置存放在 `~/.hermes/`。
+执行 `nix profile install` 后，`hermes`、`kestrel-agent` 和 `hermes-acp` 将出现在你的 PATH 中。之后的工作流与[标准安装](./installation.md)完全相同——`kestrel setup` 引导你完成提供商选择，`kestrel gateway install` 设置 launchd（macOS）或 systemd 用户服务，配置存放在 `~/.hermes/`。
 
 <details>
 <summary><strong>从本地克隆构建</strong></summary>
@@ -64,7 +64,7 @@ hermes chat
 git clone https://github.com/sepiol026-wq/Kestrel.git
 cd kestrel-agent
 nix build
-./result/bin/hermes setup
+./result/bin/kestrel setup
 ```
 
 </details>
@@ -138,7 +138,7 @@ services.kestrel-agent.environmentFiles = [ "/var/lib/hermes/env" ];
 :::info
 当 `container.enable = true` 且 `addToSystemPackages = true` 时，主机上的**所有** `hermes` 命令都会自动路由到托管容器中执行。这意味着你的交互式 CLI 会话在与 gateway 服务相同的环境中运行——可以访问所有容器内安装的包和工具。
 
-- 路由是透明的：`hermes chat`、`hermes sessions list`、`hermes --version` 等命令都会在底层 exec 进容器
+- 路由是透明的：`kestrel chat`、`hermes sessions list`、`hermes --version` 等命令都会在底层 exec 进容器
 - 所有 CLI 参数原样转发
 - 如果容器未运行，CLI 会短暂重试（交互式使用时显示 5 秒 spinner，脚本中静默等待 10 秒），然后以明确的错误退出——不会静默回退
 - 对于在 hermes 代码库上工作的开发者，设置 `HERMES_DEV=1` 可绕过容器路由，直接运行本地检出版本
@@ -167,7 +167,7 @@ security.sudo.extraRules = [{
 }];
 ```
 
-CLI 会自动检测何时需要 sudo 并透明地使用它。没有此配置，你需要手动运行 `sudo hermes chat`。
+CLI 会自动检测何时需要 sudo 并透明地使用它。没有此配置，你需要手动运行 `sudo kestrel chat`。
 :::
 
 ### 验证运行状态
@@ -537,11 +537,11 @@ scp ~/.hermes/mcp-tokens/my-oauth-server{,.client}.json \
 
 | 被屏蔽的命令 | 原因 |
 |---|---|
-| `hermes setup` | 配置是声明式的——请在 Nix 配置中编辑 `settings` |
+| `kestrel setup` | 配置是声明式的——请在 Nix 配置中编辑 `settings` |
 | `hermes config edit` | 配置由 `settings` 生成 |
 | `hermes config set <key> <value>` | 配置由 `settings` 生成 |
-| `hermes gateway install` | systemd 服务由 NixOS 管理 |
-| `hermes gateway uninstall` | systemd 服务由 NixOS 管理 |
+| `kestrel gateway install` | systemd 服务由 NixOS 管理 |
+| `kestrel gateway uninstall` | systemd 服务由 NixOS 管理 |
 
 这可以防止 Nix 声明的内容与磁盘上实际内容之间产生漂移。检测使用两个信号：
 
@@ -584,7 +584,7 @@ scp ~/.hermes/mcp-tokens/my-oauth-server{,.client}.json \
 容器可写层（apt/pip/npm）：   /usr, /usr/local, /tmp
 ```
 
-Nix 构建的二进制文件能在 Ubuntu 容器内运行，是因为 `/nix/store` 被绑定挂载——它携带自己的解释器和所有依赖，不依赖容器的系统库。容器入口点通过 `current-package` 符号链接解析：`/data/current-package/bin/hermes gateway run --replace`。执行 `nixos-rebuild switch` 时，只更新符号链接——容器继续运行。
+Nix 构建的二进制文件能在 Ubuntu 容器内运行，是因为 `/nix/store` 被绑定挂载——它携带自己的解释器和所有依赖，不依赖容器的系统库。容器入口点通过 `current-package` 符号链接解析：`/data/current-package/bin/kestrel gateway run --replace`。执行 `nixos-rebuild switch` 时，只更新符号链接——容器继续运行。
 
 ### 各事件的持久性
 
@@ -737,8 +737,8 @@ shell 还提供 Node.js 和运行时工具。pnpm hook 根据输入变更刷新 
 cd kestrel-agent
 nix develop
 "$HERMES_PYTHON" -c "import sys; print(sys.executable); print(sys.version)"
-hermes setup
-hermes chat
+kestrel setup
+kestrel chat
 ```
 
 ### direnv（推荐）
@@ -755,7 +755,7 @@ direnv allow    # 仅需一次
 
 flake 从一个 fixed-output pnpm store 构建所有 JavaScript 界面，其哈希保存在
 `nix/pnpm-deps-hash`。`pnpm-lock.yaml` 中新增、删除或重新解析某个包会改变这个哈希，
-在更新之前所有前端构建都会因哈希不匹配而失败。`hermes pm update --pnpm`、普通的
+在更新之前所有前端构建都会因哈希不匹配而失败。`kestrel pm update --pnpm`、普通的
 `pnpm install` 和 `nix develop` 的 shell hook 只重写锁文件，不更新哈希。在仓库目录中运行：
 
 ```bash
@@ -857,7 +857,7 @@ nix build .#checks.x86_64-linux.config-roundtrip    # 合并脚本保留用户�
 
 | 选项 | 类型 | 默认值 | 描述 |
 |---|---|---|---|
-| `extraArgs` | `listOf str` | `[]` | `hermes gateway` 的额外参数 |
+| `extraArgs` | `listOf str` | `[]` | `kestrel gateway` 的额外参数 |
 | `extraPackages` | `listOf package` | `[]` | Agent 可用的额外包。添加到 hermes 用户的每用户 profile，终端命令、skills 和 cron 任务均可见 |
 | `extraPlugins` | `listOf package` | `[]` | 以符号链接方式安装到 `$HERMES_HOME/plugins/` 的目录插件包。每个包必须包含 `plugin.yaml` |
 | `extraPythonPackages` | `listOf package` | `[]` | 添加到 PYTHONPATH 用于入口点插件发现的 Python 包。使用所选包的 `python.pkgs` 构建 |

@@ -69,7 +69,7 @@ gateway:
     usage_reset: "`/model reset` — effacer l'override de cette session"
     reset_done: "Override de modèle de session effacé — utilisation de `{model}` (valeur par défaut du canal/globale). Historique de conversation conservé."
     reset_none: "Aucun override de modèle actif pour cette session — `{model}` (valeur par défaut du canal/globale) est déjà utilisé."
-    err_skew: "Ce gateway exécute le code de {boot_rev}, mais le checkout sur disque est maintenant à {disk_rev}. Changer de modèle risquerait un plantage dû à des modules obsolètes — redémarrez le gateway pour charger le nouveau code : hermes gateway restart"
+    err_skew: "Ce gateway exécute le code de {boot_rev}, mais le checkout sur disque est maintenant à {disk_rev}. Changer de modèle risquerait un plantage dû à des modules obsolètes — redémarrez le gateway pour charger le nouveau code : kestrel gateway restart"
     err_switch_failed: "Le passage au modèle {model} a échoué ({error}) ; le modèle {current} est conservé."
     err_config_not_updated: "config.yaml non mis à jour ({error})"
     err_stale_override: "enregistré dans config.yaml, mais l'ancienne surcharge de session n'a pas été effacée ({error})"
@@ -121,7 +121,7 @@ gateway:
     rerun_hint: |2-
 
       Demandez-moi de la relancer ou d'afficher le journal complet.
-    no_credentials: "❌ La tâche d'arrière-plan n'a pas pu démarrer car aucune connexion à un modèle d'IA n'est configurée. Utilisez /login, ou lancez `hermes setup` sur l'hôte."
+    no_credentials: "❌ La tâche d'arrière-plan n'a pas pu démarrer car aucune connexion à un modèle d'IA n'est configurée. Utilisez /login, ou lancez `kestrel setup` sur l'hôte."
     complete_header: |+
       ✅ Tâche d'arrière-plan terminée
       Prompt : "{preview}"
@@ -181,8 +181,8 @@ gateway:
     turnhold_deferred: "ℹ️ Compression du contexte différée — le résumé est encore en cours de diffusion. Poursuite sans compression pour ce tour."
     failed: "Échec de la compression : {error}"
     hygiene_timeout: "⚠️ Le raccourcissement de l'historique de la conversation a pris trop de temps ; je l'ai donc ignoré et tout conservé tel quel. Lancez /compress pour réessayer ou /new pour repartir de zéro."
-    hygiene_timeout_doctor_hint: " Si cela se reproduit, lancez `hermes doctor` sur l'hôte."
-    hygiene_failed: "⚠️ Le raccourcissement de l'historique de la conversation a échoué ; j'ai donc tout conservé tel quel. Lancez /compress pour réessayer ou /new pour repartir de zéro. Si cela se reproduit, lancez `hermes doctor` sur l'hôte."
+    hygiene_timeout_doctor_hint: " Si cela se reproduit, lancez `kestrel doctor` sur l'hôte."
+    hygiene_failed: "⚠️ Le raccourcissement de l'historique de la conversation a échoué ; j'ai donc tout conservé tel quel. Lancez /compress pour réessayer ou /new pour repartir de zéro. Si cela se reproduit, lancez `kestrel doctor` sur l'hôte."
     codex_nothing: "🗜️ Rien à compacter : cette session tourne sur le runtime app-server de Codex, dont le contexte réside dans un fil géré par Codex qui n'existe que tant que l'agent est actif. Envoyez d'abord un message, puis /compress — ou /reset pour repartir de zéro."
     codex_compacted: "🗜️ Fil app-server Codex compacté (thread/compact). Le miroir de la transcription est volontairement inchangé — c'est désormais l'app-server qui porte le contexte compacté."
     codex_incomplete: "⚠️ La compaction app-server Codex ne s'est pas terminée — le fil est inchangé. Consultez les journaux de l'app-server, relancez /compress, ou /reset pour une session propre."
@@ -374,7 +374,7 @@ gateway:
     paused_left: "\n⚠️ {count} message(s) envoyé(s) pendant la pause de la conversation précédente sont toujours enregistrés dans la conversation précédente, sans réponse. Pour les exécuter : /resume {session_id}, puis {discard}."
   restart:
     in_progress: "⏳ Redémarrage du gateway déjà en cours..."
-    restarting: "♻ Redémarrage du gateway. Si vous n'êtes pas notifié dans les 60 secondes, redémarrez depuis la console avec `hermes gateway restart`."
+    restarting: "♻ Redémarrage du gateway. Si vous n'êtes pas notifié dans les 60 secondes, redémarrez depuis la console avec `kestrel gateway restart`."
   resume:
     db_unavailable: "Base de données des sessions indisponible."
     parse_error: "⚠️ Could not parse `/resume` arguments: {error}. Use quotes around titles with spaces, for example: `/resume \"Project A Plan\"`."
@@ -588,15 +588,15 @@ gateway:
     removed: "↩️ {turns} tour(s) annulé(s) ({count} message(s)).\nSauvegardé dans : « {preview} »\nCopiez/modifiez le texte ci-dessus et envoyez-le pour relancer à partir d'ici."
     invalid_count: "Nombre invalide « {arg} » — utilisez /undo ou /undo N."
   update:
-    platform_not_messaging: "✗ /update n'est disponible que depuis les plateformes de messagerie. Exécutez `hermes update` depuis le terminal."
+    platform_not_messaging: "✗ /update n'est disponible que depuis les plateformes de messagerie. Exécutez `kestrel update` depuis le terminal."
     not_git_repo: "✗ Pas un dépôt git — impossible de mettre à jour."
-    hermes_cmd_not_found: "✗ Impossible de localiser la commande `hermes`. Hermes est en cours d'exécution, mais la commande de mise à jour n'a pas pu trouver l'exécutable dans le PATH ni via l'interpréteur Python actuel. Essayez d'exécuter `hermes update` manuellement dans votre terminal."
+    hermes_cmd_not_found: "✗ Impossible de localiser la commande `hermes`. Hermes est en cours d'exécution, mais la commande de mise à jour n'a pas pu trouver l'exécutable dans le PATH ni via l'interpréteur Python actuel. Essayez d'exécuter `kestrel update` manuellement dans votre terminal."
     start_failed: "✗ Échec du démarrage de la mise à jour : {error}"
     already_running: "⏳ Une mise à jour est déjà en cours ; seule la personne qui l'a lancée peut répondre à ses questions. Attendez qu'elle se termine, puis relancez /update."
     starting: "☤ Démarrage de la mise à jour Hermes… Je diffuserai la progression ici."
     reply_failed: "✗ Échec de l'envoi de la réponse au processus de mise à jour : {error}"
     reply_sent: "✓ `{label}` envoyé au processus de mise à jour."
-    failed_notice: "❌ La mise à jour d'Hermes a échoué ; la version précédente tourne toujours. Lancez `hermes update` sur l'hôte pour voir l'erreur complète, ou réessayez /update plus tard."
+    failed_notice: "❌ La mise à jour d'Hermes a échoué ; la version précédente tourne toujours. Lancez `kestrel update` sur l'hôte pour voir l'erreur complète, ou réessayez /update plus tard."
     prompt_default: " (par défaut : {default})"
     prompt: |-
       ☤ **La mise à jour a besoin de votre réponse :**
@@ -616,7 +616,7 @@ gateway:
       ```
     managed_action: "mettre à jour Kestrel Agent"
     not_applicable: |-
-      ✗ `hermes update` ne s'applique pas à cette installation ({method}).
+      ✗ `kestrel update` ne s'applique pas à cette installation ({method}).
       Mettez à jour avec : {command}
   usage:
     rate_limits: "⏱️ **Limites de débit :** {state}"
@@ -700,7 +700,7 @@ gateway:
     warn_passthrough: "⚠️ {error}"
     unknown_error: "erreur inconnue"
     error_prefix: "Erreur : {error}"
-    history_unreadable: "⚠️ Je ne peux pas lire l'historique de cette conversation pour le moment (vos messages précédents existent mais ne peuvent pas être chargés). Lancez `hermes doctor --fix` sur l'hôte, ou utilisez /new pour repartir de zéro."
+    history_unreadable: "⚠️ Je ne peux pas lire l'historique de cette conversation pour le moment (vos messages précédents existent mais ne peuvent pas être chargés). Lancez `kestrel doctor --fix` sur l'hôte, ou utilisez /new pour repartir de zéro."
     agent_running_retry_later: "L'agent est en cours d'exécution — attendez la fin du tour, puis /{command}."
     none_marker: "(aucun)"
     none_value: "aucun"
@@ -783,11 +783,11 @@ gateway:
     skip_hint: 'Répondez « skip » pour passer cette question.'
   errors:
     rate_limited: "⏱️ Le service de modèle IA limite le débit des requêtes. Patientez un instant, puis utilisez /retry."
-    auth_failed: "⚠️ La connexion au service de modèle IA a échoué. Utilisez /login pour vous reconnecter, ou demandez à la personne qui gère ce bot de lancer `hermes doctor` sur l'hôte."
+    auth_failed: "⚠️ La connexion au service de modèle IA a échoué. Utilisez /login pour vous reconnecter, ou demandez à la personne qui gère ce bot de lancer `kestrel doctor` sur l'hôte."
     bad_request: "⚠️ Le service de modèle IA a rejeté cette requête. Essayez de reformuler votre message, ou utilisez /model pour changer de modèle."
-    connection_interrupted: "⚠️ La connexion au service de modèle IA a été interrompue en cours de requête — c'est généralement passager. Utilisez /retry pour réessayer ; si cela se reproduit, lancez `hermes doctor` sur l'hôte."
-    unreachable: "⚠️ Le service de modèle IA est injoignable pour le moment — le point de terminaison configuré ne tourne pas ou n'est pas accessible. Patientez un instant puis utilisez /retry ; si le problème persiste, lancez `hermes doctor` sur l'hôte."
-    connection_unknown: "⚠️ Hermes n'a pas pu joindre le service de modèle IA (aucun détail supplémentaire fourni par le SDK). Utilisez /retry pour réessayer ; si le problème persiste, lancez `hermes doctor` sur l'hôte."
+    connection_interrupted: "⚠️ La connexion au service de modèle IA a été interrompue en cours de requête — c'est généralement passager. Utilisez /retry pour réessayer ; si cela se reproduit, lancez `kestrel doctor` sur l'hôte."
+    unreachable: "⚠️ Le service de modèle IA est injoignable pour le moment — le point de terminaison configuré ne tourne pas ou n'est pas accessible. Patientez un instant puis utilisez /retry ; si le problème persiste, lancez `kestrel doctor` sur l'hôte."
+    connection_unknown: "⚠️ Hermes n'a pas pu joindre le service de modèle IA (aucun détail supplémentaire fourni par le SDK). Utilisez /retry pour réessayer ; si le problème persiste, lancez `kestrel doctor` sur l'hôte."
     context_overflow: "⚠️ Cette conversation est devenue trop longue pour que je puisse la lire d'un coup. Utilisez /compress pour raccourcir l'historique, ou /new pour démarrer une nouvelle conversation."
     usage_limit_resets: "⏱️ La limite de consommation du service de modèle IA est atteinte ; elle se réinitialise dans {window}. Utilisez /retry ensuite, ou /model pour changer de modèle."
     provider_kept_failing: "⚠️ Le service de modèle IA a échoué à répétition. Utilisez /retry pour réessayer, ou /model pour changer de modèle. Les détails sont dans le journal du gateway (`hermes logs`)."
@@ -812,7 +812,7 @@ gateway:
       ⚠️ Une erreur s'est produite et je n'ai pas pu terminer cette réponse.{hint}
       Utilisez /retry pour réessayer, ou /new pour démarrer une nouvelle conversation. Les détails techniques sont dans le journal du gateway (`hermes logs`).
     history_unavailable: "⚠️ L'historique de cette session est temporairement indisponible ; ce message n'a donc pas été traité. Demandez à l'opérateur d'inspecter state.db, puis renvoyez-le une fois le problème réglé. N'utilisez /reset que si vous voulez vraiment démarrer une nouvelle conversation."
-    no_credentials: "⚠️ Je n'ai pas pu me connecter au service de modèle IA ; ce message n'a donc pas été traité. Utilisez /login pour vous reconnecter, ou /model pour choisir un autre modèle. Si l'échec persiste, lancez `hermes doctor` sur l'hôte."
+    no_credentials: "⚠️ Je n'ai pas pu me connecter au service de modèle IA ; ce message n'a donc pas été traité. Utilisez /login pour vous reconnecter, ou /model pour choisir un autre modèle. Si l'échec persiste, lancez `kestrel doctor` sur l'hôte."
     cron_session_read_only: "⚠️ Cette conversation appartient à une tâche planifiée et n'exécute que cette tâche ; votre message n'a donc pas été exécuté. Démarrez une nouvelle conversation pour l'envoyer."
     workspace_unavailable: "⚠️ Le dossier de travail de cette conversation n'existe plus ({path}) ; votre message n'a donc pas été exécuté. Recréez le dossier ou déplacez la conversation vers un autre (`/worktree new` dans la CLI, « Déplacer vers un projet » dans l'application de bureau), puis renvoyez votre message."
     launch_credentials_unavailable: "⚠️ Cette conversation ne peut plus utiliser la clé API avec laquelle elle a été démarrée{detail}, plus rien ne peut donc s'y exécuter. Une conversation ouverte ne passe jamais d'elle-même à une autre clé, donc /retry échoue de la même façon. Utilisez /new pour démarrer une nouvelle conversation avec votre clé actuelle."
@@ -1067,7 +1067,7 @@ gateway:
     unknown: "Plateforme inconnue : {name}"
     not_queued_pause: "{name} n'est pas dans la file de nouvelles tentatives (soit connectée, soit non activée)."
     already_paused: "{name} est déjà en pause."
-    paused: "✓ {name} mise en pause. Reprenez avec `/platform resume {name}` ou `hermes gateway restart` pour réinitialiser."
+    paused: "✓ {name} mise en pause. Reprenez avec `/platform resume {name}` ou `kestrel gateway restart` pour réinitialiser."
     not_queued_resume: "{name} n'est pas dans la file de nouvelles tentatives — rien à reprendre."
     already_retrying: "{name} réessaie déjà — aucune reprise nécessaire."
     resumed: "✓ {name} reprise — nouvelle tentative au prochain cycle du watcher."
@@ -1513,7 +1513,7 @@ platform:
       error: "❌ erreur {verb} : {error}"
       appended_by: "— {label} par {user}"
     user_fallback: "Utilisateur"
-    install_hint: "Exécutez `hermes setup` pour installer la prise en charge de Telegram."
+    install_hint: "Exécutez `kestrel setup` pour installer la prise en charge de Telegram."
   slack:
     approval:
       fallback_text: "⚠️ Approbation de commande requise : {command}"
@@ -2478,7 +2478,7 @@ cli:
     stdin_unavailable: |-
       Erreur : stdin (fd 0) n'est pas disponible.
       Cela peut arriver avec certaines installations de Python (p. ex. cPython géré par uv sur macOS).
-      Essayez de réinstaller Python via pyenv ou Homebrew, puis relancez : hermes setup
+      Essayez de réinstaller Python via pyenv ou Homebrew, puis relancez : kestrel setup
     shutting_down: "Arrêt en cours… (finalisation de la session)"
     session_deleted: "✓ Session {session_id} supprimée"
     session_delete_missing: "✗ Session {session_id} introuvable pour la suppression"
@@ -2795,25 +2795,25 @@ cli:
     provider_resolution_failed: "La résolution du fournisseur a échoué."
     no_api_key_for_provider: "⚠️  Aucune clé API trouvée pour le fournisseur '{provider}'."
     no_provider_configured: "⚠️  Aucun fournisseur d'inférence n'est configuré."
-    run_model_or_setup: "Exécutez 'hermes model' pour choisir un fournisseur, ou 'hermes setup' pour la configuration initiale."
-    empty_base_url: "⚠️  Le résolveur de fournisseur a renvoyé une URL de base vide. Vérifiez la configuration de votre fournisseur ou exécutez : hermes setup"
+    run_model_or_setup: "Exécutez 'kestrel model' pour choisir un fournisseur, ou 'kestrel setup' pour la configuration initiale."
+    empty_base_url: "⚠️  Le résolveur de fournisseur a renvoyé une URL de base vide. Vérifiez la configuration de votre fournisseur ou exécutez : kestrel setup"
     switching_to_fallback: "⚠️  {reason} — bascule vers le fournisseur de secours : {provider} / {model}"
     first_run_no_provider: "☤ Aucun fournisseur d'inférence n'est encore configuré — réglons cela."
     first_run_pick_provider: "Vous allez choisir un fournisseur (Nous Portal OAuth est le plus rapide ; aucune clé API requise) puis un modèle."
     first_run_prompt: "Configurer un fournisseur maintenant ? [Y/n] :"
-    first_run_skipped: "Ignoré. Exécutez 'hermes model' ou 'hermes setup' à tout moment."
-    first_run_cancelled: "Configuration annulée. Exécutez 'hermes model' à tout moment."
+    first_run_skipped: "Ignoré. Exécutez 'kestrel model' ou 'kestrel setup' à tout moment."
+    first_run_cancelled: "Configuration annulée. Exécutez 'kestrel model' à tout moment."
     provider_setup_failed: "⚠️  La configuration du fournisseur a échoué : {error}"
-    run_model_to_retry: "Exécutez 'hermes model' pour réessayer."
+    run_model_to_retry: "Exécutez 'kestrel model' pour réessayer."
     provider_configured: "✓ Fournisseur configuré — vous pouvez commencer à discuter."
-    provider_setup_incomplete: "La configuration du fournisseur n'a pas abouti. Exécutez 'hermes model' pour réessayer."
+    provider_setup_incomplete: "La configuration du fournisseur n'a pas abouti. Exécutez 'kestrel model' pour réessayer."
     unknown_toolsets: "Avertissement : ensembles d'outils inconnus : {names}"
     stdin_unusable: |2-
 
       Erreur : stdin est inutilisable ({error}).
       Cela peut arriver avec certaines installations de Python (p. ex. cPython géré par uv sur macOS)
       où kqueue ne parvient pas à enregistrer le fd 0.
-      Essayez de réinstaller Python via pyenv ou Homebrew, puis relancez : hermes setup
+      Essayez de réinstaller Python via pyenv ou Homebrew, puis relancez : kestrel setup
     warning: "Avertissement : {warning}"
   chat:
     initializing_agent: "Initialisation de l'agent..."
@@ -3196,7 +3196,7 @@ cli:
       check_platform: "Vérifiez {platform} — la session peut encore y arriver."
       no_longer_waiting: "Cette CLI n'attend plus. Évitez de poursuivre cette session ici ;"
       retry_when_settled: "si rien n'arrive, réessayez /handoff une fois l'état stabilisé."
-      timed_out: "Délai dépassé en attendant le gateway. `hermes gateway` est-il lancé ?"
+      timed_out: "Délai dépassé en attendant le gateway. `kestrel gateway` est-il lancé ?"
       session_intact: "Votre session CLI est intacte."
     resume:
       usage: "Usage : /resume <numéro|id_ou_titre_de_session>"
@@ -3478,7 +3478,7 @@ cli:
       choice_cancel: "Annuler"
       choice_cancel_desc: "conserver la session actuelle"
       title: "☤  Mettre à jour Kestrel Agent"
-      detail: "Cela quittera la session actuelle et exécutera `hermes update`."
+      detail: "Cela quittera la session actuelle et exécutera `kestrel update`."
       cancelled: "🟡 /update annulé."
       launching: "☤ Lancement de la mise à jour..."
     voice:
@@ -3539,7 +3539,7 @@ cli:
     header: "🧠 Utilisation du contexte — {model}"
     compute_failed: "(._.) Impossible de calculer la répartition du contexte : {error}"
   error:
-    auth: "Votre clé {provider} a été rejetée. Exécutez `hermes model` pour la saisir de nouveau."
+    auth: "Votre clé {provider} a été rejetée. Exécutez `kestrel model` pour la saisir de nouveau."
     billing: "Votre compte {provider} n'a plus de crédit. Rechargez chez le fournisseur, ou exécutez /model pour en changer."
     model_not_found: "'{model}' n'est pas disponible chez {provider}. Exécutez /model pour choisir un modèle valide."
     rate_limit: "Débit limité par {provider} ; patientez une minute ou utilisez /model pour changer."
@@ -3547,13 +3547,13 @@ cli:
     overloaded: "{provider} est surchargé pour le moment. Envoyez /retry dans un instant, ou /model pour changer."
     server_error: "{provider} a rencontré une erreur interne. Envoyez /retry dans un instant, ou /model pour changer."
     timeout: "{provider} n'a pas répondu à temps. Envoyez /retry, ou /model pour changer."
-    unknown: "La requête au modèle a échoué. Exécutez /model pour changer ou `hermes doctor` pour vérifier l'installation."
+    unknown: "La requête au modèle a échoué. Exécutez /model pour changer ou `kestrel doctor` pour vérifier l'installation."
     the_provider: "le fournisseur"
     the_current_model: "le modèle actuel"
     with_details: |-
       {lead}
       Détails : {details}
-    agent_init_failed: "Hermes n'a pas pu établir la connexion au modèle : {error}. Votre message n'a pas été envoyé. Exécutez `hermes doctor` pour vérifier l'installation, ou /model pour choisir un autre fournisseur."
+    agent_init_failed: "Hermes n'a pas pu établir la connexion au modèle : {error}. Votre message n'a pas été envoyé. Exécutez `kestrel doctor` pour vérifier l'installation, ou /model pour choisir un autre fournisseur."
   gateway:
     starting: "Démarrage du Hermes Gateway (plateformes de messagerie)..."
   gateway_status:
@@ -3640,7 +3640,7 @@ cli:
     removed_header: "➖ Skills supprimées :"
   gateway_restart:
     waiting: "Hermes redémarre pour terminer une mise à jour ou un redémarrage ; en attente de son retour…"
-    timed_out: "Hermes n'est pas revenu de son redémarrage à temps. Vérifiez `hermes gateway status`, puis relancez `hermes`."
+    timed_out: "Hermes n'est pas revenu de son redémarrage à temps. Vérifiez `kestrel gateway status`, puis relancez `hermes`."
     stopped: "Attente du redémarrage de Hermes interrompue ; rien n'a été lancé."
   session_store:
     unavailable_rich: |-
@@ -3971,15 +3971,15 @@ tips:
   t048: "hermes -c reprend votre session CLI la plus récente. hermes -c \"nom du projet\" reprend par titre."
   t049: "hermes -w crée un worktree git isolé — idéal pour les workflows d'agents en parallèle."
   t050: "hermes -w -q \"Corrige l'issue #42\" combine l'isolation par worktree et une requête ponctuelle."
-  t051: "hermes chat -t web,terminal n'active que certains jeux d'outils pour une session ciblée."
-  t052: "hermes chat -s github-pr-workflow précharge une skill au lancement."
-  t053: "hermes chat -q \"requête\" exécute une seule requête non interactive puis quitte."
-  t054: "hermes chat --max-turns 1000 remplace la limite par défaut de 500 itérations par tour."
-  t055: "hermes chat --checkpoints active des instantanés du système de fichiers avant chaque modification destructive."
+  t051: "kestrel chat -t web,terminal n'active que certains jeux d'outils pour une session ciblée."
+  t052: "kestrel chat -s github-pr-workflow précharge une skill au lancement."
+  t053: "kestrel chat -q \"requête\" exécute une seule requête non interactive puis quitte."
+  t054: "kestrel chat --max-turns 1000 remplace la limite par défaut de 500 itérations par tour."
+  t055: "kestrel chat --checkpoints active des instantanés du système de fichiers avant chaque modification destructive."
   t056: "hermes --yolo contourne toutes les demandes d'approbation de commandes dangereuses pour toute la session."
-  t057: "hermes chat --source telegram étiquette la session pour la filtrer dans hermes sessions list."
+  t057: "kestrel chat --source telegram étiquette la session pour la filtrer dans hermes sessions list."
   t058: "hermes -p work chat s'exécute sous un profil précis sans changer votre profil par défaut."
-  t059: "hermes doctor --fix diagnostique et répare automatiquement les problèmes de configuration et de dépendances."
+  t059: "kestrel doctor --fix diagnostique et répare automatiquement les problèmes de configuration et de dépendances."
   t060: "hermes dump produit un résumé compact de votre installation — parfait pour les rapports de bug."
   t061: "hermes config set KEY VALUE dirige automatiquement les secrets vers .env et tout le reste vers config.yaml."
   t062: "hermes config edit ouvre config.yaml dans votre éditeur par défaut."
@@ -3999,13 +3999,13 @@ tips:
   t076: "hermes backup crée une sauvegarde zip de tout votre répertoire personnel Hermes."
   t077: "hermes profile create coder crée un profil isolé qui devient sa propre commande."
   t078: "hermes profile create work --clone copie votre configuration et vos clés actuelles dans un nouveau profil."
-  t079: "hermes update synchronise automatiquement les nouvelles skills intégrées vers TOUS les profils."
-  t080: "hermes gateway install installe Hermes comme service système (systemd/launchd)."
+  t079: "kestrel update synchronise automatiquement les nouvelles skills intégrées vers TOUS les profils."
+  t080: "kestrel gateway install installe Hermes comme service système (systemd/launchd)."
   t081: "hermes memory setup permet de configurer un fournisseur de mémoire externe (Honcho, Mem0, etc.)."
   t082: "hermes webhook subscribe crée des routes webhook événementielles avec validation HMAC."
   t083: "Économisez : hermes tools désactive les outils inutilisés, hermes skills config allège les skills."
   t084: "/reasoning low ou /reasoning minimal réduit la profondeur de réflexion sous la valeur par défaut (medium) — réponses plus rapides et moins chères."
-  t085: "hermes models route la vision, la compression et les tâches auxiliaires vers des modèles moins chers — réduit le coût des tokens d'arrière-plan de plus de 85 % sans dégrader votre modèle de chat principal."
+  t085: "kestrel models route la vision, la compression et les tâches auxiliaires vers des modèles moins chers — réduit le coût des tokens d'arrière-plan de plus de 85 % sans dégrader votre modèle de chat principal."
   t086: "Définissez display.bell_on_complete: true dans config.yaml pour entendre une sonnerie à la fin des tâches longues."
   t087: "Définissez display.streaming: true pour voir les tokens apparaître en temps réel pendant que le modèle génère."
   t088: "Définissez display.show_reasoning: true pour suivre la chaîne de raisonnement du modèle."
@@ -4078,7 +4078,7 @@ tips:
   t155: "Le TTS en streaming lit les phrases au fil de leur génération — pas besoin d'attendre la réponse complète."
   t156: "Les messages vocaux sur Telegram, Discord, WhatsApp et Slack sont transcrits automatiquement."
   t157: "Hermes fonctionne sur 21 plateformes de messagerie : Telegram, Discord, Slack, WhatsApp, Signal, Matrix, IRC, Microsoft Teams, e-mail et plus."
-  t158: "hermes gateway install l'installe comme service système démarré au boot."
+  t158: "kestrel gateway install l'installe comme service système démarré au boot."
   t159: "DingTalk utilise le Stream Mode — aucun webhook ni URL publique nécessaire."
   t160: "BlueBubbles apporte iMessage à Hermes via un serveur macOS local."
   t161: "Les routes webhook prennent en charge la validation HMAC, la limitation de débit et le filtrage d'événements."
@@ -4116,7 +4116,7 @@ tips:
   t193: "/rollback annule aussi le tour de conversation, si bien que l'agent ne se souvient pas des changements annulés."
   t194: "Les points de contrôle utilisent des dépôts fantômes dans ~/.hermes/checkpoints/ — le .git de votre projet n'est jamais touché."
   t195: "batch_runner.py traite des centaines de prompts en parallèle pour générer des données d'entraînement."
-  t196: "hermes chat -Q active le mode silencieux pour un usage programmatique — masque la bannière et le spinner."
+  t196: "kestrel chat -Q active le mode silencieux pour un usage programmatique — masque la bannière et le spinner."
   t197: "L'enregistrement des trajectoires (--save-trajectories) capture les traces complètes d'utilisation des outils pour l'entraînement de modèles."
   t198: "Trois types de plugins : généraux (outils/hooks), fournisseurs de mémoire et moteurs de contexte."
   t199: "hermes plugins install owner/repo installe des plugins directement depuis GitHub."
@@ -4268,16 +4268,16 @@ tips:
   t345: "/indicator kaomoji|emoji|unicode|ascii choisit le style de l'indicateur d'activité de la TUI affiché pendant les exécutions de l'agent."
   t346: "/debug upload téléverse un résumé (versions, clés de configuration, compteurs d’erreurs ; aucun texte de journal) et renvoie un lien partageable — fonctionne aussi dans le chat."
   t347: "hermes -z \"<prompt>\" est le one-shot le plus pur : la réponse finale sur stdout, rien d'autre — idéal pour les pipes dans des scripts."
-  t348: "hermes chat --pass-session-id injecte l'ID de session dans le prompt système pour que l'agent puisse y faire référence lui-même."
-  t349: "hermes chat --image path/to/pic.png joint une image locale à une requête -q unique, sans étape de téléversement séparée."
-  t350: "hermes chat --ignore-user-config ignore la configuration utilisateur active — pour des rapports de bug reproductibles et des exécutions en CI."
-  t351: "hermes chat --source tool étiquette les chats programmatiques pour qu'ils n'encombrent pas hermes sessions list."
+  t348: "kestrel chat --pass-session-id injecte l'ID de session dans le prompt système pour que l'agent puisse y faire référence lui-même."
+  t349: "kestrel chat --image path/to/pic.png joint une image locale à une requête -q unique, sans étape de téléversement séparée."
+  t350: "kestrel chat --ignore-user-config ignore la configuration utilisateur active — pour des rapports de bug reproductibles et des exécutions en CI."
+  t351: "kestrel chat --source tool étiquette les chats programmatiques pour qu'ils n'encombrent pas hermes sessions list."
   t352: "hermes dump --show-keys inclut des empreintes masquées des clés API pour un débogage plus poussé avec le support."
   t353: "hermes sessions rename <ID> \"nouveau titre\" renomme n'importe quelle session passée ; hermes sessions delete <ID> en supprime une."
   t354: "hermes import restaure un zip de sauvegarde Hermes complet ; les exports JSON/JSONL de sessions s'importent depuis la page Sessions du tableau de bord."
   t355: "hermes fallback gère la chaîne fallback_model de manière interactive — sans modifier config.yaml à la main."
   t356: "hermes pairing renouvelle le token d'appairage des DM — la première personne qui écrit après le renouvellement obtient l'accès au bot."
-  t357: "hermes setup guide les nouveaux utilisateurs à travers le fournisseur, les clés et le branchement des plateformes en un seul parcours interactif."
+  t357: "kestrel setup guide les nouveaux utilisateurs à travers le fournisseur, les clés et le branchement des plateformes en un seul parcours interactif."
   t358: "hermes status --deep lance le bilan de santé complet de chaque composant ; hermes status seul donne la vue rapide."
   t359: "HERMES_AGENT_TIMEOUT=0 désactive l'arrêt pour inactivité du gateway sur un agent en cours — utile pour les longues sessions de recherche."
   t360: "HERMES_ENABLE_PROJECT_PLUGINS=1 charge automatiquement les plugins locaux au dépôt depuis ./.hermes/plugins/ — soumis à une validation de confiance par conception."

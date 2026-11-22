@@ -374,10 +374,10 @@ including top-level one-shot launches. It does not become a process-wide option.
 
 ## Optional service installation
 
-A running gateway and an installed OS service are different things. `hermes gateway run`
+A running gateway and an installed OS service are different things. `kestrel gateway run`
 works without a service, including with no messaging platforms configured.
 
-`hermes setup`, quick setup, and `hermes gateway setup` ask interactive users once:
+`kestrel setup`, quick setup, and `kestrel gateway setup` ask interactive users once:
 
 > Install the gateway service so Hermes starts automatically at login and keeps scheduled jobs and messaging available?
 
@@ -390,7 +390,7 @@ run while the host is off.
 
 Noninteractive setup and imports do not install a missing service, even when the imported
 config says `install`. Existing installed services remain authoritative and can be started
-regardless of the saved preference. To opt in explicitly later, run `hermes gateway install`;
+regardless of the saved preference. To opt in explicitly later, run `kestrel gateway install`;
 the choice is recorded only after successful installation. To be asked again during setup,
 reset the choice with `hermes config set gateway.service_install_choice null`.
 
@@ -398,10 +398,10 @@ Setup orchestration lives in `hermes_cli/gateway_setup_service.py`. Its
 `ensure_gateway_service` helper is not a general runtime discovery or auto-start API:
 ordinary calls never reinstall a missing service based only on stored preference.
 
-## `hermes gateway ensure`
+## `kestrel gateway ensure`
 
-Clients (Desktop, `hermes chat`, the TUI) discover or start the profile's session
-runtime with `hermes gateway ensure --json --timeout 60`; the summary is in the
+Clients (Desktop, `kestrel chat`, the TUI) discover or start the profile's session
+runtime with `kestrel gateway ensure --json --timeout 60`; the summary is in the
 [CLI reference](../reference/cli-commands.md#local-runtime-discovery-and-startup).
 
 The timeout is a finite, positive total deadline in seconds (default `60`, enough for a
@@ -481,7 +481,7 @@ gateway that serves its profile and gets a WebSocket ticket, without spawning Py
 are public: `identify` (read-only), `resolve-profile` and the public form of `session-ticket`.
 Every other verb, the `session-ticket` parameters `subject` and `scope`, and purposes other than
 `interactive` are internal to Hermes (Desktop, the dashboard, the updater) and may change.
-Starting or recovering a gateway stays `hermes gateway attach --start` / `--recover`
+Starting or recovering a gateway stays `kestrel gateway attach --start` / `--recover`
 ([below](#hermes-gateway-attach)).
 
 **Envelope.** One connection carries one request: one UTF-8 JSON object plus `\n` (at most
@@ -493,7 +493,7 @@ refuse any other top-level key and `params` that is not an object. The reply is 
 part of the contract.
 
 **`resolve-profile`** takes `{"home": "<absolute profile home>"}` and answers with the verdict
-`hermes gateway attach` discovery gives for that home (a verdict that is not attachable is still
+`kestrel gateway attach` discovery gives for that home (a verdict that is not attachable is still
 `ok: true`). Send a plain absolute path: one with a `.` or `..` component, a repeated separator or
 a trailing separator is refused as invalid parameters. Symlinks in it are resolved.
 
@@ -502,11 +502,11 @@ a trailing separator is refused as invalid parameters. Symlinks in it are resolv
 | `resolve_protocol` | `1` |
 | `state`, `reason_code`, `detail` | The discovery verdict: `ready`, `draining`, `starting`, `absent`, `inaccessible`, `incompatible` or `conflict`, with its bounded code and remedy |
 | `attachable` | `ready`, or a restart's after-turn wait (`draining`/`restart_wait`) |
-| `update_fenced` | An update owns the install. `hermes gateway attach --start` would not return this verdict as it is, so a client that wants to start goes through the CLI |
+| `update_fenced` | An update owns the install. `kestrel gateway attach --start` would not return this verdict as it is, so a client that wants to start goes through the CLI |
 | `control` | `self` (this is the profile's own socket), `host` (the multiplexer answering for a profile it may serve) or `null` (a home outside this gateway's root) |
 | `message` | When not attachable: the `gateway <state>: <reason>` lines `attach --json` prints |
 | `endpoint` | `null`, or `attach --json`'s `endpoint` plus `ws_url`, `ws_protocol` and `ticket_protocol_prefix` |
-| `install_code_sha` | The commit installed on disk now. When it differs from `endpoint.code_sha`, the gateway outlived `hermes update` |
+| `install_code_sha` | The commit installed on disk now. When it differs from `endpoint.code_sha`, the gateway outlived `kestrel update` |
 
 **`session-ticket`, public form:** `{"profile_id": <endpoint.profile_id>, "instance_id":
 <endpoint.instance_id>, "purpose": "interactive"}`, plus `"restart_wait": "refuse"` for machine
@@ -521,7 +521,7 @@ every connection and reconnect.
 |---|---|
 | `resolve-profile`: bad envelope | `PermissionError: invalid resolve envelope` |
 | `resolve-profile`: `params` other than one absolute `home` | `PermissionError: invalid resolve parameters` |
-| A gateway older than the verb | `unknown verb: 'resolve-profile'` (plus `supported_verbs`): use `hermes gateway attach --json` |
+| A gateway older than the verb | `unknown verb: 'resolve-profile'` (plus `supported_verbs`): use `kestrel gateway attach --json` |
 | Peer not verified as your OS user | `PermissionError: authenticated runtime bootstrap unavailable` |
 | `session-ticket`: bad envelope | `PermissionError: invalid bootstrap envelope` |
 | Missing or unknown parameters, `restart_wait` other than `refuse` | `PermissionError: invalid bootstrap parameters` (an owner older than `restart_wait` answers this too: retry once without it) |
@@ -547,7 +547,7 @@ canonicalized like Python's `Path.resolve`:
   next candidate. Any other failed check is a refusal: stop, do not try the next candidate.
 - **Windows:** the pipe `\\.\pipe\hermes-gateway-<sha256 of the normcased canonical home, 16 hex>`.
   A client must verify that the pipe server runs as your SID before trusting its answer; a client
-  that cannot (Node) uses `hermes gateway attach --json` on every connect.
+  that cannot (Node) uses `kestrel gateway attach --json` on every connect.
 
 Ask the first candidate that answers `resolve-profile`. A `profile_mismatch` from the profile's
 own socket means try the next candidate; otherwise that answer is the verdict, and that socket
@@ -572,16 +572,16 @@ out of the root resolves outside and is refused. Only then does it follow a priv
 changed (the only calls that reach outside are resolving the home's path and an in-root
 `gateway.lock` link). For a home it accepts it does what discovery does: an unserved profile's
 same-user lock left at mode 0644 by an older Hermes is narrowed to 0600, as
-`hermes gateway attach` does. None of this protects against code already running as your user,
+`kestrel gateway attach` does. None of this protects against code already running as your user,
 or root.
 
 The contract is pinned by `apps/shared/src/node/control-socket.vectors.json`: request and reply
 pairs a client in any language can replay, run against the gateway by
 `tests/gateway/test_control_socket_vectors.py`.
 
-## `hermes gateway attach`
+## `kestrel gateway attach`
 
-`hermes gateway attach --json` is the public attach step for a local client that has its own UI
+`kestrel gateway attach --json` is the public attach step for a local client that has its own UI
 and dials the gateway itself. It runs `hermes_cli/gateway_runtime_attach.py::attach_gateway`, the
 same function behind the Ink TUI's `ui-tui/scripts/gateway_bootstrap.py`, so both clients get the
 same discovery, start, recovery and verdicts.
@@ -613,7 +613,7 @@ fields. Dial `url` with `protocols` as the WebSocket subprotocols, from loopback
 `Origin` header**, and check that the server selected `protocol`. Then speak `hermes-gateway-v1`:
 `runtime.describe` for the owner's `session.create` contract, then `session.create` or
 `session.resume`. When `client_code_sha` and `endpoint.code_sha` differ, the gateway outlived
-`hermes update`: restart it (`hermes gateway restart`) rather than keep attaching to old code.
+`kestrel update`: restart it (`kestrel gateway restart`) rather than keep attaching to old code.
 
 The ticket is the WebSocket's only credential. It is minted by the control socket's
 `session-ticket` verb (purpose `interactive`, scope `profile`) over the same-user socket, or the
@@ -624,7 +624,7 @@ process only; it never logs it. Run `attach` again for each new connection and e
 A client that speaks the control socket itself gets the same verdict and ticket without the spawn:
 see [Local control socket](#local-control-socket-public-client-contract).
 A client that reaches the host over SSH also needs HTTP tickets, and a WebSocket ticket that is
-not bound to one profile (`hermes gateway tickets`): see
+not bound to one profile (`kestrel gateway tickets`): see
 [Gateway over SSH: client contract](./gateway-ssh-clients.md).
 
 Every `attach` reply from a parsed invocation, success or refusal, also carries
@@ -637,7 +637,7 @@ integrity. `attach --start` still starts the gateway and exits as before, and pr
 warning on stderr first. A remote client that
 sees `true` should run `attach` without `--start` (a gateway the user's own session started
 serves both), and when none is running ask the user to start Hermes from a normal
-(non-administrator) window on that machine's desktop. Do not suggest `hermes gateway install`
+(non-administrator) window on that machine's desktop. Do not suggest `kestrel gateway install`
 there: approved through the administrator prompt it can start the gateway elevated, which normal
 windows are refused by as well (`gateway_elevated`).
 
@@ -800,7 +800,7 @@ gateway/platforms/                  # core base + HTTP ingress adapters
 └── api_server.py        # REST API server adapter
 ```
 
-**Deferred loading:** Bundled `kind: platform` plugins register cheap `register_deferred` loaders in `gateway/platform_registry.py` (via `hermes_cli/plugins.py`) so platform SDKs import only when the gateway starts, delivers, or runs setup/status — not on plain `hermes chat`. Resolution loads one adapter on lookup; full enumeration runs pending loaders only on paths that need every platform.
+**Deferred loading:** Bundled `kind: platform` plugins register cheap `register_deferred` loaders in `gateway/platform_registry.py` (via `hermes_cli/plugins.py`) so platform SDKs import only when the gateway starts, delivers, or runs setup/status — not on plain `kestrel chat`. Resolution loads one adapter on lookup; full enumeration runs pending loaders only on paths that need every platform.
 
 Experimental connector-backed platforms use the generic relay adapter in `gateway/relay/` instead of a direct platform module. When `GATEWAY_RELAY_URL` or `gateway.relay_url` is configured, the gateway registers the `relay` platform, dials the connector over an outbound WebSocket, and receives `descriptor`, `inbound`, and `interrupt_inbound` frames on that same socket. The connector advertises a `CapabilityDescriptor`; Hermes can send normal outbound replies, token-less `follow_up` operations, and interrupt frames back through the relay. The source-grounded wire contract lives in [Relay ↔ Connector contract](relay-connector-contract.md).
 
@@ -890,11 +890,11 @@ The gateway runs periodic maintenance alongside message handling:
 
 The gateway runs as a long-lived process, managed via:
 
-- `hermes gateway start` / `hermes gateway stop` — manual control
+- `kestrel gateway start` / `kestrel gateway stop` — manual control
 - `systemctl` (Linux) or `launchctl` (macOS) — service management
 - PID file at `~/.hermes/gateway.pid` — profile-scoped process tracking
 
-**Profile-scoped vs global**: `start_gateway()` uses profile-scoped PID files. Standalone (one gateway per profile), `hermes -p x gateway stop` stops only that profile's gateway. Under multiplexing there is ONE gateway process per host, owned by whichever profile launched it (`gateway/host_rendezvous.py` publishes its PID, home and served set; `gateway/host_attach.py` is the attach/rescan/refuse decision every lifecycle verb goes through): `hermes gateway stop` on the owner takes every served profile down, and `hermes -p x gateway stop` for a served secondary refuses with exit 78 (it has no gateway of its own). A second `gateway run` for a served profile attaches and exits 0 — under a service supervisor it exits 75 (EX_TEMPFAIL) instead, so the redundant unit is RETRIED rather than parked: "someone else serves me right now" is a runtime observation that ends when that process does, and 78 (which systemd, s6 and launchd all treat as permanent) would strand the profile. ATTACH requires a live `identify` answer from the owner; a rendezvous record with nothing answering behind it proves an owner exists but never that it serves you, so it yields a transient refusal (exit 75), never an attach. An owner that answers `multiplex: False` to the rescan is another profile's *standalone* gateway, not a multiplexer that excluded you: the verb starts this profile's own gateway beside it (the one-process-per-profile topology), it does not refuse — refusing there exited 78 and parked every launchd unit but the first to claim the host lock. `hermes gateway stop --all` uses global `ps aux` scanning to kill all gateway processes (used during updates). Liveness is decided by `gateway.status.live_gateway_pid_for_home` (PID + start-time fingerprint), never bare PID existence.
+**Profile-scoped vs global**: `start_gateway()` uses profile-scoped PID files. Standalone (one gateway per profile), `hermes -p x gateway stop` stops only that profile's gateway. Under multiplexing there is ONE gateway process per host, owned by whichever profile launched it (`gateway/host_rendezvous.py` publishes its PID, home and served set; `gateway/host_attach.py` is the attach/rescan/refuse decision every lifecycle verb goes through): `kestrel gateway stop` on the owner takes every served profile down, and `hermes -p x gateway stop` for a served secondary refuses with exit 78 (it has no gateway of its own). A second `gateway run` for a served profile attaches and exits 0 — under a service supervisor it exits 75 (EX_TEMPFAIL) instead, so the redundant unit is RETRIED rather than parked: "someone else serves me right now" is a runtime observation that ends when that process does, and 78 (which systemd, s6 and launchd all treat as permanent) would strand the profile. ATTACH requires a live `identify` answer from the owner; a rendezvous record with nothing answering behind it proves an owner exists but never that it serves you, so it yields a transient refusal (exit 75), never an attach. An owner that answers `multiplex: False` to the rescan is another profile's *standalone* gateway, not a multiplexer that excluded you: the verb starts this profile's own gateway beside it (the one-process-per-profile topology), it does not refuse — refusing there exited 78 and parked every launchd unit but the first to claim the host lock. `kestrel gateway stop --all` uses global `ps aux` scanning to kill all gateway processes (used during updates). Liveness is decided by `gateway.status.live_gateway_pid_for_home` (PID + start-time fingerprint), never bare PID existence.
 
 ## Background process notifications
 

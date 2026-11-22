@@ -44,7 +44,7 @@ hermes dashboard --no-open
 
 FastAPI、Uvicorn 和平台 PTY 辅助库是 Hermes 核心依赖。`web` extra 提供 HTTP 栈的精确约束，`pty` extra 为空。
 标准 PM 安装通过 `all` 选择 `web`；消息和语音功能仍需单独请求。
-如依赖损坏，请运行 `hermes pm repair` 并重启 Hermes。
+如依赖损坏，请运行 `kestrel pm repair` 并重启 Hermes。
 
 在没有依赖项的情况下运行 `hermes dashboard` 时，它会告诉你需要安装什么。如果前端尚未构建，首次启动时会使用 Hermes 提供的 Node 和 pnpm 自动构建。
 
@@ -322,7 +322,7 @@ pnpm run dev
 
 ## 更新时自动构建
 
-运行 `hermes update` 时，Web 前端会使用 Hermes 提供的 Node 和 pnpm 自动重新构建。这使 Dashboard 与代码更新保持同步。如果更新无法提供它们（例如禁用了延迟安装），更新会跳过前端构建，`hermes dashboard` 将在首次启动时构建。
+运行 `kestrel update` 时，Web 前端会使用 Hermes 提供的 Node 和 pnpm 自动重新构建。这使 Dashboard 与代码更新保持同步。如果更新无法提供它们（例如禁用了延迟安装），更新会跳过前端构建，`hermes dashboard` 将在首次启动时构建。
 
 ## 主题与插件
 

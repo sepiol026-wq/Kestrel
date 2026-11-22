@@ -131,7 +131,7 @@ def test_explanation_persistence_turn_lease_cause_is_specific():
     assert "not saved" in lower
     assert "disk" not in lower
     assert "compression" not in lower
-    assert "hermes doctor" not in lower
+    assert "kestrel doctor" not in lower
 
 
 def test_explanation_persistence_disk_cause_keeps_disk_wording():
@@ -152,7 +152,7 @@ def test_explanation_persistence_corrupt_cause_never_says_free_space():
     )
     lower = out.lower()
     assert "corrupt" in lower
-    assert "hermes doctor" in lower
+    assert "kestrel doctor" in lower
     assert "free some space" not in lower
     assert "full disk" not in lower
 
@@ -190,7 +190,7 @@ def test_explanation_persistence_fts_index_never_advises_recovery():
     assert "restore from a backup" not in lower and "backups/" not in lower
     assert "would have been lost" not in lower
     assert "free" not in lower  # never disk-space advice
-    assert "hermes doctor" in lower
+    assert "kestrel doctor" in lower
 
 
 def test_explanation_persistence_replaced_cause_forbids_inplace_repair():
@@ -213,7 +213,7 @@ def test_deleted_wal_cause_is_plain_first_steps_not_a_forensic_runbook():
         "session_persistence_failed", "deleted_wal"
     ).lower()
     assert "deleted_wal" in PERSISTENCE_ERROR_CAUSES
-    assert "hermes gateway stop" in out and "hermes doctor" in out
+    assert "kestrel gateway stop" in out and "kestrel doctor" in out
     for jargon in ("manifest", "state.db-wal", "sidecar", "header_only", "--inspect-only", "generation"):
         assert jargon not in out, jargon
     assert "~/.hermes" not in out  # display_kestrel_home(), never a hardcoded path
@@ -233,7 +233,7 @@ def test_persistence_commands_are_pinned_to_the_failing_profile(monkeypatch, tmp
     out = AIAgent._format_turn_completion_explanation("session_persistence_failed", cause)
     assert "{profile_arg}" not in out
     assert f"`hermes {selector}doctor" in out
-    assert "`hermes doctor" not in out and "`hermes gateway" not in out
+    assert "`kestrel doctor" not in out and "`kestrel gateway" not in out
 
 
 def test_explanation_persistence_unknown_cause_is_neutral():
@@ -246,7 +246,7 @@ def test_explanation_persistence_unknown_cause_is_neutral():
         assert out.strip() != ""
         assert "disk space" not in lower
         assert "full disk" not in lower
-        assert "hermes doctor" in lower
+        assert "kestrel doctor" in lower
         assert "again" in lower
 
 
@@ -254,7 +254,7 @@ def test_explanation_persistence_one_arg_backward_compat():
     """Existing one-arg callers must keep working (optional second param)."""
     out = AIAgent._format_turn_completion_explanation("session_persistence_failed")
     assert out.strip() != ""
-    assert "hermes doctor" in out.lower()
+    assert "kestrel doctor" in out.lower()
 
 
 def test_explanation_cause_ignored_for_other_reasons():

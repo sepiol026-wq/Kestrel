@@ -3,7 +3,7 @@
 // Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 // Derivative work. All upstream attribution and rights retained.
 
-// Owed post-commit work of a dashboard-started `hermes update`, read from the
+// Owed post-commit work of a dashboard-started `kestrel update`, read from the
 // receipt summary the action status route attaches. Shared by the web
 // dashboard toast and the Desktop backend-apply store so both surfaces name
 // the same debt with the same rules as the managed SSH result.
@@ -21,10 +21,10 @@ export interface UpdateDebtReceipt {
 }
 
 export interface UpdateDebt {
-  /** Follow-ups a rerun of `hermes update` finishes, as `step (reason); step`; '' when none. */
+  /** Follow-ups a rerun of `kestrel update` finishes, as `step (reason); step`; '' when none. */
   followups: string
   /** What only the user can do (e.g. re-apply a parked stash) as `step: <producer's instruction>`;
-   *  '' when none. Never phrase this as "re-run hermes update": a rerun does not restore it. */
+   *  '' when none. Never phrase this as "re-run kestrel update": a rerun does not restore it. */
   userAction: string
 }
 

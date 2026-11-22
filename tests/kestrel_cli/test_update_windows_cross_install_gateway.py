@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes update`` on Windows pauses only its own install's gateways (#124659).
+"""``kestrel update`` on Windows pauses only its own install's gateways (#124659).
 
 The host-wide gateway scan sees every install's gateway. Each process below carries the live
 environment a gateway of one install has; ownership is read from it by the same home scope the

@@ -17,4 +17,4 @@ capabilities:
   provides_middleware: []
   requires_env: []
 known_issues:
-- "The Webly MCP tools need a sign-in, because a portable mcp.json cannot request OAuth: set WEBLY_API_KEY (a wb_ key from the Webly dashboard), or run `hermes mcp add webly --url https://api.webly.ai/v1/mcp --auth oauth` then `hermes mcp login webly`. Publishing without an account works without either."
+- "The Webly MCP tools need a sign-in, because a portable mcp.json cannot request OAuth: set WEBLY_API_KEY (a wb_ key from the Webly dashboard), or run `kestrel mcp add webly --url https://api.webly.ai/v1/mcp --auth oauth` then `hermes mcp login webly`. Publishing without an account works without either."

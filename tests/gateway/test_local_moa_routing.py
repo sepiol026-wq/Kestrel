@@ -6,7 +6,7 @@
 """``/moa <prompt>`` on a local session runs that one turn through the default MoA preset.
 
 Regression for #147510: Desktop, the Ink TUI and ACP send ``/moa`` through ``slash.exec`` and submit the
-``send`` directive it returns; ``hermes chat -q "/moa ..."`` submits the raw text. Both reached the
+``send`` directive it returns; ``kestrel chat -q "/moa ..."`` submits the raw text. Both reached the
 gateway's ``/moa`` handler, which armed the runner's per-session override that a local session's frozen
 launch route never reads, so the chat's own model answered and nothing said so.
 

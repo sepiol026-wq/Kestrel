@@ -139,7 +139,7 @@ def relaunch(
             print(
                 f"\nHermes relaunch failed: {exc}\n"
                 f"Command: {' '.join(new_argv)}\n"
-                f"Fix: open a new terminal so PATH picks up, then re-run hermes.",
+                f"Fix: open a new terminal so PATH picks up, then re-run kestrel.",
                 file=sys.stderr,
             )
             sys.exit(1)

@@ -1063,7 +1063,7 @@ def _resolve_dashboard_web_dist(args, _headless_backend: bool) -> None:
             # exists; otherwise the server will start and serve 404s with no obvious cause (issue #23817).
             Path(os.environ["HERMES_WEB_DIST"])
             if "HERMES_WEB_DIST" in os.environ
-            else PROJECT_ROOT / "hermes_cli" / "web_dist"
+            else PROJECT_ROOT / "kestrel_cli" / "web_dist"
         )
         if not (_dist_root / "index.html").exists():
             # Only the default dist location is recoverable (desktop launches with

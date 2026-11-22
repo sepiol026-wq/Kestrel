@@ -59,7 +59,7 @@ Hermes 的 Termux 软件包适用于 aarch64（arm64-v8a）设备，目前处于
    ```bash
    pkg update
    pkg install kestrel-agent
-   hermes setup
+   kestrel setup
    hermes --tui
    ```
 
@@ -75,7 +75,7 @@ pkg update
 pkg upgrade kestrel-agent
 ```
 
-`hermes update` 拒绝修改 APT 所有的代码，改由包管理器更新。
+`kestrel update` 拒绝修改 APT 所有的代码，改由包管理器更新。
 Canary 版本带有 `~canary.TIMESTAMP`，排序低于对应的正式版本。
 
 卸载应用软件包：
@@ -88,7 +88,7 @@ APT 移除软件包和命令链接，但保留用户配置、会话、技能和�
 
 ## Gateway 和限制
 
-使用 `hermes gateway run` 在 Termux 会话中运行 gateway。
+使用 `kestrel gateway run` 在 Termux 会话中运行 gateway。
 当前 APT 路径不提供 systemd、launchd 或 Windows 计划任务。
 Android 可能挂起或终止后台进程；唤醒锁不保证持续运行。
 
@@ -97,5 +97,5 @@ Android 可能挂起或终止后台进程；唤醒锁不保证持续运行。
 桌面控制、Docker daemon 和音频设备集成不能因核心 CLI 可运行就视为可用。
 第三方插件仍可能需要 Android 不支持的依赖。
 
-故障排查时运行 `hermes doctor`，并提供 `hermes --version` 和完整错误。
+故障排查时运行 `kestrel doctor`，并提供 `hermes --version` 和完整错误。
 缺少包内核心库或 TUI 输出属于软件包问题，不应要求用户重新编译。

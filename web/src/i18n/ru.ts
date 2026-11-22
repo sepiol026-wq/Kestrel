@@ -108,7 +108,7 @@ export const ru: Translations = {
   status: {
     actionFailed: "Ошибка действия",
     actionFinished: "Завершено",
-    actionFinishedOwed: "Обновлено, но работа ещё не завершена (запустите `hermes update` снова, чтобы закончить)",
+    actionFinishedOwed: "Обновлено, но работа ещё не завершена (запустите `kestrel update` снова, чтобы закончить)",
     actions: "Действия",
     agent: "Агент",
     activeSessions: "Активные сессии",

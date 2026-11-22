@@ -2052,7 +2052,7 @@ def run_doctor(args):
             else:
                 _fail_and_issue(
                     "Mem0 API key not set",
-                    "(set MEM0_API_KEY in .env or run hermes memory setup)",
+                    "(set MEM0_API_KEY in .env or run kestrel memory setup)",
                     "Mem0 is set as memory provider but API key is missing",
                     issues,
                 )

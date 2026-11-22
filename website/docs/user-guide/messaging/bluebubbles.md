@@ -26,7 +26,7 @@ In BlueBubbles Server → **Settings → API**, note:
 Run the setup wizard:
 
 ```bash
-hermes gateway setup
+kestrel gateway setup
 ```
 
 Select **BlueBubbles (iMessage)** and enter your server URL and password.
@@ -87,7 +87,7 @@ BLUEBUBBLES_ALLOW_ALL_USERS=true
 ### 5. Start the Gateway
 
 ```bash
-hermes gateway run
+kestrel gateway run
 ```
 
 Hermes will connect to your BlueBubbles server, register a webhook, and start listening for iMessage messages.
@@ -212,7 +212,7 @@ One caveat: "basic messaging works without Private API" assumes BlueBubbles can 
 - If Hermes and BlueBubbles run on different machines, the default webhook bind address `127.0.0.1` is unreachable from the Mac — set `BLUEBUBBLES_WEBHOOK_HOST` to a reachable address and restart the gateway
 
 ### Setup succeeded, but the adapter never starts
-- `hermes gateway setup` saves credentials to `~/.hermes/.env`; it does not set `platforms.bluebubbles.enabled: true`
+- `kestrel gateway setup` saves credentials to `~/.hermes/.env`; it does not set `platforms.bluebubbles.enabled: true`
 - An explicit `enabled: false` in `~/.hermes/config.yaml` wins over credentials being present — check with `hermes config get platforms.bluebubbles.enabled`
 - This commonly bites after switching iMessage bridges: if you used another iMessage bridge and disabled BlueBubbles at the time, re-running setup will not re-enable it. Set `enabled: true` (and disable the bridge you no longer use — two iMessage bridges will double-handle messages)
 

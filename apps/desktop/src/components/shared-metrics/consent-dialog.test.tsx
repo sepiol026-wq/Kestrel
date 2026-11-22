@@ -66,7 +66,7 @@ describe('SharedMetricsConsentDialog', () => {
     expect(screen.queryByRole('dialog')).toBeNull()
     unmount()
 
-    // An answer given in `hermes setup` is the same config keys: no offer at all.
+    // An answer given in `kestrel setup` is the same config keys: no offer at all.
     const answered = backend({ enabled: false, send: false, decided: true })
     render(<SharedMetricsConsentDialog enabled profile="work" requestGateway={answered.requestGateway} />)
     await waitFor(() => expect($sharedMetricsConsent.get()?.decided).toBe(true))

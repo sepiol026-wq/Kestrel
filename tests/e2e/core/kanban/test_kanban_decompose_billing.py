@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Auto-decompose billing bounds, proven against a REAL ``hermes gateway run`` embedded dispatcher.
+"""Auto-decompose billing bounds, proven against a REAL ``kestrel gateway run`` embedded dispatcher.
 
 The gateway (no messaging platforms -> a kanban/cron-only process) ticks the embedded dispatcher
 every second; each tick auto-decomposes triage cards through the auxiliary model, which is the

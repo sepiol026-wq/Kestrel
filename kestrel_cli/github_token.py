@@ -210,7 +210,7 @@ Tokens are NEVER logged or printed in output.
             pass
         
         print(
-            colors.error("❌ No GitHub PAT found. Run: hermes github set")
+            colors.error("❌ No GitHub PAT found. Run: kestrel github set")
         )
         return 1
     

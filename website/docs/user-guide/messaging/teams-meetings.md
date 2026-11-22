@@ -10,7 +10,7 @@ Use the Teams meeting pipeline when you want Hermes to ingest Microsoft Graph me
 
 Prerequisites: see [Microsoft Teams](./teams.md) for the underlying bot/credential setup.
 
-> Run `hermes gateway setup` and pick **Teams Meetings** for a guided walk-through.
+> Run `kestrel gateway setup` and pick **Teams Meetings** for a guided walk-through.
 
 This page focuses on setup and enablement:
 - Graph credentials
@@ -174,7 +174,7 @@ platforms:
 Start Hermes normally after updating config:
 
 ```bash
-hermes gateway run
+kestrel gateway run
 ```
 
 Or, if you run Hermes in Docker, start the gateway the same way you already do for your deployment.

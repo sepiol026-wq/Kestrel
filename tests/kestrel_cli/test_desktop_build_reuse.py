@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes update`` reuses the packaged desktop app across commits that changed no desktop input.
+"""``kestrel update`` reuses the packaged desktop app across commits that changed no desktop input.
 
 A real git checkout carries the real receipt reader (``scripts/build/freshness.mjs``), the real
 stamp resolver (``apps/desktop/scripts/write-build-stamp.mjs``) and the real reuse probe; only the

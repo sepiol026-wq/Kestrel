@@ -17,7 +17,7 @@ The fix adds:
 2. _send_session_db_warning_notifications() — broadcasts a recovery-guidance
    message to all home channels after the gateway connects
 3. Improved "corrupt" cause wording in _format_turn_completion_explanation
-   with the full recovery path (hermes doctor, sqlite3 .recover, backups)
+   with the full recovery path (kestrel doctor, sqlite3 .recover, backups)
 """
 
 

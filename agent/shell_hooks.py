@@ -270,7 +270,7 @@ def accept_for_launch(cfg: Optional[dict[str, Any]]) -> None:
 
 
 def accept_for_process() -> None:
-    """This process's own ``--accept-hooks`` (``hermes gateway run --accept-hooks``): an opt-in in
+    """This process's own ``--accept-hooks`` (``kestrel gateway run --accept-hooks``): an opt-in in
     force for its lifetime, as ``HERMES_ACCEPT_HOOKS`` would be, without exporting that variable to
     every tool subprocess."""
     global _process_accept

@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""One-shot sessions (``hermes chat -q``) trim the self-improvement prompt footprint.
+"""One-shot sessions (``kestrel chat -q``) trim the self-improvement prompt footprint.
 
 Across 21 one-shot benchmark trajectories the agent created 7 skills and patched a bundled one
 mid-task, spent 37 of ~215 tool calls on skill_view/skill_manage, and spawned review subagents of

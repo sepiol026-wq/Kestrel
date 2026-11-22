@@ -132,7 +132,7 @@ def _restart_notify_payload(event: MessageEvent) -> dict:
 
 
 def _spawn_detached_update(hermes_cmd, output_path, exit_code_path) -> None:
-    """Spawn ``hermes update --gateway`` detached so it survives the gateway restart it may trigger.
+    """Spawn ``kestrel update --gateway`` detached so it survives the gateway restart it may trigger.
     setsid is portable (works where ``systemd-run --user`` lacks a D-Bus session); ``--gateway``
     enables file-based IPC so interactive prompts are forwarded; PYTHONUNBUFFERED lets the gateway
     stream output live.  Windows has no setsid: an inline helper runs the updater as a module under
@@ -145,7 +145,7 @@ def _spawn_detached_update(hermes_cmd, output_path, exit_code_path) -> None:
         subprocess.Popen(
             [sys.executable, "-c", _WINDOWS_UPDATE_HELPER, str(output_path), str(exit_code_path),
              sys.executable, "-m", "hermes_cli.main", "update", "--gateway"],
-            # detached-spawn: ok — /update runs `hermes update`, which must outlive the gateway it restarts
+            # detached-spawn: ok — /update runs `kestrel update`, which must outlive the gateway it restarts
             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, **windows_detach_popen_kwargs())
         return
     hermes_cmd_str = " ".join(shlex.quote(part) for part in hermes_cmd)
@@ -161,7 +161,7 @@ def _spawn_detached_update(hermes_cmd, output_path, exit_code_path) -> None:
     # calls os.setsid() in the child.
     setsid_bin = shutil.which("setsid")
     argv = [setsid_bin, "bash", "-c", update_cmd] if setsid_bin else ["bash", "-c", update_cmd]
-    # detached-spawn: ok — /update runs `hermes update`, which must outlive the gateway it restarts
+    # detached-spawn: ok — /update runs `kestrel update`, which must outlive the gateway it restarts
     subprocess.Popen(argv, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
 
 
@@ -1401,7 +1401,7 @@ class GatewaySlashCommandsMixin(
         return await self._run_in_executor_with_context(_collect_and_upload)
 
     async def _handle_update_command(self, event: MessageEvent) -> str:
-        """Handle /update — spawn ``hermes update`` detached (``setsid``) so it survives the gateway
+        """Handle /update — spawn ``kestrel update`` detached (``setsid``) so it survives the gateway
         restart it may trigger; marker files let this or the next gateway process notify the user."""
         import json
         from gateway.approval_actor import opener_authority
@@ -1425,7 +1425,7 @@ class GatewaySlashCommandsMixin(
 
         # Not a git-managed install (docker/nix/desktop-app/source): refuse
         # with the steward's own update mechanism instead of git-pulling a
-        # tree `hermes update` does not own.
+        # tree `kestrel update` does not own.
         try:
             from kestrel_cli.config import (
                 detect_install_method,

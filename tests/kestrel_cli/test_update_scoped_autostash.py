@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes update`` moves only the local changes the update would collide with, and asks before stashing.
+"""``kestrel update`` moves only the local changes the update would collide with, and asks before stashing.
 
 An untracked directory the update never writes (a 55 GB leftover worktree copy) used to be hashed into
 the autostash and deleted from disk on every update; declining the restore then parked it in git stash.

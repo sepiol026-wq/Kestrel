@@ -897,7 +897,7 @@ _LEGACY_MANAGED_SYSTEM = "nixos"
 # detection instead of blocking config writes.
 _IGNORED_MANAGED_VALUES = frozenset({"brew", "homebrew"})
 # Explicit opt-out (``HERMES_MANAGED=false``): without this a bool-shaped value became a package
-# manager literally named "false" and is_managed() blocked `hermes update` (#12864).
+# manager literally named "false" and is_managed() blocked `kestrel update` (#12864).
 _MANAGED_FALSE_VALUES = frozenset({"false", "0", "no", "off"})
 
 
@@ -1095,7 +1095,7 @@ def _prune_scratch_dir_once(scratch: Path) -> None:
 
 
 def scratch_dir_usage_bytes(scratch: Path | None = None) -> int:
-    """Total bytes under the scratch dir (for ``hermes doctor``); 0 when unreadable."""
+    """Total bytes under the scratch dir (for ``kestrel doctor``); 0 when unreadable."""
     root = scratch if scratch is not None else get_scratch_dir(prune=False)
     total = 0
     for dirpath, _dirnames, filenames in os.walk(root, onerror=lambda _e: None):
@@ -1527,7 +1527,7 @@ def partial_update_hint(exc: BaseException) -> list[str]:
         "This looks like a partially-updated install: one module was refreshed "
         "and a related one was not.",
         "Re-run the update to bring the whole tree to the same version:",
-        "    hermes update",
+        "    kestrel update",
         "If that also fails, reinstall: https://kestrel-agent.nousresearch.com",
     ]
 

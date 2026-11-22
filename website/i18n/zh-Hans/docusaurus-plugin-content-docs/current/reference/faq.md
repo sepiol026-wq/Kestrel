@@ -29,7 +29,7 @@ Kestrel Agent 可与任何兼容 OpenAI 的 API 配合使用。支持的提供�
 - **MiniMax** — 全球及中国区端点
 - **本地模型** — 通过 [Ollama](https://ollama.com/)、[vLLM](https://docs.vllm.ai/)、[llama.cpp](https://github.com/ggerganov/llama.cpp)、[SGLang](https://github.com/sgl-project/sglang) 或任何兼容 OpenAI 的服务器
 
-使用 `hermes model` 设置提供商，或直接编辑 `~/.hermes/.env`。所有提供商 key 请参阅[环境变量](./environment-variables.md)参考文档。
+使用 `kestrel model` 设置提供商，或直接编辑 `~/.hermes/.env`。所有提供商 key 请参阅[环境变量](./environment-variables.md)参考文档。
 
 ### 支持 Windows 吗？
 
@@ -59,7 +59,7 @@ curl -fsSL https://kestrel-agent.nousresearch.com/install.sh | bash
 
 ### 支持 Android 吗？
 
-aarch64 设备可使用预发布的 Termux APT 软件包。请参阅 [Termux 指南](../getting-started/termux.md)了解签名仓库、安装步骤和限制。请使用 `pkg upgrade kestrel-agent` 更新，不要使用 `hermes update` 或桌面和服务器的安装脚本。
+aarch64 设备可使用预发布的 Termux APT 软件包。请参阅 [Termux 指南](../getting-started/termux.md)了解签名仓库、安装步骤和限制。请使用 `pkg upgrade kestrel-agent` 更新，不要使用 `kestrel update` 或桌面和服务器的安装脚本。
 
 ### 我的数据会被发送到哪里？
 
@@ -67,10 +67,10 @@ API 调用**仅发送至您配置的 LLM 提供商**（例如 OpenRouter、您�
 
 ### 可以离线使用 / 使用本地模型吗？
 
-可以。运行 `hermes model`，选择**自定义端点**，然后输入您服务器的 URL：
+可以。运行 `kestrel model`，选择**自定义端点**，然后输入您服务器的 URL：
 
 ```bash
-hermes model
+kestrel model
 # 选择：Custom endpoint（手动输入 URL）
 # API base URL: http://localhost:11434/v1
 # API key: ollama
@@ -221,24 +221,24 @@ curl -fsSL https://kestrel-agent.nousresearch.com/install.sh | bash
 
 **原因：** 会话内的 `/model` 只能在您**已配置**的提供商之间切换。如果您只设置了 OpenRouter，`/model` 就只会显示 OpenRouter。
 
-**解决方案：** 退出当前会话，在终端中使用 `hermes model` 添加新提供商：
+**解决方案：** 退出当前会话，在终端中使用 `kestrel model` 添加新提供商：
 
 ```bash
 # 先退出 Hermes 聊天会话（Ctrl+C 或 /quit）
 
 # 运行完整的提供商设置向导
-hermes model
+kestrel model
 
 # 此命令可以：添加提供商、运行 OAuth、输入 API key、配置端点
 ```
 
-通过 `hermes model` 添加新提供商后，启动新的聊天会话 — `/model` 将显示所有已配置的提供商。
+通过 `kestrel model` 添加新提供商后，启动新的聊天会话 — `/model` 将显示所有已配置的提供商。
 
 :::tip 快速参考
 | 目标 | 使用方式 |
 |-----------|-----|
-| 添加新提供商 | `hermes model`（从终端） |
-| 输入/更改 API key | `hermes model`（从终端） |
+| 添加新提供商 | `kestrel model`（从终端） |
+| 输入/更改 API key | `kestrel model`（从终端） |
 | 会话中途切换模型 | `/model <name>`（会话内） |
 | 切换到其他已配置的提供商 | `/model provider:model`（会话内） |
 :::
@@ -253,7 +253,7 @@ hermes model
 hermes config show
 
 # 重新配置您的提供商
-hermes model
+kestrel model
 
 # 或直接设置
 hermes config set OPENROUTER_API_KEY sk-or-v1-xxxxxxxxxxxx
@@ -270,13 +270,13 @@ hermes config set OPENROUTER_API_KEY sk-or-v1-xxxxxxxxxxxx
 **解决方案：**
 ```bash
 # 列出您的提供商可用的模型
-hermes model
+kestrel model
 
 # 设置有效的模型
 hermes config set HERMES_MODEL anthropic/claude-opus-4.7
 
 # 或按会话指定
-hermes chat --model openrouter/meta-llama/llama-3.1-70b-instruct
+kestrel chat --model openrouter/meta-llama/llama-3.1-70b-instruct
 ```
 
 #### 速率限制（429 错误）
@@ -286,7 +286,7 @@ hermes chat --model openrouter/meta-llama/llama-3.1-70b-instruct
 **解决方案：** 稍等片刻后重试。对于持续使用，请考虑：
 - 升级您的提供商套餐
 - 切换到其他模型或提供商
-- 使用 `hermes chat --provider <alternative>` 路由到其他后端
+- 使用 `kestrel chat --provider <alternative>` 路由到其他后端
 
 #### 上下文长度超限
 
@@ -298,10 +298,10 @@ hermes chat --model openrouter/meta-llama/llama-3.1-70b-instruct
 /compress
 
 # 或开始新会话
-hermes chat
+kestrel chat
 
 # 使用上下文窗口更大的模型
-hermes chat --model openrouter/google/gemini-3-flash-preview
+kestrel chat --model openrouter/google/gemini-3-flash-preview
 ```
 
 如果在第一次长对话时就出现此问题，Hermes 可能检测到了错误的模型上下文长度。检查检测结果：
@@ -353,7 +353,7 @@ custom_providers:
 **解决方案：**
 - 在消息中避免使用 `sudo` — 请智能体寻找替代方案
 - 如果必须使用 `sudo`，在 `/etc/sudoers` 中为特定命令配置免密 sudo
-- 或切换到终端界面执行管理任务：`hermes chat`
+- 或切换到终端界面执行管理任务：`kestrel chat`
 
 #### Docker 后端无法连接
 
@@ -383,10 +383,10 @@ docker run hello-world
 **解决方案：**
 ```bash
 # 检查网关是否在运行
-hermes gateway status
+kestrel gateway status
 
 # 启动网关
-hermes gateway start
+kestrel gateway start
 
 # 查看错误日志
 cat ~/.hermes/logs/gateway.log | tail -50
@@ -397,7 +397,7 @@ cat ~/.hermes/logs/gateway.log | tail -50
 **原因：** 网络问题、bot token 已过期，或平台 webhook 配置错误。
 
 **解决方案：**
-- 使用 `hermes gateway setup` 验证您的 bot token 是否有效
+- 使用 `kestrel gateway setup` 验证您的 bot token 是否有效
 - 检查网关日志：`cat ~/.hermes/logs/gateway.log | tail -50`
 - 对于基于 webhook 的平台（Slack、WhatsApp），确保您的服务器可公开访问
 
@@ -431,7 +431,7 @@ lsof -i :8080
 hermes config show
 ```
 
-#### WSL：网关持续断开连接或 `hermes gateway start` 失败
+#### WSL：网关持续断开连接或 `kestrel gateway start` 失败
 
 **原因：** WSL 的 systemd 支持不稳定。许多 WSL2 安装未启用 systemd，即使启用，服务也可能在 WSL 重启或 Windows 空闲关机后无法存活。
 
@@ -439,14 +439,14 @@ hermes config show
 
 ```bash
 # 方案一：直接前台运行（最简单）
-hermes gateway run
+kestrel gateway run
 
 # 方案二：通过 tmux 持久运行（关闭终端后仍存活）
-tmux new -s hermes 'hermes gateway run'
+tmux new -s hermes 'kestrel gateway run'
 # 稍后重新连接：tmux attach -t hermes
 
 # 方案三：通过 nohup 后台运行
-nohup hermes gateway run > ~/.hermes/logs/gateway.log 2>&1 &
+nohup kestrel gateway run > ~/.hermes/logs/gateway.log 2>&1 &
 ```
 
 如果仍想尝试 systemd，请确保已启用：
@@ -463,7 +463,7 @@ nohup hermes gateway run > ~/.hermes/logs/gateway.log 2>&1 &
 
 :::tip Windows 开机自启
 如需可靠的自启动，使用 Windows 任务计划程序在登录时启动 WSL + 网关：
-1. 创建一个任务，运行 `wsl -d Ubuntu -- bash -lc 'hermes gateway run'`
+1. 创建一个任务，运行 `wsl -d Ubuntu -- bash -lc 'kestrel gateway run'`
 2. 设置在用户登录时触发
 :::
 
@@ -471,11 +471,11 @@ nohup hermes gateway run > ~/.hermes/logs/gateway.log 2>&1 &
 
 **原因：** launchd 服务继承的是最小 PATH（`/usr/bin:/bin:/usr/sbin:/sbin`），不包含 Homebrew、nvm、cargo 或其他用户安装的工具目录。这通常会导致 WhatsApp bridge（`node not found`）或语音转录（`ffmpeg not found`）失败。
 
-**解决方案：** 网关在您运行 `hermes gateway install` 时会捕获您的 shell PATH。如果您在设置网关后安装了新工具，请重新运行 install 以捕获更新后的 PATH：
+**解决方案：** 网关在您运行 `kestrel gateway install` 时会捕获您的 shell PATH。如果您在设置网关后安装了新工具，请重新运行 install 以捕获更新后的 PATH：
 
 ```bash
-hermes gateway install    # 重新快照当前 PATH
-hermes gateway start      # 检测到更新的 plist 并重新加载
+kestrel gateway install    # 重新快照当前 PATH
+kestrel gateway start      # 检测到更新的 plist 并重新加载
 ```
 
 您可以验证 plist 中的 PATH 是否正确：
@@ -493,8 +493,8 @@ hermes gateway start      # 检测到更新的 plist 并重新加载
 **原因：** 模型较大、API 服务器距离较远，或系统 prompt（提示词）包含过多工具。
 
 **解决方案：**
-- 尝试更快/更小的模型：`hermes chat --model openrouter/meta-llama/llama-3.1-8b-instruct`
-- 减少激活的工具集：`hermes chat -t "terminal"`
+- 尝试更快/更小的模型：`kestrel chat --model openrouter/meta-llama/llama-3.1-8b-instruct`
+- 减少激活的工具集：`kestrel chat -t "terminal"`
 - 检查到提供商的网络延迟
 - 对于本地模型，确保有足够的 GPU VRAM
 
@@ -525,10 +525,10 @@ hermes gateway start      # 检测到更新的 plist 并重新加载
 /compress
 
 # 开始新会话并引用旧会话
-hermes chat
+kestrel chat
 
 # 如需稍后继续特定会话
-hermes chat --continue
+kestrel chat --continue
 ```
 
 ---
@@ -576,7 +576,7 @@ mcp_servers:
 hermes config show | grep -A 12 mcp_servers
 
 # 更改配置后重启 Hermes 或重新加载 MCP
-hermes chat
+kestrel chat
 ```
 
 另请参阅：
@@ -613,9 +613,9 @@ Profiles 是构建在 `HERMES_HOME` 之上的托管层。您*可以*在每次命
 
 不共享。每个 profile 都有自己独立的记忆存储、会话数据库和技能目录，完全隔离。如果您想用现有的记忆和会话创建新 profile，请使用 `hermes profile create newname --clone-all` 从当前 profile 复制所有内容，或添加 `--clone-from <profile>` 从指定源 profile 复制。
 
-### 运行 `hermes update` 时会发生什么？
+### 运行 `kestrel update` 时会发生什么？
 
-`hermes update` 拉取最新代码并重新安装依赖项**一次**（不是每个 profile 各一次）。然后自动将更新的技能同步到所有 profiles。您只需运行一次 `hermes update` — 它覆盖机器上的每个 profile。
+`kestrel update` 拉取最新代码并重新安装依赖项**一次**（不是每个 profile 各一次）。然后自动将更新的技能同步到所有 profiles。您只需运行一次 `kestrel update` — 它覆盖机器上的每个 profile。
 
 ### 可以运行多少个 profiles？
 
@@ -707,7 +707,7 @@ skills:
     telegram: [skill-a, skill-b]  # 仅在 telegram 上禁用
 ```
 
-更改后，**重启网关**（`hermes gateway restart` 或终止并重新启动）。Telegram bot 命令菜单在启动时重建。
+更改后，**重启网关**（`kestrel gateway restart` 或终止并重新启动）。Telegram bot 命令菜单在启动时重建。
 
 :::tip
 描述过长的技能在 Telegram 菜单中会被截断为 40 个字符，以符合 payload 大小限制。如果技能未出现，可能是总 payload 大小问题而非 100 个命令数量限制 — 禁用未使用的技能对两者都有帮助。
@@ -755,7 +755,7 @@ skills:
    hermes import ~/hermes-backup-<timestamp>.zip
    ```
 
-4. 在新机器上运行 `hermes setup` 以验证 API key 和提供商配置是否正常工作。
+4. 在新机器上运行 `kestrel setup` 以验证 API key 和提供商配置是否正常工作。
 
 ### 将单个 profile 迁移到另一台机器
 
@@ -842,10 +842,10 @@ echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 hermes config show | head -20
 
 # 重新运行模型选择
-hermes model
+kestrel model
 
 # 或使用已知可用的模型测试
-hermes chat -q "hello" --model anthropic/claude-opus-4.7
+kestrel chat -q "hello" --model anthropic/claude-opus-4.7
 ```
 
 如果使用 OpenRouter，请确保您的 API key 有余额。OpenRouter 返回 400 通常意味着该模型需要付费套餐，或模型 ID 有拼写错误。

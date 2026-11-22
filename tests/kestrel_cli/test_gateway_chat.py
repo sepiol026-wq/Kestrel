@@ -165,7 +165,7 @@ async def test_rpc_preserves_notifications_and_errors():
 
 @pytest.mark.asyncio
 async def test_yolo_slash_toggles_the_session_bypass_on_the_owner(capsys):
-    """`/yolo` in an attached `hermes chat` was refused as an unsupported command, so a `--yolo`
+    """`/yolo` in an attached `kestrel chat` was refused as an unsupported command, so a `--yolo`
     launch could not be revoked from the classic CLI; it is the owner's session-scoped config.set."""
     from kestrel_cli.gateway_chat_view import GatewayChatView
     calls = []

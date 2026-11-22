@@ -122,7 +122,7 @@ hook、`HERMES_LANGFUSE_*` 环境变量和捕获模式保持不变：
 hermes plugins install langfuse
 ```
 
-已启用 `observability/langfuse` 的配置文件会在 `hermes update`（或更新后的首次启动）时自动安装并启用该插件，
+已启用 `observability/langfuse` 的配置文件会在 `kestrel update`（或更新后的首次启动）时自动安装并启用该插件，
 继续向同一个 Langfuse 项目发送 trace。安装、调优和捕获模式见[插件 README](https://github.com/NousResearch/hermes-official-plugins/tree/main/langfuse)。
 
 ### google_meet

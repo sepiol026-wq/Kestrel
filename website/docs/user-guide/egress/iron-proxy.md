@@ -194,7 +194,7 @@ No `.env` edits. No Hermes restart on the host. The proxy daemon is the only thi
 When `credential_source: bitwarden`, `hermes egress start` pre-checks at the wizard layer AND `_build_proxy_subprocess_env` re-checks at the daemon layer:
 
 - BWS access token env var is unset → refuse to start with a hint to `unset` and re-run, or `hermes egress setup --no-bitwarden` to switch back to env mode
-- `secrets.bitwarden.project_id` is empty → refuse to start with a hint to run `hermes secrets bitwarden setup`
+- `secrets.bitwarden.project_id` is empty → refuse to start with a hint to run `kestrel secrets bitwarden setup`
 - `bws secret list` returns no values for one or more mapped providers → refuse to start, listing the missing names
 
 This is intentional. Falling back to host env in BW mode reintroduces exactly the staleness bug the BW path is meant to defeat (operator picked BW for the rotation guarantee; silent fallback breaks that guarantee).
@@ -396,7 +396,7 @@ With `enforce_on_docker: false` the same situation surfaces as a warning and you
 
 The daemon's pidfile is written with `O_EXCL` + `O_NOFOLLOW` + ownership check. Concurrent `hermes egress start` calls produce one of two outcomes:
 
-- The existing pidfile points at a live iron-proxy → second start refuses with "another start in progress" + a hint to run `hermes egress stop`
+- The existing pidfile points at a live iron-proxy → second start refuses with "another start in progress" + a hint to run `kestrel egress stop`
 - The existing pidfile is stale (crashed daemon) → second start unlinks it and retries once
 
 Beyond that, every `start_proxy` plants a fresh random nonce in two places:
@@ -466,7 +466,7 @@ hermes egress setup --no-bitwarden
 Look at the last 20 lines of `~/.hermes/proxy/iron-proxy.log`. Common causes:
 
 - Port already in use → change `proxy.tunnel_port` or kill whatever else owns 9090
-- Invalid `proxy.yaml` → run `hermes egress setup` to regenerate
+- Invalid `proxy.yaml` → run `kestrel egress setup` to regenerate
 - CA cert / key permissions wrong → `chmod 0o600 ~/.hermes/proxy/ca.key`
 
 ### "iron-proxy did not bind \<bind-host\>:9090 within 5s"

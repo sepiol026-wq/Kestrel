@@ -77,7 +77,7 @@ PM 通过 `pm/lock.json` 管理工具版本，不使用旧的 winget/分层 pip 
 可选依赖由 PM 管理，不再调用 `install.ps1 -Ensure`。
 
 :::tip 在 Windows 上跳过繁琐的提供商配置
-在 Windows 上，逐个配置工具 API key（Firecrawl、FAL、Browser Use、OpenAI TTS）是获得可用 agent 摩擦最大的部分。[Nous Portal](./features/tool-gateway.md) 订阅通过一次 OAuth 登录即可覆盖模型**以及**所有这些工具。安装程序完成后，运行 `hermes setup --portal` 完成配置。
+在 Windows 上，逐个配置工具 API key（Firecrawl、FAL、Browser Use、OpenAI TTS）是获得可用 agent 摩擦最大的部分。[Nous Portal](./features/tool-gateway.md) 订阅通过一次 OAuth 登录即可覆盖模型**以及**所有这些工具。安装程序完成后，运行 `kestrel setup --portal` 完成配置。
 :::
 
 ## 功能矩阵
@@ -86,7 +86,7 @@ Windows 支持取决于功能和架构。部分可选 SDK 不支持所有 Window
 
 | 功能                                                         | 原生 Windows        | WSL2               |
 | ------------------------------------------------------------ | ------------------- | ------------------ |
-| CLI（`hermes chat`、`hermes setup`、`hermes gateway` 等）    | ✓                   | ✓                  |
+| CLI（`kestrel chat`、`kestrel setup`、`kestrel gateway` 等）    | ✓                   | ✓                  |
 | 交互式 TUI（`hermes --tui`）                                 | ✓                   | ✓                  |
 | 消息 gateway（Telegram、Discord、Slack、WhatsApp，15+ 平台） | ✓                   | ✓                  |
 | Cron 调度器                                                  | ✓                   | ✓                  |
@@ -158,12 +158,12 @@ Windows Terminal 将 `Ctrl+Enter` 作为独立按键序列传递。Hermes 将其
 
 ## 在 Windows 登录时运行 gateway
 
-Windows 上的 `hermes gateway install` 使用**计划任务**，并以 Startup 文件夹作为回退——无需管理员权限。
+Windows 上的 `kestrel gateway install` 使用**计划任务**，并以 Startup 文件夹作为回退——无需管理员权限。
 
 ### 安装
 
 ```powershell
-hermes gateway install
+kestrel gateway install
 ```
 
 底层发生的事情：
@@ -177,14 +177,14 @@ hermes gateway install
 ### 管理
 
 ```powershell
-hermes gateway status      # 合并视图：schtasks + Startup 文件夹 + 运行中的 PID
-hermes gateway start       # 立即启动计划任务
-hermes gateway stop        # 等效于优雅的 SIGTERM（通过 psutil 调用 TerminateProcess）
-hermes gateway restart
-hermes gateway uninstall   # 移除 schtasks 条目、Startup 快捷方式、pid 文件
+kestrel gateway status      # 合并视图：schtasks + Startup 文件夹 + 运行中的 PID
+kestrel gateway start       # 立即启动计划任务
+kestrel gateway stop        # 等效于优雅的 SIGTERM（通过 psutil 调用 TerminateProcess）
+kestrel gateway restart
+kestrel gateway uninstall   # 移除 schtasks 条目、Startup 快捷方式、pid 文件
 ```
 
-`hermes gateway status` 是幂等的——调用一千次也不会意外杀死 gateway。（PR #21561 之前它会静默地这样做，原因是 `os.kill(pid, 0)` 在 C 层与 `CTRL_C_EVENT` 发生碰撞——如果你想了解来龙去脉，请参阅下方"进程管理内部机制"。）
+`kestrel gateway status` 是幂等的——调用一千次也不会意外杀死 gateway。（PR #21561 之前它会静默地这样做，原因是 `os.kill(pid, 0)` 在 C 层与 `CTRL_C_EVENT` 发生碰撞——如果你想了解来龙去脉，请参阅下方"进程管理内部机制"。）
 
 ### 为什么不用 Windows 服务？
 
@@ -206,7 +206,7 @@ hermes gateway uninstall   # 移除 schtasks 条目、Startup 快捷方式、pid
 ## 浏览器工具
 
 浏览器工具（`browser_exec`）是 Hermes Python 环境的一部分。
-本地浏览时，Hermes 启动 PM 安装的固定版本 Chromium（缺失时运行 `hermes pm install chromium`）；设置 `browser.executable_path` 可使用其他 Chromium 系程序。云端浏览器在 `hermes tools` 中选择。
+本地浏览时，Hermes 启动 PM 安装的固定版本 Chromium（缺失时运行 `kestrel pm install chromium`）；设置 `browser.executable_path` 可使用其他 Chromium 系程序。云端浏览器在 `hermes tools` 中选择。
 ARM64 Windows 上固定的 Chromium 是 x64 构建，通过 Windows 的 x64 模拟运行，这与原生 Python 不同。
 详见 [浏览器自动化](./features/browser.md)。
 
@@ -284,13 +284,13 @@ hermes uninstall
 你下载的 `install.ps1` 携带了 UTF-8 BOM。`irm | iex` 形式会自动剥离 BOM；`[scriptblock]::Create((irm ...))` 不会。请改用简单的 `irm | iex` 形式，或手动下载脚本并通过 `[IO.File]::WriteAllText($path, $text, (New-Object Text.UTF8Encoding $false))` 保存为不带 BOM 的纯 UTF-8。
 
 **重启后 gateway 无法持续运行。**
-运行 `hermes gateway status`——它会合并 schtasks 条目、Startup 文件夹快捷方式（如有）和运行中的 PID。如果 schtasks 已注册但未运行，组策略可能阻止了 `ONLOGON` 触发器。运行 `schtasks /Query /TN HermesGateway /V /FO LIST` 查看任务失败原因，或通过卸载后使用 `HERMES_GATEWAY_FORCE_STARTUP=1` 重新安装来回退到 Startup 文件夹路径。
+运行 `kestrel gateway status`——它会合并 schtasks 条目、Startup 文件夹快捷方式（如有）和运行中的 PID。如果 schtasks 已注册但未运行，组策略可能阻止了 `ONLOGON` 触发器。运行 `schtasks /Query /TN HermesGateway /V /FO LIST` 查看任务失败原因，或通过卸载后使用 `HERMES_GATEWAY_FORCE_STARTUP=1` 重新安装来回退到 Startup 文件夹路径。
 
 **设置 `$env:EDITOR` 后 `/edit` 仍然无响应。**
 你只在当前进程中设置了它；请关闭并重新打开 shell，或在系统属性 → 环境变量中以用户作用域设置。在新 PowerShell 窗口中用 `echo $env:EDITOR` 验证。
 
 **浏览器工具启动了，但工具调用超时。**
-运行 `hermes doctor` 和 `hermes pm doctor`，并通过 `hermes tools` 检查所选浏览器提供商。首次启动 Chromium 较慢时，可通过 `browser.command_timeout`（启动超时下限，单位秒）放宽时间。不要向签名包写入另一个 Playwright 版本。
+运行 `kestrel doctor` 和 `kestrel pm doctor`，并通过 `hermes tools` 检查所选浏览器提供商。首次启动 Chromium 较慢时，可通过 `browser.command_timeout`（启动超时下限，单位秒）放宽时间。不要向签名包写入另一个 Playwright 版本。
 
 **CLI 中中文/日文/阿拉伯文字符显示为 `?`。**
 UTF-8 stdio 垫片未激活。检查 `HERMES_DISABLE_WINDOWS_UTF8` 是否**未**设置（`Get-ChildItem env:HERMES_DISABLE_WINDOWS_UTF8`）。如果该变量为空但仍然看到 `?`，控制台宿主（非常旧的 `cmd.exe`）可能完全不支持 UTF-8——请切换到 Windows Terminal。

@@ -174,7 +174,7 @@ pub async fn launch_hermes_desktop(
     let exe_path = resolve_hermes_desktop_exe(&install_root).ok_or_else(|| {
         format!(
             "Couldn't find a built Hermes desktop at {}. The desktop build step \
-             may have been skipped or failed. Run `hermes desktop` from a \
+             may have been skipped or failed. Run `kestrel desktop` from a \
              terminal to build and launch it.",
             install_root.join("apps").join("desktop").join("release").display()
         )
@@ -211,8 +211,8 @@ pub(crate) fn resolve_hermes_desktop_exe(install_root: &std::path::Path) -> Opti
     let release_dir = install_root.join("apps").join("desktop").join("release");
     let candidates: &[(&str, &str)] = if cfg!(target_os = "windows") {
         &[
-            ("win-unpacked", "Hermes.exe"),
-            ("win-arm64-unpacked", "Hermes.exe"),
+            ("win-unpacked", "Kestrel.exe"),
+            ("win-arm64-unpacked", "Kestrel.exe"),
         ]
     } else if cfg!(target_os = "macos") {
         &[
@@ -1145,7 +1145,7 @@ mod tests {
         } else if cfg!(target_os = "windows") {
             let dir = release.join("win-unpacked");
             std::fs::create_dir_all(&dir).unwrap();
-            let exe = dir.join("Hermes.exe");
+            let exe = dir.join("Kestrel.exe");
             std::fs::write(&exe, b"stub").unwrap();
             exe
         } else {

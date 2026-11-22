@@ -42,20 +42,20 @@ Bring your own keys anytime — per-tool, whenever you want to. The gateway isn'
 There are three ways in — pick whichever fits where you are:
 
 ```bash
-hermes setup --portal     # Fresh install: Nous OAuth + set Nous as provider + turn on the Tool Gateway in one go
+kestrel setup --portal     # Fresh install: Nous OAuth + set Nous as provider + turn on the Tool Gateway in one go
 ```
 
 ```bash
-hermes model              # Switch your inference provider to Nous Portal — Hermes then offers to turn on the gateway for all tools
+kestrel model              # Switch your inference provider to Nous Portal — Hermes then offers to turn on the gateway for all tools
 ```
 
 ```bash
 hermes tools              # Enable the gateway per-tool — pick "Nous Subscription" for any tool you want
 ```
 
-`hermes setup --portal` and `hermes model` are the all-at-once paths: log in once, optionally flip every tool to the gateway. `hermes tools` is the à la carte path — turn on just the tools you want, one at a time.
+`kestrel setup --portal` and `kestrel model` are the all-at-once paths: log in once, optionally flip every tool to the gateway. `hermes tools` is the à la carte path — turn on just the tools you want, one at a time.
 
-**You don't have to log in first.** With `hermes tools`, the Nous-managed backends (Web search, Image, Video, TTS, Browser) are always listed, even if you've never signed into Nous Portal. Select one and Hermes runs the Portal login right there if you aren't already authenticated — no need to run `hermes model` beforehand. If your Nous OAuth is already active, selecting the backend enables it immediately with no extra prompt. This path only logs you in and turns on the one tool you picked — it does **not** switch your inference provider, and it does **not** prompt you to enable the gateway for every other tool.
+**You don't have to log in first.** With `hermes tools`, the Nous-managed backends (Web search, Image, Video, TTS, Browser) are always listed, even if you've never signed into Nous Portal. Select one and Hermes runs the Portal login right there if you aren't already authenticated — no need to run `kestrel model` beforehand. If your Nous OAuth is already active, selecting the backend enables it immediately with no extra prompt. This path only logs you in and turns on the one tool you picked — it does **not** switch your inference provider, and it does **not** prompt you to enable the gateway for every other tool.
 
 Check what's active at any time:
 
@@ -86,7 +86,7 @@ Some accounts are also entitled to a **free tool pool** — a small managed-tool
 
 ## The enablement checklist
 
-Picking a Nous model (`hermes model`) offers a per-tool checklist of gateway backends. Its behavior respects your existing setup:
+Picking a Nous model (`kestrel model`) offers a per-tool checklist of gateway backends. Its behavior respects your existing setup:
 
 - Tools you've explicitly pointed at another backend (e.g. `web.backend: searxng`, `browser.cloud_provider: browserbase`) are **never offered** — your selection can't be accidentally overwritten.
 - Tools configured via environment variables alone (e.g. `SEARXNG_URL`, `BROWSER_USE_API_KEY`) are offered **unchecked**, labeled to keep your own backend.
@@ -107,7 +107,7 @@ Switch any tool at any time via:
 hermes tools          # Interactive picker for each tool category
 ```
 
-Select the tool, pick **Nous Subscription** as the provider (or any direct provider you prefer). No config editing required. If you aren't logged into Nous Portal yet, picking **Nous Subscription** kicks off the Portal login inline — you don't need to authenticate through `hermes model` first.
+Select the tool, pick **Nous Subscription** as the provider (or any direct provider you prefer). No config editing required. If you aren't logged into Nous Portal yet, picking **Nous Subscription** kicks off the Portal login inline — you don't need to authenticate through `kestrel model` first.
 
 ## Using individual image models
 
@@ -145,7 +145,7 @@ Manage accounts in any of these places:
 
 ## Configuration reference
 
-Most users never need to touch this — `hermes model` and `hermes tools` cover every workflow interactively. This section is for writing config.yaml directly or scripting setups.
+Most users never need to touch this — `kestrel model` and `hermes tools` cover every workflow interactively. This section is for writing config.yaml directly or scripting setups.
 
 ### One selection key per tool category
 
@@ -242,7 +242,7 @@ Yes — the [Nous Portal dashboard](https://portal.nousresearch.com) breaks usag
 
 ### Is Modal (serverless terminal) included?
 
-Modal is available as an **optional add-on** through the Nous subscription, not part of the default Tool Gateway bundle. Configure it via `hermes setup terminal` or directly in `config.yaml` when you want a remote sandbox for shell execution.
+Modal is available as an **optional add-on** through the Nous subscription, not part of the default Tool Gateway bundle. Configure it via `kestrel setup terminal` or directly in `config.yaml` when you want a remote sandbox for shell execution.
 
 ### Do I need to delete my existing API keys when I enable the gateway?
 

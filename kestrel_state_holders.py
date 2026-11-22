@@ -63,7 +63,7 @@ def _read_proc_argv(pid: int) -> Optional[list[str]]:
 
 
 def describe_holder_pid(pid: int) -> str:
-    """``PID 123 (hermes gateway run)`` for operator-facing holder lists; /proc argv first, psutil elsewhere."""
+    """``PID 123 (kestrel gateway run)`` for operator-facing holder lists; /proc argv first, psutil elsewhere."""
     argv = _read_proc_argv(pid)
     if argv is None and psutil is not None:
         try:

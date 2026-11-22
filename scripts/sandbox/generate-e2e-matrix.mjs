@@ -148,7 +148,7 @@ export const SPEC = {
     install: [
       // irm https://hermes.nousresearch.com/install.ps1 | iex
       { method: 'installer-script' },
-      // The same one-liner with -IncludeDesktop: builds Hermes.exe AND
+      // The same one-liner with -IncludeDesktop: builds Kestrel.exe AND
       // registers Start Menu / Desktop shortcuts, so it is a second real
       // path to a hand-launchable app.
       { method: 'installer-script+desktop' },
@@ -287,7 +287,7 @@ const ROUTE_OSES = /** @type {Record<string, Os[]>} */ ({
 });
 
 /**
- * The pull_request subset: the script install updated by `hermes update`, on every OS,
+ * The pull_request subset: the script install updated by `kestrel update`, on every OS,
  * from the two starts that catch a regression before it ships -- the newest release
  * updating to the PR (the jump every user makes next) and the PR updating to a synthetic
  * NEXT (the updater the PR itself ships). One leg per {os, start} worth its runner:

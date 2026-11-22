@@ -86,7 +86,7 @@ export default function PluginPage({ data }: { data: PluginPageData }) {
     : null;
   const added = formatDate(plugin.addedAt);
   const updated = formatDate(plugin.updatedAt);
-  const metaDescription = (prose || plugin.description || `${plugin.name} — a Hermes Agent plugin`).slice(0, 160);
+  const metaDescription = (prose || plugin.description || `${plugin.name} — a Kestrel Agent plugin`).slice(0, 160);
 
   return (
     <Layout title={`${plugin.name} · Plugin Catalog`} description={metaDescription}>

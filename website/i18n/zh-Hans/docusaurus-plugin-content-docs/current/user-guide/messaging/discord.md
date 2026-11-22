@@ -252,7 +252,7 @@ Kestrel Agent 使用你的 Discord 用户 ID 来控制谁可以与机器人交�
 运行引导式设置命令：
 
 ```bash
-hermes gateway setup
+kestrel gateway setup
 ```
 
 在提示时选择 **Discord**，然后在询问时粘贴你的机器人 token 和用户 ID。
@@ -273,13 +273,13 @@ DISCORD_ALLOWED_USERS=284102345871466496
 然后启动网关：
 
 ```bash
-hermes gateway
+kestrel gateway
 ```
 
 机器人应在几秒钟内在 Discord 中上线。发送一条消息——私信或在它可以看到的频道中——进行测试。
 
 :::tip
-你可以在后台运行 `hermes gateway` 或将其作为 systemd 服务以持续运行。详情请参阅部署文档。
+你可以在后台运行 `kestrel gateway` 或将其作为 systemd 服务以持续运行。详情请参阅部署文档。
 :::
 
 ## 配置参考
@@ -768,7 +768,7 @@ Discord 论坛频道（类型 15）不接受直接消息——论坛中的每个
 
 **原因**：Hermes 网关未运行，或 token 不正确。
 
-**解决方法**：检查 `hermes gateway` 是否正在运行。验证 `.env` 文件中的 `DISCORD_BOT_TOKEN`。如果你最近重置了 token，请更新它。
+**解决方法**：检查 `kestrel gateway` 是否正在运行。验证 `.env` 文件中的 `DISCORD_BOT_TOKEN`。如果你最近重置了 token，请更新它。
 
 ### "User not allowed" / 机器人忽略你
 

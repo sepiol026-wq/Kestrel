@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Bridge for pre-hand-off ``hermes update``: a stale root ``utils`` must not kill restart.
+"""Bridge for pre-hand-off ``kestrel update``: a stale root ``utils`` must not kill restart.
 
 Updaters up to v2026.9.14 finish the post-pull phases in the pre-pull interpreter and
 purge only package prefixes, so root ``utils`` stays cached without ``file_signature``;

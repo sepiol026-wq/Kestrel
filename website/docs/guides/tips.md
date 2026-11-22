@@ -9,7 +9,7 @@ description: "Practical advice to get the most out of Kestrel Agent — prompt t
 A quick-wins collection of practical tips that make you immediately more effective with Kestrel Agent. Each section targets a different aspect — scan the headers and jump to what's relevant.
 
 :::tip Confused which model to pick?
-Run `hermes setup --portal` — you get 300+ models including Claude, GPT-5, and Gemini under one subscription. See [Nous Portal](../integrations/nous-portal.md).
+Run `kestrel setup --portal` — you get 300+ models including Claude, GPT-5, and Gemini under one subscription. See [Nous Portal](../integrations/nous-portal.md).
 :::
 
 ---
@@ -52,7 +52,7 @@ Press **Ctrl+C** once to interrupt the agent mid-response. You can then type a n
 
 ### Resume Sessions with `-c`
 
-Forgot something from your last session? Run `hermes -c` to resume exactly where you left off, with full conversation history restored. You can also resume by title: `hermes -r "my research project"`.
+Forgot something from your last session? Run `kestrel -c` to resume exactly where you left off, with full conversation history restored. You can also resume by title: `hermes -r "my research project"`.
 
 ### Clipboard Image Paste
 

@@ -2084,7 +2084,7 @@ class APIServerAdapter(OpenAICompatRoutesMixin, BasePlatformAdapter):
     def _recover_or_record_model(self, model: str, runtime_kwargs: dict[str, Any], gateway_session_key) -> str:
         """Fill an empty resolved model: provider's default catalog model, then the last-known-good
         model for this key / process-wide. Non-empty non-virtual models are recorded instead."""
-        # No model.default but a provider resolved (e.g. `hermes auth add` without `hermes model`).
+        # No model.default but a provider resolved (e.g. `hermes auth add` without `kestrel model`).
         if not model and runtime_kwargs.get("provider"):
             with suppress(Exception):
                 from kestrel_cli.models import get_default_model_for_provider

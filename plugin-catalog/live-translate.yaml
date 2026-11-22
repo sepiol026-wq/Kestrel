@@ -17,7 +17,7 @@ screenshots:
 readme: true
 platforms: [macos, windows, linux]
 known_issues:
-  - "First setup downloads 6-9 GB of models and builds its own Python environments; run hermes translate setup once (or press Set up in the app)."
+  - "First setup downloads 6-9 GB of models and builds its own Python environments; run kestrel translate setup once (or press Set up in the app)."
   - "Real-time voice needs Apple Silicon or an NVIDIA GPU; on CPU-only machines captions come first and the voice follows with a delay."
   - "Under plugins.isolation: host the hermes translate terminal commands are not available (Hermes skips plugin CLI commands in the host); the tools and /translate still work."
 capabilities:

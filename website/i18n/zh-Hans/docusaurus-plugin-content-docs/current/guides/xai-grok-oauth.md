@@ -43,7 +43,7 @@ xAI 的后端对 OAuth API 接口维护自己的白名单，已有记录显示�
 
 ```bash
 # 启动 provider 和模型选择器
-hermes model
+kestrel model
 # → 从 provider 列表中选择 "xAI Grok OAuth (SuperGrok / X Premium+)"
 # → Hermes 打开或打印 accounts.x.ai 验证 URL
 # → 如有提示，输入显示的代码，然后在浏览器中批准访问
@@ -84,7 +84,7 @@ Web 仪表盘和桌面应用使用相同的设备代码流程：显示验证 URL
 ## 检查登录状态
 
 ```bash
-hermes doctor
+kestrel doctor
 ```
 
 `◆ Auth Providers` 部分将显示每个 provider 的当前状态，包括 `xai-oauth`。
@@ -92,7 +92,7 @@ hermes doctor
 ## 切换模型
 
 ```bash
-hermes model
+kestrel model
 # → 选择 "xAI Grok OAuth (SuperGrok / X Premium+)"
 # → 从模型列表中选择（grok-4.6 固定在顶部）
 ```
@@ -175,7 +175,7 @@ hermes tools
 |----------|--------|
 | `XAI_BASE_URL` | 覆盖默认的 `https://api.x.ai/v1` 端点（极少需要）。 |
 
-要将 xAI 设为活跃 provider，请在 `config.yaml` 中设置 `model.provider: xai-oauth`（使用 `hermes setup` 进行引导配置），或在单次调用时传入 `--provider xai-oauth`。
+要将 xAI 设为活跃 provider，请在 `config.yaml` 中设置 `model.provider: xai-oauth`（使用 `kestrel setup` 进行引导配置），或在单次调用时传入 `--provider xai-oauth`。
 
 ## 故障排查
 
@@ -191,7 +191,7 @@ Hermes 在每次会话前刷新 token，并在收到 401 时响应式地再次�
 
 设备代码批准有有限的过期窗口（xAI 在设备代码响应中设置 `expires_in`，通常为数十分钟量级）。如果你未在时限内批准登录，Hermes 会抛出超时错误。
 
-**修复方法：** 重新运行 `hermes auth add xai-oauth`（或 `hermes model`）。流程重新开始。
+**修复方法：** 重新运行 `hermes auth add xai-oauth`（或 `kestrel model`）。流程重新开始。
 
 ### 从远程服务器登录
 
@@ -207,7 +207,7 @@ hermes auth add xai-oauth --no-browser
 
 浏览器中 OAuth 完成，token 已保存，但推理或 token 刷新返回 `HTTP 403`，消息类似于 *"The caller does not have permission to execute the specified operation"*。
 
-这**不是** token 过期问题——重新运行 `hermes model` 不会改变结果。xAI 的后端已被观察到将 OAuth API 访问限制在特定 SuperGrok 套餐，即使应用内订阅处于激活状态（issue [#26847](https://github.com/sepiol026-wq/Kestrel/issues/26847)）。
+这**不是** token 过期问题——重新运行 `kestrel model` 不会改变结果。xAI 的后端已被观察到将 OAuth API 访问限制在特定 SuperGrok 套餐，即使应用内订阅处于激活状态（issue [#26847](https://github.com/sepiol026-wq/Kestrel/issues/26847)）。
 
 **修复方法：** 设置 `XAI_API_KEY` 并切换到 API 密钥路径：
 
@@ -222,7 +222,7 @@ hermes config set model.provider xai
 
 auth 存储中没有 `xai-oauth` 条目，也未设置 `XAI_API_KEY`。你尚未登录，或凭据文件已被删除。
 
-**修复方法：** 运行 `hermes model` 并选择 xAI Grok OAuth provider，或运行 `hermes auth add xai-oauth`。
+**修复方法：** 运行 `kestrel model` 并选择 xAI Grok OAuth provider，或运行 `hermes auth add xai-oauth`。
 
 ## 退出登录
 

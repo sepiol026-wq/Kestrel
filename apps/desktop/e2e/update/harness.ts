@@ -301,7 +301,7 @@ export function desktopMainProcesses(facts: InstallFacts): ProcInfo[] {
 
 /** The `hermes serve` backend(s) of this install (children of the backend excluded). */
 export function backendServeProcesses(facts: InstallFacts): ProcInfo[] {
-  // The local backend is the gateway `hermes gateway ensure` attached to or started
+  // The local backend is the gateway `kestrel gateway ensure` attached to or started
   // (`hermes_cli.main [--profile X] gateway run --quiet`); `serve` covers a pool backend.
   const serve = installProcesses(facts).filter(
     proc =>
@@ -322,7 +322,7 @@ export function nonGatewayProcesses(facts: InstallFacts): ProcInfo[] {
   return installProcesses(facts).filter(proc => !gateways.has(proc.pid) && !gateways.has(proc.ppid))
 }
 
-/** `hermes gateway stop` with the install's own CLI: attach-mode Desktop never owns the gateway. */
+/** `kestrel gateway stop` with the install's own CLI: attach-mode Desktop never owns the gateway. */
 export function stopInstallGateway(facts: InstallFacts): { code: number | null; output: string } {
   const result = spawnSync(facts.hermes, ['gateway', 'stop'], { env: facts.env, encoding: 'utf8', timeout: 90_000 })
 

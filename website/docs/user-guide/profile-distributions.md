@@ -59,7 +59,7 @@ Recipients run:
 hermes profile install github.com/you/my-research-agent --alias
 ```
 
-…and they now have the whole agent. They fill in their own API keys (`.env.EXAMPLE` → `.env`), and they can run `my-research-agent chat` or address it through Telegram / Discord / Slack / any gateway platform. When you push a new version, they run `hermes profile update my-research-agent` and pull your changes — their memories and sessions stay put.
+…and they now have the whole agent. They fill in their own API keys (`.env.EXAMPLE` → `.env`), and they can run `my-research-agent chat` or address it through Telegram / Discord / Slack / any gateway platform. When you push a new version, they run `kestrel profile update my-research-agent` and pull your changes — their memories and sessions stay put.
 
 ## Why git?
 
@@ -246,7 +246,7 @@ git tag v1.1.0
 git push --tags
 ```
 
-Recipients who run `hermes profile update research-bot` will pull the latest.
+Recipients who run `kestrel profile update research-bot` will pull the latest.
 
 ### What the repo looks like
 
@@ -485,7 +485,7 @@ hermes profile install git@github.com:your-org/pr-reviewer.git --alias
 pr-reviewer chat
 ```
 
-When the lead ships v1.1 (better SOUL, new skill), engineers run `hermes profile update pr-reviewer` and everyone's on the new version within minutes.
+When the lead ships v1.1 (better SOUL, new skill), engineers run `kestrel profile update pr-reviewer` and everyone's on the new version within minutes.
 
 ### Community: publish a public agent
 
@@ -688,13 +688,13 @@ You cannot import as `default` — that name is the built-in root profile (`~/.h
 
 ### What an export file contains
 
-Always excluded, both profile types: `auth.json`, `.env` and the other credential stores Hermes reads from a profile (OAuth and bot token files such as WeChat's `weixin/accounts/`, `honcho.json`, `mcp-tokens/`, `vault/`, the iron-proxy keys in `proxy/`, browser profiles including the `/browser connect` one in `chrome-debug/`, platform sessions and pairing stores, the Teams pipeline's `teams_pipeline_store.json` with its Graph webhook `clientState`), and `.ssh/`, `.aws/`, `.gnupg/`, `.kube/`, `.docker/`, `.azure/`, `.config/gh/`, `.config/gcloud/` and `.envrc`, at the root or nested under a skill. Your API keys never leave the machine. `honcho.json` and `mem0.json` can hold the provider's API key next to its settings, so after an import run `hermes honcho setup` or `hermes memory setup` again.
+Always excluded, both profile types: `auth.json`, `.env` and the other credential stores Hermes reads from a profile (OAuth and bot token files such as WeChat's `weixin/accounts/`, `honcho.json`, `mcp-tokens/`, `vault/`, the iron-proxy keys in `proxy/`, browser profiles including the `/browser connect` one in `chrome-debug/`, platform sessions and pairing stores, the Teams pipeline's `teams_pipeline_store.json` with its Graph webhook `clientState`), and `.ssh/`, `.aws/`, `.gnupg/`, `.kube/`, `.docker/`, `.azure/`, `.config/gh/`, `.config/gcloud/` and `.envrc`, at the root or nested under a skill. Your API keys never leave the machine. `honcho.json` and `mem0.json` can hold the provider's API key next to its settings, so after an import run `kestrel honcho setup` or `hermes memory setup` again.
 
 **The default profile** (`~/.hermes`) is exported through an allow-list — only known Hermes artifacts, so an unrelated file sitting in your home directory can't get swept in:
 
 `config.yaml`, `SOUL.md`, `MEMORY.md`, `USER.md`, `todo.json`, `system_prompt.md`, `AGENTS.md`, `CLAUDE.md`, `.cursorrules`, `skills/`, `plugins/`, `cron/`, `scripts/`, `sessions/`, `memories/`, `knowledge/`, `preferences/`, and `desktop.json` when the desktop staged one.
 
-**A named profile** (`~/.hermes/profiles/<name>`) copies the whole directory minus those credential stores, `home/` (the `HOME` of Hermes' tool subprocesses, where `git`, `ssh`, `gh`, `npm` and skill CLIs keep their credentials), and the recovery copies Hermes keeps of them (`backups/`, `state-snapshots/`, any `auth.json.*` or `.env.bak*`, and the `config.yaml.bak-<timestamp>` copies `hermes update` writes). A copy you name yourself, such as `config.yaml.bak-my-note`, is exported, with its secrets redacted like `config.yaml`'s. That's broader — if the profile has `state.db`, logs, or caches, they go in the archive too, and the file gets big.
+**A named profile** (`~/.hermes/profiles/<name>`) copies the whole directory minus those credential stores, `home/` (the `HOME` of Hermes' tool subprocesses, where `git`, `ssh`, `gh`, `npm` and skill CLIs keep their credentials), and the recovery copies Hermes keeps of them (`backups/`, `state-snapshots/`, any `auth.json.*` or `.env.bak*`, and the `config.yaml.bak-<timestamp>` copies `kestrel update` writes). A copy you name yourself, such as `config.yaml.bak-my-note`, is exported, with its secrets redacted like `config.yaml`'s. That's broader — if the profile has `state.db`, logs, or caches, they go in the archive too, and the file gets big.
 
 :::caution Read your archive before you send it
 An export is a snapshot of your profile, not a curated release. Unlike a distribution, it **can** include `memories/`, `sessions/`, and `USER.md` — and nothing scans skills, memories, or your persona for anything personal you wrote into them. Credentials are filtered by filename; content is not.

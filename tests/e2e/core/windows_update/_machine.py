@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""A fresh Windows machine for the PR-time install.ps1 -> ``hermes update`` suite.
+"""A fresh Windows machine for the PR-time install.ps1 -> ``kestrel update`` suite.
 
 Every file here drives the REAL user entry points on a real Windows runner:
 
@@ -11,7 +11,7 @@ Every file here drives the REAL user entry points on a real Windows runner:
   directory that is not a project, like a user who downloaded it);
 * the ``hermes.exe`` it publishes in ``%LOCALAPPDATA%\\hermes\\bin`` for every later
   command (``--version``, one-shot turns, ``gateway run/status/stop``, ``update``);
-* ``hermes update --yes`` from HEAD to NEXT, a synthetic child of HEAD.
+* ``kestrel update --yes`` from HEAD to NEXT, a synthetic child of HEAD.
 
 Only external edges are replaced (tests/install/README.md, "The isolation trick"):
 
@@ -486,7 +486,7 @@ class Machine:
             return {}
 
     def spawn_gateway(self, env_extra: dict[str, str] | None = None, *, as_user: bool = False) -> subprocess.Popen:
-        """``hermes gateway run`` through the published launcher, windowless and detached from
+        """``kestrel gateway run`` through the published launcher, windowless and detached from
         this console: the shape the Desktop / login item uses to host a gateway.
 
         ``as_user``: under a standard-user token, as a non-elevated login item / Desktop starts it."""
@@ -701,7 +701,7 @@ class Turn:
 
 
 def one_shot_turn(machine: Machine, srv: Any, label: str, *, as_user: bool = False) -> Turn:
-    """``hermes chat -q ... -Q`` through the published launcher against the loopback provider."""
+    """``kestrel chat -q ... -Q`` through the published launcher against the loopback provider."""
     from tests.e2e.core.windows._helpers import last_user
     from tests.fakes.fake_llm_provider import Text
 

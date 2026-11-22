@@ -214,7 +214,7 @@ _NOTIFIER_BLIND_APPROVAL_PLATFORMS = frozenset({"webhook", "msgraph_webhook"})
 
 
 def _is_single_query_approval_context() -> bool:
-    """True for a single-query (-q) session: ``hermes chat -q`` exports
+    """True for a single-query (-q) session: ``kestrel chat -q`` exports
     ``HERMES_INTERACTIVE=1`` (so sudo password prompts work) but nobody is waiting
     to answer approvals; without this marker the gate would wait the full timeout,
     fail closed and push the agent toward workarounds (e.g. execute_code).
@@ -232,7 +232,7 @@ def _is_single_query_approval_context() -> bool:
 
 
 def _no_user_can_answer() -> bool:
-    """True in single-query (-q), cron and unattended-platform sessions. `hermes chat -q` still registers the
+    """True in single-query (-q), cron and unattended-platform sessions. `kestrel chat -q` still registers the
     CLI panel callback, so a prompt that only checks for a callback would wait the full timeout for nobody."""
     return (_is_single_query_approval_context() or _is_cron_approval_context()
             or _is_unattended_platform_approval_context())

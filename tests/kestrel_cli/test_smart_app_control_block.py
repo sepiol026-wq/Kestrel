@@ -60,7 +60,7 @@ def test_dashboard_deps_check_names_the_policy_block(monkeypatch, capsys):
     output = capsys.readouterr().out
     assert "Smart App Control" in output
     assert "embedded Python runtime" in output
-    assert "hermes pm install" not in output  # the repair hint must not appear
+    assert "kestrel pm install" not in output  # the repair hint must not appear
 
 
 def test_dashboard_deps_check_keeps_repair_guidance_for_plain_missing_deps(
@@ -71,5 +71,5 @@ def test_dashboard_deps_check_keeps_repair_guidance_for_plain_missing_deps(
         main._require_dashboard_web_deps()
     assert exc.value.code == 1
     output = capsys.readouterr().out
-    assert "hermes pm install" in output
+    assert "kestrel pm install" in output
     assert "Smart App Control" not in output

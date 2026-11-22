@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Secrets never reach disk or the next provider request through the classic CLI (``hermes chat -q``).
+"""Secrets never reach disk or the next provider request through the classic CLI (``kestrel chat -q``).
 
 Contract under test (``security.redact_secrets``, on by default; website/docs/user-guide/configuration.md
 § Security, hermes_logging.py, user-guide/sessions.md § Export Sessions):

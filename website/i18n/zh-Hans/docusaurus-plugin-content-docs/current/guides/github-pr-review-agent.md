@@ -37,9 +37,9 @@ description: "构建一个自动化 AI 代码审查器，监控你的仓库、�
 - **已安装 Kestrel Agent** — 参见[安装指南](../getting-started/installation.md)
 - **Gateway 已运行**（用于 cron 任务）：
   ```bash
-  hermes gateway install   # Install as a service
+  kestrel gateway install   # Install as a service
   # or
-  hermes gateway           # Run in foreground
+  kestrel gateway           # Run in foreground
   ```
 - **已安装并认证 GitHub CLI（`gh`）**：
   ```bash
@@ -285,7 +285,7 @@ Gateway 在精简环境中运行。请确保 `gh` 在系统 PATH 中，然后重
 
 ### Cron 任务未运行
 ```bash
-hermes gateway status    # Is the gateway running?
+kestrel gateway status    # Is the gateway running?
 hermes cron list         # Is the job enabled?
 ```
 

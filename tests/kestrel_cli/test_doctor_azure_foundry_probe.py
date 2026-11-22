@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes doctor`` connectivity probe for Azure Foundry Anthropic-style endpoints (#66756).
+"""``kestrel doctor`` connectivity probe for Azure Foundry Anthropic-style endpoints (#66756).
 
 The ``/anthropic`` route on Foundry has no ``GET /models``; a working deployment answered the generic
 Bearer ``/models`` probe with HTTP 404. The probe must follow the runtime protocol instead:

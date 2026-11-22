@@ -24,7 +24,7 @@ Kestrel Agent ships a Nix flake, a NixOS module, and a Home Manager module.
 :::info What's different from the standard install
 The `curl | bash` installer manages Python, Node, and dependencies itself. The Nix flake replaces all of that — every Python dependency is a Nix derivation built by [uv2nix](https://github.com/pyproject-nix/uv2nix), and runtime tools (Node.js, git, ripgrep, ffmpeg) are wrapped into the binary's PATH. There is no runtime pip, no venv activation, no `npm install`.
 
-**For non-NixOS users**, this only changes the install step. Everything after (`hermes setup`, `hermes gateway install`, config editing) works identically to the standard install.
+**For non-NixOS users**, this only changes the install step. Everything after (`kestrel setup`, `kestrel gateway install`, config editing) works identically to the standard install.
 
 **For NixOS module users**, the entire lifecycle is different: configuration lives in `configuration.nix`, secrets go through sops-nix/agenix, the service is a systemd unit, and CLI config commands are blocked. You manage hermes the same way you manage any other NixOS service.
 :::
@@ -74,11 +74,11 @@ nix run github:sepiol026-wq/Kestrel -- --tui
 
 # or install it in your profile
 nix profile install github:sepiol026-wq/Kestrel
-hermes setup
+kestrel setup
 hermes --tui
 ```
 
-After `nix profile install`, `hermes`, `kestrel-agent`, and `hermes-acp` are on your PATH. From here, the workflow is identical to the [standard installation](./installation.md) — `hermes setup` walks you through provider selection, `hermes gateway install` sets up a launchd (macOS) or systemd user service, and config lives in `~/.hermes/`.
+After `nix profile install`, `hermes`, `kestrel-agent`, and `hermes-acp` are on your PATH. From here, the workflow is identical to the [standard installation](./installation.md) — `kestrel setup` walks you through provider selection, `kestrel gateway install` sets up a launchd (macOS) or systemd user service, and config lives in `~/.hermes/`.
 
 :::warning Messaging platforms (Discord, Telegram, Slack)
 The default package includes ALL libraries kestrel-agent might need. if you want a smaller variant, check the other flake outputs. 
@@ -168,7 +168,7 @@ Setting `addToSystemPackages = true` does two things: puts the `hermes` CLI on y
 :::info
 When `container.enable = true` and `addToSystemPackages = true`, **every** `hermes` command on the host automatically routes into the managed container. This means your interactive CLI session runs inside the same environment as the gateway service — with access to all container-installed packages and tools.
 
-- The routing is transparent: `hermes chat`, `hermes sessions list`, `hermes --version`, etc. all exec into the container under the hood
+- The routing is transparent: `kestrel chat`, `hermes sessions list`, `hermes --version`, etc. all exec into the container under the hood
 - All CLI flags are forwarded as-is
 - If the container isn't running, the CLI retries briefly (5s with a spinner for interactive use, 10s silently for scripts) then fails with a clear error — no silent fallback
 - For developers working on the hermes codebase, set `HERMES_DEV=1` to bypass container routing and run the local checkout directly
@@ -197,7 +197,7 @@ security.sudo.extraRules = [{
 }];
 ```
 
-The CLI auto-detects when sudo is needed and uses it transparently. Without this, you'll need to run `sudo hermes chat` manually.
+The CLI auto-detects when sudo is needed and uses it transparently. Without this, you'll need to run `sudo kestrel chat` manually.
 :::
 
 ### Verify It Works
@@ -599,11 +599,11 @@ When hermes runs via the NixOS module, the following CLI commands are **blocked*
 
 | Blocked command | Why |
 |---|---|
-| `hermes setup` | Config is declarative — edit `settings` in your Nix config |
+| `kestrel setup` | Config is declarative — edit `settings` in your Nix config |
 | `hermes config edit` | Config is generated from `settings` |
 | `hermes config set <key> <value>` | Config is generated from `settings` |
-| `hermes gateway install` | The systemd service is managed by NixOS |
-| `hermes gateway uninstall` | The systemd service is managed by NixOS |
+| `kestrel gateway install` | The systemd service is managed by NixOS |
+| `kestrel gateway uninstall` | The systemd service is managed by NixOS |
 
 This prevents drift between what Nix declares and what's on disk. Detection uses two signals:
 
@@ -677,7 +677,7 @@ macOS has no equivalent option. A `launchd` agent with `RunAtLoad` starts at log
 
 ### Running the Desktop / Dashboard Backend
 
-`gateway.enable` runs the messaging gateway for Telegram, Discord, Slack and the other platforms. A Hermes Desktop **remote** connection and the web dashboard connect to a *different* process, which is `hermes serve` or `hermes dashboard`. (A Desktop running on the same host attaches to the gateway itself via `hermes gateway ensure`.) `backend.mode` runs that process with the gateway:
+`gateway.enable` runs the messaging gateway for Telegram, Discord, Slack and the other platforms. A Hermes Desktop **remote** connection and the web dashboard connect to a *different* process, which is `hermes serve` or `hermes dashboard`. (A Desktop running on the same host attaches to the gateway itself via `kestrel gateway ensure`.) `backend.mode` runs that process with the gateway:
 
 ```nix
 {
@@ -765,7 +765,7 @@ Host                                    Container
 Container writable layer (apt/pip/npm):   /usr, /usr/local, /tmp
 ```
 
-The Nix-built binary works inside the Ubuntu container because `/nix/store` is bind-mounted — it brings its own interpreter and all dependencies, so there's no reliance on the container's system libraries. The container entrypoint resolves through a `current-package` symlink: `/data/current-package/bin/hermes gateway run --replace`. On `nixos-rebuild switch`, only the symlink is updated — the container keeps running.
+The Nix-built binary works inside the Ubuntu container because `/nix/store` is bind-mounted — it brings its own interpreter and all dependencies, so there's no reliance on the container's system libraries. The container entrypoint resolves through a `current-package` symlink: `/data/current-package/bin/kestrel gateway run --replace`. On `nixos-rebuild switch`, only the symlink is updated — the container keeps running.
 
 ### What Persists Across What
 
@@ -968,7 +968,7 @@ direnv allow    # one-time
 The flake builds every JavaScript surface from one fixed-output pnpm store whose
 hash is in `nix/pnpm-deps-hash`. A `pnpm-lock.yaml` change that adds, removes or
 re-resolves a package changes that hash, and every frontend build fails with a
-hash mismatch until it is updated. `hermes pm update --pnpm`, a plain
+hash mismatch until it is updated. `kestrel pm update --pnpm`, a plain
 `pnpm install` and the `nix develop` shell hook rewrite the lockfile but not the
 hash. From the checkout, run:
 
@@ -1073,7 +1073,7 @@ nix build .#checks.x86_64-linux.config-roundtrip    # merge script preserves use
 
 | Option | Type | Default | Description |
 |---|---|---|---|
-| `extraArgs` | `listOf str` | `[]` | Extra args for `hermes gateway` |
+| `extraArgs` | `listOf str` | `[]` | Extra args for `kestrel gateway` |
 | `extraPackages` | `listOf package` | `[]` | Extra packages available to the agent. Added to the hermes user's per-user profile so terminal commands, skills, and cron jobs all see them |
 | `extraPlugins` | `listOf package` | `[]` | Directory plugin packages to symlink into `$HERMES_HOME/plugins/`. Each must contain `plugin.yaml` |
 | `extraPythonPackages` | `listOf package` | `[]` | Python packages added to PYTHONPATH for entry-point plugin discovery. Use the selected package’s `python.pkgs` |

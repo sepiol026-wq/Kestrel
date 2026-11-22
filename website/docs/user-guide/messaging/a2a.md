@@ -15,7 +15,7 @@ When you want multiple agents on the **same machine**, prefer [delegation](../fe
 ## Enable
 
 ```bash
-hermes gateway setup      # pick A2A
+kestrel gateway setup      # pick A2A
 ```
 
 Or in `~/.hermes/config.yaml`:
@@ -80,7 +80,7 @@ Interoperability is verified against the official Python `a2a-sdk` (card resolut
 ## Forwarded profile sessions after the ownership cutover
 
 Forwarding to another local profile now submits to that profile's gateway owner;
-there is no fallback `hermes chat` process writing its session database. New
+there is no fallback `kestrel chat` process writing its session database. New
 forwarded conversations retain the exact agent, tenant, authenticated peer and
 context ID in their owner binding.
 

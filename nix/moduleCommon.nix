@@ -234,7 +234,7 @@ let
       defaultWorkingDirectoryText,
     }:
     {
-      enable = lib.mkEnableOption "Hermes Agent";
+      enable = lib.mkEnableOption "Kestrel Agent";
 
       # ── Package ────────────────────────────────────────────────────────
       package = mkOption {
@@ -489,7 +489,7 @@ let
       extraArgs = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description = "Extra command-line arguments for `hermes gateway`.";
+        description = "Extra command-line arguments for `kestrel gateway`.";
       };
 
       restart = mkOption {
@@ -513,7 +513,7 @@ let
       # Thus this option is an enum and not two booleans.
       #
       # The backend does not run the messaging gateway. web_server.py only
-      # controls an external gateway, with `hermes gateway restart`. It does
+      # controls an external gateway, with `kestrel gateway restart`. It does
       # not contain a gateway.
       backend = {
         mode = mkOption {
@@ -1070,9 +1070,9 @@ let
   backendDescription =
     cfg:
     if cfg.backend.mode == "dashboard" then
-      "Hermes Agent web dashboard and desktop backend"
+      "Kestrel Agent web dashboard and desktop backend"
     else
-      "Hermes Agent backend for Hermes Desktop";
+      "Kestrel Agent backend for Hermes Desktop";
 
   # The environment that each Hermes process needs, from either module.
   #

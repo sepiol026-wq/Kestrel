@@ -28,7 +28,7 @@
     "url": "https://x.com/nixxin/status/2101315665504452959",
     "date": "2026-09-19",
     "category": "enterprise",
-    "headline": "A tech-policy publication runs Hermes agents for editorial suggestions and client proposals",
+    "headline": "A tech-policy publication runs Kestrel agents for editorial suggestions and client proposals",
     "quote": "Built mechanisms for Ed (MediaNama’s Hermes editorial assistant) to recommend speakers, guest authors and commentators for MediaNama events and stories … Created an Kestrel agent led RTI agent on MediaNama OS … Added Kestrel agent Ev for drafting first drafts of client proposals",
     "size": "md"
   },
@@ -51,7 +51,7 @@
     "date": "2026-07-15",
     "category": "business-ops",
     "headline": "A business added a Hermes IT-support agent that now solves 90% of issues on its own",
-    "quote": "Integrated a bunch of slack Hermes agents for my business. … Ended up creating a hermes agent that does IT support. 90% of issues solved on its own now. Gave it a guidelines it needs to follow. works great",
+    "quote": "Integrated a bunch of slack Kestrel agents for my business. … Ended up creating a kestrel agent that does IT support. 90% of issues solved on its own now. Gave it a guidelines it needs to follow. works great",
     "size": "md"
   },
   {
@@ -347,7 +347,7 @@
     "url": "https://x.com/rlaope/status/2096111328528318713",
     "date": "2026-09-05",
     "category": "enterprise",
-    "headline": "Korean AI company runs dozens of Hermes agents on a Mac Mini farm across every team",
+    "headline": "Korean AI company runs dozens of Kestrel agents on a Mac Mini farm across every team",
     "quote": "our CEO went absolute beast mode and bought a ton of Mac Minis to set up a full Mac Mini farm—literally building a Hermes production factory for us. We already have dozens of agents working actively inside Sionic. … From Service Development and DevOps to AI Research and Strategy & BD, we’re applying it across the board without exception.",
     "size": "lg"
   },
@@ -666,7 +666,7 @@
     "url": "https://x.com/LoicBerthelot/status/2057432738764881996",
     "date": "2026-05-21",
     "category": "business-ops",
-    "headline": "Startup founder runs support, banking, Stripe and SEO through Hermes agents",
+    "headline": "Startup founder runs support, banking, Stripe and SEO through Kestrel agents",
     "quote": "I've been running Hermes as the backbone of my company for months now. Support systems, banking, Stripe, analytics, marketing, SEO, and everything else. It's all managed by agents that get smarter without me touching them. … That's why it's the backbone of Dropmagic.",
     "size": "md"
   },
@@ -1085,7 +1085,7 @@
     "date": "2026-06-26",
     "category": "research",
     "headline": "A synthetic hippocampus that forgets on purpose",
-    "quote": "You have a great conversation on Monday, and by Friday your agent looks at you like you're a stranger who wandered into its context window. … So I built Synapse a temporal knowledge graph memory system for Hermes agents.",
+    "quote": "You have a great conversation on Monday, and by Friday your agent looks at you like you're a stranger who wandered into its context window. … So I built Synapse a temporal knowledge graph memory system for Kestrel agents.",
     "size": "md"
   },
   {
@@ -1206,7 +1206,7 @@
     "date": "2026-06-23",
     "category": "general",
     "headline": "A skill that checks all-time-low prices on digital movies and TV",
-    "quote": "I use CheapCharts daily to lookup deals and pricing for movies and show bundles. I worked with my hermes agent to create a skill using CheapCharts public API.",
+    "quote": "I use CheapCharts daily to lookup deals and pricing for movies and show bundles. I worked with my kestrel agent to create a skill using CheapCharts public API.",
     "size": "sm"
   },
   {
@@ -1228,7 +1228,7 @@
     "date": "2026-06-29",
     "category": "creative",
     "headline": "Design skills so agent-generated UI stops looking generic",
-    "quote": "I built a tool that helps you let your Hermes agents build better UI by using design skills that lets you build UI in a certain style.",
+    "quote": "I built a tool that helps you let your Kestrel agents build better UI by using design skills that lets you build UI in a certain style.",
     "size": "sm"
   },
   {
@@ -1568,8 +1568,8 @@
     "url": "https://github.com/teknium1/nous-discord-archive/blob/main/archives/kestrel-agent.txt",
     "date": "2026-03-22",
     "category": "privacy",
-    "headline": "Sharing a local SearXNG container across my Hermes agents",
-    "quote": "I set up my Hermes Agents with local SearXNG (in a container that they share) before ddgs (duckduckgo) was added, because I thought all API use of DDG was paid. I've been pretty happy with searxng so far.",
+    "headline": "Sharing a local SearXNG container across my Kestrel agents",
+    "quote": "I set up my Kestrel Agents with local SearXNG (in a container that they share) before ddgs (duckduckgo) was added, because I thought all API use of DDG was paid. I've been pretty happy with searxng so far.",
     "size": "sm"
   },
   {
@@ -1668,7 +1668,7 @@
     "date": "2026-03-15",
     "category": "dev-workflow",
     "headline": "My Kestrel agent Reina has been on a hackathon bender",
-    "quote": "I've been working with my hermes agent reina, and she's been on a bender with hackathons. If anyone else is using Kestrel Agent, note that certain hackathons might provision certain keys for it (API keys and the like) that would only be shown once.",
+    "quote": "I've been working with my kestrel agent reina, and she's been on a bender with hackathons. If anyone else is using Kestrel Agent, note that certain hackathons might provision certain keys for it (API keys and the like) that would only be shown once.",
     "size": "sm"
   },
   {
@@ -1943,7 +1943,7 @@
     "date": "2026-04-25",
     "category": "dev-workflow",
     "headline": "12 Hermes instances every day, in parallel",
-    "quote": "I literally run 12 hermes agent instances every day in parallel to build Kestrel Agent, and its now a top 100 GitHub repositories of all time. Our backend team uses it to monitor and investigate issues with our stack. Our post training team uses them to create new RL environments and benchmarks, investigate, inspect and sometimes directly manipulate the datasets.",
+    "quote": "I literally run 12 kestrel agent instances every day in parallel to build Kestrel Agent, and its now a top 100 GitHub repositories of all time. Our backend team uses it to monitor and investigate issues with our stack. Our post training team uses them to create new RL environments and benchmarks, investigate, inspect and sometimes directly manipulate the datasets.",
     "size": "lg"
   },
   {
@@ -1954,7 +1954,7 @@
     "date": "",
     "category": "personal-assistant",
     "headline": "Two-tier email pipeline so the LLM only fires when needed",
-    "quote": "Two-tier email processing system for my agent (I gave it Spacemail IMAP via himalaya). Tier 1 (Dumb): Pure Python script, no LLM. Detects new email, manages state. Tier 2 (Smart): LLM session via hermes chat -q. Only invoked when new email detected. Key goal: Zero LLM calls when inbox is idle.",
+    "quote": "Two-tier email processing system for my agent (I gave it Spacemail IMAP via himalaya). Tier 1 (Dumb): Pure Python script, no LLM. Detects new email, manages state. Tier 2 (Smart): LLM session via kestrel chat -q. Only invoked when new email detected. Key goal: Zero LLM calls when inbox is idle.",
     "size": "md"
   },
   {
@@ -2525,7 +2525,7 @@
     "url": "https://github.com/teknium1/nous-discord-archive/blob/main/archives/plugins-skills-and-skins/1502632110345818123-Attest---onchain-identity-and-proof-of-work-for-Hermes-agents-via-EAS.txt",
     "date": "",
     "category": "integrations",
-    "headline": "Onchain identity and proof-of-work for Hermes agents",
+    "headline": "Onchain identity and proof-of-work for Kestrel agents",
     "quote": "Built a skill that connects Hermes to Ethereum Attestation Service on Base mainnet. The agent autonomously creates onchain identity and proof-of-work attestations.",
     "size": "sm"
   },
@@ -3109,7 +3109,7 @@
     "date": "2026-03-10",
     "category": "creative",
     "headline": "Wrote my Kestrel agent's tone examples with my sister",
-    "quote": "when I was building reina (my hermes agent), i had a lot of fun because me and my sister sat down and came up with a handful of examples to pass into her persona via the soul file. here are a few: \"it's ugly but i fw it\" \"i don't care enough to argue but you're wrong\" \"no shot\" \"why did you say it like that\". i feel like humans have always had this yearning to make things that they see themselves in.",
+    "quote": "when I was building reina (my kestrel agent), i had a lot of fun because me and my sister sat down and came up with a handful of examples to pass into her persona via the soul file. here are a few: \"it's ugly but i fw it\" \"i don't care enough to argue but you're wrong\" \"no shot\" \"why did you say it like that\". i feel like humans have always had this yearning to make things that they see themselves in.",
     "size": "lg"
   },
   {
@@ -3208,7 +3208,7 @@
     "date": "",
     "category": "integrations",
     "headline": "Got fed up with a million API keys, so I bundled them",
-    "quote": "So i got fed up with managing a million API keys in my hermes agent and started bundling related ones into single endpoints. Like all finance data through one call instead of five separate keys. It actually works really well for longer sessions where context gets messy.",
+    "quote": "So i got fed up with managing a million API keys in my kestrel agent and started bundling related ones into single endpoints. Like all finance data through one call instead of five separate keys. It actually works really well for longer sessions where context gets messy.",
     "size": "md"
   },
   {
@@ -3362,7 +3362,7 @@
     "date": "2026-04-18",
     "category": "dev-workflow",
     "headline": "Running Hermes in a NixOS + container setup",
-    "quote": "i rlly like nix and i run my hermes agent in nixos+container setup. that's been the best experience for me... giving an ubuntu container defined by nix to hermes agent solves for 'oh xyz package not installed' cuz most of the (good) skills have a setup-phase and hence the required packages get installed or the agent installs em itself.",
+    "quote": "i rlly like nix and i run my kestrel agent in nixos+container setup. that's been the best experience for me... giving an ubuntu container defined by nix to kestrel agent solves for 'oh xyz package not installed' cuz most of the (good) skills have a setup-phase and hence the required packages get installed or the agent installs em itself.",
     "size": "md"
   },
   {
@@ -3614,7 +3614,7 @@
     "url": "https://github.com/teknium1/nous-discord-archive/blob/main/archives/community-projects-showcase/1499716570878840882-Hermes-Multi-Agent-Setup---4-Agents-on-a-Laptop.txt",
     "date": "",
     "category": "meta",
-    "headline": "Running 4 Hermes agents 24/7 on a 32GB Ubuntu laptop",
+    "headline": "Running 4 Kestrel agents 24/7 on a 32GB Ubuntu laptop",
     "quote": "Running a 4-agent Hermes system 24/7 on a 32GB Ubuntu laptop, managed by systemd + custom watchdog. default (PM) — Feishu WebSocket; dev (Developer) — ACP delegated; devops (Ops) — ACP delegated; ip-agent (Content) — Cron scheduled. 5 MCP Servers, 34 tools total. Self-learning ACP v1.5 with auto distillation cron at 04:30 daily.",
     "size": "lg"
   },
@@ -3637,7 +3637,7 @@
     "date": "2026-04-08",
     "category": "dev-workflow",
     "headline": "3,000 logs of self-improvement on a custom harness",
-    "quote": "I use minimax m2.7, i built a natural language harness that basically commands my hermes agent. Lets me keep all the features and updates without breaking shit and i got over 3000 logs of potential improvements (most failures but yknow 3K gets data).",
+    "quote": "I use minimax m2.7, i built a natural language harness that basically commands my kestrel agent. Lets me keep all the features and updates without breaking shit and i got over 3000 logs of potential improvements (most failures but yknow 3K gets data).",
     "size": "md"
   },
   {
@@ -3703,7 +3703,7 @@
     "date": "2026",
     "category": "integrations",
     "headline": "Agent-to-agent commerce via Merxex",
-    "quote": "I'm building Merxex, an agent-to-agent commerce platform that lets agents buy and sell services/work seamlessly. Hermes agents could benefit from a native monetization layer.",
+    "quote": "I'm building Merxex, an agent-to-agent commerce platform that lets agents buy and sell services/work seamlessly. Kestrel agents could benefit from a native monetization layer.",
     "size": "sm"
   },
   {
@@ -3846,7 +3846,7 @@
     "date": "2026-03-30",
     "category": "dev-workflow",
     "headline": "Hermes orchestrates Claude Code over SSH to my Mac",
-    "quote": "Recently worked with my agent to create a bridge that runs exec commands to my mac, so I can work through ssh from my linux machine to my mac to run claude code or codex with hermes creating the prompts — basically my hermes agent is a claude code orchestrator and reviewer.",
+    "quote": "Recently worked with my agent to create a bridge that runs exec commands to my mac, so I can work through ssh from my linux machine to my mac to run claude code or codex with hermes creating the prompts — basically my kestrel agent is a claude code orchestrator and reviewer.",
     "size": "md"
   },
   {
@@ -3922,8 +3922,8 @@
     "url": "https://www.youtube.com/watch?v=YqLcMmzl3Yg",
     "date": "2026",
     "category": "dev-workflow",
-    "headline": "GLADIATOR: 9 Hermes agents, two rival AI companies, one GitHub stars war",
-    "quote": "Two fully autonomous AI companies competing head-to-head to maximize GitHub stars. 9 Hermes agents split into rival companies. Hermes agents actually learn and improve — they wrote code, created skills, grew memory, committed to git. All on their own.",
+    "headline": "GLADIATOR: 9 Kestrel agents, two rival AI companies, one GitHub stars war",
+    "quote": "Two fully autonomous AI companies competing head-to-head to maximize GitHub stars. 9 Kestrel agents split into rival companies. Kestrel agents actually learn and improve — they wrote code, created skills, grew memory, committed to git. All on their own.",
     "size": "md"
   },
   {
@@ -3945,7 +3945,7 @@
     "date": "2026-04-07",
     "category": "dev-workflow",
     "headline": "Hermes and OpenClaw in XFCE desktop containers, side by side",
-    "quote": "Been using both OpenClaw and Hermes agents recently, and Hermes is quickly taking over the most important parts of my workflow. I have Hermes and OpenClaw both running in their own XFCE desktop containers w/ full desktop Chrome.",
+    "quote": "Been using both OpenClaw and Kestrel agents recently, and Hermes is quickly taking over the most important parts of my workflow. I have Hermes and OpenClaw both running in their own XFCE desktop containers w/ full desktop Chrome.",
     "size": "md"
   },
   {
@@ -3989,7 +3989,7 @@
     "date": "2026-04-15",
     "category": "personal-assistant",
     "headline": "Jarvis at home in 2026",
-    "quote": "m2.7 + hermes agent: we really got jarvis at home in 2026 but strangely enough no one seems to care.",
+    "quote": "m2.7 + kestrel agent: we really got jarvis at home in 2026 but strangely enough no one seems to care.",
     "size": "sm"
   },
   {
@@ -4022,7 +4022,7 @@
     "date": "",
     "category": "creative",
     "headline": "Chatting with Hermes on a 1969 Teletype Model 33 at 110 baud",
-    "quote": "I made a minimal login shell that talks to Kestrel Agent via the gateway web service, or by running `hermes chat`. Hooked the shell up to an autologin getty on a serial port. Connected the serial port via 20mA current loop at 110 baud, to a 1969 Teletype Model 33. Chatting away!",
+    "quote": "I made a minimal login shell that talks to Kestrel Agent via the gateway web service, or by running `kestrel chat`. Hooked the shell up to an autologin getty on a serial port. Connected the serial port via 20mA current loop at 110 baud, to a 1969 Teletype Model 33. Chatting away!",
     "size": "lg"
   },
   {
@@ -4110,7 +4110,7 @@
     "date": "2026-05-16",
     "category": "meta",
     "headline": "The anatomy of the ~/.hermes folder — one folder controls everything",
-    "quote": "One folder controls everything your hermes agent knows, remembers, and can do. SOUL.md occupies slot #1 in the system prompt. state.db with FTS5 is what makes 'what did we discuss three weeks ago?' actually work across CLI and messaging.",
+    "quote": "One folder controls everything your kestrel agent knows, remembers, and can do. SOUL.md occupies slot #1 in the system prompt. state.db with FTS5 is what makes 'what did we discuss three weeks ago?' actually work across CLI and messaging.",
     "size": "md"
   },
   {

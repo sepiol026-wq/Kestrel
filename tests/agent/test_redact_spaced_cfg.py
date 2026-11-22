@@ -57,7 +57,7 @@ def test_spaced_quoted_value_with_space_masked_whole(key):
     "auth = a or b",
     'auth_type = "oauth"',
     'auth = "header"',
-    'no_token_msg = "no Codex OAuth token found (run: hermes model)"',
+    'no_token_msg = "no Codex OAuth token found (run: kestrel model)"',
     "password => value",
     "password =~ /re/",
     'password = "prefix-" + suffix',

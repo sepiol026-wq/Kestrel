@@ -90,7 +90,7 @@ the order the pool tries credentials in under the `fill_first` strategy.
 
 ## Interactive Management
 
-Run `hermes auth` with no subcommand for an interactive wizard:
+Run `kestrel auth` with no subcommand for an interactive wizard:
 
 ```bash
 hermes auth
@@ -152,7 +152,7 @@ position when that rule changes it. Other strategies may override priority, and
 reordering does not rebind credentials already held by a running session.
 
 Every successful pool selection increments `request_count`, regardless of strategy.
-Refresh-only lookups and peeks do not count. Status reads (`hermes doctor`, the `/model`
+Refresh-only lookups and peeks do not count. Status reads (`kestrel doctor`, the `/model`
 picker's provider rows, dashboard auth cards) are peeks: they never refresh, rotate, or
 bench a pool credential, so a token endpoint hiccup while the picker is open cannot hide
 a provider that is still serving requests. These are selection counters, not
@@ -239,7 +239,7 @@ imports the Codex CLI's `~/.codex/auth.json` automatically only to *repair a log
 — when its own refresh of the `openai-codex` entry fails and `auth.adopt_external_logins` is on
 (see [Borrowed CLI logins](../security.md#borrowed-cli-logins)). A pool whose Codex entries are
 all `dead` (or removed) has nothing left to repair, so a headless gateway or cron profile stays
-without a Codex credential until you run `hermes auth add openai-codex` in *that* home
+without a Codex credential until you run `kestrel auth add openai-codex` in *that* home
 (`hermes -p <profile> auth add openai-codex` for a named profile), which offers the Codex CLI import
 interactively. Profiles that should share one login can point at the same `HERMES_HOME` instead of
 each holding a copy of a single-use refresh token.
@@ -254,10 +254,10 @@ configured at all.
 
 Custom OpenAI-compatible endpoints (Together.ai, RunPod, local servers) get their own pools, keyed by the endpoint name from the `providers:` dict in config.yaml (or the legacy `custom_providers` list, which is auto-migrated).
 
-When you set up a custom endpoint via `hermes model`, it auto-generates a name like "Together.ai" or "Local (localhost:8080)". This name becomes the pool key.
+When you set up a custom endpoint via `kestrel model`, it auto-generates a name like "Together.ai" or "Local (localhost:8080)". This name becomes the pool key.
 
 ```bash
-# After setting up a custom endpoint via hermes model:
+# After setting up a custom endpoint via kestrel model:
 hermes auth list
 # Shows:
 #   Together.ai (1 credential):

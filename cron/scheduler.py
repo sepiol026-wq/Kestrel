@@ -38,7 +38,7 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Union
 
 # Must precede repo-level imports: standalone invocations (e.g. module reload after
-# `hermes update`) otherwise fail with ModuleNotFoundError for hermes_time et al.
+# `kestrel update`) otherwise fail with ModuleNotFoundError for hermes_time et al.
 _checkout_root = Path(__file__).resolve().parent.parent
 # Append, never prepend: the checkout must not shadow same-named installed packages.
 if str(_checkout_root) not in sys.path:
@@ -309,7 +309,7 @@ def _summarize_cron_failure_for_delivery(job: dict, error: str | None) -> str:
     message = generic_failure_notice(job_name, job_id, cleaned)
 
     # Import-class failures (#95294 part 3): a long-lived gateway whose checkout was updated
-    # underneath it (interrupted `hermes update`, manual git pull) serves MIXED modules and every
+    # underneath it (interrupted `kestrel update`, manual git pull) serves MIXED modules and every
     # agent cron job dies with `cannot import name X`. The error reads like a code bug, so APPEND
     # cause + fix — never replace the raw error, which carries the failing symbol. Fail-safe: skew
     # is None on non-git/no-fingerprint; no_agent jobs excluded (a fresh subprocess resolves
@@ -326,7 +326,7 @@ def _summarize_cron_failure_for_delivery(job: dict, error: str | None) -> str:
             message += (
                 f" Likely cause: the gateway is running stale code (booted "
                 f"on {boot_rev}, disk is at {disk_rev}) — run "
-                "`hermes gateway restart` to fix it."
+                "`kestrel gateway restart` to fix it."
             )
 
     return message
@@ -684,7 +684,7 @@ def get_running_job_ids() -> frozenset[str]:
 def get_running_job_details() -> list[dict]:
     """Per in-flight job: ``{"job_id", "elapsed_s", "worker_pid", "restart_safe"}`` (``worker_pid``
     None for in-process runs; ``restart_safe`` True when the worker owns its own systemd scope). The
-    drain wait publishes this so ``hermes update`` can say WHICH job it is waiting on."""
+    drain wait publishes this so ``kestrel update`` can say WHICH job it is waiting on."""
     now = time.time()
     with _running_lock:
         return [
@@ -1278,7 +1278,7 @@ def _interpreter_shutting_down(exc: Optional[BaseException] = None) -> bool:
     futures/asyncio refuse new work, so delivery attempts only pollute errors.log — callers skip
     with a warning. ``exc`` lets an already-raised scheduling error count as a shutdown signal.
 
-    A cron tick can fire while the gateway is tearing down — SIGTERM from ``hermes update`` / ``hermes
+    A cron tick can fire while the gateway is tearing down — SIGTERM from ``kestrel update`` / ``hermes
     gateway stop`` / systemd restart, or an OOM-kill. Once finalization starts, ``concurrent.futures``
     refuses new work with ``RuntimeError: cannot schedule new futures after interpreter shutdown`` and
     asyncio's default executor is gone, so *any* attempt to schedule delivery (live-adapter,
@@ -1613,7 +1613,7 @@ class _CronJobConfig:
 def _load_cron_job_config(job: dict, job_id: str, job_name: str) -> _CronJobConfig:
     """Load config.yaml and resolve the run's model: per-job pin > cron.model (fleet default) >
     the main agent model (config ``model:``, then HERMES_MODEL) > the claimed welcome trial's. Re-read
-    every tick (no cache) so ``hermes cron edit --model`` and ``hermes model`` both apply next tick."""
+    every tick (no cache) so ``hermes cron edit --model`` and ``kestrel model`` both apply next tick."""
     from kestrel_cli.anon_auth import trial_model
     model = job.get("model") or cron_env_setting("HERMES_MODEL") or ""
     _cron_default_provider = ""
@@ -1653,7 +1653,7 @@ def _load_cron_job_config(job: dict, job_id: str, job_name: str) -> _CronJobConf
             "config.yaml model.default missing or empty). "
             f"Set a per-job model via "
             f"`hermes cron edit {job_id} --model <name>` or set a "
-            "default with `hermes model <name>`."
+            "default with `kestrel model <name>`."
         )
 
     with contextlib.suppress(Exception):

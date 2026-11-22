@@ -46,7 +46,7 @@ def _cu_status(args) -> int:
     override = _os.environ.get("HERMES_CUA_DRIVER_CMD", "").strip()
     if not path:
         print("cua-driver: not installed")
-        print("  Run: hermes computer-use install")
+        print("  Run: kestrel computer-use install")
         return 1
     contract = _cua_driver_contract_status(path)
     version = _cua_version_summary(contract.get("version") or "")
@@ -62,7 +62,7 @@ def _cu_status(args) -> int:
                 "    Update the binary selected by HERMES_CUA_DRIVER_CMD, or unset "
                 "the override and run: hermes computer-use install --upgrade")
         else:
-            print("    Run: hermes computer-use install")
+            print("    Run: kestrel computer-use install")
         return 1
     rc = 0
     if sys.platform == "linux":  # hand-written daemon units: dead `serve` is invisible to the binary contract (#114748)
@@ -100,7 +100,7 @@ def _cu_perms_status(args) -> None:
         print(f"Computer Use is not supported on {st['platform']}.")
         sys.exit(1)
     if not st["installed"]:
-        print("cua-driver: not installed. Run: hermes computer-use install")
+        print("cua-driver: not installed. Run: kestrel computer-use install")
         sys.exit(1)
     glyph = lambda v: "✅" if v is True else ("❌" if v is False else "•")
     print(f"cua-driver: {st['version'] or 'installed'} ({st['platform']})")

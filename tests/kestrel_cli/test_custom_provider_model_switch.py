@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Tests that `hermes model` always shows the model selection menu for custom
+"""Tests that `kestrel model` always shows the model selection menu for custom
 providers, even when a model is already saved.
 
 Regression test for the bug where _model_flow_named_custom() returned
@@ -501,7 +501,7 @@ class TestCustomProviderModelSwitch:
 
 
 class TestCustomProviderDiscoverModels:
-    """#18726: honor ``discover_models: false`` in the terminal ``hermes model``
+    """#18726: honor ``discover_models: false`` in the terminal ``kestrel model``
     named-custom flow so the picker shows the configured ``models:`` subset
     instead of the endpoint's full live catalog."""
 

@@ -19,7 +19,7 @@ platforms:
   - linux
   - macos
 known_issues:
-  - "Run `hermes solverforge-routing install` once after installing the plugin: the engine binary is downloaded separately (about 10 MB) and checked against a pinned SHA-256"
+  - "Run `kestrel solverforge-routing install` once after installing the plugin: the engine binary is downloaded separately (about 10 MB) and checked against a pinned SHA-256"
   - "Engine builds exist for Linux (x86_64, arm64), macOS (Apple silicon, Intel) and Windows (x86_64)"
   - "Hermes builds a session's tool list from the plugins it saw at the previous launch, so the first session right after installing has no routing tools: start Hermes once more"
   - "Not turn-by-turn navigation: no live traffic, and turn restrictions, barriers and conditional access are not modelled yet; check the route in your navigation app"

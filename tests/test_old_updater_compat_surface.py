@@ -3,9 +3,9 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""An old `hermes update` must still find every name it loads mid-swap.
+"""An old `kestrel update` must still find every name it loads mid-swap.
 
-`hermes update` replaces the checkout underneath a RUNNING process. The
+`kestrel update` replaces the checkout underneath a RUNNING process. The
 old process then lazy-imports from the new tree: whatever it asks for
 must still exist, or the user's update dies half-applied. The names it
 can ask for are the contract of updaters shipped BEFORE the PM migration:

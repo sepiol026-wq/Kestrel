@@ -20,7 +20,7 @@ from kestrel_cli import gateway_service_owner
 
 UNIT = (
     "[Service]\n"
-    "ExecStart=/home/ace/.hermes/kestrel-agent/.hermes/bin/hermes gateway run\n"
+    "ExecStart=/home/ace/.hermes/kestrel-agent/.hermes/bin/kestrel gateway run\n"
     "WorkingDirectory={home}\n"
     'Environment="HERMES_HOME={home}"\n'
 )

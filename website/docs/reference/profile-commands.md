@@ -85,7 +85,7 @@ Creates a new profile.
 | `--clone-from <profile>` | Clone config/skills/SOUL from a specific profile instead of the current one. Implies `--clone` unless paired with `--clone-all`. |
 | `--no-alias` | Skip wrapper script creation. |
 | `--description "<text>"` | One- or two-sentence description of what this profile is good at. Used by the kanban orchestrator to route tasks based on role instead of profile name alone. Skip and add later via `hermes profile describe`. Persisted in `<profile_dir>/profile.yaml`. |
-| `--no-skills` | Create an **empty** profile with zero bundled skills enabled. Writes a `.no-bundled-skills` marker into the profile so future `hermes update` runs won't re-seed the bundled set, and refuses to combine with `--clone`, `--clone-from`, or `--clone-all` (which would copy skills in anyway). Useful for narrow orchestrator profiles or sandbox profiles that should not inherit the full skill catalog. To toggle this on an already-created profile (including the default `~/.hermes`), use `hermes skills opt-out` / `hermes skills opt-in`. |
+| `--no-skills` | Create an **empty** profile with zero bundled skills enabled. Writes a `.no-bundled-skills` marker into the profile so future `kestrel update` runs won't re-seed the bundled set, and refuses to combine with `--clone`, `--clone-from`, or `--clone-all` (which would copy skills in anyway). Useful for narrow orchestrator profiles or sandbox profiles that should not inherit the full skill catalog. To toggle this on an already-created profile (including the default `~/.hermes`), use `hermes skills opt-out` / `hermes skills opt-in`. |
 
 Creating a profile does **not** make that profile directory the default project/workspace directory for terminal commands. If you want a profile to start in a specific project, set `terminal.cwd` in that profile's `config.yaml`.
 
@@ -207,7 +207,7 @@ Regenerates the shell alias script at `~/.local/bin/<name>` (`<name>.bat` on Win
 | Argument / Option | Description |
 |-------------------|-------------|
 | `<name>` | Profile to create/update the alias for. |
-| `--remove` | Remove the wrapper script instead of creating it. Also removes an orphan alias whose profile was deleted: pass the alias name (`hermes doctor` lists them). |
+| `--remove` | Remove the wrapper script instead of creating it. Also removes an orphan alias whose profile was deleted: pass the alias name (`kestrel doctor` lists them). |
 | `--name <alias>` | Custom alias name (default: profile name). |
 
 **Example:**
@@ -527,7 +527,7 @@ Authoring a distribution is just a git push:
    and `version`.
 2. Initialize a git repo (or use an existing one) and push to GitHub /
    GitLab / any host Hermes can clone from.
-3. Tell recipients to run `hermes profile install <your-repo-url>`.
+3. Tell recipients to run `kestrel profile install <your-repo-url>`.
 
 Use git tags for versioned releases — recipients who clone `HEAD` get your
 latest state, and you can always bump `version:` in the manifest.

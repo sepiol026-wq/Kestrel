@@ -8,7 +8,7 @@
 #
 # Nothing here touches your real ~/.hermes or checkout. Each mode builds (or
 # reuses) a disposable install under $TMPDIR and drives the REAL code path --
-# the actual installer, the actual orchestrator, the actual `hermes update`.
+# the actual installer, the actual orchestrator, the actual `kestrel update`.
 #
 #   repro.sh shim          shim UI only: success event after 6s
 #   repro.sh shim-fail     shim UI only: error event after 6s
@@ -150,7 +150,7 @@ case "$MODE" in
         printf 'FAIL %s -> %s\n' "$1" "$(cat "$L/.hermes-update-result.json" 2>/dev/null)"; fails=$((fails+1))
       fi
     }
-    stub_install() { # creates a fake install whose hermes update succeeds
+    stub_install() { # creates a fake install whose kestrel update succeeds
       rm -rf "$L"; mkdir -p "$L/hermes-agent/venv/bin"
       printf '#!/bin/sh\nexit 0\n' > "$L/hermes-agent/venv/bin/hermes"
       chmod +x "$L/hermes-agent/venv/bin/hermes"

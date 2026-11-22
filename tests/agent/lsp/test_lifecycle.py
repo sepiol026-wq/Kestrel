@@ -6,7 +6,7 @@
 """Tests for service-singleton lifecycle: atexit handler, idempotent shutdown.
 
 These cover the exit-cleanup behavior added to plug the language-server
-process leak — without the atexit hook, ``hermes chat`` exits while
+process leak — without the atexit hook, ``kestrel chat`` exits while
 pyright/gopls/etc. are still alive on the host.
 """
 from __future__ import annotations

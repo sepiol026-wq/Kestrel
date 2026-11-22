@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Kanban worker SIGKILLed mid-run, through the real dispatcher CLI and real ``hermes chat -q`` workers.
+"""Kanban worker SIGKILLed mid-run, through the real dispatcher CLI and real ``kestrel chat -q`` workers.
 
 One scenario is driven once per module (real processes end to end, the model is the recording fake):
 

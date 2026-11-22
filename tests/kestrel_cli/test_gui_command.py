@@ -108,7 +108,7 @@ def _make_packaged_executable(root: Path, monkeypatch) -> Path:
     if sys.platform == "darwin":
         exe = desktop_dir / "release" / "mac-arm64" / "Hermes.app" / "Contents" / "MacOS" / "Hermes"
     elif sys.platform == "win32":
-        exe = desktop_dir / "release" / "win-unpacked" / "Hermes.exe"
+        exe = desktop_dir / "release" / "win-unpacked" / "Kestrel.exe"
     else:
         exe = desktop_dir / "release" / "linux-unpacked" / "hermes"
     exe.parent.mkdir(parents=True, exist_ok=True)
@@ -132,7 +132,7 @@ def _packaged_exe_rel() -> Path:
     if sys.platform == "darwin":
         return Path("mac-arm64") / "Hermes.app" / "Contents" / "MacOS" / "Hermes"
     if sys.platform == "win32":
-        return Path("win-unpacked") / "Hermes.exe"
+        return Path("win-unpacked") / "Kestrel.exe"
     return Path("linux-unpacked") / "hermes"
 
 
@@ -1682,7 +1682,7 @@ def test_stop_desktop_processes_locking_build_posix_swap_bypasses_early_return(t
 
 def _stop_spares_the_desktop_driving_this_update(tmp_path, monkeypatch, *, also_posix):
     """A Desktop's own process tree runs this update (a historical Desktop's piped
-    `hermes update` child, or the launch-time tail its backend runs). Stopping that
+    `kestrel update` child, or the launch-time tail its backend runs). Stopping that
     Desktop kills the update with it. Its renderer/GPU/zygote helpers run the same
     exe but are not our ancestors; stopping them leaves a main process that can
     neither draw nor quit. Only an unrelated Desktop from the same release tree is
@@ -1737,7 +1737,7 @@ def _stop_spares_the_desktop_driving_this_update(tmp_path, monkeypatch, *, also_
 
 @pytest.mark.platforms("posix")
 def test_posix_swap_spares_the_desktop_driving_this_update(tmp_path, monkeypatch):
-    """A historical Desktop runs `hermes update` as a piped child and relaunches
+    """A historical Desktop runs `kestrel update` as a piped child and relaunches
     itself afterwards; stopping it breaks the update's stdout (EPIPE)."""
     _stop_spares_the_desktop_driving_this_update(tmp_path, monkeypatch, also_posix=True)
 

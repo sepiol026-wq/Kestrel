@@ -232,7 +232,7 @@ def test_unattended_update_refusal_in_one_profile_does_not_skip_the_others(tmp_p
 
     default, work = _profile_homes(tmp_path, monkeypatch, "work")
     monkeypatch.setattr("pm.plugins_state.dependency_homes", lambda: [default, work])
-    monkeypatch.setattr("sys.stdin", io.StringIO())  # Desktop / scripted `hermes update`: no terminal
+    monkeypatch.setattr("sys.stdin", io.StringIO())  # Desktop / scripted `kestrel update`: no terminal
     monkeypatch.setattr(pm_install, "lazy_installs_allowed", lambda: get_kestrel_home() == work)
 
     def install(*_a, catalog_name, assume_deps_consent, **_kw):
@@ -300,8 +300,8 @@ def test_recovery_copy_without_a_catalog_memory_entry_keeps_the_generic_hint(tmp
 
 
 def test_startup_recovery_backs_off_after_a_failed_install(tmp_path, monkeypatch):
-    """A failed agent-start install is not retried by every following process start (each `hermes chat`,
-    cron run, Desktop restart): one failure, then a quiet hour; `hermes update` still retries."""
+    """A failed agent-start install is not retried by every following process start (each `kestrel chat`,
+    cron run, Desktop restart): one failure, then a quiet hour; `kestrel update` still retries."""
     from pm import install as pm_install
 
     (tmp_path / "config.yaml").write_text("memory:\n  provider: hindsight\n", encoding="utf-8")

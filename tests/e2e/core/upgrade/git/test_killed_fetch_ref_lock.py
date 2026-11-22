@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""A real ``hermes update`` killed inside its fetch's ref transaction, then the user's next update.
+"""A real ``kestrel update`` killed inside its fetch's ref transaction, then the user's next update.
 
 Failure class: the Windows crash cell ``mid_fetch`` (``tests/e2e/core/windows_update``) kills the
 update's tree while its ``git fetch`` runs. When the kill lands while git holds
@@ -14,7 +14,7 @@ could fetch again until a user found and deleted the file.
 Here the kill point is deterministic: git's own ``reference-transaction`` hook (in the checkout's
 ``.git/hooks``, nothing in the product) holds the fetch in the ``prepared`` state, when every ref
 lock of the transaction is taken. The whole sandboxed update tree is then SIGKILLed (a closed
-console, ``taskkill /T /F``), and the next plain ``hermes update`` of the same home must complete
+console, ``taskkill /T /F``), and the next plain ``kestrel update`` of the same home must complete
 to the target.
 """
 

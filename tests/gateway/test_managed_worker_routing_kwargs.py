@@ -4,7 +4,7 @@
 # Derivative work. All upstream attribution and rights retained.
 
 """A managed worker (every Kanban run, opt-in CLI sessions) builds its agent with the session's
-provider routing and service tier, as ``hermes chat`` did on main (``HermesCLI._init_agent``):
+provider routing and service tier, as ``kestrel chat`` did on main (``HermesCLI._init_agent``):
 ``provider_routing.ignore``/``data_collection`` and a static ``agent.service_tier`` reach AIAgent."""
 import json
 import threading

@@ -4,7 +4,7 @@
 // Derivative work. All upstream attribution and rights retained.
 
 // Shared-metrics report for PACKAGED self-updates (electron-updater, App
-// Installer, Store). Checkout hand-offs run `hermes update`, whose receipt the
+// Installer, Store). Checkout hand-offs run `kestrel update`, whose receipt the
 // backend already counts, so they never reach this module.
 //
 // A packaged apply usually ends with the installer quitting the app, so the

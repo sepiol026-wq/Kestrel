@@ -206,7 +206,7 @@ and `hermes send --list` points at the root's `channel_directory.json`.
 A live gateway is only required for **plugin platforms** that rely on a
 persistent adapter connection (for example, a custom plugin that keeps
 a long-lived WebSocket open). In that case you'll get a clear error
-pointing at the gateway; start it with `hermes gateway start` and retry.
+pointing at the gateway; start it with `kestrel gateway start` and retry.
 
 ---
 
@@ -227,7 +227,7 @@ hermes send --list --json
 
 The listing is built from `~/.hermes/channel_directory.json`, which the
 gateway refreshes every few minutes while it's running. If you see
-"no channels discovered yet", start the gateway once (`hermes gateway
+"no channels discovered yet", start the gateway once (`kestrel gateway
 start`) so it can populate the cache.
 
 Human-friendly names (`discord:#ops`, `slack:#engineering`) are resolved

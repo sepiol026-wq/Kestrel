@@ -83,7 +83,7 @@ curl http://127.0.0.1:8080/api/v1/check
 最简单的方式：
 
 ```bash
-hermes gateway setup
+kestrel gateway setup
 ```
 
 从平台菜单中选择 **Signal**。向导将：
@@ -114,9 +114,9 @@ SIGNAL_HOME_CHANNEL=+1234567890                  # cron 任务的默认投递目
 然后启动 gateway：
 
 ```bash
-hermes gateway              # 前台运行
-hermes gateway install      # 安装为用户服务
-sudo hermes gateway install --system   # 仅 Linux：开机自启系统服务
+kestrel gateway              # 前台运行
+kestrel gateway install      # 安装为用户服务
+sudo kestrel gateway install --system   # 仅 Linux：开机自启系统服务
 ```
 
 ---

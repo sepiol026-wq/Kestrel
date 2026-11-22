@@ -126,7 +126,7 @@ def test_cron_status_restart_hint_names_the_profile_hosting_the_scheduler(tmp_pa
     class _Stop(Exception):
         pass
 
-    def _capture(pids, restart_command="hermes gateway restart"):
+    def _capture(pids, restart_command="kestrel gateway restart"):
         seen.append(restart_command)
         raise _Stop
 

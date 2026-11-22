@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""A key stored for one endpoint is never sent to the endpoint ``hermes model`` switches to.
+"""A key stored for one endpoint is never sent to the endpoint ``kestrel model`` switches to.
 
 Writers covered: the custom-endpoint flow (blank key), the named custom-provider flow (keyless
 entry) and the Vercel AI Gateway flow. A same-endpoint re-entry with a blank key keeps the key.

@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""After the checkout moves, the running ``hermes update`` process imports nothing from the tree.
+"""After the checkout moves, the running ``kestrel update`` process imports nothing from the tree.
 
 Once git (or the ZIP swap) writes the new code, every module this interpreter has not loaded yet is
 the REPLACEMENT tree's: importing one mixes generations in one process, and it is also why every

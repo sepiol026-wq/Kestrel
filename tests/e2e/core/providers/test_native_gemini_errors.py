@@ -5,7 +5,7 @@
 
 """Gemini native wire conformance: documented errors, blocked candidates and a mid-stream drop.
 
-Each scenario is one real ``hermes chat -q`` turn against the fake Google endpoint
+Each scenario is one real ``kestrel chat -q`` turn against the fake Google endpoint
 (``tests/fakes/providers/gemini_native.py``); the scenarios are independent and run concurrently.
 
 * retryable (429 ``RESOURCE_EXHAUSTED`` with ``RetryInfo``, 503 ``UNAVAILABLE``): retried, then the

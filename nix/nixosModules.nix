@@ -565,7 +565,7 @@
           # ══════════════════════════════════════════════════════════════════
           (lib.mkIf (!cfg.container.enable) {
             systemd.services.hermes-agent = {
-              description = "Hermes Agent Gateway";
+              description = "Kestrel Agent Gateway";
               wantedBy = [ "multi-user.target" ];
               # linger-users.service is the unit that runs `loginctl
               # enable-linger` for a declared `users.users.<name>.linger`.
@@ -639,7 +639,7 @@
             virtualisation.docker.enable = lib.mkDefault (cfg.container.backend == "docker");
 
             systemd.services.hermes-agent = {
-              description = "Hermes Agent Gateway (container)";
+              description = "Kestrel Agent Gateway (container)";
               wantedBy = [ "multi-user.target" ];
               after = [
                 "network-online.target"
@@ -688,7 +688,7 @@
                     --env HOME=${containerHomeDir} \
                     ${lib.concatStringsSep " " cfg.container.extraOptions} \
                     ${cfg.container.image} \
-                    ${containerDataDir}/current-package/bin/hermes gateway run --replace ${lib.concatStringsSep " " cfg.extraArgs}
+                    ${containerDataDir}/current-package/bin/kestrel gateway run --replace ${lib.concatStringsSep " " cfg.extraArgs}
 
                   echo "${containerIdentity}" > ${identityFile}
                 fi

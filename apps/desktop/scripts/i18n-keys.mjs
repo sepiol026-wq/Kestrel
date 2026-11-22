@@ -11,7 +11,7 @@
 // file from `src/i18n/en.ts` — every leaf's dotted path, sorted; function-
 // valued entries are keys too (a pack overrides them with a positional
 // `{0}`/`{1}` string). Run via `pnpm run i18n:keys` and commit the result (`--check` verifies);
-// the build never writes it — a dirty checkout would break `hermes update`.
+// the build never writes it — a dirty checkout would break `kestrel update`.
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'

@@ -42,7 +42,7 @@ mcp_servers:
 3. Start Hermes:
 
 ```bash
-hermes chat
+kestrel chat
 ```
 
 4. Ask Hermes to use the MCP-backed capability.
@@ -136,8 +136,8 @@ API key is required.
 2. Open **Connect** and copy the full **Server URL** ending in
    `/mcp-server/http`, not the editor URL. Older versions show the endpoint
    directly on the MCP settings page.
-3. Run `hermes mcp install n8n-official` and enter that URL when prompted.
-4. Complete browser OAuth. If needed, run `hermes mcp login n8n-official`
+3. Run `kestrel mcp install n8n-official` and enter that URL when prompted.
+4. Complete browser OAuth. If needed, run `kestrel mcp login n8n-official`
    or use **Authorize** on the configured server in Desktop or the dashboard.
 5. Review tools with `hermes mcp configure n8n-official`, then start a new
    session or use `/reload-mcp`.
@@ -186,7 +186,7 @@ written (cleanest config shape, identical behavior).
 **If the probe fails** (server unreachable, OAuth not yet completed,
 backing service not running), the install still succeeds: the manifest's
 `tools.default_enabled` is applied directly (if declared), or no filter is
-written (if not). Re-run `hermes mcp configure <name>` once the server is
+written (if not). Re-run `kestrel mcp configure <name>` once the server is
 reachable to refine.
 
 ### Trust model
@@ -214,7 +214,7 @@ before clicking Install.
 Manifests pin a `manifest_version`. The catalog is forward-compatible: if a
 PR adds an entry with a newer `manifest_version` than your installed Hermes
 understands, the picker will surface a warning (`⚠ '<name>' requires a newer
-Hermes`) for that entry instead of silently hiding it. Run `hermes update`
+Hermes`) for that entry instead of silently hiding it. Run `kestrel update`
 to install the latest Hermes when you see that.
 
 ### Runtime `${ENV_VAR}` substitution
@@ -261,7 +261,7 @@ mcp_servers:
 ```
 
 Read the entry's `post_install` notes for the exact app type and redirect URL
-to register, then run `hermes mcp login <name>` and restart (or
+to register, then run `kestrel mcp login <name>` and restart (or
 `/reload-mcp`) the session or gateway that should expose the tools. The
 dashboard / Desktop **Authorize** button works too: because the client is
 pre-registered with a pinned `redirect_port`, Hermes keeps the registered
@@ -282,7 +282,7 @@ you want to opt into.
 
 ### Updating the catalog manifest
 
-MCPs are never auto-updated. Re-run `hermes mcp install <name>` to refresh
+MCPs are never auto-updated. Re-run `kestrel mcp install <name>` to refresh
 after a Hermes update if a manifest version changed.
 
 To add an MCP to the catalog, open a PR against
@@ -381,13 +381,13 @@ The redirect back from the authorization server is checked against RFC 9207: whe
 
 The authorization server's metadata document must name the server the resource advertised (RFC 8414 §3.3); a document for a different server is rejected before any registration or login. One shape is accepted without an exact match: a server advertised with a path (`https://host/path`) whose document, fetched from `https://host/.well-known/oauth-authorization-server/path`, names the origin `https://host` as its issuer — Strava's MCP connector publishes exactly that pair. Only the origin's operator controls that well-known location, so the document is treated as the advertised server's own; a document naming another origin or another path, or one reached only through a redirect or a fallback location, still fails with `Authorization server metadata issuer mismatch`.
 
-**Google-hosted servers (Gmail, Calendar).** Google only issues a refresh token when the authorization request carries `access_type=offline`, which MCP discovery never advertises. Hermes adds it (plus `prompt=consent`, so a repeat login is re-granted one) whenever the discovered authorization server is `accounts.google.com`, so the connection persists across restarts and works from `hermes gateway`. Other issuers' requests are untouched.
+**Google-hosted servers (Gmail, Calendar).** Google only issues a refresh token when the authorization request carries `access_type=offline`, which MCP discovery never advertises. Hermes adds it (plus `prompt=consent`, so a repeat login is re-granted one) whenever the discovered authorization server is `accounts.google.com`, so the connection persists across restarts and works from `kestrel gateway`. Other issuers' requests are untouched.
 
 **Remote / headless hosts.** When Hermes runs on a different machine than your browser, the loopback callback can't reach your laptop. Ways to complete the flow:
 
 - **Hermes Desktop (automatic):** when you run the OAuth sign-in from the Desktop app's MCP setup UI against a remote backend, Desktop hosts the callback listener on *your* machine and relays the authorization back to the gateway automatically — no tunnel, paste, or proxy needed. Requires both the Desktop app and the backend to be up to date.
 - **Paste-back (no setup):** on an interactive terminal Hermes prints "Or paste the redirect URL here…" alongside the authorize URL. Open the URL in your browser, approve, copy the full URL the browser ends up on (the redirect will show a connection error — that's expected), paste it at the prompt. Bare `?code=…&state=…` query strings work too.
-- **Device-code login (no callback at all):** if the server's authorization server advertises a device authorization endpoint, run `hermes mcp login <server> --flow device` on the machine running Hermes. It prints a verification URL and a short code; open the URL on any device, enter the code, and Hermes polls for approval. No browser is launched on the host and no callback listener is needed. Set `oauth.flow: device` on the server to make `login` and `reauth` use it by default. Details: [Device-code login](../../reference/mcp-config-reference.md#device-code-login-rfc-8628).
+- **Device-code login (no callback at all):** if the server's authorization server advertises a device authorization endpoint, run `kestrel mcp login <server> --flow device` on the machine running Hermes. It prints a verification URL and a short code; open the URL on any device, enter the code, and Hermes polls for approval. No browser is launched on the host and no callback listener is needed. Set `oauth.flow: device` on the server to make `login` and `reauth` use it by default. Details: [Device-code login](../../reference/mcp-config-reference.md#device-code-login-rfc-8628).
 - **SSH port forward:** `ssh -N -L <port>:127.0.0.1:<port> user@host` in a separate terminal, then let the redirect flow normally.
 - **Proxied callback (`redirect_uri`):** when a public HTTPS endpoint forwards to the host (e.g. a Tailscale Funnel or reverse proxy pointed at the callback port), set `oauth.redirect_uri` and the browser redirect reaches Hermes on its own — no tunnel or paste needed:
 
@@ -419,9 +419,9 @@ mcp_servers:
       client_secret: "<your-oauth-client-secret>"
 ```
 
-Then run `hermes mcp login googledrive` — with the pre-registered client, Hermes skips registration and runs the normal browser authorization flow.
+Then run `kestrel mcp login googledrive` — with the pre-registered client, Hermes skips registration and runs the normal browser authorization flow.
 
-**Pitfall — config auto-reload race.** When you edit `~/.hermes/config.yaml` from inside a running Hermes session, the CLI auto-reloads MCP connections with a 30s timeout. That's not enough for an interactive OAuth flow. Add the entry, then run `hermes mcp login <server>` from a fresh terminal — it waits the full 5 minutes for you to complete auth.
+**Pitfall — config auto-reload race.** When you edit `~/.hermes/config.yaml` from inside a running Hermes session, the CLI auto-reloads MCP connections with a 30s timeout. That's not enough for an interactive OAuth flow. Add the entry, then run `kestrel mcp login <server>` from a fresh terminal — it waits the full 5 minutes for you to complete auth.
 
 **Need longer than 5 minutes to approve?** Set `oauth.timeout` on the server entry (seconds). `hermes mcp login`, the dashboard and Desktop re-auth all wait `oauth.timeout` + 15 s (or the entry's `connect_timeout`, whichever is longer); a login that still runs out of time reports `Connecting to MCP server '<name>' timed out after Ns` naming both knobs instead of a blank failure line.
 
@@ -785,7 +785,7 @@ If you change MCP config, use:
 
 This reloads MCP servers from config and refreshes the available tool list. It is also the explicit way to re-probe availability-gated tools (Docker, plugin credentials such as `HASS_TOKEN`, OAuth…): a session's tool set is otherwise frozen, so a credential or daemon that appears mid-session is only picked up on `/reload-mcp`, `/new`, or context compaction. For runtime tool changes pushed by the server itself, see [Dynamic Tool Discovery](#dynamic-tool-discovery) above.
 
-A running messaging gateway (`hermes gateway run`) also watches `config.yaml` on its own: within about a minute of you removing an `mcp_servers` entry or setting `enabled: false`, that server's connection is torn down; a newly added entry is connected. A server whose first connect failed (an unreachable host, or an OAuth server on a headless box that had no token yet) is retried automatically on its connect cooldown schedule (30 s, doubling up to 10 min) once you fix the cause. No restart or `/reload-mcp` needed for the edit to take effect.
+A running messaging gateway (`kestrel gateway run`) also watches `config.yaml` on its own: within about a minute of you removing an `mcp_servers` entry or setting `enabled: false`, that server's connection is torn down; a newly added entry is connected. A server whose first connect failed (an unreachable host, or an OAuth server on a headless box that had no token yet) is retried automatically on its connect cooldown schedule (30 s, doubling up to 10 min) once you fix the cause. No restart or `/reload-mcp` needed for the edit to take effect.
 
 **Expired OAuth tokens in the background.** The gateway, `/reload-mcp`, and the periodic self-probe of a parked server never open a browser — nobody is there to complete the flow. When a refresh token dies, the server parks with a warning in `gateway.log` and you re-authorize once with `hermes mcp login <server>` (or the Desktop/dashboard *Authorize* button); the parked server picks the new token up on its next probe. Until the token files change, starting new sessions does not retry the rejected token: only the timed self-probe does, so a dead grant cannot hammer the provider's token endpoint.
 
@@ -1008,7 +1008,7 @@ mcp_servers:
 - The approval prompt names the cost: `Costs about 20 credits.` or `Costs 5-20 credits (per animation).`, plus `This chat has used about 40 credits on 'renders' (limit 100).` once the chat has spent something.
 - Hermes keeps a running total per chat and per server, counting the declared figure (the top of a range) for every costed call it approved and started. Declined or blocked calls add nothing; a call whose server dies before receiving it still counts, which errs toward asking sooner. The total lives in memory: it is a budget for one conversation, not the vendor's bill.
 - The total follows the conversation when context compression or `/branch` continues it under a new session id. Starting a new chat (`/new` in the CLI, a new Desktop chat) starts a new total; on messaging platforms the total belongs to the chat, so it survives `/new` there. Each cron run has its own total. Restarting Hermes resets every total.
-- With `spend_limit`, a costed call that would take the chat past the limit asks first, even on a `trust: full` server that otherwise never prompts, and every further costed call in that chat asks again: that prompt offers only Allow Once and Deny, and an earlier Session or Always answer for the tool does not silence it. Where nobody can answer (cron jobs, `hermes chat -q`, a gateway with no approver), the call is refused without running and the model is told not to retry.
+- With `spend_limit`, a costed call that would take the chat past the limit asks first, even on a `trust: full` server that otherwise never prompts, and every further costed call in that chat asks again: that prompt offers only Allow Once and Deny, and an earlier Session or Always answer for the tool does not silence it. Where nobody can answer (cron jobs, `kestrel chat -q`, a gateway with no approver), the call is refused without running and the model is told not to retry.
 - Below the limit, a `trust: full` server still runs costed tools without asking; on a `trust: untrusted` server every write-capable call already asks and the prompt now carries the cost. Tools annotated `readOnlyHint: true` stay unprompted unless the budget requires it.
 - [YOLO](../security.md#yolo-mode) (`/yolo`, `--yolo`) and `approvals.mode: off` skip the `trust: untrusted` prompt (`/yolo` for that chat, `--yolo` for that process, `approvals.mode: off` for that profile), but not the spend limit: below the limit a costed call runs without asking, and a call that would cross it still asks (or is refused where nobody can answer, such as a cron job with `approvals.mode: off`).
 - A malformed `tool_costs`, `spend_limit` or `cost_unit` skips the server with an error naming the key, so a budget you declared is never silently dropped. A `tool_costs` key the server does not offer (a typo, or Hermes' `mcp_<server>_` display prefix copied in) is named in a warning at connect time: use the server's own tool names.
@@ -1078,7 +1078,7 @@ for good (access revoked, event type removed, arguments no longer valid) removes
 failures are retried with back-off. Turning the route off in the webhook dashboard lets the
 subscription lapse, and turning it back on resubscribes it. If the server ends a subscription,
 Hermes removes the route and tells the `deliver` target. Events only arrive while
-`hermes gateway run` is running. The event payload reaches the run whole, up to 32,000 characters
+`kestrel gateway run` is running. The event payload reaches the run whole, up to 32,000 characters
 of JSON, with a note when it is cut. Event payloads are external data: event runs use the same
 constrained webhook toolset as other webhook routes.
 The listener's per-route rate limit (`platforms.webhook.extra.rate_limit`, 30 a minute by default)

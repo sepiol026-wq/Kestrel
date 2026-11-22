@@ -8,7 +8,7 @@
  * seats a bot from a NAMED profile on a second computer's gateway.
  *
  * "This device" (owner A) is the Electron-managed local backend with `default` + `scribe`.
- * "Homelab" (lender B) is a REAL `hermes gateway run` on its own HOME lending its named
+ * "Homelab" (lender B) is a REAL `kestrel gateway run` on its own HOME lending its named
  * profile `coder` (catalog at `<room_link_url>/p/coder`), plus the `hermes serve` viewer
  * Desktop connects to. A plain `hermes serve` Homelab (no lender) must make the dialog say
  * what is missing instead of creating anything.

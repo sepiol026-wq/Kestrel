@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""#140400 end to end: a `hermes chat`-shaped turn's clarify batch answered from a second viewer.
+"""#140400 end to end: a `kestrel chat`-shaped turn's clarify batch answered from a second viewer.
 
 Real GatewayRunner + session API WebSocket, a loopback model asking two questions, the real clarify
 tool. Socket A creates a ``cli`` session and submits with ``clarify_batch`` (what GatewayAgent sends);

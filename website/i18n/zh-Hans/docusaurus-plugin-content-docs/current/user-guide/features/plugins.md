@@ -289,7 +289,7 @@ Git 安装的来源和版本记录在 `.install-metadata.json`。
 pip 入口点插件可报告发行包版本，但不会因此转为 Git 管理。
 
 Gateway 按 `plugins.auto_update_check_hours` 检查更新，默认 24 小时，`0` 关闭。
-`check-updates` 不改写插件文件。检查记录可通过 `hermes pm status` 和桌面同步状态查看。
+`check-updates` 不改写插件文件。检查记录可通过 `kestrel pm status` 和桌面同步状态查看。
 默认通过 `hermes plugins update NAME` 手动应用；`plugins.auto_apply: true` 才允许跟踪的 Git 插件自动更新。
 固定版本、手动目录、来源漂移和 pip 发行包不参与自动应用。
 新引入或变更的 `update_url` 需通过 `trust-update-url` 审阅确认。

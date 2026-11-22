@@ -133,7 +133,7 @@ To get a **Channel ID**: click the channel name → **View Info**. The Channel I
 Run the guided setup command:
 
 ```bash
-hermes gateway setup
+kestrel gateway setup
 ```
 
 Select **Mattermost** when prompted, then paste your server URL, bot token, and user ID when asked.
@@ -180,13 +180,13 @@ group_sessions_per_user: true
 Once configured, start the Mattermost gateway:
 
 ```bash
-hermes gateway
+kestrel gateway
 ```
 
 The bot should connect to your Mattermost server within a few seconds. Send it a message — either a DM or in a channel where it's been added — to test.
 
 :::tip
-You can run `hermes gateway` in the background or as a systemd service for persistent operation. See the deployment docs for details.
+You can run `kestrel gateway` in the background or as a systemd service for persistent operation. See the deployment docs for details.
 :::
 
 ## Home Channel
@@ -310,7 +310,7 @@ If this returns your bot's user info, the token is valid. If it returns an error
 
 **Cause**: The Hermes gateway isn't running, or it failed to connect.
 
-**Fix**: Check that `hermes gateway` is running. Look at the terminal output for error messages. Common issues: wrong URL, expired token, Mattermost server unreachable.
+**Fix**: Check that `kestrel gateway` is running. Look at the terminal output for error messages. Common issues: wrong URL, expired token, Mattermost server unreachable.
 
 ### "User not allowed" / Bot ignores you
 

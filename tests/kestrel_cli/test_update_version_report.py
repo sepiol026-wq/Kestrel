@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Version transition reporting after ``hermes update``.
+"""Version transition reporting after ``kestrel update``.
 
 Ported from PrimeIntellect-ai/prime-agent#630: a successful self-update
 reports both versions (``v0.19.4 → v0.20.0``). pyproject.toml is an inert

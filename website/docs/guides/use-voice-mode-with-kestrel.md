@@ -159,7 +159,7 @@ ELEVENLABS_API_KEY=***
 - `openai` → good middle ground
 - `mistral` → multilingual, native Opus
 
-### If you use `hermes setup`
+### If you use `kestrel setup`
 
 Setup requests declared Python extras through PM. It cannot override their
 Python-version or platform markers:
@@ -326,7 +326,7 @@ Hermes stays a normal chat bot, but can speak replies.
 ### Start the gateway
 
 ```bash
-hermes gateway
+kestrel gateway
 ```
 
 ### Turn on voice replies
@@ -468,7 +468,7 @@ By default, the bot needs an `@mention` in Discord server text channels unless c
 If you want the shortest path to success:
 
 1. get text Hermes working
-2. run `hermes setup tts` to enable voice support
+2. run `kestrel setup tts` to enable voice support
 3. use CLI voice mode with local STT + Edge TTS
 4. then enable `/voice on` in Telegram or Discord
 5. only after that, try Discord VC mode

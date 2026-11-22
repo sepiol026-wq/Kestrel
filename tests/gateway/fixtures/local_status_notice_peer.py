@@ -84,7 +84,7 @@ async def probe():
             while not any(f.get('params', {}).get('type') == 'message.complete' for f in frames):
                 frames.append(json.loads(await ws.recv()))
         events = [f['params'] for f in frames if f.get('method') == 'event']
-        # The classic `hermes chat` view renders what reached it on stderr.
+        # The classic `kestrel chat` view renders what reached it on stderr.
         import contextlib
         import io
         from kestrel_cli.gateway_chat_view import GatewayChatView

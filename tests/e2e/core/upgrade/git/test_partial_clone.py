@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Partial and full clones updated N-1 -> HEAD -> next release through the real ``hermes update``.
+"""Partial and full clones updated N-1 -> HEAD -> next release through the real ``kestrel update``.
 
 Users' checkouts come in several shapes: HEAD's installer makes a ``--filter=blob:none`` clone,
 installers from late Sep 2026 made ``--filter=tree:0`` ones, and plenty of users cloned the repository

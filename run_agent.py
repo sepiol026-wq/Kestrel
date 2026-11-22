@@ -14,13 +14,13 @@
 # hermes_bootstrap must be the very first import (UTF-8 stdio on Windows; no-op on POSIX).
 try:
     import kestrel_bootstrap
-except ModuleNotFoundError as exc:  # partial `hermes update` left the bootstrap unregistered
+except ModuleNotFoundError as exc:  # partial `kestrel update` left the bootstrap unregistered
     if exc.name != "hermes_bootstrap" and not "hermes_bootstrap".startswith(f"{exc.name}."):
         raise  # the bootstrap exists but cannot load: skipping it would skip PM activation
 
 import sys
 
-# `kestrel-agent` runs this module without hermes_cli.main, which repairs a `hermes update` killed
+# `kestrel-agent` runs this module without hermes_cli.main, which repairs a `kestrel update` killed
 # while git wrote the new tree; do it here, before importing anything else from the checkout.
 if "hermes_cli.main" not in sys.modules:
     from kestrel_cli import _early_recovery

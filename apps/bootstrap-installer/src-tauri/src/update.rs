@@ -26,7 +26,7 @@ use crate::marker::{
 };
 use crate::powershell::{pump_child, DRAIN_GRACE};
 
-/// `hermes update` exit code meaning "another hermes process is holding the
+/// `kestrel update` exit code meaning "another hermes process is holding the
 /// venv shim open / dirty precondition" — see _cmd_update_impl in
 /// hermes_cli/main.py (sys.exit(2)). We surface a targeted message for this.
 pub(crate) const UPDATE_EXIT_CONCURRENT: i32 = 2;
@@ -129,7 +129,7 @@ async fn run_update(app: AppHandle) -> Result<()> {
     //
     // The same marker is the cross-process update lock (hermes_cli/
     // update_lock.py claims it too), so a live foreign owner means another
-    // updater — most often a dashboard-spawned `hermes update` — is already
+    // updater — most often a dashboard-spawned `kestrel update` — is already
     // mutating this checkout. Refuse instead of running a second one over it.
     let _update_marker = match UpdateMarkerGuard::acquire(
         crate::paths::update_in_progress_marker(),
@@ -199,9 +199,9 @@ async fn run_update(app: AppHandle) -> Result<()> {
         None,
     );
 
-    // ---- stage 2: hermes update -----------------------------------------
+    // ---- stage 2: kestrel update -----------------------------------------
     // Update against exactly what the desktop checked against (see
-    // update_target_from_args), never `hermes update`'s own default.
+    // update_target_from_args), never `kestrel update`'s own default.
     emit_log(
         &app,
         Some("update"),
@@ -227,7 +227,7 @@ async fn run_update(app: AppHandle) -> Result<()> {
     )
     .await?;
 
-    // Retry-once for the update-boundary crash. `hermes update` lazily imports
+    // Retry-once for the update-boundary crash. `kestrel update` lazily imports
     // the FRESHLY PULLED modules, but the dependency-install step still runs the
     // already-in-memory pre-pull code for one invocation. A release that changed
     // an updater-path contract across that boundary (e.g. #39780's `_UvResult`,
@@ -235,7 +235,7 @@ async fn run_update(app: AppHandle) -> Result<()> {
     // `list2cmdline` with `TypeError: sequence item 1: expected str instance,
     // bool found`, fixed in #39820) therefore kills the FIRST update on the
     // parked population — even though the fix is already on disk by then. A
-    // second `hermes update` runs clean because the now-current module is loaded
+    // second `kestrel update` runs clean because the now-current module is loaded
     // from the start. Rather than make the parked user click Update twice (and
     // stare at a scary crash first), retry once automatically. Skip the retry
     // for the concurrent-instance guard (exit 2) — that's a "close Hermes" state
@@ -320,7 +320,7 @@ async fn run_update(app: AppHandle) -> Result<()> {
         }
         other => {
             let msg = format!(
-                "hermes update failed (exit {:?}). See {} for details.",
+                "kestrel update failed (exit {:?}). See {} for details.",
                 other,
                 crate::paths::hermes_home()
                     .join("logs")
@@ -359,7 +359,7 @@ async fn run_update(app: AppHandle) -> Result<()> {
         // (the content-hash stamp makes it a near-no-op when the first actually
         // succeeded). Without this the updater bails here and never reaches the
         // relaunch below — the app updates but doesn't restart. Matches the
-        // retry-once `hermes update` already does above, and `hermes update`'s own
+        // retry-once `kestrel update` already does above, and `kestrel update`'s own
         // desktop rebuild in cmd_update.
         if rebuild_needs_retry(rebuild.exit_code) {
             emit_log(
@@ -384,7 +384,7 @@ async fn run_update(app: AppHandle) -> Result<()> {
         if rebuild.exit_code != Some(0) {
             let msg = format!(
                 "Rebuilding the desktop app failed (exit {:?}). The update was \
-                 applied but the app could not be rebuilt; run `hermes desktop` \
+                 applied but the app could not be rebuilt; run `kestrel desktop` \
                  from a terminal to see the error.",
                 rebuild.exit_code
             );
@@ -582,7 +582,7 @@ fn rebuild_needs_retry(exit_code: Option<i32>) -> bool {
 /// is a handful of lines printed right before `sys.exit(2)`.
 const STDOUT_TAIL_LINES: usize = 40;
 
-/// User-facing message for an exit-2 refusal from `hermes update`.
+/// User-facing message for an exit-2 refusal from `kestrel update`.
 ///
 /// Exit 2 has several causes (another update holds the marker, a live
 /// hermes.exe or venv holder, a self-mapped `.pyd` after the code swap), and
@@ -648,7 +648,7 @@ async fn run_streamed(
         .map_err(|e| anyhow!("spawning {} {:?}: {e}", program.display(), args))?;
 
     // Same non-UTF-8-safe decode path as powershell::run_script (#67193), and
-    // the same rule about pipe EOF: `hermes update` is precisely the shape that
+    // the same rule about pipe EOF: `kestrel update` is precisely the shape that
     // leaves resident descendants holding an inherited stdout handle, and every
     // stage this drives sits downstream of the read.
     let stage_owned = stage.map(|s| s.to_string());
@@ -746,7 +746,7 @@ fn update_child_env(install_root: &Path) -> Vec<(String, OsString)> {
         "HERMES_HOME".to_string(),
         hermes_home.as_os_str().to_os_string(),
     )];
-    // `hermes update` is a Python CLI writing to a pipe here, so CPython
+    // `kestrel update` is a Python CLI writing to a pipe here, so CPython
     // block-buffers its stdout: nothing reaches run_streamed (and the live
     // log UI) until 8 KB accumulate or the process exits. Long quiet steps —
     // the pre-update backup can zip multi-GB archives for minutes — render as
@@ -754,7 +754,7 @@ fn update_child_env(install_root: &Path) -> Vec<(String, OsString)> {
     // output instead.
     envs.push(("PYTHONUNBUFFERED".to_string(), OsString::from("1")));
     // We hold the update-in-progress marker for this whole run, and the
-    // `hermes update` child claims that SAME lock (hermes_cli/update_lock.py).
+    // `kestrel update` child claims that SAME lock (hermes_cli/update_lock.py).
     // Name our pid so the child recognizes the live holder as its own
     // orchestrator and runs under our claim — without this every GUI update
     // refuses its parent's marker with exit 2 ("Hermes is still running")
@@ -768,7 +768,7 @@ fn update_child_env(install_root: &Path) -> Vec<(String, OsString)> {
     envs
 }
 
-/// `hermes update`'s target flags: the channel the desktop checked against
+/// `kestrel update`'s target flags: the channel the desktop checked against
 /// (`--channel`), else a branch (`--branch`, then the build pin
 /// BUILD_PIN_BRANCH, then `main`). A stable install the desktop checked
 /// against its release must not be updated onto the pinned branch: it would
@@ -1099,7 +1099,7 @@ mod tests {
         assert!(
             envs.iter().any(|(k, v)| k == "HERMES_UPDATE_HANDOFF_PID"
                 && v.to_str() == Some(std::process::id().to_string().as_str())),
-            "the hermes update child claims the same marker we hold; without our pid \
+            "the kestrel update child claims the same marker we hold; without our pid \
              it refuses its own parent's lock and every GUI update dead-ends on exit 2"
         );
     }
@@ -1154,12 +1154,12 @@ mod tests {
             "→ Fetching updates...\n\
              ✓ Updated to 6b2c23ae42\n\
              ✗ Another Hermes update is already running (started 3m 42s ago, process 65285).\n\
-             \n  Wait for it to finish, then run `hermes update` again.\n",
+             \n  Wait for it to finish, then run `kestrel update` again.\n",
         );
         assert_eq!(
             concurrent_update_message(&tail),
             "✗ Another Hermes update is already running (started 3m 42s ago, process 65285).\n\
-             \n  Wait for it to finish, then run `hermes update` again."
+             \n  Wait for it to finish, then run `kestrel update` again."
         );
     }
 

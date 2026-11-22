@@ -37,14 +37,14 @@ High-level categories:
 For the authoritative code-derived registry, see [Built-in Tools Reference](../../reference/tools-reference.md) and [Toolsets Reference](../../reference/toolsets-reference.md).
 
 :::tip Nous Tool Gateway
-Paid [Nous Portal](https://portal.nousresearch.com) subscribers can use web search, image generation, TTS, and browser automation through the **[Tool Gateway](tool-gateway.md)** — no separate API keys needed. Run `hermes model` to enable it, or configure individual tools with `hermes tools`.
+Paid [Nous Portal](https://portal.nousresearch.com) subscribers can use web search, image generation, TTS, and browser automation through the **[Tool Gateway](tool-gateway.md)** — no separate API keys needed. Run `kestrel model` to enable it, or configure individual tools with `hermes tools`.
 :::
 
 ## Using Toolsets
 
 ```bash
 # Use specific toolsets
-hermes chat --toolsets "web,terminal"
+kestrel chat --toolsets "web,terminal"
 
 # See all available tools
 hermes tools
@@ -144,7 +144,7 @@ TERMINAL_SSH_KEY=~/.ssh/id_rsa
 
 ### Singularity/Apptainer
 
-An official plugin ([`singularity`](https://github.com/NousResearch/hermes-official-plugins/tree/main/singularity)), formerly built in; `hermes update` installs it for profiles that already use it.
+An official plugin ([`singularity`](https://github.com/NousResearch/hermes-official-plugins/tree/main/singularity)), formerly built in; `kestrel update` installs it for profiles that already use it.
 
 ```bash
 hermes plugins install singularity
@@ -188,13 +188,13 @@ Authenticate with all three of `VERCEL_TOKEN`, `VERCEL_PROJECT_ID`, and `VERCEL_
 For one-off local development, Hermes also accepts short-lived Vercel OIDC tokens:
 
 ```bash
-VERCEL_OIDC_TOKEN="$(vc project token <project-name>)" hermes chat
+VERCEL_OIDC_TOKEN="$(vc project token <project-name>)" kestrel chat
 ```
 
 From a linked Vercel project directory:
 
 ```bash
-VERCEL_OIDC_TOKEN="$(vc project token)" hermes chat
+VERCEL_OIDC_TOKEN="$(vc project token)" kestrel chat
 ```
 
 With `container_persistent: true`, Hermes uses Vercel snapshots to preserve filesystem state across sandbox recreation for the same task. This can include Hermes-synced credentials, skills, and cache files inside the sandbox. Snapshots do not preserve live processes, PID space, or the same live sandbox identity.
@@ -270,7 +270,7 @@ spending a model call on every unchanged check. New output, the process exiting,
 action on that process resets the count.
 
 This applies where a completion can reach the agent: the interactive CLI (including interactive
-`hermes chat -q`), the TUI and desktop app, and messaging chats. Non-interactive `hermes chat -q`,
+`kestrel chat -q`), the TUI and desktop app, and messaging chats. Non-interactive `kestrel chat -q`,
 one-shot `hermes -z`, cron jobs, Kanban workers, stateless API requests and delegated subagents keep the
 previous behaviour because they cannot receive a later completion, as does any profile with
 `display.background_process_notifications: off` (completions never start an agent turn there). Checking

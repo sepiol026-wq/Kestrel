@@ -13,7 +13,7 @@ readme: true
 platforms: []
 known_issues:
   - "The first `hermes zotero sync` builds the index before the tools return results: about 2.5 minutes and 3.5 GB for 19,000 papers with full text (roughly 180 KB per paper); later syncs take seconds"
-  - "Updating from 0.1.0 rebuilds the index once: run `hermes zotero sync` after `hermes plugins update hermes-zotero`; until then the tools answer with the error index_outdated"
+  - "Updating from 0.1.0 rebuilds the index once: run `kestrel zotero sync` after `hermes plugins update hermes-zotero`; until then the tools answer with the error index_outdated"
   - "Citations come from Zotero itself only while Zotero is running with its local API switched on (Settings → Advanced, off by default); otherwise the citation line is an approximate author-year line marked approximate: true"
   - "Search is lexical (BM25 with stemming), not semantic: synonyms and brand names can miss, and PDFs without a text layer are found by title and abstract only"
   - "Tested on macOS with Zotero 11; the Windows and Linux data-directory paths are implemented but not yet tested"

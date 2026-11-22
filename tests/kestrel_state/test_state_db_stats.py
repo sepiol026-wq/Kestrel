@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Tests for state.db health/stats collection (hermes doctor section).
+"""Tests for state.db health/stats collection (kestrel doctor section).
 
 Covers:
 - ``hermes_state_dbfile.collect_state_db_stats``: read-only, best-effort stats
@@ -155,7 +155,7 @@ def test_count_db_holders_sees_open_connection_linux(populated_db):
 
 @pytest.mark.platforms("macos")
 def test_count_db_holders_sees_open_connection_macos(populated_db):
-    # #109641: the doctor's holder count was Linux-only, so `hermes doctor` on the platform with
+    # #109641: the doctor's holder count was Linux-only, so `kestrel doctor` on the platform with
     # every reporter in the deleted-WAL cluster printed no holder row at all.
     _assert_sees_own_open_connection(populated_db)
 

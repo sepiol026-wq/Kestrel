@@ -106,7 +106,7 @@ exits with an error rather than read a local file.
 
 `/etc/hermes/config.yaml` (see [Managed Scope](./managed-scope.md)) is
 **ignored** in remote mode: config and locks come only from the plane. Hermes
-warns at startup, and `hermes doctor` flags the file. The managed
+warns at startup, and `kestrel doctor` flags the file. The managed
 `/etc/hermes/.env` still applies.
 
 ## Commands that work on the config file
@@ -117,8 +117,8 @@ These commands copy or edit `config.yaml` and are refused in remote mode:
 - profile clone, profile rename (the plane keeps a profile's settings under its
   name), and profile distribution install
 - `hermes backup`, `hermes import`, and snapshot restore
-- `hermes gateway --config <file>`
+- `kestrel gateway --config <file>`
 
-`hermes doctor` reports the backend instead of the file: the plane URL, the
+`kestrel doctor` reports the backend instead of the file: the plane URL, the
 profile, the profile level's version, the number of locks, and when the config
 was last fetched.

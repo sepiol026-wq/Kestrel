@@ -9,7 +9,7 @@
 # published. In practice binaries go months stale and users hit long-fixed
 # bugs on every update (the 2026-08-09 incident chain).
 #
-# This script lives in the repo checkout, so EVERY `hermes update` refreshes
+# This script lives in the repo checkout, so EVERY `kestrel update` refreshes
 # the very code that drives the next update. The Desktop spawns it through a
 # `cmd start` wrapper (see wrapHandoffForDetachedConsole in
 # apps/desktop/electron/updater-process.ts -- a bare detached+hidden
@@ -22,7 +22,7 @@
 #     -InstallRoot <path>   repo checkout (HERMES_HOME\hermes-agent)
 #     [-Branch <ref> | -Channel stable|canary|main]  default: branch main
 #     -DesktopPid <pid>     the Electron main process to wait out
-#     [-RelaunchExe <path>] Hermes.exe to start when done (omit = no relaunch)
+#     [-RelaunchExe <path>] Kestrel.exe to start when done (omit = no relaunch)
 #     [-NoUi]               headless (tests); default shows a progress window
 #     [-NoMarkerCleanup]    leave .hermes-update-in-progress in place (tests)
 #     [-ProbeTimeoutSeconds <n>] launcher probe bound, default 60 (tests)
@@ -214,7 +214,7 @@ if (-not $SelfTestUi -and -not $SelfTestPipeDrain -and -not $SelfTestLogConcurre
 # unless we explicitly claim focus --
 # and after the update we must hand focus TO the relaunched Desktop (a
 # WMI-spawned process starts unfocused). AllowSetForegroundWindow lets us
-# pass our foreground right on to the new Hermes.exe pid.
+# pass our foreground right on to the new Kestrel.exe pid.
 try {
     Add-Type -Namespace HermesHandoff -Name Win32 -MemberDefinition @'
 [DllImport("user32.dll")] public static extern bool SetForegroundWindow(System.IntPtr hWnd);
@@ -226,7 +226,7 @@ try {
 # Console selection must never hold the hand-off (#103222). The console is
 # hidden by design (wrapHandoffForDetachedConsole), but an older Desktop or a
 # manual run can leave it visible, and conhost blocks every write to it while a
-# selection is active: the child output replayed after `hermes update` exited
+# selection is active: the child output replayed after `kestrel update` exited
 # stalled on Write-Host until the user pressed Esc, and the result, marker
 # cleanup and relaunch waited behind it. QuickEdit goes off for the run (so a
 # stray click cannot start a selection) and the console echo is skipped while
@@ -288,7 +288,7 @@ $script:UiState = [hashtable]::Synchronized(@{
     acknowledged_receipt = $null
 })
 $script:UiServer = $null     # @{ Listener; Runspace; PowerShell; Port; BrowserProc; Profile }
-# `hermes update` publishes its own stages (hermes_cli/update_stage.py: downloading, dependencies,
+# `kestrel update` publishes its own stages (hermes_cli/update_stage.py: downloading, dependencies,
 # each app build, packaging) into this file, as it does under posix.sh. The step loop relays them
 # to the window, which otherwise read "Updating code and dependencies" for a whole 20-60 minute
 # run (#139952, #135363), and to the hand-off log, whose timestamps then name the slow stage.
@@ -794,7 +794,7 @@ function Write-Result([bool]$Ok, [int]$Code, [string]$Message, [bool]$ManualActi
     }
 }
 
-# Post-commit follow-ups (contract C3): each failed step after `hermes update`
+# Post-commit follow-ups (contract C3): each failed step after `kestrel update`
 # exited 0 becomes a warning, never a failed update.
 $script:Warnings = New-Object System.Collections.Generic.List[string]
 # A plain array: Windows PowerShell 5.1's @() over a non-empty List[object] throws
@@ -856,7 +856,7 @@ function Start-DesktopRelaunch {
     # — the sibling truth contract to posix.sh's launch acceptance.
     if (-not $RelaunchExe) { return $false }
     # electron-builder replaces win-unpacked in place. After a successful
-    # update it can remove the old Hermes.exe before writing the replacement,
+    # update it can remove the old Kestrel.exe before writing the replacement,
     # so a one-shot existence check races the rebuild and strands the user.
     $relaunchDeadline = (Get-Date).AddSeconds(120)
     while (-not (Test-Path -LiteralPath $RelaunchExe)) {
@@ -868,7 +868,7 @@ function Start-DesktopRelaunch {
         if ($script:Ui) { [System.Windows.Forms.Application]::DoEvents() }
     }
     Write-HandoffLog "relaunching desktop: $RelaunchExe"
-    # DO NOT spawn Hermes.exe as our child: Electron/Chromium calls
+    # DO NOT spawn Kestrel.exe as our child: Electron/Chromium calls
     # AttachConsole(ATTACH_PARENT_PROCESS) at boot, so a Desktop launched
     # directly from this console PowerShell latches onto OUR console --
     # the console window then outlives the script (it can't close while
@@ -1007,7 +1007,7 @@ function Start-DesktopRelaunch {
 # write end of a redirected pipe to the child as an INHERITABLE handle, so
 # every descendant that is spawned without its own redirection gets a
 # duplicate -- and the read side does not see EOF until the last of them
-# closes it. `hermes update` deliberately runs its build steps with stdout
+# closes it. `kestrel update` deliberately runs its build steps with stdout
 # inherited (hermes_cli/main.py, the tee-stderr runner), so the tree under a
 # step is arbitrarily deep and not something this script can enumerate. When
 # one of those descendants is a resident gateway, the pipe stays open for the
@@ -1049,7 +1049,7 @@ if ($env:HERMES_UPDATE_DESKTOP_EXIT_SECONDS) {
     }
 }
 
-# Silence on the pipes is NOT silence in the update. `hermes update` captures
+# Silence on the pipes is NOT silence in the update. `kestrel update` captures
 # the (very loud) Electron/vite build into logs/update.log instead of its own
 # stdout (hermes_cli/update_cmd.py, the update-log tee), so a real update is
 # routinely stdout-silent for 40+ minutes while demonstrably progressing. An
@@ -1230,7 +1230,7 @@ function Invoke-HermesStep([string]$Exe, [string[]]$HermesArgs, [string]$Tag) {
                 break
             }
         } elseif (-not $stalled -and $job -ne [IntPtr]::Zero -and ((Get-Date) - $lastProgressAt).TotalSeconds -ge $script:StepIdleTimeoutSeconds) {
-            # Quiet pipes are how a healthy `hermes update` looks for 40+
+            # Quiet pipes are how a healthy `kestrel update` looks for 40+
             # minutes: its build output streams to logs/update.log, not the
             # child's stdout. Growth of that file is progress -- reset the
             # clock instead of cancelling. Stat'd only once the ceiling is
@@ -1312,7 +1312,7 @@ function Invoke-HermesStep([string]$Exe, [string[]]$HermesArgs, [string]$Tag) {
     return @{ Code = $code; Output = $all; TreeQuiesced = (-not $stalled -or $proc.HasExited); StartedAfterJobAssignment = $true }
 }
 
-# `hermes update` can COMPLETE (its output carries "✓ Update complete!") and
+# `kestrel update` can COMPLETE (its output carries "✓ Update complete!") and
 # still be killed with the idle-watchdog sentinel 124: the post-update phase
 # (gateway restart hand-off) stayed alive and silent past the ceiling, so
 # Invoke-HermesStep terminated the tree (#96205). The install is done; failing
@@ -1334,7 +1334,7 @@ function Resolve-HermesUpdateOutcome($StepResult) {
 }
 
 # -- The commit point (contract C3) --------------------------------------------
-# `hermes update` exits 0 once committed, except an interrupt (130) or a parked
+# `kestrel update` exits 0 once committed, except an interrupt (130) or a parked
 # autostash (1) after the commit point, and a crash of a committed run. Its own
 # receipt says which (same rule as posix.sh::update_committed_after_exit): the
 # run's receipt -- matched by the correlation id handed to it, finalized
@@ -1418,7 +1418,7 @@ if ($SelfTestUi) {
 #            output. Guards #95589: the hand-off must terminate it and reach its
 #            retry/finally recovery rather than strand the Desktop.
 #   logstall -- a step that is silent on its pipes but keeps growing the
-#            update log, the shape of every real `hermes update` build (output
+#            update log, the shape of every real `kestrel update` build (output
 #            goes to logs/update.log, not stdout, for 40+ minutes). Guards the
 #            watchdog's other cliff: the idle ceiling must count update.log
 #            growth as progress and must NOT kill the healthy step.
@@ -1457,7 +1457,7 @@ Write-Output "pipe-drain step output"
 exit 7
 '@
     # Writes straight to the console stream, holding nothing: a step that is
-    # merely loud. `hermes update` is this shape -- the Electron/vite build
+    # merely loud. `kestrel update` is this shape -- the Electron/vite build
     # alone is megabytes. Few large lines rather than many small ones on
     # purpose: Write-HandoffLog is one file append per line and runs inside the
     # measured window, so line-heavy output would time the logger instead of
@@ -1820,7 +1820,7 @@ try {
     Write-HandoffLog ("running: python " + ($updateArgs -join " "))
     Publish-UiProgress "Updating code and dependencies"
     $res = Invoke-HermesStep $pythonExe $updateArgs "update"
-    Write-HandoffLog "hermes update exit code: $($res.Code)"
+    Write-HandoffLog "kestrel update exit code: $($res.Code)"
     $res = Resolve-HermesUpdateOutcome $res
 
     # Retry only the identified pre-PM update-boundary transition. Current
@@ -1842,34 +1842,34 @@ try {
     if ($res.Code -ne 0 -and $res.Code -ne 2) { $committedAfterExit = Get-CommittedReceiptOutcome }
     if ($res.Code -ne 0 -and -not $committedAfterExit) {
         $finalCode = $res.Code
-        $finalMsg = "Update failed (exit $($res.Code)). Run `hermes debug share` in a terminal to send a report."
+        $finalMsg = "Update failed (exit $($res.Code)). Run `kestrel debug share` in a terminal to send a report."
         exit $finalCode
     }
 
-    # -- Commit point: `hermes update` exited 0 (contract C3). The install is
+    # -- Commit point: `kestrel update` exited 0 (contract C3). The install is
     # on the new version; every step below is follow-up work whose failure is
     # a warning on an ok result, never "still on the previous version".
     $script:Committed = $true
     $finalCode = 0
     $finalMsg = "Update complete."
     if ($script:UpdateInterrupted) {
-        Add-Followup "post-update steps (gateway resume) were interrupted; run hermes update again" "its post-update steps (gateway resume) were interrupted. Run 'hermes update' again to finish them." -Manual
+        Add-Followup "post-update steps (gateway resume) were interrupted; run kestrel update again" "its post-update steps (gateway resume) were interrupted. Run 'kestrel update' again to finish them." -Manual
     }
     if ($committedAfterExit) {
         # Past the commit point with a nonzero exit: installed, with an owed follow-up.
         $sentence = switch ($committedAfterExit) {
-            'partial' { "one step is left for you: your local source changes may still be parked in git stash. Run 'hermes update' in a terminal for the exact commands." }
-            'interrupted' { "its post-update steps were interrupted. The next launch or 'hermes update' finishes them." }
-            default { "'hermes update' exited with code $($res.Code) afterwards. Run 'hermes update' in a terminal to finish any remaining steps." }
+            'partial' { "one step is left for you: your local source changes may still be parked in git stash. Run 'kestrel update' in a terminal for the exact commands." }
+            'interrupted' { "its post-update steps were interrupted. The next launch or 'kestrel update' finishes them." }
+            default { "'kestrel update' exited with code $($res.Code) afterwards. Run 'kestrel update' in a terminal to finish any remaining steps." }
         }
-        Add-Followup "update: hermes update exited $($res.Code) after the commit point (receipt outcome: $committedAfterExit)" $sentence -Manual
+        Add-Followup "update: kestrel update exited $($res.Code) after the commit point (receipt outcome: $committedAfterExit)" $sentence -Manual
     }
 
     # Pre-PM updates reported a successful exit with a failed build warning.
     # Keep that historical transition here only; current failures propagate.
     $desktopBuildFailed = $false
     if ($legacyInstall -and $res.Output -match "Desktop build failed") {
-        Write-HandoffLog "hermes update reported a desktop build failure; retrying build"
+        Write-HandoffLog "kestrel update reported a desktop build failure; retrying build"
         Publish-UiProgress "Rebuilding Desktop"
         $rebuildFailure = $null
         try {
@@ -1923,9 +1923,9 @@ try {
         # command in the log. The hint drops only when EVERY gateway_restart line is serve-only; any other
         # reason, including a raw restart-phase error, keeps it (#141071).
         $gwReasons = @((($res.Output -join "`n") -split "`r?`n") | Where-Object { $_ -cmatch "Update follow-up 'gateway_restart' did not finish: " })
-        $serveOnly = ($gwReasons.Count -gt 0) -and -not @($gwReasons | Where-Object { ($_ -cnotmatch "did not finish: serve/dashboard ") -or ($_ -cmatch "hermes gateway restart") }).Count
-        $owedHint = if (($owedSteps -contains 'gateway_restart') -and -not $serveOnly) { " Run 'hermes gateway restart' to move the messaging gateway onto the new code now." } else { '' }
-        Add-Followup ("followup: owed by the committed update: " + ($owedSteps -join ', ')) ("some follow-up steps did not finish (" + ($owedSteps -join ', ') + "). The next launch or 'hermes update' retries them; the update log has the details." + $owedHint) -Manual
+        $serveOnly = ($gwReasons.Count -gt 0) -and -not @($gwReasons | Where-Object { ($_ -cnotmatch "did not finish: serve/dashboard ") -or ($_ -cmatch "kestrel gateway restart") }).Count
+        $owedHint = if (($owedSteps -contains 'gateway_restart') -and -not $serveOnly) { " Run 'kestrel gateway restart' to move the messaging gateway onto the new code now." } else { '' }
+        Add-Followup ("followup: owed by the committed update: " + ($owedSteps -join ', ')) ("some follow-up steps did not finish (" + ($owedSteps -join ', ') + "). The next launch or 'kestrel update' retries them; the update log has the details." + $owedHint) -Manual
     }
 
     # A zero-exit update is not proof that the runtime survived the update.
@@ -1946,7 +1946,7 @@ try {
 
     # Desktop stopped every locally running profile gateway before handing off
     # so their venv launchers could not hold the update lock. That happens
-    # before `hermes update` captures its Windows pause inventory, leaving the
+    # before `kestrel update` captures its Windows pause inventory, leaving the
     # updater nothing to resume on its normal success path. Restore the same
     # all-profile fleet after the update -- also when a follow-up above failed:
     # the code is committed and the gateways must not stay down. A remote-served
@@ -1964,7 +1964,7 @@ try {
             $gatewayFailure = $_.Exception.Message
         }
         if ($gatewayFailure) {
-            Add-Followup "gateway start: $gatewayFailure" "it could not restart every messaging gateway. Run `hermes gateway start --all` in a terminal." -Manual
+            Add-Followup "gateway start: $gatewayFailure" "it could not restart every messaging gateway. Run `kestrel gateway start --all` in a terminal." -Manual
         }
     }
 
@@ -1976,7 +1976,7 @@ try {
     # tree gets its own warning in the finally block.
     Write-HandoffLog "hand-off error: $($_.Exception.Message)"
     if ($script:Committed -and $script:TreeSafeToFinalize) {
-        Add-Followup "hand-off: $($_.Exception.Message)" "a post-update step failed unexpectedly. Run 'hermes update' again to finish it." -Manual
+        Add-Followup "hand-off: $($_.Exception.Message)" "a post-update step failed unexpectedly. Run 'kestrel update' again to finish it." -Manual
         $finalCode = 0
     }
 } finally {

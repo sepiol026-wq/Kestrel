@@ -81,9 +81,9 @@ That's it. After dropping these two files, the following **auto-wire** with no o
 | Credential resolution | `hermes_cli/auth.py` | `PROVIDER_REGISTRY["acme-inference"]` populated from profile |
 | `--provider` CLI flag | `hermes_cli/main.py` | Accepts `acme-inference` |
 | `/model --provider`, model picker switch | `hermes_cli/providers.py::resolve_provider_full` | Resolves `acme-inference` and every alias to the profile (switch lands on `name`, so `acme` persists as `acme-inference`); user `providers:` / `custom_providers:` blocks keep precedence. A profile with an empty `base_url` (endpoint minted at runtime) resolves too, on the last rung |
-| `hermes model` picker | `hermes_cli/models.py` | Appears in `CANONICAL_PROVIDERS`, model list fetched from `{base_url}/models` |
-| `hermes doctor` | `hermes_cli/doctor.py` | Health check for `ACME_API_KEY` + `{base_url}/models` probe |
-| `hermes setup` | `hermes_cli/config.py` | `ACME_API_KEY` appears in `OPTIONAL_ENV_VARS` and the setup wizard |
+| `kestrel model` picker | `hermes_cli/models.py` | Appears in `CANONICAL_PROVIDERS`, model list fetched from `{base_url}/models` |
+| `kestrel doctor` | `hermes_cli/doctor.py` | Health check for `ACME_API_KEY` + `{base_url}/models` probe |
+| `kestrel setup` | `hermes_cli/config.py` | `ACME_API_KEY` appears in `OPTIONAL_ENV_VARS` and the setup wizard |
 | URL reverse-mapping | `agent/model_metadata.py` | Hostname → provider name for auto-detection |
 | Auxiliary model | `agent/auxiliary_client.py` | Uses `default_aux_model` for compression / summarization |
 | Runtime resolution | `hermes_cli/runtime_provider.py` | Returns correct `base_url`, `api_key`, `api_mode` |
@@ -98,7 +98,7 @@ Full definition in `providers/base.py`. The most useful ones:
 | `name` | str | Canonical id — matches `model.provider` in `config.yaml` and the `--provider` flag |
 | `aliases` | `tuple[str, ...]` | Alternative names resolved by `get_provider_profile()` (e.g. `grok` → `xai`) |
 | `api_mode` | str | `chat_completions` \| `codex_responses` \| `anthropic_messages` \| `bedrock_converse` |
-| `display_name` | str | Human label shown in `hermes model` picker |
+| `display_name` | str | Human label shown in `kestrel model` picker |
 | `description` | str | Picker subtitle |
 | `signup_url` | str | Shown during first-run setup ("get an API key here") |
 | `hidden` | bool | Pre-release: kept off every discovery surface (provider pickers, setup list, dashboard accounts tab) until `listed()` is true — by default once the user signs in by name (`hermes auth add <name>` writes a pool row). Resolution by name is never gated |
@@ -110,7 +110,7 @@ Full definition in `providers/base.py`. The most useful ones:
 | `auth_handler` | `Callable \| None` | Provider-owned `hermes auth add/status/logout/refresh <name>` — see [Provider-owned auth](#provider-owned-auth-auth_handler-refresh_credential) |
 | `refresh_credential` | `Callable \| None` | Provider-owned rotation of a pooled OAuth row — same section |
 | `classify_api_error` | `Callable \| None` | Provider-scoped error-classification override — see [Recovery and error classification](#recovery-and-error-classification) |
-| `fallback_models` | `tuple[str, ...]` | Curated list shown when live catalog fetch fails — in the `/model` picker AND the first-time `hermes setup` / `hermes model` API-key flow, which resolve the catalog the same way (`fetch_models()` merged curated-first with `fallback_models`; `fallback_models` alone when the fetch returns `None` or raises) |
+| `fallback_models` | `tuple[str, ...]` | Curated list shown when live catalog fetch fails — in the `/model` picker AND the first-time `kestrel setup` / `kestrel model` API-key flow, which resolve the catalog the same way (`fetch_models()` merged curated-first with `fallback_models`; `fallback_models` alone when the fetch returns `None` or raises) |
 | `supports_vision` | bool | Declares the provider's API accepts image content inside **tool-result** messages (a provider-wide wire capability). Per-model user-image routing comes from `model_capabilities` / models.dev, not from this flag |
 | `model_capabilities` | `dict[str, dict[str, Any]]` | Per-model capability declarations in the `model_overrides` schema — see [Declaring model capabilities](#declaring-model-capabilities) |
 | `default_headers` | `dict[str, str]` | Sent on every request (e.g. an `Editor-Version` header an IDE-subscription API requires); also forwarded by the default `fetch_models()` catalog request. A value that is costly to compute at import (a User-Agent carrying the release) can be deferred with `providers.base.LazyHeaders({"User-Agent": lambda: hermes_user_agent("MyAgent")})`, a `dict` whose callable values run on first read (`hermes_user_agent` is in `hermes_cli.version_info`) |
@@ -243,7 +243,7 @@ meaning says otherwise.
 | `models_url` | Explicit models endpoint (else `{base_url}/models`) | `""` |
 | `auth_type` | `api_key` \| `oauth_device_code` \| `oauth_external` \| `external_process` \| `aws_sdk` \| plugin-defined | `"api_key"` |
 | `supports_streaming` | `None` keeps transport defaults, `True` opts a process client into streaming, `False` disables it | `None` |
-| `supports_health_check` | `False`: `hermes doctor` skips the `/models` probe | `True` |
+| `supports_health_check` | `False`: `kestrel doctor` skips the `/models` probe | `True` |
 | `supports_model_listing` | `False`: `fetch_models()` returns `None` without a network call | `True` |
 | `auth_handler` | Provider-owned `hermes auth add\|status\|logout\|refresh <name>`; truthy return = handled | `None` |
 | `refresh_credential` | Rotates a pooled OAuth row and returns the rotated fields | `None` |
@@ -270,7 +270,7 @@ meaning says otherwise.
 | `start_device_login` | In-app device-code sign-in: returns `{user_code, verification_url, expires_in, interval, state}` | `None` |
 | `poll_device_login` | One poll of that login: `{status, interval?, credential?, message?}` | `None` |
 | `save_device_login` | Persists the approved credential (core calls it in the session's profile scope) | `None` |
-| `model_setup_flow` | The provider's own `hermes model` step (credential prompt, catalog, persist) | `None` (generic flow for `auth_type`) |
+| `model_setup_flow` | The provider's own `kestrel model` step (credential prompt, catalog, persist) | `None` (generic flow for `auth_type`) |
 | `setup_reasoning_efforts` | Effort levels the setup picker offers for a model; `()` = no reasoning control | `None` (generic ladder) |
 | `fetch_account_usage()` | `/usage` snapshot when no built-in usage fetcher owns the provider | `None` |
 | `resolve_aux_model()` | Live cheap-model id for auxiliary tasks; cached, never raises | `""` (use `default_aux_model`) |
@@ -340,7 +340,7 @@ meaning says otherwise.
 
 ### Public helpers for a `model_setup_flow`
 
-A provider's own `hermes model` step calls these instead of re-implementing core's config rules:
+A provider's own `kestrel model` step calls these instead of re-implementing core's config rules:
 
 | Helper | What it does |
 |---|---|
@@ -428,7 +428,7 @@ Keep the class attributes in step with the profile's `process_*` fields. Overrid
 
 ### Picker rows for non-api-key plugins
 
-Every registered profile joins `CANONICAL_PROVIDERS` by slug (a plugin re-declaring a built-in slug such as `bedrock` is deduped, never doubled), so external-process and OAuth plugins appear in `hermes model`, `/model` and the Desktop model selector alongside the built-in providers. Visibility is gated by credentials, not by `auth_type`:
+Every registered profile joins `CANONICAL_PROVIDERS` by slug (a plugin re-declaring a built-in slug such as `bedrock` is deduped, never doubled), so external-process and OAuth plugins appear in `kestrel model`, `/model` and the Desktop model selector alongside the built-in providers. Visibility is gated by credentials, not by `auth_type`:
 
 | `auth_type` | Row is listed / `authenticated` when | Model list |
 |---|---|---|
@@ -437,7 +437,7 @@ Every registered profile joins `CANONICAL_PROVIDERS` by slug (a plugin re-declar
 
 The catalog cache is keyed on the profile's `process_command_env_vars` / `process_args_env_var` values, so pointing `HERMES_<X>_COMMAND` at a different binary re-discovers models. Executable discovery is not a login check: an unauthenticated CLI still lists, and the subprocess reports the failure at first use.
 
-Selecting the row in `hermes model` (and the setup wizard) runs one generic flow keyed by the profile's `auth_type`: external-process profiles are launch-checked (`resolve_external_process_provider_credentials`), OAuth profiles need a live pool row (otherwise the flow prints `hermes auth add <name>` and stops), then the merged catalog is offered and `config.model` is persisted with the profile's `base_url`/`api_mode`. No `_model_flow_*` entry in core is needed.
+Selecting the row in `kestrel model` (and the setup wizard) runs one generic flow keyed by the profile's `auth_type`: external-process profiles are launch-checked (`resolve_external_process_provider_credentials`), OAuth profiles need a live pool row (otherwise the flow prints `hermes auth add <name>` and stops), then the merged catalog is offered and `config.model` is persisted with the profile's `base_url`/`api_mode`. No `_model_flow_*` entry in core is needed.
 
 #### Optional external-process hooks
 
@@ -686,7 +686,7 @@ that needs one of those owns it inside `refresh_credential` / `classify_api_erro
 Provider discovery is **lazy** — triggered by the first `get_provider_profile()` or `list_providers()` call in the process. In practice this happens early at startup (`auth.py` module load extends `PROVIDER_REGISTRY` eagerly). If you need to verify your plugin loaded, run:
 
 ```bash
-hermes doctor
+kestrel doctor
 ```
 
 — a successful `auth_type="api_key"` profile appears under the Provider Connectivity section with a `/models` probe.

@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""A Kanban worker spawned while `hermes update` drains the owner waits for it instead of failing.
+"""A Kanban worker spawned while `kestrel update` drains the owner waits for it instead of failing.
 
 The dispatcher keeps spawning workers during an update window; the owner answers ``draining``
 until the update releases the install. Exiting 1 there books a crash against the card, and two

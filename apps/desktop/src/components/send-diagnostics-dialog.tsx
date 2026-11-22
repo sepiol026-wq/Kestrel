@@ -36,7 +36,7 @@ import {
 } from '@/store/send-diagnostics'
 
 const SUPPORT_LINKS = [
-  { key: 'github', url: 'https://github.com/NousResearch/hermes-agent/issues' },
+  { key: 'github', url: 'https://github.com/sepiol026-wq/Kestrel/issues' },
   { key: 'portal', url: 'https://portal.nousresearch.com/help' },
   { key: 'discord', url: 'https://discord.gg/NousResearch' }
 ] as const

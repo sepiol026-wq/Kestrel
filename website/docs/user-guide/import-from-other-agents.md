@@ -10,9 +10,9 @@ description: "One-command import of an OpenClaw (~/.openclaw), Claude Code (~/.c
 
 The command comes from the official **`agent-importers` plugin** from the [plugin catalog](./features/plugins.md), maintained by Nous Research in [NousResearch/hermes-official-plugins](https://github.com/NousResearch/hermes-official-plugins/tree/main/agent-importers).
 
-## The easy way: `hermes setup`
+## The easy way: `kestrel setup`
 
-On a fresh install, `hermes setup` checks for `~/.openclaw` (or legacy `~/.clawdbot` / `~/.moltbot`), `~/.claude`, `~/.codex`, `~/.cursor` and the Grok Bot desktop app (or a `grok-bot-export*` file in `~/Downloads`) and OpenBot before anything else. When it finds one it asks **"Import your setup from Claude Code?"** (naming what it found); with several found you then pick which from a checklist, all checked. Say yes and setup installs the `agent-importers` plugin from the catalog, unless you already have it, and runs the import below for each pick, preview and confirmation included. For OpenClaw it passes `--migrate-secrets`, as Hermes' old built-in OpenClaw step did, so your API keys and bot tokens come over and the provider and messaging sections that follow are already filled in. If you then pick Quick Setup and the import brought a model along with its key, setup asks whether to keep that model (the default) or switch to Nous Portal. Say no, or have none of these folders, and nothing is installed. Already set up? Run `hermes migrate` for the same offer, `hermes migrate <agent>` (`openclaw`, `claude-code`, `codex`, `cursor`, `grok-bot`, `openbot`) to import from one agent, installing the plugin when it is missing, or use the commands below.
+On a fresh install, `kestrel setup` checks for `~/.openclaw` (or legacy `~/.clawdbot` / `~/.moltbot`), `~/.claude`, `~/.codex`, `~/.cursor` and the Grok Bot desktop app (or a `grok-bot-export*` file in `~/Downloads`) and OpenBot before anything else. When it finds one it asks **"Import your setup from Claude Code?"** (naming what it found); with several found you then pick which from a checklist, all checked. Say yes and setup installs the `agent-importers` plugin from the catalog, unless you already have it, and runs the import below for each pick, preview and confirmation included. For OpenClaw it passes `--migrate-secrets`, as Hermes' old built-in OpenClaw step did, so your API keys and bot tokens come over and the provider and messaging sections that follow are already filled in. If you then pick Quick Setup and the import brought a model along with its key, setup asks whether to keep that model (the default) or switch to Nous Portal. Say no, or have none of these folders, and nothing is installed. Already set up? Run `kestrel migrate` for the same offer, `hermes migrate <agent>` (`openclaw`, `claude-code`, `codex`, `cursor`, `grok-bot`, `openbot`) to import from one agent, installing the plugin when it is missing, or use the commands below.
 
 ## By hand
 
@@ -74,7 +74,7 @@ Claude's `Bash(npm run test:*)` prefix rules become `npm run test*` globs. Non-`
 
 ### Grok Bot
 
-Grok Bot keeps your Bots, routines and skills in its cloud account and has no export button, so each Bot exports itself. Run `hermes migrate grok-bot` (or `hermes import-agent grok-bot`): with no export yet it prints a message to paste into a Bot's chat. The Bot writes `grok-bot-export.json` (or replies with one JSON block) without changing anything; download it and run `hermes import-agent grok-bot --source <file>`. Files saved as `~/Downloads/grok-bot-export*` are found without `--source`. Repeat per Bot, into the profile that should own its work (`hermes -p <profile> ...`).
+Grok Bot keeps your Bots, routines and skills in its cloud account and has no export button, so each Bot exports itself. Run `kestrel migrate grok-bot` (or `hermes import-agent grok-bot`): with no export yet it prints a message to paste into a Bot's chat. The Bot writes `grok-bot-export.json` (or replies with one JSON block) without changing anything; download it and run `kestrel import-agent grok-bot --source <file>`. Files saved as `~/Downloads/grok-bot-export*` are found without `--source`. Repeat per Bot, into the profile that should own its work (`hermes -p <profile> ...`).
 
 | Grok Bot | Hermes |
 |---|---|
@@ -93,7 +93,7 @@ Routines arrive paused so they don't run twice while the Grok copy is still on: 
 
 ## What is never imported
 
-**API keys and credentials.** (OpenClaw is the one exception: its allowlisted API keys and bot tokens come over only when you pass `--migrate-secrets`.) Credential files (`~/.claude/.credentials.json`, `~/.codex/auth.json`, `~/.cursor/cli-config.json`) are never read, and MCP server environment variables or headers with secret-looking names (`*_TOKEN`, `*_API_KEY`, `Authorization`, ...) are stripped and listed in the report so you can re-add them deliberately. Run `hermes setup` to configure providers, or add secrets to `~/.hermes/.env`.
+**API keys and credentials.** (OpenClaw is the one exception: its allowlisted API keys and bot tokens come over only when you pass `--migrate-secrets`.) Credential files (`~/.claude/.credentials.json`, `~/.codex/auth.json`, `~/.cursor/cli-config.json`) are never read, and MCP server environment variables or headers with secret-looking names (`*_TOKEN`, `*_API_KEY`, `Authorization`, ...) are stripped and listed in the report so you can re-add them deliberately. Run `kestrel setup` to configure providers, or add secrets to `~/.hermes/.env`.
 
 ## Behavior notes
 
@@ -126,5 +126,5 @@ The manifest is per profile. A profile created with `hermes profile create <name
 
 `hermes import-agent` and `hermes claw` used to ship inside Hermes core. The commands, their flags and the `import-sync.json` manifest are unchanged in the plugin:
 
-- **Profiles with a registered sync source** (an `import-sync.json`, which scheduled `--sync` runs read) get the plugin installed automatically by `hermes update`, or on the first start after updating (this honours `security.allow_lazy_installs`). If you later remove it (`hermes plugins remove agent-importers`), it stays removed.
-- **Everyone else** installs it when they next need it: a fresh `hermes setup` that finds one of these agents offers it, and running `hermes import-agent` or `hermes claw` without the plugin prints the install command.
+- **Profiles with a registered sync source** (an `import-sync.json`, which scheduled `--sync` runs read) get the plugin installed automatically by `kestrel update`, or on the first start after updating (this honours `security.allow_lazy_installs`). If you later remove it (`hermes plugins remove agent-importers`), it stays removed.
+- **Everyone else** installs it when they next need it: a fresh `kestrel setup` that finds one of these agents offers it, and running `hermes import-agent` or `hermes claw` without the plugin prints the install command.

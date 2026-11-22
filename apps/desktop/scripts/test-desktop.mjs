@@ -40,7 +40,7 @@ const APP = (() => {
       .find(exists)
     return {
       appPath: unpacked,
-      binary: unpacked ? path.join(unpacked, 'Hermes.exe') : path.join(RELEASE_ROOT, 'win-unpacked', 'Hermes.exe'),
+      binary: unpacked ? path.join(unpacked, 'Kestrel.exe') : path.join(RELEASE_ROOT, 'win-unpacked', 'Kestrel.exe'),
       resourcesPath: unpacked ? path.join(unpacked, 'resources') : path.join(RELEASE_ROOT, 'win-unpacked', 'resources'),
       asarPath: unpacked ? path.join(unpacked, 'resources', 'app.asar') : path.join(RELEASE_ROOT, 'win-unpacked', 'resources', 'app.asar'),
       unpackedDistIndex: unpacked
@@ -445,7 +445,7 @@ function validateBundle() {
   }
 
   // The payload may be the real pm bundle (staged by scripts/bundles/desktop.py /
-  // `hermes pm bundle --out build/agent-payload`) or the external stub
+  // `kestrel pm bundle --out build/agent-payload`) or the external stub
   // (plain `pnpm run pack` in the PR/JS lane — the app fetches the runtime at
   // first launch via the stage protocol). Validate the payload only when a
   // real one is present; the stub is the thin-installer contract.

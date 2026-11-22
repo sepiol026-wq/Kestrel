@@ -25,7 +25,7 @@ description: "完整操作指南：订阅、配置、切换模型、启用 gatew
 ## 2. 运行一键配置
 
 ```bash
-hermes setup --portal
+kestrel setup --portal
 ```
 
 这条命令会完成五件事：
@@ -45,11 +45,11 @@ OAuth 需要浏览器，但 loopback 回调运行在 Hermes 所在的机器上�
 ```bash
 # 方案 A：SSH 端口转发（推荐）
 ssh -N -L 8642:127.0.0.1:8642 user@remote-host    # 在本地终端执行
-hermes setup --portal                              # 在远程机器上执行，在本地浏览器中打开打印出的 URL
+kestrel setup --portal                              # 在远程机器上执行，在本地浏览器中打开打印出的 URL
 
 # 方案 B：设备码登录（适用于 Cloud Shell、Codespaces、EC2 Instance Connect）
 hermes auth add nous --type oauth
-# 然后重新运行 `hermes setup --portal` 以连接 provider + gateway
+# 然后重新运行 `kestrel setup --portal` 以连接 provider + gateway
 ```
 
 完整操作说明（包括 ProxyJump 链、mosh/tmux 和 ControlMaster 注意事项）请参阅 [OAuth over SSH / 远程主机](./oauth-over-ssh.md)。
@@ -82,7 +82,7 @@ hermes portal info
 ## 4. 运行第一次对话
 
 ```bash
-hermes chat
+kestrel chat
 ```
 
 尝试一个同时调用模型和 Tool Gateway 的请求：
@@ -95,7 +95,7 @@ Hey, search the web for "Kestrel Agent release notes" and summarize the top 3 hi
 
 ## 5. 选择你实际需要的模型
 
-`hermes setup --portal` 会在设置过程中让你选择模型，但订阅的意义在于可以访问完整的模型目录——随时可在会话中使用 `/model` 切换：
+`kestrel setup --portal` 会在设置过程中让你选择模型，但订阅的意义在于可以访问完整的模型目录——随时可在会话中使用 `/model` 切换：
 
 ```bash
 /model anthropic/claude-sonnet-4.6     # 最佳通用 agentic 模型
@@ -149,7 +149,7 @@ hermes portal tools
 由于 Tool Gateway 包含 OpenAI TTS，无需单独的 OpenAI 密钥即可使用[语音模式](../user-guide/features/voice-mode.md)：
 
 ```bash
-hermes setup voice
+kestrel setup voice
 # → 为 TTS 选择 "Nous Subscription"
 # → 选择语音转文字后端（本地 faster-whisper 免费，无需配置）
 ```
@@ -175,7 +175,7 @@ hermes cron add "Daily AI news summary" "every day at 9am" \
 
 ## 故障排查
 
-### 运行 `hermes setup --portal` 后，`hermes portal info` 显示"not logged in"
+### 运行 `kestrel setup --portal` 后，`hermes portal info` 显示"not logged in"
 
 OAuth 流程未完成。重新运行：
 
@@ -196,7 +196,7 @@ hermes config set model.provider nous
 或以交互方式：
 
 ```bash
-hermes model
+kestrel model
 # 选择 Nous Portal
 ```
 

@@ -38,7 +38,7 @@ hermes cron list
 
 Cron 任务由 gateway 的后台 ticker 线程触发，该线程每 60 秒 tick 一次。普通的 CLI 聊天会话**不会**自动触发 cron 任务。
 
-如果你期望任务自动触发，需要运行一个 gateway（前台运行用 `hermes gateway`，安装为服务用 `hermes gateway start`）。如需单次调试，可手动触发一次 tick：`hermes cron tick`。
+如果你期望任务自动触发，需要运行一个 gateway（前台运行用 `kestrel gateway`，安装为服务用 `kestrel gateway start`）。如需单次调试，可手动触发一次 tick：`hermes cron tick`。
 
 **桌面应用：** 桌面端的主后端自带 ticker，并且会 tick **本机每个 profile** 的 cron 存储——因此即使某个次要 profile 的后端处于休眠状态（桌面端会在约 10 分钟空闲后让 profile 后端休眠），该 profile 上的任务也会照常触发。你不需要保持某个 profile 打开来让它的定时任务运行。
 

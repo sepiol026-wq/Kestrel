@@ -448,7 +448,7 @@ class BitwardenSource(SecretSource):
     # — a stale .env line must not have the final say.
     override_existing_default = True
     _AUTH_HINT = (
-        "Run `hermes secrets bitwarden token` to paste a fresh access "
+        "Run `kestrel secrets bitwarden token` to paste a fresh access "
         "token (create one in the Bitwarden web app: Secrets Manager → "
         "Machine accounts → Access tokens).  Wrong region?  Re-run "
         "`hermes secrets bitwarden setup` and pick EU/self-hosted."
@@ -479,16 +479,16 @@ class BitwardenSource(SecretSource):
         access_token = get_source_environment().get(access_token_env, "").strip()
         if not access_token:
             return result.fail(f"secrets.bitwarden.enabled is true but {access_token_env} is "
-                               "not set.  Run `hermes secrets bitwarden setup`.", ErrorKind.NOT_CONFIGURED)
+                               "not set.  Run `kestrel secrets bitwarden setup`.", ErrorKind.NOT_CONFIGURED)
         project_id = str(cfg.get("project_id") or "")
         if not project_id:
-            return result.fail("secrets.bitwarden.project_id is empty.  Run `hermes secrets bitwarden setup`.",
+            return result.fail("secrets.bitwarden.project_id is empty.  Run `kestrel secrets bitwarden setup`.",
                                ErrorKind.NOT_CONFIGURED)
         binary = find_bws(install_if_missing=bool(cfg.get("auto_install", True)))
         result.binary_path = binary
         if binary is None:
             return result.fail("bws binary not available and auto-install is disabled.  "
-                               "Run `hermes secrets bitwarden setup` to install.", ErrorKind.BINARY_MISSING)
+                               "Run `kestrel secrets bitwarden setup` to install.", ErrorKind.BINARY_MISSING)
 
         encrypted_cfg = cfg.get("encrypted_cache")
         encrypted_cfg = encrypted_cfg if isinstance(encrypted_cfg, dict) else {}

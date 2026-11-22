@@ -3,14 +3,14 @@
 // Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 // Derivative work. All upstream attribution and rights retained.
 
-// drive-update.cjs — launch the INSTALLED Hermes.exe (real Electron desktop
+// drive-update.cjs — launch the INSTALLED Kestrel.exe (real Electron desktop
 // app) under Playwright's Electron driver and perform the update the way a
 // user does: Settings -> About -> "Update now". Screenshots at every step.
 //
 // Run the current CI checkout's entrypoint with its locked driver deps:
 //
-//   node <this file> <path-to-Hermes.exe> <proof-dir> <old-sha> <target-sha>
-//   node <this file> <path-to-Hermes.exe> <proof-dir> <old-sha> --native-handoff
+//   node <this file> <path-to-Kestrel.exe> <proof-dir> <old-sha> <target-sha>
+//   node <this file> <path-to-Kestrel.exe> <proof-dir> <old-sha> --native-handoff
 // <target-sha> is the staged Git main the source update must offer.
 // --native-handoff leaves the native UIA caller in charge of clicking Update.
 //
@@ -39,7 +39,7 @@ const nativeHandoff = process.argv[5] === '--native-handoff'
 const targetSha = nativeHandoff ? undefined : process.argv[5]
 
 if (!exePath || !proofDir || !oldSha || !(nativeHandoff || targetSha) || !process.env.HERMES_E2E_MOCK_URL) {
-  console.error('usage: node drive-update.cjs <Hermes.exe> <proof-dir> <old-sha> (<target-sha> | --native-handoff); HERMES_E2E_MOCK_URL required')
+  console.error('usage: node drive-update.cjs <Kestrel.exe> <proof-dir> <old-sha> (<target-sha> | --native-handoff); HERMES_E2E_MOCK_URL required')
   process.exit(1)
 }
 
@@ -100,7 +100,7 @@ async function main() {
   recordProcessOutput(child, path.join(proofDir, 'app-output.log'))
 
   const waitForProcessClose = observeProcessClose(child)
-  // On Windows Playwright's child is a shell wrapper, not Hermes.exe.
+  // On Windows Playwright's child is a shell wrapper, not Kestrel.exe.
   const appPid = await app.evaluate(() => process.pid)
   log(`launched Electron pid=${appPid}`)
 
@@ -160,7 +160,7 @@ async function main() {
   // and then the desktop quits. We do NOT rely on Playwright's app 'close'
   // event: when the app self-quits for the hand-off that event is
   // unreliable (attempt 8 timed out on it even though the hand-off log
-  // proved the desktop had exited and `hermes update` was already running).
+  // proved the desktop had exited and `kestrel update` was already running).
   //
   // The authoritative "hand-off started" signal is the marker file (or the
   // result JSON, if the whole update finished fast). Poll for either, and

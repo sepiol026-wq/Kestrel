@@ -151,7 +151,7 @@ def _owner_remedy(home: Path) -> tuple[str, str]:
     label = _profile_label_for_home(home)
     if label and label != 'default':
         return label, f'hermes -p {label} gateway restart'
-    return label or str(home), 'hermes gateway restart'
+    return label or str(home), 'kestrel gateway restart'
 
 
 def _owning_gateway_restart(home: Path) -> str:
@@ -267,7 +267,7 @@ _BROWSE_SIBLING_POLL_S = 0.1
 
 class CorruptStoreError(sqlite3.DatabaseError):
     """The lagging store is also damaged: browsing must not write DDL into it. Worded like sqlite's
-    own malformed-image error so every caller maps it to the corrupt-store status (``hermes doctor``)."""
+    own malformed-image error so every caller maps it to the corrupt-store status (``kestrel doctor``)."""
 
     def __init__(self, detail: str):
         super().__init__(f'database disk image is malformed (integrity_check: {detail})')
@@ -415,12 +415,12 @@ def reconcile_drift_for_browse(path: Path) -> bool:
         except RuntimeError as exc:
             raise DeclarativeDriftError(
                 f'Session store is missing its history tables ({reason}); this is not upgrade drift. '
-                'Run `hermes sessions recover`.') from exc
+                'Run `kestrel sessions recover`.') from exc
     home = path.parent
     label, _ = _owner_remedy(home)
 
     def owned(drift, holder=None):
-        restart = 'hermes gateway restart' if holder else _owning_gateway_restart(home)
+        restart = 'kestrel gateway restart' if holder else _owning_gateway_restart(home)
         who = f' ({holder})' if holder else ''
         return DeclarativeDriftError(
             f"Session store for profile '{label}' is behind this Hermes version ({drift}), and a "
@@ -485,7 +485,7 @@ def reconcile_drift_for_browse(path: Path) -> bool:
                 except DeclarativeDriftError as exc:
                     raise DeclarativeDriftError(
                         f"Session store for profile '{label}' is behind this Hermes version and could not "
-                        f'be caught up ({exc}); nothing was changed. Run `hermes sessions repair` for that '
+                        f'be caught up ({exc}); nothing was changed. Run `kestrel sessions repair` for that '
                         'profile.') from exc
         except BrowseBudgetExceeded as exc:
             raise too_slow() from exc
@@ -496,7 +496,7 @@ def reconcile_drift_for_browse(path: Path) -> bool:
     if after := schema_drift_reason(path):
         raise DeclarativeDriftError(
             f"Session store for profile '{label}' is behind this Hermes version and could not be "
-            f'caught up ({after}). Run `hermes sessions repair` for that profile.')
+            f'caught up ({after}). Run `kestrel sessions repair` for that profile.')
     logging.getLogger(__name__).warning(
         'state.db at %s lagged SCHEMA_SQL (%s); added the missing tables/columns for browsing', path, reason)
     return True

@@ -535,7 +535,7 @@ class PluginLoaderMixin:
         else:
             logger.warning(
                 "Plugin %s declares Python dependencies that are not "
-                "installed: %s. For an enabled plugin, run hermes pm repair, "
+                "installed: %s. For an enabled plugin, run kestrel pm repair, "
                 "then restart Kestrel. Discovery does not install dependencies.",
                 key, ", ".join(missing),
             )

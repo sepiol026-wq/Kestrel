@@ -15,7 +15,7 @@ import kestrel_cli.main as hermes_main
 
 
 def _drive_cli_custom_flow(monkeypatch, url: str, secret_answers: list[str]) -> list[str]:
-    """Run ``hermes model`` → Custom endpoint against the real temp HERMES_HOME; return the
+    """Run ``kestrel model`` → Custom endpoint against the real temp HERMES_HOME; return the
     keys the endpoint probe was handed."""
     probed_keys: list[str] = []
 

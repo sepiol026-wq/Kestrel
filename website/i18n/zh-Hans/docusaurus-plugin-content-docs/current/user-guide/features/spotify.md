@@ -13,7 +13,7 @@ hermes plugins install spotify
 插件按 profile 安装。若要在其他 profile 中使用 Spotify，请在该 profile 中同样安装（`hermes -p <profile> plugins install spotify`）。
 
 :::info 从内置 Spotify 的版本升级
-无需任何操作。所有已在使用 Spotify 的 profile（`auth.json` 中存有 Spotify 登录，或 `platform_toolsets` 中列出了 `spotify` 工具集）都会由 `hermes update` 自动从插件目录安装该插件；若该步骤未能运行，则在该 profile 首次启动时安装（遵循 `security.allow_lazy_installs`）。你的登录、`spotify` 工具集和工具名称都保持不变。唯一可见的变化：`hermes auth spotify` 改为 `hermes spotify login`（`hermes auth status spotify` / `hermes auth logout spotify` 改为 `hermes spotify status` / `hermes spotify logout`）；旧写法会打印新命令。若之后移除插件（`hermes plugins remove spotify`），它将保持移除状态。
+无需任何操作。所有已在使用 Spotify 的 profile（`auth.json` 中存有 Spotify 登录，或 `platform_toolsets` 中列出了 `spotify` 工具集）都会由 `kestrel update` 自动从插件目录安装该插件；若该步骤未能运行，则在该 profile 首次启动时安装（遵循 `security.allow_lazy_installs`）。你的登录、`spotify` 工具集和工具名称都保持不变。唯一可见的变化：`hermes auth spotify` 改为 `hermes spotify login`（`hermes auth status spotify` / `hermes auth logout spotify` 改为 `hermes spotify status` / `hermes spotify logout`）；旧写法会打印新命令。若之后移除插件（`hermes plugins remove spotify`），它将保持移除状态。
 :::
 
 ## 前提条件

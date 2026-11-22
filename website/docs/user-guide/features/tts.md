@@ -13,7 +13,7 @@ After a dependency change, reactivate the checkout and restart Hermes.
 Kestrel Agent supports both text-to-speech output and voice message transcription across all messaging platforms.
 
 :::tip Nous Subscribers
-If you have a paid [Nous Portal](https://portal.nousresearch.com) subscription, OpenAI TTS is available through the **[Tool Gateway](tool-gateway.md)** without a separate OpenAI API key. New installs can run `hermes setup --portal` to log in and turn on every gateway tool at once; existing installs can pick **Nous Subscription** for just TTS via `hermes model` or `hermes tools`.
+If you have a paid [Nous Portal](https://portal.nousresearch.com) subscription, OpenAI TTS is available through the **[Tool Gateway](tool-gateway.md)** without a separate OpenAI API key. New installs can run `kestrel setup --portal` to log in and turn on every gateway tool at once; existing installs can pick **Nous Subscription** for just TTS via `kestrel model` or `hermes tools`.
 :::
 
 ## Text-to-Speech
@@ -423,7 +423,7 @@ For TTS engines that can't be expressed as a single shell command — Python SDK
 | Two or three CLIs chained with shell pipes | **Command provider** |
 | A Python SDK only — no CLI | **Plugin** |
 | An engine that emits audio as it synthesizes, and you want spoken replies to start on the first sentence | **Plugin** (set `streams_pcm`, override `stream()`) |
-| A voice-listing API used by `hermes setup` | **Plugin** (override `list_voices()`) |
+| A voice-listing API used by `kestrel setup` | **Plugin** (override `list_voices()`) |
 | OAuth refresh flow (not a static bearer token) | **Plugin** |
 
 Built-ins always win, and command providers win over a same-name plugin — so plugins are safe to register against any non-built-in name without worrying about shadowing your existing config.
@@ -484,7 +484,7 @@ Override these on your provider class for richer integration:
 
 - `list_voices()` → list of `{id, display, language, gender, preview_url}` dicts shown in `hermes tools`.
 - `list_models()` → list of `{id, display, languages, max_text_length}` dicts.
-- `get_setup_schema()` → return `{name, badge, tag, env_vars: [{key, prompt, url}]}` to power the picker row in `hermes tools` / `hermes setup`. Without this, the plugin still works but its row in the picker is minimal.
+- `get_setup_schema()` → return `{name, badge, tag, env_vars: [{key, prompt, url}]}` to power the picker row in `hermes tools` / `kestrel setup`. Without this, the plugin still works but its row in the picker is minimal.
 - `stream(text, *, voice, model, format, **extra)` → iterator yielding audio bytes (default raises `NotImplementedError`).
 - `streams_pcm = True` + `stream_sample_rate` (Hz) → join the streaming voice path (CLI/TUI voice mode, desktop read-aloud, gateway streaming audio). Hermes then calls `stream(text, format="pcm", voice=..., model=..., speed=...)` with the same `tts.voice` / `tts.model` / `tts.speed` that `synthesize()` gets, and expects raw int16 little-endian mono PCM at that rate. Both attributes and `is_available()` are read each time a reply starts, so they can be properties that reflect live state. Unlike `synthesize()`, `stream()` can be called for up to three consecutive sentences at once while earlier audio plays, so it must be thread-safe. Without a positive `stream_sample_rate`, or when `is_available()` is `False`, Hermes keeps synthesizing one sentence at a time.
 - `voice_compatible` property → set `True` if your output is Opus-compatible and the gateway should deliver it as a voice bubble (default `False` = regular audio attachment).
@@ -782,6 +782,6 @@ Override these on your provider class for richer integration:
 
 - `list_models()` → list of `{id, display, languages, max_audio_seconds}` dicts.
 - `default_model()` → string returned when the user doesn't override the model.
-- `get_setup_schema()` → return `{name, badge, tag, env_vars: [{key, prompt, url}]}` to power picker rows in `hermes tools` / `hermes setup` (the picker category for STT is not yet shipped — this metadata is available to plugins for forward compatibility).
+- `get_setup_schema()` → return `{name, badge, tag, env_vars: [{key, prompt, url}]}` to power picker rows in `hermes tools` / `kestrel setup` (the picker category for STT is not yet shipped — this metadata is available to plugins for forward compatibility).
 
 See `agent/transcription_provider.py` for the full ABC including docstrings.

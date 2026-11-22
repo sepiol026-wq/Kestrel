@@ -104,7 +104,7 @@ You should see a JSON response with the model's reply.
 Run the Hermes setup wizard:
 
 ```bash
-hermes setup
+kestrel setup
 ```
 
 When prompted for a provider, select **Custom Endpoint** and enter:
@@ -230,7 +230,7 @@ platforms:
 3. Start the gateway:
 
 ```bash
-hermes gateway
+kestrel gateway
 ```
 
 Now message your bot on Telegram — it responds using your local model.
@@ -247,7 +247,7 @@ platforms:
     token: "YOUR_DISCORD_BOT_TOKEN"
 ```
 
-3. Start: `hermes gateway`
+3. Start: `kestrel gateway`
 
 ## Step 8: Set Up Fallbacks (Optional)
 
@@ -270,7 +270,7 @@ This way, 90% of your usage is free (local), and only the hard tasks hit the pai
 
 ### "provider 'ollama' has no endpoint configured"
 
-`hermes chat --provider ollama` (or `vllm`) stops with this error when no endpoint is configured for that alias anywhere — no `providers.ollama.base_url`, no `model.base_url`. Hermes refuses to send the request rather than fall back to OpenRouter with a cloud key (`OPENROUTER_API_KEY` / `OPENAI_API_KEY`) that happens to be set. Add the endpoint:
+`kestrel chat --provider ollama` (or `vllm`) stops with this error when no endpoint is configured for that alias anywhere — no `providers.ollama.base_url`, no `model.base_url`. Hermes refuses to send the request rather than fall back to OpenRouter with a cloud key (`OPENROUTER_API_KEY` / `OPENAI_API_KEY`) that happens to be set. Add the endpoint:
 
 ```yaml
 providers:
@@ -302,7 +302,7 @@ What helps:
 
 - **Keep the model loaded** — Ollama unloads idle models after 5 minutes, adding a full reload before the next prefill. Set `OLLAMA_KEEP_ALIVE=24h` (see [Step 6](#keep-the-model-loaded)).
 - **Widen the API timeout** — set `HERMES_API_TIMEOUT=1800` in `~/.hermes/.env` (see [What You Need](#what-you-need)).
-- **Measure and trim the fixed prompt** — run `hermes prompt-size` for a byte breakdown of the system prompt and tool schemas, then disable unused toolsets with `hermes tools` and uninstall skills you don't need with `hermes skills`.
+- **Measure and trim the fixed prompt** — run `kestrel prompt-size` for a byte breakdown of the system prompt and tool schemas, then disable unused toolsets with `hermes tools` and uninstall skills you don't need with `hermes skills`.
 - **Use GPU offloading** — even a partial offload gives a significant speedup (see [Step 6](#use-gpu-offloading-if-available)).
 
 ### Model doesn't follow tool calls

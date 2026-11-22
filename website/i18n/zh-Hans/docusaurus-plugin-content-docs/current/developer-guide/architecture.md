@@ -90,7 +90,7 @@ kestrel-agent/
 │   ├── tools_config.py       # hermes tools——按平台启用/禁用
 │   ├── plugins.py            # PluginManager——发现、加载、hook
 │   ├── callbacks.py          # 终端回调（clarify、sudo、approval）
-│   └── gateway.py            # hermes gateway 启动/停止
+│   └── gateway.py            # kestrel gateway 启动/停止
 │
 ├── tools/                    # 工具实现（每个工具一个文件）
 │   ├── registry.py           # 中央工具注册表

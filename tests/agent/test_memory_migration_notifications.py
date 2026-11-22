@@ -53,7 +53,7 @@ def test_gateway_start_replays_the_refusal_once_on_first_turn(tmp_path, monkeypa
 
 
 def test_a_gateway_hosted_cli_session_prints_the_startup_warning_on_its_first_turn():
-    """``hermes chat`` runs its agent in the gateway: built before the viewer's print sink is wired, a
+    """``kestrel chat`` runs its agent in the gateway: built before the viewer's print sink is wired, a
     startup line printed during init reached only the gateway's stdout log. It prints on the first turn, once."""
     agent = StartupAgent("cli")
     agent._gateway_session_key = "agent:main:cli:dm:local"

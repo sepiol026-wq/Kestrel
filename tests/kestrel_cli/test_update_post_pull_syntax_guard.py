@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Tests for the post-pull syntax guard in ``hermes update``.
+"""Tests for the post-pull syntax guard in ``kestrel update``.
 
 When a bad commit lands on ``main`` with a syntax error in a critical file
 (e.g. orphan merge-conflict markers in ``hermes_cli/config.py``), the CLI
@@ -12,7 +12,7 @@ startup. The guard validates them after ``git pull`` and rolls back to the
 pre-pull SHA on failure so the user's install stays runnable.
 
 Reference incident: PR #28452 (May 18, 2026) shipped unresolved conflict
-markers in ``hermes_cli/config.py``; users who ran ``hermes update`` in
+markers in ``hermes_cli/config.py``; users who ran ``kestrel update`` in
 the 7-minute window before #28458 landed could not run any ``hermes``
 command afterward.
 """

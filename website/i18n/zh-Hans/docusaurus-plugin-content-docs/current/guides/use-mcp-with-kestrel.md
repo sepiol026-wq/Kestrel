@@ -69,7 +69,7 @@ mcp_servers:
 然后启动 Hermes：
 
 ```bash
-hermes chat
+kestrel chat
 ```
 
 现在提出一个具体问题：

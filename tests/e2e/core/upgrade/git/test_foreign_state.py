@@ -3,12 +3,12 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Concurrent and foreign git state in the install, through a real ``hermes update``.
+"""Concurrent and foreign git state in the install, through a real ``kestrel update``.
 
 Users' checkouts carry state other tools left: an ``index.lock`` from a crashed (or a still
 running) git, an abandoned interactive rebase, a detached HEAD from a ``git checkout <sha>``,
 sometimes with work committed on it. One HEAD install over smart HTTP is shared; each cell seeds
-one such state on a clean ``main``, publishes an upstream release and runs ``hermes update --yes``.
+one such state on a clean ``main``, publishes an upstream release and runs ``kestrel update --yes``.
 
 The property: the update either heals the state and lands on the release, or refuses with a
 message naming the obstacle, leaving HEAD and the tree as they were and claiming nothing false;

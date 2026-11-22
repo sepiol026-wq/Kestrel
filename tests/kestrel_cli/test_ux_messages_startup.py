@@ -7,7 +7,7 @@
 
 Contracts (not snapshots): a mistyped subcommand names the typo, offers the closest
 match and ``hermes --help`` without dumping the 70-entry choice list; a rejected
-profile name explains the rule; missing optional dependencies point at ``hermes update``.
+profile name explains the rule; missing optional dependencies point at ``kestrel update``.
 """
 
 import io
@@ -41,7 +41,7 @@ def test_unknown_subcommand_names_typo_suggests_closest_and_hides_choice_list():
 
 def test_nested_group_typo_names_the_group_and_suggests():
     text = _parse_error(["gateway", "stat"])
-    assert "'stat' is not a `hermes gateway` command" in text
+    assert "'stat' is not a `kestrel gateway` command" in text
     assert "Did you mean:" in text and "status" in text
 
 def test_invalid_profile_flag_value_explains_rule_and_exits(monkeypatch):

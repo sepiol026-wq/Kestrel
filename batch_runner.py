@@ -15,7 +15,7 @@ statistics aggregated across all batches. See ``main`` (fire CLI) for usage.
 try:
     import kestrel_bootstrap
 except ModuleNotFoundError as exc:
-    # Partial ``hermes update`` (git reset landed, ``uv pip install -e .`` did not).
+    # Partial ``kestrel update`` (git reset landed, ``uv pip install -e .`` did not).
     if exc.name != "hermes_bootstrap" and not "hermes_bootstrap".startswith(f"{exc.name}."):
         raise  # the bootstrap exists but cannot load: skipping it would skip PM activation
 

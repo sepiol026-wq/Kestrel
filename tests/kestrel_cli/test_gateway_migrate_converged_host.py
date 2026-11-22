@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""A CONVERGED host is a no-op for ``hermes gateway migrate --multiplex``, run after run.
+"""A CONVERGED host is a no-op for ``kestrel gateway migrate --multiplex``, run after run.
 
 Driven through the REAL topology path, not stubbed per-profile PIDs: a live host rendezvous
 record + the per-profile ``gateway_state.json`` the multiplexer stamps, so
@@ -62,7 +62,7 @@ def converged_host(tmp_path, monkeypatch):
 
     from gateway import status
     from gateway import host_attach, host_rendezvous as hr
-    monkeypatch.setattr(status, "_read_process_cmdline", lambda p: "hermes gateway run")
+    monkeypatch.setattr(status, "_read_process_cmdline", lambda p: "kestrel gateway run")
     # The WIRE only: the owner's control socket answer. Everything that reads it is real.
     monkeypatch.setattr("gateway.control_socket.identify_gateway",
                         lambda home: {"pid": pid, "hermes_home": str(root), "served_profiles": served})

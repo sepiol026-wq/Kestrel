@@ -38,7 +38,7 @@ def test_isolated_worker_preserves_install_error(client, monkeypatch):
         client.ensure("node", explicit=True)
     assert caught.value.package == "node"
     assert caught.value.cause == "not in the lockfile"
-    assert caught.value.remedy == "add it with `hermes pm lock --bump`"
+    assert caught.value.remedy == "add it with `kestrel pm lock --bump`"
     assert not paths.facts_path().exists()
 
 

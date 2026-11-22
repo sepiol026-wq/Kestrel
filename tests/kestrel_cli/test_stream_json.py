@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes chat -q … --format stream-json`` emits a parseable JSONL event stream and nothing else on stdout."""
+"""``kestrel chat -q … --format stream-json`` emits a parseable JSONL event stream and nothing else on stdout."""
 
 import json
 

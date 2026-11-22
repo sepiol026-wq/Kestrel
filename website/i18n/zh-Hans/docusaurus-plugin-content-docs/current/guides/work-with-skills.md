@@ -235,7 +235,7 @@ For API details, load the reference: `skill_view("my-skill", "references/api-doc
 开启新会话并测试你的 skill：
 
 ```bash
-hermes chat -q "/my-skill help me with the thing"
+kestrel chat -q "/my-skill help me with the thing"
 ```
 
 Skill 会自动出现——无需注册。放入 `~/.hermes/skills/` 即可立即生效。

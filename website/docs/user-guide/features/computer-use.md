@@ -56,12 +56,12 @@ runs](./bot-screen.md#where-the-screen-runs).
 ## Enabling
 
 **The driver ships with Hermes.** `cua-driver` is pinned in `pm/lock.json`
-and is a default PM package: the installers, a bare `hermes pm install`, and
-`hermes update` install it on every macOS, Windows, and glibc Linux target
+and is a default PM package: the installers, a bare `kestrel pm install`, and
+`kestrel update` install it on every macOS, Windows, and glibc Linux target
 (cua-driver publishes no musl or Android build). The desktop app's bundle
 carries it too. To leave it out, pass `--skip-computer-use` on POSIX or
-`-SkipComputerUse` on Windows (or run `hermes pm install --without cua-driver`);
-Hermes remembers the choice, and `hermes pm install cua-driver` undoes it.
+`-SkipComputerUse` on Windows (or run `kestrel pm install --without cua-driver`);
+Hermes remembers the choice, and `kestrel pm install cua-driver` undoes it.
 
 If the download failed or you opted out earlier, any of these installs it:
 
@@ -82,7 +82,7 @@ This asks PM to prepare the pinned `cua-driver` package (verified against
 `hermes computer-use status` to verify the install.
 
 Already have cua-driver? Hermes reuses it when it supports the 0.20 runtime
-contract. During setup, toolset enablement, `hermes update`, and the first
+contract. During setup, toolset enablement, `kestrel update`, and the first
 `computer_use` call of a session, Hermes checks the local version and
 manifest. It repairs an old or incomplete standard installation through
 PM (at most once per session at runtime). A binary
@@ -650,15 +650,15 @@ HERMES_CUA_DRIVER_CMD=/path/to/cua/libs/cua-driver/rust/target/debug/cua-driver
 
 ## Troubleshooting
 
-**First action when anything's off: run `hermes computer-use doctor`.**
+**First action when anything's off: run `kestrel computer-use doctor`.**
 The structured per-check matrix tells you (and any agent helping you
 debug) exactly what's wrong.
 
 Specific failure modes the doctor doesn't catch:
 
 **`computer_use backend unavailable: cua-driver is not installed`** —
-Run `hermes computer-use install` to fetch the cua-driver binary, or
-run `hermes tools` and enable the Computer Use toolset.
+Run `kestrel computer-use install` to fetch the cua-driver binary, or
+run `kestrel tools` and enable the Computer Use toolset.
 
 **Clicks seem to have no effect** — Capture and verify. A modal you
 didn't see may be blocking input. Dismiss it with `escape` or the close

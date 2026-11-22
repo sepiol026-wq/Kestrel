@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""A dead-stalled network fetch ends `hermes update` with an error, never a hang (#93759, #95777).
+"""A dead-stalled network fetch ends `kestrel update` with an error, never a hang (#93759, #95777).
 
 `_git_run(network=True)` bounds the wait; a `TimeoutExpired` becomes a failed
 CompletedProcess whose stderr names the stall, so every caller's existing

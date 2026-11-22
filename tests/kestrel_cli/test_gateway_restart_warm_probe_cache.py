@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""``hermes gateway restart`` of a manual gateway must not attach to the gateway it just stopped.
+"""``kestrel gateway restart`` of a manual gateway must not attach to the gateway it just stopped.
 
 The host-gateway probe is memoized for ``HOST_GATEWAY_CACHE_TTL_S``. The restart probes before the
 stop, the stop finishes well inside the TTL, and the in-process ``run_gateway`` then read the memo

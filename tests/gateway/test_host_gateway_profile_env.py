@@ -145,7 +145,7 @@ class TestHostGatewaySpawnEnv:
     def test_restart_watcher_restores_checkout_pythonpath(self, tmp_path, monkeypatch):
         """The watcher env builders strip Hermes-owned PYTHONPATH entries; the
         restart watcher must get the running checkout's root back, or the
-        respawned `hermes gateway restart` fails with "No module named
+        respawned `kestrel gateway restart` fails with "No module named
         'hermes_cli'" (#152714)."""
         from gateway.run_shutdown import GatewayShutdownMixin
 

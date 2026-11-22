@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""`hermes gateway attach` tells a remote client where a gateway it starts would run.
+"""`kestrel gateway attach` tells a remote client where a gateway it starts would run.
 
 An administrator's OpenSSH login on Windows is elevated and in session 0; a gateway started there
 refuses the user's desktop apps (``gateway_other_session``). The attach reply names that case and

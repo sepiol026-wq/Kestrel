@@ -42,7 +42,7 @@ mcp_servers:
 3. 启动 Hermes：
 
 ```bash
-hermes chat
+kestrel chat
 ```
 
 4. 让 Hermes 使用 MCP 支持的能力。

@@ -268,7 +268,7 @@ function modeRemovesUserData(mode: string) {
  * given the path to the running executable (`process.execPath`) and platform.
  *
  *   macOS:   …/Hermes.app/Contents/MacOS/Hermes  → …/Hermes.app
- *   Windows: …\Hermes\Hermes.exe                 → …\Hermes  (install dir)
+ *   Windows: …\Hermes\Kestrel.exe                 → …\Hermes  (install dir)
  *   Linux:   AppImage → APPIMAGE when we run from it; unpacked → the *-unpacked dir
  *
  * Returns null when we can't confidently identify a removable bundle (e.g.
@@ -300,7 +300,7 @@ function resolveRemovableAppPath(execPath, platform, env: any = {}) {
   }
 
   if (platform === 'win32') {
-    // NSIS per-user installs Hermes.exe directly in the install dir.
+    // NSIS per-user installs Kestrel.exe directly in the install dir.
     const dir = p.dirname(exe)
 
     if (/[\\/]Hermes$/i.test(dir) || /[\\/]hermes-desktop$/i.test(dir)) {

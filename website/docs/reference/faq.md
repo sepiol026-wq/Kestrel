@@ -30,7 +30,7 @@ Kestrel Agent works with any OpenAI-compatible API. Supported providers include:
 - **MiniMax** — global and China endpoints
 - **Local models** — via [Ollama](https://ollama.com/), [vLLM](https://docs.vllm.ai/), [llama.cpp](https://github.com/ggerganov/llama.cpp), [SGLang](https://github.com/sgl-project/sglang), or any OpenAI-compatible server
 
-Set your provider with `hermes model` or by editing `~/.hermes/.env`. See the [Environment Variables](./environment-variables.md) reference for all provider keys.
+Set your provider with `kestrel model` or by editing `~/.hermes/.env`. See the [Environment Variables](./environment-variables.md) reference for all provider keys.
 
 ### Does it work on Windows/Android/my platform??
 See **[Platform Support](../getting-started/platform-support.md)** for the full platform availability matrix.
@@ -59,10 +59,10 @@ API calls go **only to the LLM provider you configure** (e.g., OpenRouter, your 
 
 ### Can I use it offline / with local models?
 
-Yes. Run `hermes model`, select **Custom endpoint**, and enter your server's URL:
+Yes. Run `kestrel model`, select **Custom endpoint**, and enter your server's URL:
 
 ```bash
-hermes model
+kestrel model
 # Select: Custom endpoint (enter URL manually)
 # API base URL: http://localhost:11434/v1
 # API key: ollama
@@ -159,7 +159,7 @@ distributions provide their pinned interpreter.
 For a manual source environment, use the
 [development setup](../developer-guide/contributing.md#development-setup).
 Do not replace the interpreter inside an installed app or container.
-For a managed-install error, run `hermes doctor` and use that installation's
+For a managed-install error, run `kestrel doctor` and use that installation's
 [update method](../getting-started/updating.md).
 
 #### Terminal commands say `node: command not found` (or `nvm`, `pyenv`, `asdf`, …)
@@ -252,31 +252,31 @@ Chat surfaces (Telegram, Discord, Slack, …) never show the raw transport excep
 | Reply | What happened | What to do |
 |---|---|---|
 | "The connection to the AI model service was **interrupted mid-request** — usually transient." | An established connection was cut (`Connection reset by peer`, EOF, `RemoteProtocolError`). The endpoint answered the connect, so it is running. | `/retry`. If it recurs on large requests, see the "stream" entry above. |
-| "The AI model service isn't reachable right now — the configured model endpoint is **not running or is unreachable**." | Nothing accepted the connection (`Connection refused`, no route to host, DNS failure). | Start the model server / check `base_url`, then `/retry`; `hermes doctor` on the host. |
-| "Hermes **could not reach** the AI model service (no further detail from the SDK)." | The SDK reported a generic `APIConnectionError` and kept no cause; neither of the above is certain. | `/retry`; `hermes doctor` if it persists. The raw exception is in `hermes logs`. |
+| "The AI model service isn't reachable right now — the configured model endpoint is **not running or is unreachable**." | Nothing accepted the connection (`Connection refused`, no route to host, DNS failure). | Start the model server / check `base_url`, then `/retry`; `kestrel doctor` on the host. |
+| "Hermes **could not reach** the AI model service (no further detail from the SDK)." | The SDK reported a generic `APIConnectionError` and kept no cause; neither of the above is certain. | `/retry`; `kestrel doctor` if it persists. The raw exception is in `hermes logs`. |
 
 #### `/model` only shows one provider / can't switch providers
 
 **Cause:** `/model` (inside a chat session) can only switch between providers you've **already configured**. If you've only set up OpenRouter, that's all `/model` will show.
 
-**Solution:** Exit your session and use `hermes model` from your terminal to add new providers:
+**Solution:** Exit your session and use `kestrel model` from your terminal to add new providers:
 
 ```bash
 # Exit the Hermes chat session first (Ctrl+C or /quit)
 
 # Run the full provider setup wizard
-hermes model
+kestrel model
 
 # This lets you: add providers, run OAuth, enter API keys, configure endpoints
 ```
 
-After adding a new provider via `hermes model`, start a new chat session — `/model` will now show all your configured providers.
+After adding a new provider via `kestrel model`, start a new chat session — `/model` will now show all your configured providers.
 
 :::tip Quick reference
 | Want to... | Use |
 |-----------|-----|
-| Add a new provider | `hermes model` (from terminal) |
-| Enter/change API keys | `hermes model` (from terminal) |
+| Add a new provider | `kestrel model` (from terminal) |
+| Enter/change API keys | `kestrel model` (from terminal) |
 | Switch model mid-session | `/model <name>` (inside session) |
 | Switch to different configured provider | `/model provider:model` (inside session) |
 :::
@@ -291,7 +291,7 @@ After adding a new provider via `hermes model`, start a new chat session — `/m
 hermes config show
 
 # Re-configure your provider
-hermes model
+kestrel model
 
 # Or set directly
 hermes config set OPENROUTER_API_KEY sk-or-v1-xxxxxxxxxxxx
@@ -308,13 +308,13 @@ Make sure the key matches the provider. An OpenAI key won't work with OpenRouter
 **Solution:**
 ```bash
 # List available models for your provider
-hermes model
+kestrel model
 
 # Set a valid model
 hermes config set model.default anthropic/claude-opus-4.7
 
 # Or specify per-session
-hermes chat --model openrouter/meta-llama/llama-3.1-70b-instruct
+kestrel chat --model openrouter/meta-llama/llama-3.1-70b-instruct
 ```
 
 #### Rate limiting (429 errors)
@@ -324,7 +324,7 @@ hermes chat --model openrouter/meta-llama/llama-3.1-70b-instruct
 **Solution:** Wait a moment and retry. For sustained usage, consider:
 - Upgrading your provider plan
 - Switching to a different model or provider
-- Using `hermes chat --provider <alternative>` to route to a different backend
+- Using `kestrel chat --provider <alternative>` to route to a different backend
 
 #### Context length exceeded
 
@@ -336,10 +336,10 @@ hermes chat --model openrouter/meta-llama/llama-3.1-70b-instruct
 /compress
 
 # Or start a fresh session
-hermes chat
+kestrel chat
 
 # Use a model with a larger context window
-hermes chat --model openrouter/google/gemini-3-flash-preview
+kestrel chat --model openrouter/google/gemini-3-flash-preview
 ```
 
 If this happens on the first long conversation, Hermes may have the wrong context length for your model. Check what it detected:
@@ -397,7 +397,7 @@ This is working as intended — Hermes never silently runs destructive commands.
 **Solution:**
 - Avoid `sudo` in messaging — ask the agent to find alternatives
 - If you must use `sudo`, configure passwordless sudo for specific commands in `/etc/sudoers`
-- Or switch to the terminal interface for administrative tasks: `hermes chat`
+- Or switch to the terminal interface for administrative tasks: `kestrel chat`
 
 #### Docker backend not connecting
 
@@ -427,10 +427,10 @@ docker run hello-world
 **Solution:**
 ```bash
 # Check if the gateway is running
-hermes gateway status
+kestrel gateway status
 
 # Start the gateway
-hermes gateway start
+kestrel gateway start
 
 # Check logs for errors
 cat ~/.hermes/logs/gateway.log | tail -50
@@ -441,7 +441,7 @@ cat ~/.hermes/logs/gateway.log | tail -50
 **Cause:** Network issues, bot token expired, or platform webhook misconfiguration.
 
 **Solution:**
-- Verify your bot token is valid with `hermes gateway setup`
+- Verify your bot token is valid with `kestrel gateway setup`
 - Check gateway logs: `cat ~/.hermes/logs/gateway.log | tail -50`
 - For webhook-based platforms (Slack, WhatsApp), ensure your server is publicly accessible
 
@@ -475,7 +475,7 @@ lsof -i :8080
 hermes config show
 ```
 
-#### WSL: Gateway keeps disconnecting or `hermes gateway start` fails
+#### WSL: Gateway keeps disconnecting or `kestrel gateway start` fails
 
 **Cause:** WSL's systemd support is unreliable. Many WSL2 installations don't have systemd enabled, and even when enabled, services may not survive WSL restarts or Windows idle shutdowns.
 
@@ -483,14 +483,14 @@ hermes config show
 
 ```bash
 # Option 1: Direct foreground (simplest)
-hermes gateway run
+kestrel gateway run
 
 # Option 2: Persistent via tmux (survives terminal close)
-tmux new -s hermes 'hermes gateway run'
+tmux new -s hermes 'kestrel gateway run'
 # Reattach later: tmux attach -t hermes
 
 # Option 3: Background via nohup
-nohup hermes gateway run > ~/.hermes/logs/gateway.log 2>&1 &
+nohup kestrel gateway run > ~/.hermes/logs/gateway.log 2>&1 &
 ```
 
 If you want to try systemd anyway, make sure it's enabled:
@@ -507,7 +507,7 @@ If you want to try systemd anyway, make sure it's enabled:
 
 :::tip Auto-start on Windows boot
 For reliable auto-start, use Windows Task Scheduler to launch WSL + the gateway on login:
-1. Create a task that runs `wsl -d Ubuntu -- bash -lc 'hermes gateway run'`
+1. Create a task that runs `wsl -d Ubuntu -- bash -lc 'kestrel gateway run'`
 2. Set it to trigger on user logon
 :::
 
@@ -515,11 +515,11 @@ For reliable auto-start, use Windows Task Scheduler to launch WSL + the gateway 
 
 **Cause:** launchd services inherit a minimal PATH (`/usr/bin:/bin:/usr/sbin:/sbin`) that doesn't include Homebrew, nvm, cargo, or other user-installed tool directories. This commonly breaks the WhatsApp bridge (`node not found`) or voice transcription (`ffmpeg not found`).
 
-**Solution:** The gateway captures your shell PATH when you run `hermes gateway install`. If you installed tools after setting up the gateway, re-run the install to capture the updated PATH:
+**Solution:** The gateway captures your shell PATH when you run `kestrel gateway install`. If you installed tools after setting up the gateway, re-run the install to capture the updated PATH:
 
 ```bash
-hermes gateway install    # Re-snapshots your current PATH
-hermes gateway start      # Detects the updated plist and reloads
+kestrel gateway install    # Re-snapshots your current PATH
+kestrel gateway start      # Detects the updated plist and reloads
 ```
 
 You can verify the plist has the correct PATH:
@@ -537,8 +537,8 @@ You can verify the plist has the correct PATH:
 **Cause:** Large model, distant API server, or heavy system prompt with many tools.
 
 **Solution:**
-- Try a faster/smaller model: `hermes chat --model openrouter/meta-llama/llama-3.1-8b-instruct`
-- Reduce active toolsets: `hermes chat -t "terminal"`
+- Try a faster/smaller model: `kestrel chat --model openrouter/meta-llama/llama-3.1-8b-instruct`
+- Reduce active toolsets: `kestrel chat -t "terminal"`
 - Check your network latency to the provider
 - For local models, ensure you have enough GPU VRAM
 
@@ -575,10 +575,10 @@ Use `/compress` regularly during long sessions. It summarizes the conversation h
 /compress
 
 # Start a new session with a reference to the old one
-hermes chat
+kestrel chat
 
 # Resume a specific session later if needed
-hermes chat --continue
+kestrel chat --continue
 ```
 
 ---
@@ -626,7 +626,7 @@ mcp_servers:
 hermes config show | grep -A 12 mcp_servers
 
 # Restart Hermes or reload MCP after config changes
-hermes chat
+kestrel chat
 ```
 
 See also:
@@ -675,9 +675,9 @@ No. Each profile has its own memory store, session database, and skills director
 
 This isolation is also the reason to never run two agents against the *same* profile or Hermes home: both write memory automatically and each loads the other's writes at session start, so their stored state degrades with every session. One agent per profile; for genuinely shared memory across agents, use an [external memory provider](../user-guide/features/memory-providers.md).
 
-### What happens when I run `hermes update`?
+### What happens when I run `kestrel update`?
 
-`hermes update` pulls the latest code and reinstalls dependencies **once** (not per-profile). It then syncs updated skills to all profiles automatically. You only need to run `hermes update` once — it covers every profile on the machine.
+`kestrel update` pulls the latest code and reinstalls dependencies **once** (not per-profile). It then syncs updated skills to all profiles automatically. You only need to run `kestrel update` once — it covers every profile on the machine.
 
 
 ### How many profiles can I run?
@@ -774,7 +774,7 @@ skills:
     telegram: [skill-a, skill-b]  # disabled only on telegram
 ```
 
-After changing this, **restart the gateway** (`hermes gateway restart` or kill and relaunch). The Telegram bot command menu rebuilds on startup.
+After changing this, **restart the gateway** (`kestrel gateway restart` or kill and relaunch). The Telegram bot command menu rebuilds on startup.
 
 :::tip
 Skills with very long descriptions are truncated to 40 characters in the Telegram menu to stay within payload size limits. If skills aren't appearing, it may be a total payload size issue rather than the 100 command count limit — disabling unused skills helps with both.
@@ -822,7 +822,7 @@ Skills with very long descriptions are truncated to 40 characters in the Telegra
    hermes import ~/hermes-backup-<timestamp>.zip
    ```
 
-4. On the new machine, run `hermes setup` to verify API keys and provider config are working.
+4. On the new machine, run `kestrel setup` to verify API keys and provider config are working.
 
 ### Moving a single profile to another machine
 
@@ -910,10 +910,10 @@ echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 hermes config show | head -20
 
 # Re-run model selection
-hermes model
+kestrel model
 
 # Or test with a known-good model
-hermes chat -q "hello" --model anthropic/claude-opus-4.7
+kestrel chat -q "hello" --model anthropic/claude-opus-4.7
 ```
 
 If using OpenRouter, make sure your API key has credits. A 400 from OpenRouter often means the model requires a paid plan or the model ID has a typo.

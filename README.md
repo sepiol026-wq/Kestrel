@@ -152,7 +152,7 @@ this repository encode technique, not permission.
 
 ## Attribution
 
-Kestrel Agent is an independent fork and derivative work built upon Hermes Agent
+Kestrel Agent is an independent fork and derivative work built upon Kestrel Agent
 and Qwerty by Nous Research Inc. and community contributors. All original rights,
 contributor attribution and upstream MIT license grants are retained pursuant to
 17 U.S.C. § 1202. See [NOTICE](NOTICE) for provenance.

@@ -49,7 +49,7 @@ Hermes 存储 session 历史以便恢复对话，但不会在每次对话时重�
 
 | 来源 | 描述 |
 |--------|-------------|
-| `cli` | 交互式 CLI（`hermes` 或 `hermes chat`） |
+| `cli` | 交互式 CLI（`hermes` 或 `kestrel chat`） |
 | `telegram` | Telegram 消息 |
 | `discord` | Discord 服务器/私信 |
 | `slack` | Slack 工作区 |
@@ -84,8 +84,8 @@ hermes --continue
 hermes -c
 
 # 或使用 chat 子命令
-hermes chat --continue
-hermes chat -c
+kestrel chat --continue
+kestrel chat -c
 ```
 
 这会从 SQLite 数据库中查找最近的 `cli` session 并加载其完整对话历史。
@@ -114,7 +114,7 @@ hermes -r 20250305_091523_a1b2c3d4
 hermes --resume "refactoring auth"
 
 # 或使用 chat 子命令
-hermes chat --resume 20250305_091523_a1b2c3d4
+kestrel chat --resume 20250305_091523_a1b2c3d4
 ```
 
 Session ID 在退出 CLI session 时显示，也可通过 `hermes sessions list` 查找。

@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""codex_app_server wire conformance: real ``hermes chat -q`` against a fake ``codex app-server``.
+"""codex_app_server wire conformance: real ``kestrel chat -q`` against a fake ``codex app-server``.
 
 The fake (``tests/fakes/providers/codex_app_server.py``) speaks newline-delimited JSON-RPC over stdio,
 validates every request/response Hermes sends against the codex-cli 0.147 app-server schema (serde-style

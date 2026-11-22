@@ -37,8 +37,8 @@ Skills 是 agent 在需要时可以加载的按需知识文档。它们遵循**�
 你也可以通过自然对话与 skills 交互：
 
 ```bash
-hermes chat --toolsets skills -q "What skills do you have?"
-hermes chat --toolsets skills -q "Show me the axolotl skill"
+kestrel chat --toolsets skills -q "What skills do you have?"
+kestrel chat --toolsets skills -q "Show me the axolotl skill"
 ```
 
 ## 渐进式披露
@@ -172,7 +172,7 @@ required_environment_variables:
     required_for: full functionality
 ```
 
-当遇到缺失的值时，Hermes 仅在本地 CLI 中实际加载 skill 时才会安全地请求输入。你可以跳过设置并继续使用该 skill。消息平台不会在聊天中请求密钥——它们会告诉你改用本地的 `hermes setup` 或 `~/.hermes/.env`。
+当遇到缺失的值时，Hermes 仅在本地 CLI 中实际加载 skill 时才会安全地请求输入。你可以跳过设置并继续使用该 skill。消息平台不会在聊天中请求密钥——它们会告诉你改用本地的 `kestrel setup` 或 `~/.hermes/.env`。
 
 一旦设置，声明的环境变量会**自动传递**到 `execute_code` 和 `terminal` 沙箱——skill 的脚本可以直接使用 `$TENOR_API_KEY`。对于非 skill 的环境变量，使用 `terminal.env_passthrough` 配置选项。详情参见[环境变量传递](../security.md#environment-variable-passthrough)。
 
@@ -706,7 +706,7 @@ Tap 存储在 `~/.hermes/.hub/taps.json` 中（按需创建）。
 
 ## 捆绑 skill 更新（`hermes skills reset`）
 
-Hermes 在仓库的 `skills/` 中附带一组捆绑 skills。在安装时以及每次 `hermes update` 时，同步过程会将这些 skills 复制到 `~/.hermes/skills/` 中，并在 `~/.hermes/skills/.bundled_manifest` 记录一个清单，将每个 skill 名称映射到同步时的内容哈希（**origin hash**）。
+Hermes 在仓库的 `skills/` 中附带一组捆绑 skills。在安装时以及每次 `kestrel update` 时，同步过程会将这些 skills 复制到 `~/.hermes/skills/` 中，并在 `~/.hermes/skills/.bundled_manifest` 记录一个清单，将每个 skill 名称映射到同步时的内容哈希（**origin hash**）。
 
 每次同步时，Hermes 重新计算本地副本的哈希并与 origin hash 比较：
 

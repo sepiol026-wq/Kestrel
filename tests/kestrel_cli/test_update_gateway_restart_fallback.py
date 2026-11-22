@@ -5,7 +5,7 @@
 
 """Regression coverage for #88654.
 
-``hermes update`` relaunches manually-run profile gateways through
+``kestrel update`` relaunches manually-run profile gateways through
 ``_prepare_profile_gateway_update_restart``.  When the profile-derived
 relaunch could not be armed the helper returned ``None``, and the update
 path's response to ``None`` was a bare ``continue`` -- so the gateway was

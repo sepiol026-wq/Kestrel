@@ -8,7 +8,7 @@
 Hand-edited or legacy config.yaml files hold scalars where a migration step expects a
 mapping. Each step must guard the shapes it indexes, and ``run_migrations`` must isolate
 a step that still raises so one bad value cannot wedge ``hermes config migrate`` /
-``hermes update`` and leave the config unversioned.
+``kestrel update`` and leave the config unversioned.
 """
 
 import logging

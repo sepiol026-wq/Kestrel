@@ -70,7 +70,7 @@ hermes mcp test hermes-cloud
 Then start (or reload) a session:
 
 ```bash
-hermes chat
+kestrel chat
 ```
 
 ```text
@@ -161,7 +161,7 @@ Reload MCP inside the session and re-check:
 Tell me which MCP-backed tools are available right now.
 ```
 
-If they're still missing, run `hermes mcp test hermes-cloud` to see the connection error directly.
+If they're still missing, run `kestrel mcp test hermes-cloud` to see the connection error directly.
 
 ### It asks me to log in again
 

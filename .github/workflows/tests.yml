@@ -311,7 +311,7 @@ jobs:
         uses: ./.github/actions/check-clean-worktree
 
   e2e-upgrade:
-    # tests/e2e/core/upgrade: a real N-1 -> HEAD `hermes update` (clean,
+    # tests/e2e/core/upgrade: a real N-1 -> HEAD `kestrel update` (clean,
     # autostash, killed mid-pull / mid-deps, offline), fresh-process import and
     # entrypoint smoke, the config round-trip property matrix, and the lane
     # suites below it (pm: PM environment lifecycle across updates, ...).
@@ -335,7 +335,7 @@ jobs:
           fetch-tags: true
 
       - name: Set up Node
-        # `hermes update` builds the web UI / TUI workspaces.
+        # `kestrel update` builds the web UI / TUI workspaces.
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # 7.0.0
         with:
           node-version: 26

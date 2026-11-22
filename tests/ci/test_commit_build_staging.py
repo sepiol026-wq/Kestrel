@@ -172,7 +172,7 @@ def test_commit_staging_and_summary_bind_every_produced_file_without_channels(tm
     missing = shell_step(tmp_path, r2_server, '', '', env, script=termux_stage)
     assert missing.returncode != 0
     assert r2_server.store == before
-    deb = tmp_path / 'termux-build/deb/hermes agent_0.33.0~commit.aaaaaaaaaaaa_aarch64.deb'
+    deb = tmp_path / 'termux-build/deb/kestrel agent_0.33.0~commit.aaaaaaaaaaaa_aarch64.deb'
     deb.parent.mkdir(parents=True)
     deb.write_bytes(b'transport fixture, not a native Debian package')
     staged = shell_step(tmp_path, r2_server, '', '', env, script=termux_stage)

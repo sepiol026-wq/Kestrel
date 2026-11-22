@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""`hermes model` for a process provider gates on the CLI's login and lists its live picker.
+"""`kestrel model` for a process provider gates on the CLI's login and lists its live picker.
 
 The generic plugin flow (``_model_flow_plugin_provider``) drives a registered ``external_process``
 profile end to end: credential resolution, the optional ``setup_status`` login gate, and the

@@ -86,7 +86,7 @@ def _run_portal_one_shot(config: dict) -> None:
         _reload_config_into(config, dict_only=True)
     print()
     print_success("Portal setup complete.")
-    _info("  Run `kestrel portal info` to inspect routing.", "  Run `hermes` to start chatting.")
+    _info("  Run `kestrel portal info` to inspect routing.", "  Run `kestrel` to start chatting.")
     _record_setup_completed(config)
 
 

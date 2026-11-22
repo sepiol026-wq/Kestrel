@@ -43,7 +43,7 @@ automatically.
 
 - A Photon account — sign up at [app.photon.codes][app]
 - Node.js: Hermes uses its managed Node when available.
-  `hermes pm install node` provisions the pin; the adapter can fall back to PATH.
+  `kestrel pm install node` provisions the pin; the adapter can fall back to PATH.
 - A phone number that can receive iMessage (used to bind your account)
 
 That's it — there is no public URL or tunnel to set up.
@@ -53,7 +53,7 @@ That's it — there is no public URL or tunnel to set up.
 Either run the unified gateway wizard and pick **Photon iMessage**:
 
 ```bash
-hermes gateway setup
+kestrel gateway setup
 ```
 
 …or run the Photon setup directly (the wizard calls the same flow):
@@ -150,7 +150,7 @@ BlueBubbles iMessage channel uses.
 ## Start the gateway
 
 ```bash
-hermes gateway start
+kestrel gateway start
 ```
 
 You'll see something like:
@@ -187,11 +187,11 @@ Photon iMessage status
 
 Common issues:
 
-- **`sidecar deps : ✗ run hermes photon install-sidecar`** — Node is
+- **`sidecar deps : ✗ run kestrel photon install-sidecar`** — Node is
   installed but `spectrum-ts` isn't. Run the suggested command.
-- **`device token : ✗ missing`** — run `hermes photon setup` to log in.
+- **`device token : ✗ missing`** — run `kestrel photon setup` to log in.
 - **`No iMessage line assigned yet`** — Spectrum is enabled but no line
-  has been provisioned; re-run `hermes photon setup` or check the
+  has been provisioned; re-run `kestrel photon setup` or check the
   [dashboard][app].
 - **Sidecar won't start** — confirm `node --version` is 18.17+ and that
   `hermes photon install-sidecar` completed without errors.

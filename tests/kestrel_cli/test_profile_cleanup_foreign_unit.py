@@ -21,7 +21,7 @@ from kestrel_cli import gateway as gw
 
 def _unit(path, home) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(f'[Service]\nEnvironment="HERMES_HOME={home}"\nExecStart=/usr/bin/hermes gateway run\n',
+    path.write_text(f'[Service]\nEnvironment="HERMES_HOME={home}"\nExecStart=/usr/bin/kestrel gateway run\n',
                     encoding="utf-8")
 
 

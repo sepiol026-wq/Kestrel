@@ -109,7 +109,7 @@ def test_slash_update_with_an_argument_does_not_update_every_plugin(monkeypatch)
 
 
 def test_cli_update_all_skips_a_catalog_install_held_with_ref(tmp_path, monkeypatch, capsys):
-    """`hermes plugins update` (the command `hermes update` recommends) leaves a `--ref` hold where the user
+    """`hermes plugins update` (the command `kestrel update` recommends) leaves a `--ref` hold where the user
     put it, like every other Update all; naming the plugin is what moves it."""
     from kestrel_cli import plugins_cmd, plugins_cmd_update, plugins_updates
     from kestrel_cli.plugins_cmd_update_all import cmd_update_all

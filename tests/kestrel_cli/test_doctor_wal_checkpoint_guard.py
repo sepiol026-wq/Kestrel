@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""#103339 item 2: ``hermes doctor --fix`` never checkpoints state.db through a bare writable ``sqlite3.connect``
+"""#103339 item 2: ``kestrel doctor --fix`` never checkpoints state.db through a bare writable ``sqlite3.connect``
 — the checkpoint runs on the exclusive repair guard, so an opener arriving after the holder scan is refused."""
 
 from __future__ import annotations
@@ -76,8 +76,8 @@ def test_session_count_reads_a_home_with_uri_reserved_characters(tmp_path):
 
 
 def test_large_wal_warning_under_a_live_writer_never_suggests_a_bare_fix(tmp_path, monkeypatch, capsys):
-    """`hermes doctor` (no --fix) on a large WAL while Desktop/gateway hold the DB must say it is normal and
-    order "stop" before any `--fix` — the bare "run 'hermes doctor --fix'" nudge is how users became the
+    """`kestrel doctor` (no --fix) on a large WAL while Desktop/gateway hold the DB must say it is normal and
+    order "stop" before any `--fix` — the bare "run 'kestrel doctor --fix'" nudge is how users became the
     second writer (#110054)."""
     import kestrel_state_holders
 
@@ -85,7 +85,7 @@ def test_large_wal_warning_under_a_live_writer_never_suggests_a_bare_fix(tmp_pat
     finding = Finding()
     _state_db_wal(finding, False, _large_wal_db(tmp_path))
     assert len(finding.issues) == 1 and not finding.fixed
-    assert finding.issues[0].index("stop the profile's gateway") < finding.issues[0].index("hermes doctor --fix")
+    assert finding.issues[0].index("stop the profile's gateway") < finding.issues[0].index("kestrel doctor --fix")
 
 
 def test_large_wal_warning_without_a_holder_still_orders_stop_before_fix(tmp_path, monkeypatch):
@@ -95,4 +95,4 @@ def test_large_wal_warning_without_a_holder_still_orders_stop_before_fix(tmp_pat
     finding = Finding()
     _state_db_wal(finding, False, _large_wal_db(tmp_path))
     assert len(finding.issues) == 1 and not finding.fixed
-    assert finding.issues[0].index("stop the profile's gateway") < finding.issues[0].index("hermes doctor --fix")
+    assert finding.issues[0].index("stop the profile's gateway") < finding.issues[0].index("kestrel doctor --fix")

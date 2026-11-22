@@ -237,7 +237,7 @@ review (maintainer review is the gate; no CI check inspects the tier value).
 `default: true` ships an entry to every Hermes home: it is installed at its pin
 and enabled at the end of every install (source installer, Desktop, Docker, Nix,
 Termux: on first start where the installer runs no Hermes code), again by
-`hermes update` for a default added since, and when a profile is created. Each
+`kestrel update` for a default added since, and when a profile is created. Each
 home gets it once: a user who removes or disables it keeps that choice through
 every later update. Only `official` and `verified` entries may set it; the
 validator refuses it elsewhere and Hermes ignores it on any other tier. Homes

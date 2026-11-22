@@ -263,7 +263,7 @@ export function sandboxProcesses(sandbox: CoreSandbox): ProcInfo[] {
  * dead backend is reparented away and still counted.
  */
 export function backendProcesses(sandbox: CoreSandbox): ProcInfo[] {
-  // The local backend is the gateway `hermes gateway ensure` attached to or started
+  // The local backend is the gateway `kestrel gateway ensure` attached to or started
   // (`hermes_cli.main [--profile X] gateway run --quiet`); `serve` covers a pool backend.
   const serve = sandboxProcesses(sandbox).filter(
     proc => (/ serve( |$)/.test(proc.cmdline) || / gateway run( |$)/.test(proc.cmdline))
@@ -277,7 +277,7 @@ export function backendProcesses(sandbox: CoreSandbox): ProcInfo[] {
 
 
 /**
- * `hermes gateway stop` for the sandbox profile, run with the backend's own
+ * `kestrel gateway stop` for the sandbox profile, run with the backend's own
  * interpreter (argv[0] of the live `gateway run`). Attach-mode Desktop never
  * owns the gateway, so this is how a test proves teardown works when asked.
  * `interrupt` passes `--yes`: stop refuses while a turn is live unless told to

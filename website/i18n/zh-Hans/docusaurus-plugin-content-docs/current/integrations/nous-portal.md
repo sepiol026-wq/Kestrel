@@ -11,10 +11,10 @@ description: "一个订阅，300+ 前沿模型，以及 Tool Gateway —— 运�
 如果你只有时间配置一件事，就配置这个。最快路径：
 
 ```bash
-hermes setup --portal
+kestrel setup --portal
 ```
 
-这条命令会完成 Portal OAuth 认证，让你选择一个 Nous 模型，在 `config.yaml` 中将 Nous 设为推理提供商，并开启 Tool Gateway。完成后即可立即运行 `hermes chat`。
+这条命令会完成 Portal OAuth 认证，让你选择一个 Nous 模型，在 `config.yaml` 中将 Nous 设为推理提供商，并开启 Tool Gateway。完成后即可立即运行 `kestrel chat`。
 
 还没有订阅？前往 [portal.nousresearch.com/manage-subscription](https://portal.nousresearch.com/manage-subscription) 注册，然后回来运行上面的命令。
 
@@ -88,7 +88,7 @@ Portal 自身的[模型信息页](https://portal.nousresearch.com/info)也有相
 ### 全新安装——一条命令
 
 ```bash
-hermes setup --portal
+kestrel setup --portal
 ```
 
 一次性完成全部配置：
@@ -98,7 +98,7 @@ hermes setup --portal
 3. 让你从精选列表中选择一个 Nous 模型（也可跳过以保留当前模型）
 4. 在 `~/.hermes/config.yaml` 中将 Nous 设为推理提供商（当你选择模型时）
 5. 开启 Tool Gateway（网页、图像、TTS、浏览器路由）
-6. 返回终端，即可运行 `hermes chat`
+6. 返回终端，即可运行 `kestrel chat`
 
 如果还没有订阅，请先在 [portal.nousresearch.com/manage-subscription](https://portal.nousresearch.com/manage-subscription) 注册。
 
@@ -107,12 +107,12 @@ hermes setup --portal
 如果你已经配置了 OpenRouter、Anthropic 或其他提供商，想在此基础上添加 Portal：
 
 ```bash
-hermes model
+kestrel model
 # 从提供商列表中选择 "Nous Portal"
 # 浏览器打开，登录，完成
 ```
 
-你现有的提供商配置保持不变。可以在会话中途用 `/model` 切换，或在会话间用 `hermes model` 切换——Portal 成为你的可用提供商之一，而非唯一选项。
+你现有的提供商配置保持不变。可以在会话中途用 `/model` 切换，或在会话间用 `kestrel model` 切换——Portal 成为你的可用提供商之一，而非唯一选项。
 
 ### 无头环境 / SSH / 远程配置
 
@@ -133,7 +133,7 @@ hermes portal tools      # 详细的 Tool Gateway 目录及每个工具的路由
 hermes portal open       # 在浏览器中打开订阅管理页面
 ```
 
-`hermes portal`（不带子命令）是 `hermes auth add nous --type oauth` 的易记别名——它会登录、让你选择 Nous 模型、把 Nous 设为推理服务商，并提供 Tool Gateway 启用选项（与 `hermes setup --portal` 等价，与首次快速设置走的是同一套 Nous 流程）。
+`hermes portal`（不带子命令）是 `hermes auth add nous --type oauth` 的易记别名——它会登录、让你选择 Nous 模型、把 Nous 设为推理服务商，并提供 Tool Gateway 启用选项（与 `kestrel setup --portal` 等价，与首次快速设置走的是同一套 Nous 流程）。
 
 `hermes portal info` 给出高层概览：
 
@@ -173,7 +173,7 @@ hermes portal open       # 在浏览器中打开订阅管理页面
 在会话外（完整配置向导，适合添加新提供商时使用）：
 
 ```bash
-hermes model
+kestrel model
 ```
 
 ### 将 gateway 与自有后端混用
@@ -199,7 +199,7 @@ Tool Gateway 是按工具单独选择启用的，而非全部或全不。完整�
 
 ## 配置参考
 
-运行 `hermes setup --portal` 后，`~/.hermes/config.yaml` 将如下所示：
+运行 `kestrel setup --portal` 后，`~/.hermes/config.yaml` 将如下所示：
 
 ```yaml
 model:
@@ -242,7 +242,7 @@ Hermes 在每次推理调用时从存储的 Portal refresh token 生成短期 JW
 hermes portal
 ```
 
-或使用 `hermes model` 重新选择 Nous Portal。
+或使用 `kestrel model` 重新选择 Nous Portal。
 
 ### 会话中途收到"需要重新认证"提示
 
@@ -260,7 +260,7 @@ Portal 会为每个模型选择合适的后端——部分模型通过 OpenRoute
 
 ### 账单未出现在我的 Portal 账号中
 
-先检查 `hermes portal info`——如果显示你正在使用其他提供商（`Model: currently openrouter` 而非 `using Nous as inference provider`），说明本地配置已偏离。运行 `hermes model`，选择 Nous Portal，下一次请求将通过你的订阅路由。
+先检查 `hermes portal info`——如果显示你正在使用其他提供商（`Model: currently openrouter` 而非 `using Nous as inference provider`），说明本地配置已偏离。运行 `kestrel model`，选择 Nous Portal，下一次请求将通过你的订阅路由。
 
 ## 另请参阅
 

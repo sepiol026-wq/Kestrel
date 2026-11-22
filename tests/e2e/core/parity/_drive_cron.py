@@ -15,7 +15,7 @@ runs in the profile's gateway daemon (``cron.scheduler_authority.run_canonical_j
 same agent build the ticker uses — and prints ``Ran now: succeeded.``. The job's
 saved output file (``cron/output/<id>/<ts>.md``, ``## Response`` section) is what
 cron delivers locally, so that is ``final_text``. The daemon outlives the CLI, so
-the surface's shutdown ends with ``hermes gateway stop``.
+the surface's shutdown ends with ``kestrel gateway stop``.
 
 Both CLI calls run from the fake HOME, not the project: a scheduled job's
 process cwd is whatever the ticker had, so the workdir is the only channel

@@ -23,6 +23,6 @@ known_issues:
   - The first turn after a gateway starts carries Shared memories only, and Venice models count as Shared until Venice's model list has loaded on a new gateway.
   - Subagents and scheduled jobs count as Shared, so they never see Private memories.
   - Auto-review needs the default in-process plugin mode; under plugins.isolation host, held saves wait for the user.
-  - For /memories to work from the first message, also run `hermes plugins enable whos-listening` (for a memory provider, install --enable only sets memory.provider).
+  - For /memories to work from the first message, also run `kestrel plugins enable whos-listening` (for a memory provider, install --enable only sets memory.provider).
   - If a model calls a memory tool through tool_call, Hermes answers that it's not a known tool name; the plugin tells models to call its tools directly.
 requires_hermes: ">=0.23.0"

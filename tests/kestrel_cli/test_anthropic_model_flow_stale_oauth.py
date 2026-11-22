@@ -3,9 +3,9 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""Tests for Bug #12905 fix — stale OAuth token detection in hermes model flow.
+"""Tests for Bug #12905 fix — stale OAuth token detection in kestrel model flow.
 
-Bug 3: `hermes model` with `provider=anthropic` skips OAuth re-authentication
+Bug 3: `kestrel model` with `provider=anthropic` skips OAuth re-authentication
 when a stale ANTHROPIC_TOKEN exists in ~/.hermes/.env but no valid
 Claude Code credentials are available. The fast-path silently proceeds to
 model selection with a broken token instead of offering re-auth.

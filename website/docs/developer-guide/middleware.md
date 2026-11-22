@@ -137,7 +137,7 @@ agent run:
 export HERMES_HOME=$HOME/.hermes/cache/scratch/hermes-middleware-test
 mkdir -p "$HERMES_HOME"
 hermes plugins enable <plugin-name>
-hermes chat --query 'Reply exactly ok'
+kestrel chat --query 'Reply exactly ok'
 ```
 
 For source checkouts, use the [PM developer workflow](../reference/package-management.md#developer-workflow)
@@ -149,7 +149,7 @@ export HERMES_HOME="$HOME/hermes-middleware-test"
 export HERMES_RUNTIME_DIR="$HERMES_HOME/tools"
 source ./activate
 python hermes plugins enable <plugin-name>
-python hermes chat --query 'Reply exactly ok'
+python kestrel chat --query 'Reply exactly ok'
 ```
 
 ## Generic Plugin Examples

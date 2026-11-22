@@ -229,7 +229,7 @@ export interface EnvVarInfo {
   is_set: boolean
   // Backend-derived provider grouping hints (from the unified provider catalog
   // in hermes_cli/provider_catalog.py). When present, the Keys tab groups by
-  // this provider identity — the SAME one `hermes model` uses — instead of
+  // this provider identity — the SAME one `kestrel model` uses — instead of
   // desktop-only env-var prefix guesses. Empty for non-provider env vars.
   provider?: string
   provider_label?: string
@@ -283,7 +283,7 @@ export interface MemoryProviderConfig {
 }
 
 /** Transport pinned on a custom endpoint; `''` = let the runtime auto-detect. Same
- * choices as `hermes model`'s custom-provider setup (#93622). */
+ * choices as `kestrel model`'s custom-provider setup (#93622). */
 export type CustomEndpointApiMode = '' | 'anthropic_messages' | 'chat_completions' | 'codex_responses'
 
 /** One `/v1/models` row; a gateway may advertise a reasoning alias
@@ -1647,7 +1647,7 @@ export interface BackendUpdateCheckResponse {
   update_available: boolean
   /** A stable release this build already contains: applying it moves back. */
   rollback_to?: null | string
-  /** A stable release `hermes update` refuses: the backend stays on its build. */
+  /** A stable release `kestrel update` refuses: the backend stays on its build. */
   held?: 'downgrade' | null
   /** Update-available only; absent on older backends. */
   channel?: string

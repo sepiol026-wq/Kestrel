@@ -914,7 +914,7 @@ def test_portable_manifest_is_visible_to_plugin_cli(tmp_path):
 def test_autostash_dirty_tree_promotes_intent_to_add_entries(tmp_path):
     """A plugin checkout holding `git add -N` entries must still autostash.
 
-    Same class as the `hermes update` autostash: an intent-to-add entry is never "uptodate", so
+    Same class as the `kestrel update` autostash: an intent-to-add entry is never "uptodate", so
     `git stash push` refuses it. A plugin install is patched in place often enough that this state is
     ordinary rather than exotic, and the failure would abort the plugin update with a confusing error.
     """

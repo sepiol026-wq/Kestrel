@@ -16,7 +16,7 @@ User-facing behaviour (receipts, `--plan`, snapshot modes) is in
 Fleet-update campaign #91277 (Aug 2026). A PR that weakens a stage must answer for the failure class
 it guards. `plan → snapshot → apply → restart-per-kind → verify → report`
 
-- **Plan** (`update_inventory.py`, `hermes update --plan`): read-only inventory — install kind, all
+- **Plan** (`update_inventory.py`, `kestrel update --plan`): read-only inventory — install kind, all
   profiles, every live gateway with supervisor + running code version. Deployment kinds are
   first-class: `git` updates in place; `docker`/`nix`/`apt` are NOT in-place-updatable and the
   updater reports the correct external command instead of fighting the deployment model.
@@ -52,11 +52,11 @@ it guards. `plan → snapshot → apply → restart-per-kind → verify → repo
 - **Verify**: gateways stamp `code_sha`/`code_version` into `gateway_state.json` on every
   runtime-status write (`gateway/status.py`); the updater compares each live gateway against the
   fresh checkout and prints a fleet version matrix. After the commit point (the tree moved) nothing
-  fails `hermes update` (exit 0 unless the code was rolled back): a provably-stale or stopped
+  fails `kestrel update` (exit 0 unless the code was rolled back): a provably-stale or stopped
   gateway, a failed build/launcher/config migration/bytecode sweep/channel adoption/Windows resume
   each print `⚠`, land in the receipt as `outcome: "success"` with `followups: [{step, reason}]`,
   and keep their own obligation armed (`source-completion-pending` for the tail, the fleet-restart
-  obligation for gateways) so the next launch or `hermes update` — including "Already up to date" —
+  obligation for gateways) so the next launch or `kestrel update` — including "Already up to date" —
   retries them. The owed-fleet-restart CLI startup warning is what keeps a mixed-version fleet from
   ever looking healthy. A completion process that could not be started (temporary directory,
   request file, spawn) or died without a correlated result (OOM, SIGKILL) is the same kind of
@@ -142,7 +142,7 @@ precondition and persist blocks, never across a `yield` or a network wait, becau
 again (the desktop's "connect another account"); otherwise a signed-in install gets
 `AlreadySignedIn` before any network. `upgrade_guest` (`hermes auth upgrade`), the CLI and TUI
 `/login`, the gateway `/login` and the desktop start route are renderers over it; a surface that
-needs the cancel check and the save to be atomic passes `persist_guard`. `hermes model` and
+needs the cancel check and the save to be atomic passes `persist_guard`. `kestrel model` and
 `hermes auth add nous` keep `_login_nous` (it carries `--portal-url`, `--ca-bundle`, `--insecure`
 and the shared-store import); that is the same plain device login, and it prints the handoff result
 the same way. Every sign-in that saves an account (`run_sign_in`, `_login_nous`, `hermes auth add

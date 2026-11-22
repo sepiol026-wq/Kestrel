@@ -29,7 +29,7 @@ from tests.e2e.core.upgrade.network import _seed as S
 pytestmark = [
     pytest.mark.allow_network,  # the edge tunnels the hosts it does not fake to the real ones
     pytest.mark.platforms("linux"),
-    # Every `hermes update` here targets a throwaway sandboxed install, never the real checkout.
+    # Every `kestrel update` here targets a throwaway sandboxed install, never the real checkout.
     pytest.mark.live_system_guard_bypass,
     pytest.mark.skipif(H.sandbox_required_reason() is not None, reason=str(H.sandbox_required_reason())),
     pytest.mark.skipif(N.netns_required_reason() is not None, reason=str(N.netns_required_reason())),

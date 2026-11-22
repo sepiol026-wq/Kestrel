@@ -120,7 +120,7 @@ and it works on headless servers with no desktop browser at all.
 
 1. `browser.executable_path`, when set.
 2. The Chromium (Chrome for Testing) installed by Hermes's package manager — the
-   installers and `hermes update` install it by default. The macOS desktop app
+   installers and `kestrel update` install it by default. The macOS desktop app
    does not ship it: the first browser use downloads it (about 195 MB) into
    `~/.hermes/tools`.
 3. `/etc/hermes/chromium-executable-path` in the official Docker image.
@@ -132,7 +132,7 @@ silently. If you installed with `--skip-browser` / `-SkipBrowser`, or the
 download failed, install it with:
 
 ```bash
-hermes pm install chromium
+kestrel pm install chromium
 ```
 
 This also undoes an earlier `--skip-browser` choice, so updates keep the
@@ -181,7 +181,7 @@ unaffected.
 ## Cloud browsers
 
 :::tip Nous Subscribers
-If you have a paid [Nous Portal](https://portal.nousresearch.com) subscription, you can use a cloud browser through the **[Tool Gateway](tool-gateway.md)** without any separate API keys. New installs can run `hermes setup --portal` to log in and turn on every gateway tool at once; existing installs can pick **Nous Subscription** as the browser provider via `hermes model` or `hermes tools`.
+If you have a paid [Nous Portal](https://portal.nousresearch.com) subscription, you can use a cloud browser through the **[Tool Gateway](tool-gateway.md)** without any separate API keys. New installs can run `kestrel setup --portal` to log in and turn on every gateway tool at once; existing installs can pick **Nous Subscription** as the browser provider via `kestrel model` or `hermes tools`.
 :::
 
 Pick a provider in `hermes tools` → Browser Automation. `browser_exec` then
@@ -247,7 +247,7 @@ FIRECRAWL_BROWSER_TTL=600
 Get your API key at [firecrawl.dev](https://firecrawl.dev), then select **Firecrawl** in `hermes tools` → Browser Automation.
 
 :::note Selecting the provider
-The `.env` keys above supply **credentials only**. The active browser is chosen by the `browser.cloud_provider` selection written by `hermes tools` → Browser Automation (`local`, `browserbase`, `browser-use`, `firecrawl`, or `nous` for the Nous Subscription; provider plugins add their own names). Once a selection exists, adding or removing a key does not switch providers — and a selected provider with a missing key errors with guidance to run `hermes tools` instead of silently rerouting. Never-configured setups still autodetect from available credentials.
+The `.env` keys above supply **credentials only**. The active browser is chosen by the `browser.cloud_provider` selection written by `hermes tools` → Browser Automation (`local`, `browserbase`, `browser-use`, `firecrawl`, or `nous` for the Nous Subscription; provider plugins add their own names). Once a selection exists, adding or removing a key does not switch providers — and a selected provider with a missing key errors with guidance to run `kestrel tools` instead of silently rerouting. Never-configured setups still autodetect from available credentials.
 :::
 
 Cloud sessions consume provider credits. Hermes releases them when the
@@ -418,7 +418,7 @@ Three things to set up before scheduling one:
   list wins over the cron-platform config
   ([details](./cron.md#toolsets-available-to-cron-jobs)).
 - **Assume nothing can be prompted for.** A cron, webhook, API or
-  `hermes chat -q` session has nobody to answer a prompt, so a site that is not
+  `kestrel chat -q` session has nobody to answer a prompt, so a site that is not
   usable on the synced cookies alone — a login form, a fresh 2FA challenge —
   needs its credentials saved ahead of time, authenticator key included. That is
   the [credential vault's](./credential-vault.md#headless-sessions) job, and it
@@ -451,14 +451,14 @@ Hermes launches `lightpanda serve --host 127.0.0.1 --port <free>` itself — one
 
 Lightpanda has no graphical renderer, so `capture_screenshot()` is unavailable and the tool description tells the model to work text-first; it also holds one page per session, so the model is told to call `new_tab()` once and `goto_url()` afterwards (tracked upstream in [lightpanda-io/browser#1962](https://github.com/lightpanda-io/browser/issues/1962)).
 
-**When the engine is ignored.** `browser.engine` is the lowest-precedence browser setting: a cloud provider (including the Nous subscription browser — and on never-configured setups, any `BROWSERBASE_API_KEY` / `BROWSER_USE_API_KEY` in `~/.hermes/.env` auto-selects one), a `browser.cdp_url` / `/browser connect` override, or `browser.use_real_profile` all take precedence. Picking Lightpanda in `hermes tools` writes `cloud_provider: local` for you; `/browser status` and `hermes doctor` report when the engine is configured but shadowed, and by what.
+**When the engine is ignored.** `browser.engine` is the lowest-precedence browser setting: a cloud provider (including the Nous subscription browser — and on never-configured setups, any `BROWSERBASE_API_KEY` / `BROWSER_USE_API_KEY` in `~/.hermes/.env` auto-selects one), a `browser.cdp_url` / `/browser connect` override, or `browser.use_real_profile` all take precedence. Picking Lightpanda in `hermes tools` writes `cloud_provider: local` for you; `/browser status` and `kestrel doctor` report when the engine is configured but shadowed, and by what.
 
 ## Your own browser via CDP (`/browser connect`)
 
 Instead of the Chromium Hermes launches or a cloud provider, you can attach the browser tools to your own running Chrome, Brave, Chromium, or Edge instance via the Chrome DevTools Protocol (CDP). This is useful when you want to see what the agent is doing in real-time, interact with pages that require your own cookies/sessions, or avoid cloud browser costs.
 
 :::note
-`/browser connect` is an **interactive-CLI slash command** — it is not dispatched by the gateway. If you try to run it inside a WebUI, Telegram, Discord, or other gateway chat, the message will be sent to the agent as plain text and the command will not execute. Start Hermes from the terminal (`hermes` or `hermes chat`) and issue `/browser connect` there.
+`/browser connect` is an **interactive-CLI slash command** — it is not dispatched by the gateway. If you try to run it inside a WebUI, Telegram, Discord, or other gateway chat, the message will be sent to the agent as plain text and the command will not execute. Start Hermes from the terminal (`hermes` or `kestrel chat`) and issue `/browser connect` there.
 :::
 
 In the CLI, use:
@@ -610,7 +610,7 @@ backends, and headless use.
 ## Turning browsing off
 
 There is no config switch for the browser — disable the `browser` toolset
-instead. Run `hermes tools` and untick **Browser Automation** for the platforms
+instead. Run `kestrel tools` and untick **Browser Automation** for the platforms
 that shouldn't browse, or from a script:
 
 ```bash

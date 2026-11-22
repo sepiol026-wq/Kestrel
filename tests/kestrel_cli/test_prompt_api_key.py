@@ -4,7 +4,7 @@
 # Derivative work. All upstream attribution and rights retained.
 
 """Tests for ``_prompt_api_key`` — the shared Keep/Replace/Clear menu used by
-``hermes setup`` / ``hermes model`` when an API key already exists in ``.env``.
+``kestrel setup`` / ``kestrel model`` when an API key already exists in ``.env``.
 
 Regression coverage for #16394: the wizard used to silently skip the key prompt
 when any value was present (even malformed junk), leaving users stuck.

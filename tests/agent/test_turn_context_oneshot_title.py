@@ -3,7 +3,7 @@
 # Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 # Derivative work. All upstream attribution and rights retained.
 
-"""A one-shot session (``hermes chat -q`` / ``-z`` / ``--oneshot``) starts no auto-title call.
+"""A one-shot session (``kestrel chat -q`` / ``-z`` / ``--oneshot``) starts no auto-title call.
 
 Nothing shows a one-shot's title (those sessions are hidden from every picker), and on a process
 provider such as the Claude subscription DirectSDK plugin the title call is a second paid CLI spawn.

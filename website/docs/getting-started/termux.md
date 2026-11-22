@@ -88,7 +88,7 @@ Do not use the desktop/server `install.sh` or a glibc Linux archive on this targ
 6. Configure a provider, then start the TUI:
 
    ```bash
-   hermes setup
+   kestrel setup
    hermes --tui
    ```
 
@@ -110,7 +110,7 @@ pkg update
 pkg upgrade kestrel-agent
 ```
 
-`hermes update` refuses to modify an APT-owned installation.
+`kestrel update` refuses to modify an APT-owned installation.
 It prints the package-manager command instead.
 Canary versions contain `~canary.<timestamp>` and sort before the corresponding
 stable version. Each suite only lists its own channel's packages; to move
@@ -123,14 +123,14 @@ This APT installation does not use systemd, launchd, or Windows Scheduled Tasks.
 Run the gateway in a Termux session:
 
 ```bash
-hermes gateway run
+kestrel gateway run
 ```
 
 For a background process:
 
 ```bash
 mkdir -p "${HERMES_HOME:-$HOME/.hermes}/logs"
-nohup hermes gateway run >> "${HERMES_HOME:-$HOME/.hermes}/logs/gateway.log" 2>&1 &
+nohup kestrel gateway run >> "${HERMES_HOME:-$HOME/.hermes}/logs/gateway.log" 2>&1 &
 ```
 
 :::warning Android process limits
@@ -173,4 +173,4 @@ APT removes the package and its command symlinks. It preserves your configuratio
 - **Missing library or TUI bundle:** report `hermes --version` and the complete error. The core package must not require a local rebuild.
 - **Gateway stops with the screen off:** review Android's battery and background-process limits.
 
-For general diagnostics, run `hermes doctor`.
+For general diagnostics, run `kestrel doctor`.

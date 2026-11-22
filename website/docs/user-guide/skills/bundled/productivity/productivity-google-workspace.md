@@ -51,7 +51,7 @@ on CLI, Telegram, Discord, or any platform.
 Run the setup script with Python from the Hermes environment, not an unrelated
 system Python. `--install-deps` syncs Hermes' declared Google extra through PM;
 after syncing, restart Hermes and rerun the OAuth command. If Hermes is not
-importable, use `hermes setup` first rather than installing packages with pip.
+importable, use `kestrel setup` first rather than installing packages with pip.
 
 Define a shorthand first:
 

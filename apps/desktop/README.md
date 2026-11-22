@@ -12,7 +12,7 @@
 > **Intel Macs:** the `Hermes-Setup.dmg` bootstrap installer is built for
 > Apple Silicon (arm64) only, so on an Intel Mac it reports "not supported on
 > this Mac". No release builds a native `darwin-x64` bundle; install the
-> [CLI](../../README.md) and run `hermes desktop`. See
+> [CLI](../../README.md) and run `kestrel desktop`. See
 > [Platform Support](../../website/docs/getting-started/platform-support.md#build-targets-and-support-priority).
 
 <table>
@@ -50,7 +50,7 @@ Update through the owner of the installed artifact: Windows App Installer for
 sideload MSIX, Microsoft Store for Store packages, and `electron-updater` for
 macOS bundles. Source-built apps use the checkout update handoff.
 
-`hermes update` updates managed source checkouts; it does not rewrite a bundled
+`kestrel update` updates managed source checkouts; it does not rewrite a bundled
 payload. See [BUILDING.md](BUILDING.md) for package and release contracts.
 
 ---
