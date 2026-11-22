@@ -32,7 +32,7 @@
 ## 快速安装
 
 ```bash
-curl -fsSL https://kestrel-agent.nousresearch.com/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/sepiol026-wq/Kestrel/main/scripts/install.sh | bash
 ```
 
 支持 Linux、macOS 和 WSL2。安装程序会自动处理平台特定的配置。

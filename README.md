@@ -91,6 +91,28 @@ and the field-tested security skills shipped with this repository:
 Skills are plain markdown; write your own and the agent picks them up on
 `/reload skills`.
 
+## Installation
+
+### Linux, macOS & WSL2
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/sepiol026-wq/Kestrel/main/scripts/install.sh | bash
+```
+
+### Windows (PowerShell)
+
+```powershell
+irm https://raw.githubusercontent.com/sepiol026-wq/Kestrel/main/scripts/install.ps1 | iex
+```
+
+### From Source
+
+```bash
+git clone https://github.com/sepiol026-wq/Kestrel.git
+cd Kestrel
+./scripts/install.sh
+```
+
 ## Quickstart
 
 ```bash

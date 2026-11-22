@@ -37,7 +37,7 @@ Usa cualquier modelo que quieras — [Nous Portal](https://portal.nousresearch.c
 ### Linux, macOS, WSL2
 
 ```bash
-curl -fsSL https://kestrel-agent.nousresearch.com/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/sepiol026-wq/Kestrel/main/scripts/install.sh | bash
 ```
 
 ### Windows (nativo, PowerShell)
