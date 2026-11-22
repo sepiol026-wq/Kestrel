@@ -1138,8 +1138,12 @@ stage_products() {
     if [ "$INCLUDE_DESKTOP" = true ] || desktop_product_present; then
         args+=(--desktop)
     fi
-    (cd "$INSTALL_DIR" && run_logged "Building the hermes command and apps" \
-        "$boot_py" -I -B -X utf8 hermes_cli/source_completion.py "${args[@]}") \
+    local comp_script="kestrel_cli/source_completion.py"
+    if [ ! -f "$INSTALL_DIR/$comp_script" ] && [ -f "$INSTALL_DIR/hermes_cli/source_completion.py" ]; then
+        comp_script="hermes_cli/source_completion.py"
+    fi
+    (cd "$INSTALL_DIR" && run_logged "Building the kestrel command and apps" \
+        "$boot_py" -I -B -X utf8 "$comp_script" "${args[@]}") \
         || fail "app products or command publication failed" products_build_failed
     wire_shell_path
     log_success "app products and hermes command ready"
