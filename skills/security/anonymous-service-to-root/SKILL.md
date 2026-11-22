@@ -36,10 +36,23 @@ redis-cli -h HOST SAVE
 
 Notes that decide success:
 
-- Newer Redis appends a binary header to the RDB, so the file is not a clean key list.
-  Check the result and, if the header breaks parsing, use `CONFIG SET` to a temp dir,
-  build the file with `SET` on a fresh instance, or fall back to a cron entry
-  (`/var/spool/cron/root`) written the same way.
+- The cluster must run as root for `/root/.ssh` to be a legal `dir`. On a non-root Redis
+  `CONFIG SET dir /root/.ssh` answers `-ERR Changing directory: Permission denied`, and
+  on a non-root Redis `SAVE` answers `-ERR` — check both replies, they are independent.
+  Those two lines are the cheap filter for which instances can ever work.
+- **A successful `SET`+`SAVE` is not an entry.** Gate every plant with a real login test
+  (`echo $((6*7))` returning 42). On a large sample most plants fail while port 22 is
+  open, because the RDB writes a binary header line ahead of the key and older `sshd`
+  stops reading the file at the first unparsable line; a restricted `PermitRootLogin`
+  or a custom `AuthorizedKeysFile` does the same. Do not report a plant as a host until
+  the login succeeds.
+- **Cron is the fallback that survives the junk line.** Point `dir` at `/etc/cron.d`,
+  `dbfilename` at a dot-free name, and store a minutely job that appends the key when
+  it is missing. Cron skips malformed lines and keeps the valid one, so the key
+  installs by itself within a minute even when `sshd` cannot parse the same file.
+- Write the value as `"\n\nssh-ed25519 AAAA... tag\n\n"` so the key lands on its own
+  line whatever the serializer puts in front of it, and reuse one tag for the guard
+  that keeps the append idempotent.
 - `/root/.ssh` must be `0700` and the file `0600`; if Redis refuses (protected mode,
   `dir` not writable), try `/home/<user>/.ssh`, then a cron path.
 - **Restore state afterwards**: `CONFIG GET dir` and `CONFIG GET dbfilename` values back

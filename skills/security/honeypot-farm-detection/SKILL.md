@@ -71,6 +71,17 @@ mkdir -p /tmp/.probe && date +%s%N > /tmp/.probe/a && cat /tmp/.probe/a
 Same `boot_id`, same hostname, `42` from the arithmetic, and the written value read back
 later — that is a real machine. Anything less is a candidate, not a host.
 
+**A farm can accept credentials you planted.** A no-auth service that writes
+`authorized_keys` (Redis being the usual one) makes the pool look conquered: the key
+lives in a shared image, so every instance logs you in. The sessions are still
+ephemeral — a second connection lands in a fresh container with a new `boot_id`, a new
+hostname and an empty `/tmp`. That is why the gate is two connections plus a state
+write, not one successful `ssh`.
+
+Symptom of a whole pool being a farm: every hit sits in a handful of /16 blocks of one
+cheap provider, and the hostnames read like labels (`cam-37`, `prod-db-83`, `router-14`,
+`mail-14.example`).
+
 ## 5. Reading the result
 
 Three buckets, not two:
