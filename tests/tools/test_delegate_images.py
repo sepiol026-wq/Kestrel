@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Per-task image forwarding on delegate_task: a task's ``images`` (local paths, http(s) or data: URLs) reach a
 vision-capable child as native ``image_url`` content parts on its goal turn; non-vision children get
 ``[Image attached …]`` hints for ``vision_analyze``; any failure degrades to the text-only goal."""

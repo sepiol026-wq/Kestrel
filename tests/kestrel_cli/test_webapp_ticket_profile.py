@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A Webapp tab's socket answers for the profile its gateway ticket names.
 
 A tab opened on ``?profile=<name>`` mints its ``/api/ws`` ticket with that profile. The socket must

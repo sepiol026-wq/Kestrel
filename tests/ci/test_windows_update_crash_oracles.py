@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The Windows update E2E, judged on this OS: the workflow's selection runs every cell, and a
 verdict the crash cells can only reach on a Windows runner says pass exactly when the user's
 update was what the cell claims."""

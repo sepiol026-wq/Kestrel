@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A Nous 401 refresh must replace the auxiliary client under the SAME cache key
 ``call_llm`` acquired it with (model dimension #56889, task dimension #58894).
 Otherwise the expired client is never evicted and every auxiliary call 401s,

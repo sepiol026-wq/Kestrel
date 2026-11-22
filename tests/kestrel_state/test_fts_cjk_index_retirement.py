@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A state.db that an earlier release gave the cjk_unicode61 index opens without it: the index, its triggers
 and its markers are dropped, so writers that never load the tokenizer (the sqlite3 CLI) can write again."""
 

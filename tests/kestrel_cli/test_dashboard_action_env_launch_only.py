@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A dashboard-spawned ``hermes -p <other> ...`` child keeps the launch environment's
 launch-only keys (#135200). The named-profile scrub drops every key the root/home ``.env``
 names, but a launch-only key is never loaded from ``.env``: the value in ``os.environ`` is the

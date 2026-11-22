@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """User-facing copy for ``kestrel gateway start/stop/restart`` failures on systemd hosts.
 
 ``hermes_cli/gateway.py`` is a facade; this sibling owns the small exception -> guidance table so

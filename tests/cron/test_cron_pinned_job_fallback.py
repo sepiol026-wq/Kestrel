@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A cron job with its own provider/model/base_url pin never walks the global fallback chain (#100437).
 
 Two vectors, one rule (``cron.scheduler._job_fallback_chain``, shared with delegate_task's pinned

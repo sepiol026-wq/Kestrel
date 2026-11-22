@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Vertex AI through the classic CLI's gateway path: ``/config`` and ``/bg`` (#134889 T6).
 
 A real ``hermes chat --cli`` runs in a private tmux server with ``provider: vertex`` and a synthetic

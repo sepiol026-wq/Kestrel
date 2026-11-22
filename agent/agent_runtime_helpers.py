@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Assorted AIAgent runtime helpers (message repair/sanitization, credential recovery, primary
 runtime restore, prompt-cache policy, client construction, model switching, tool invocation).
 Each function takes the parent ``AIAgent`` as ``agent`` except the stateless message helpers.

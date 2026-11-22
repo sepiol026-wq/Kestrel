@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Driver-side wrapper around tests-js/scripts/mock-server.ts (the desktop
 // E2E suite's OpenAI-compatible mock): starts the server as a LIBRARY
 // (importing, not executing, so the dev-launcher block never runs) and

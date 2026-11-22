@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Per-turn context shared between ``GatewayRunner._run_agent_inner`` and ``TurnRunner``.
 
 Each ex-closure local is a field, written once by ``_run_agent_inner`` while wiring the turn.

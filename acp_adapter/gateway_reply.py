@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """How a gateway turn's reply reaches the editor: ``messageId`` grouping, exactly-once final text, tool and
 permission bubbles closed as the in-process agent closed them. Mixed into ``GatewayACPAgent``, whose state
 (``_conn``, ``_streamed``, ``_segments``, ``_tool_args``, ``_message_ids``, ``_cut``) it reads and updates."""

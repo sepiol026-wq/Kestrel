@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Regression for #116126: a session born hidden stays un-hidden once the user un-hides it.
 
 ``_ensure_session_db_row`` runs from every prompt.submit; the deferred ``pending_hidden`` intent must be

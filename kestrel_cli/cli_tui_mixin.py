@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 # health: allow FILE_LINES -- usage-window plans: /model picker hooks only (a multi-row hint, Large/Free row labels); the logic lives in hermes_cli/model_picker_usage.py
 """prompt_toolkit TUI construction, key-binding handlers, and overlay display fragments for the
 interactive CLI. Mixin bound onto ``HermesCLI`` via the MRO; cli.py-internal symbols are imported

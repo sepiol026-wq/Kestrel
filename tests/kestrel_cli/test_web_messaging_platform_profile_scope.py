@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The dashboard's channel edit routes resolve the platform against the TARGET profile's platforms, the same
 catalog ``GET /api/messaging/platforms?profile=`` shows: a platform plugin installed only in a secondary
 profile is editable there (with its own value rules) and still unknown for the dashboard's own profile.

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """An explicit ``/resume <delegate-child>`` sticks: the next message stays on the resumed session.
 
 The #138210 route guard reads a ``_delegate_from`` row as a stale capture and moves the chat off it.

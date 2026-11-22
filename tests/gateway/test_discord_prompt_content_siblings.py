@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Sibling coverage for the embed-invisibility fix (send_exec_approval got it
 in the same PR): slash confirm, clarify, and update prompts must also mirror
 their payload into plain message content, since embeds don't render on some

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``hermes_cli.desktop_plugin_install``: cloning a desktop plugin onto the host that serves the Webapp.
 
 Real local Git repositories behind an https identifier (only the clone's network leg is pointed at the

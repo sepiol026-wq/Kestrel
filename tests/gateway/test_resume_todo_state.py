@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``session.resume`` carries the session's todo snapshot (``todo_state``): a viewer attaching to a session
 with a plan (the classic CLI's /resume or ``-c``) shows it before the next ``todo.updated``.
 

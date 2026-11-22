@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // The mic level meters (the recorder's VAD and the barge-in monitor) each open
 // an AudioContext on the capture stream. close() is async, so a context torn
 // down at the end of one turn can still hold the device when the next turn

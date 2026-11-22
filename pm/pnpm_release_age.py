@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Name the picks pnpm's minimumReleaseAge refuses during `hermes pm update --pnpm`.
 
 `pnpm update --no-save` reports a too-young pick only as ERR_PNPM_STRICT_MIN_RELEASE_AGE_REQUIRES_SAVE,

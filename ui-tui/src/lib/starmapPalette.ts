@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Star Map palette — ported from apps/desktop/src/app/starmap/color.ts so the
 // TUI overlay derives the same memory ink (complement of the theme primary) and
 // the same age fade (rgba(ink, alpha) over the background) as the desktop panel.

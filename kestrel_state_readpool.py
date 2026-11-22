@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Read-connection budgeting for SessionDB's WAL read path: per-file and
 process-wide permit ceilings plus a descriptor-headroom gate, so N handles on
 one state.db cannot walk the process into EMFILE. Idle pooled connections keep

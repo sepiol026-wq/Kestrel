@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A parked server's timed self-probe must honour ``enabled: false`` / a deleted config
 entry: the probe rebuilds the transport from the config captured at start, so without the
 gate a disabled server re-runs its OAuth setup every ``_PARKED_RETRY_INTERVAL`` for the

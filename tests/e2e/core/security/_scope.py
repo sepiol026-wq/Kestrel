@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Private harness for ``test_profile_secret_scope.py``: one real ``hermes serve`` hosting two
 profiles, a user dashboard plugin whose API route reads a credential through ``get_secret``, and a
 stdio MCP server per profile that dumps the environment it was spawned with.

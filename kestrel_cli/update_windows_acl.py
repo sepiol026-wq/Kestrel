@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``kestrel update``'s owed ``windows_home_acl`` step: after an elevated update, give the same
 user back access to the home tree that run may have left Administrators-only (#139870, #134889 W8).
 Split from ``update_cmd_maint.py``."""

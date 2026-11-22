@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Reasoning floor for auxiliary requests: when a route refuses to switch reasoning OFF, step it UP.
 
 Aux lanes that want speed over thought (title generation: ``max_tokens=64``, JSON body) send the

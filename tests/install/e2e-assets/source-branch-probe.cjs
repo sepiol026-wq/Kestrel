@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Test-only preload for the unpublished Git main used by source-install E2E.
 // The shipped source checker accepts --branch main, but Desktop's automatic
 // check normally resolves the published main channel. Intercept only that

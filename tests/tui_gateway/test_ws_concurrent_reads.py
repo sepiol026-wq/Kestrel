@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The WS concurrent-read lane (#134889 GW-18 review): waiting context reads stay bounded, a server
 shutdown or client hang-up never waits for reads that have not started, and a reply the read lane
 cannot send never cancels the control handler the serial lane is running.

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A key-less ``ctx.inject_message(text)`` from plugin code the gateway runs (#134889 PLG-7, B2-11).
 
 Before the one-gateway runtime each classic CLI loaded its own plugins, so a key-less inject meant that

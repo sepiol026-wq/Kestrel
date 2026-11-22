@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Focus view — display-only reduced output: "just my prompt and the answer, and tell me what you hid".
 ON snaps ``tool_progress_mode`` to ``"off"`` and remembers the configured mode so the *existing* suppression
 path does the hiding; OFF restores it verbatim. Focus adds a per-turn hidden-line count with a recovery

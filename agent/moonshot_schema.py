@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Translate OpenAI-style tool schemas to Moonshot's (Kimi) stricter JSON Schema subset.
 
 Violations fail with HTTP 400 "tools.function.parameters is not a valid moonshot

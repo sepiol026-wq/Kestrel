@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The DM-only blocked-overflow warning (#101003) reaches a one-to-one chat only: a Slack group DM (keyed
 ``dm`` for session scoping) and a handoff into a group home whose thread could not be created are shared
 chats, so the warning stays out of them, while a real DM still gets it."""

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """An extra carried over from a pre-PM venv that no longer builds never fails the sync that
 carries it: it is left out, recorded so the old venv's next scan skips it, and reported with
 the command that adds it back. Core and requested extras still fail loudly."""

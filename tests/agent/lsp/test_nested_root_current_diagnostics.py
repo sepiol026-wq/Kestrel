@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``_current_diags_async`` must find a single-root client under the root it was spawned with.
 
 ``_get_or_spawn`` keys single-root servers by ``srv.resolve_root(...)`` (a nested ``package.json``

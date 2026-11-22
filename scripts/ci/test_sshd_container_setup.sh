@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 # Runs INSIDE the throwaway sshd container started by scripts/ci/start_test_sshd.sh
 # (mounted read-only at /setup). Expects the keys at /keys: host_ed25519{,.pub} and
 # authorized_keys. Installs openssh-server, adds user `hermes` that accepts only the

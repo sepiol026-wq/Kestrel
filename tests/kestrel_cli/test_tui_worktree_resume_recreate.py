@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """N8 review 2.2: quitting a clean ``hermes --tui -w`` session that had a conversation removes its
 tree and branch, but the session's policy froze that cwd, so a later resume had every turn refused
 ``workspace_unavailable``. A resume (``--tui --resume``, ``-c``, classic CLI; all go through

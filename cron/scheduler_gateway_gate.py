@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Headless tick gate: agent jobs need a live gateway; a headless tick never starts one.
 
 ``run_canonical_job`` reaches the owner through ``connect_gateway`` → ``ensure_gateway_runtime``,

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // @vitest-environment jsdom
 // Loaded once at collection, outside every hook's budget: vi.resetModules() keeps each module's
 // transformed code, so the fresh copy a test imports only re-evaluates it. Without this each

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The install-wide record behind the free tier's sign-in offer: first due a fixed delay after the first
 finished task, then again only after another finished task and never sooner than the back-off since
 the previous offer; each due offer is claimable exactly once, and only while the user is on the free

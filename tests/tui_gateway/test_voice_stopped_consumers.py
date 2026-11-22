@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """TUI-26: every Python caller of the owner's canonical ``prompt.submit`` treats the declared
 ``{voice_stopped: true}`` reply (a bare stop phrase typed into a LOCAL voice chat: the chat ends and
 nothing is admitted) as settled with no turn, never as a malformed admission receipt."""

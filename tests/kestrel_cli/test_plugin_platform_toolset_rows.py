@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``platform_toolsets`` rows for plugin platforms (teams, google_chat, homeassistant) that the installers
 seeded from cli-config.yaml.example: inert until the plugin loads, so they must not log the #38798
 "no valid toolsets" error, while a genuinely invalid row still does."""

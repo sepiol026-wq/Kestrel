@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``gateway.standalone`` and the multiplexer refusal: ``_named_profile_refused_under_multiplexer``.
 
 A profile that authored ``gateway.standalone: true`` runs (or may run) its own gateway without

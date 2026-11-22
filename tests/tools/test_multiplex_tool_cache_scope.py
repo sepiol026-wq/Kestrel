@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Multiplexed gateway: module-level caches in tools/ and agent/ must not hand profile A's
 config/.env-derived value to profile B. Real temp homes, real config.yaml/.env, real modules;
 only HTTP transports are stubbed.

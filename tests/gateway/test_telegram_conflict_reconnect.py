@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A Telegram adapter that exhausted its own 409 polling-conflict ladder is reconnected by the runner on a bounded
 back-off, then parked as ``token_in_use_elsewhere`` once another poller keeps the token (#146909). Both the launch
 profile's watcher queue and a multiplexed secondary's reconnect slot go through the real runner methods."""

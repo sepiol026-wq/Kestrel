@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Durable delivery-obligation ledger for gateway final responses (rows in the shared ``state.db``;
 WAL, owner pid + process-start liveness, bounded retention) so a crash between finalize and
 platform ACK cannot lose a response silently. Checkpoints: record_obligation() 'pending' before

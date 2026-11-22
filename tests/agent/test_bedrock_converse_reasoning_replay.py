@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Claude reasons on Bedrock Converse, and each Converse model gets back only the reasoning it can take.
 
 Converse is the bearer-token Claude path and the sticky fallback after a stream-denied AnthropicBedrock

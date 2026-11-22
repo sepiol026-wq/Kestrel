@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A dead-stalled network fetch ends `hermes update` with an error, never a hang (#93759, #95777).
 
 `_git_run(network=True)` bounds the wait; a `TimeoutExpired` becomes a failed

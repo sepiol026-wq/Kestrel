@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Under ``approvals.approvers: []`` every surface binds an approval to the same request and the same
 admin scope: a native tap is checked against the request it settles (never a substituted one), a DM
 admin is not a group admin on buttons any more than on ``/approve``, a coalesced follower is not

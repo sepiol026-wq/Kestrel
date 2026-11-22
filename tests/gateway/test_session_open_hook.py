@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``on_session_open`` fires in the gateway when a client creates or opens a local session (#89385).
 
 A real daemon (``gateway.run``) loads a user plugin whose ``on_session_open`` hook appends one JSON

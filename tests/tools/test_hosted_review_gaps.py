@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Hosted-scope gaps from review: a tenant-named script read on the host by the gateway lifecycle
 guard, file-tool bookkeeping shared by agents that reuse a task id, a background notification
 promised to a hosted agent that no consumer can deliver, the full tool list still offered to a

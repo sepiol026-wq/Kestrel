@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Self-referential .env lines (``PATH=/x:${PATH}``) must resolve once per process, not grow on every reload
 (#109902: gateway per-turn and cron per-fire reloads grew PATH until child spawns died with E2BIG)."""
 

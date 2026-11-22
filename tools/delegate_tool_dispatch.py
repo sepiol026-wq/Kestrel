@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Batch execution + background dispatch for delegate_task: ``delegate_task`` builds a ``_Batch``
 (children + origin identity) and hands it to ``_run_batch``, which runs it synchronously or as
 detached async units — one per task ``group`` (ungrouped tasks are a unit each), so a finished

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Regressions for issue #29507 — cross-thread close of the per-request OpenAI
 client could release a TLS socket FD whose integer was still cached in the
 owning httpx worker's SSL BIO. The kernel then recycled the FD into the next

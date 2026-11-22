@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Stale-call watchdog estimator prices images at the learned per-image cost, not their base64
 length (#63871 / #76411; salvage of #76471 by @crdesign8). A single native screenshot read as
 ~100K+ tokens and selected the 600-1200s giant-conversation watchdog tiers while the provider's

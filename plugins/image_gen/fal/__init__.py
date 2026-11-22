@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """FAL.ai registration adapter. Catalog, payload, submission, managed-gateway selection and
 Clarity Upscaler chaining live in :mod:`tools.image_generation_tool`; this plugin imports it at
 call time so tests keep patching ``image_tool.*`` and there is one FAL code path."""

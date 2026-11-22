@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Inline-shell expansion is trust-scoped (#63307): community hub installs never
 auto-execute `` !`cmd` `` snippets, mirroring the hub scan's INSTALL_POLICY trust
 gate — a ``--force`` or pre-scanner community install must not re-arm them."""

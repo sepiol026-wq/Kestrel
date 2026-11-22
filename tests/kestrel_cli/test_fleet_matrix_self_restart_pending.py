@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A gateway this updater runs INSIDE (cron update in the gateway tree, #100179) accepted a
 self-restart request and can only restart after the updater exits — so at fleet-matrix time it is
 still on the pre-update code by construction. It used to render STALE and exit 1 on every nightly

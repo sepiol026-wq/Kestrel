@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``kestrel plugins update`` with no name: update every installed plugin that has an update.
 
 The list comes from the read-only ``check-updates`` probe (:func:`hermes_cli.plugins_updates.run_checks`);

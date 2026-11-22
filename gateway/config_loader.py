@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """config.yaml / gateway.json → ``GatewayConfig.from_dict`` schema (the ``load_gateway_config`` phases).
 
 Precedence for top-level keys: key-presence at the TOP LEVEL of config.yaml wins; the nested

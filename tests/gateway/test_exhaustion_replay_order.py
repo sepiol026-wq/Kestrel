@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A request whose turn exhausted the context is not re-run behind follow-ups the reset re-homed onto
 the fresh session: it would answer out of order (#137565 review). Real GatewayRunner, DiscordAdapter
 and SessionAuthority over SQLite; the turn is a stand-in."""

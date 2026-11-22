@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Classic CLI (`hermes`, `hermes chat` -> GatewayAgent) across a ``session.replay_gap``: it re-attaches, shows
 the settled reply once and never leaves a later turn waiting on a retired subscription. A recovery belongs
 to its turn: a session switch, a later turn or Ctrl-C's settle bound ends it before it sends or paints."""

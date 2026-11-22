@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 # health: allow FILE_LINES -- security fix for #82010: distinguish an explicitly-empty toolset allowlist (fail closed, nothing allowed) from an absent one (no restriction); the added lines are minimal fail-closed branches at this existing chokepoint
 import atexit
 import concurrent.futures

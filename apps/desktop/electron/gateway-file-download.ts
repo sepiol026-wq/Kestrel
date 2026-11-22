@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Helpers for saving a gateway-hosted file to the local disk from the Electron
 // main process. Extracted from main.ts so the streaming, data-URL decoding, and
 // filename derivation are unit-testable without spinning up Electron.

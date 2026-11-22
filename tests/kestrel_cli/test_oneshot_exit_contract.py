@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``hermes -z`` exit-code contract: the outcome is judged from the turn result, not from
 whether any text was printed (#111770 — an incomplete or failed run that left an explanation on
 stdout used to exit 0, so scripts treated a half-done job as success)."""

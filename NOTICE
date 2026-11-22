@@ -1,0 +1,28 @@
+Kestrel Agent
+Copyright (C) 2026 Sam Sepi0l <sepiol026@gmail.com> and Kestrel Agent Contributors
+Repository: https://github.com/sepiol026-wq/Kestrel
+
+================================================================================
+UPSTREAM ATTRIBUTION & DMCA / 17 U.S.C. § 1202 COMPLIANCE NOTICE
+================================================================================
+
+This software is a derivative work based upon Hermes Agent and Qwerty, originally
+created by Nous Research Inc. and associated open-source contributors, licensed
+under the MIT License.
+
+Portions Copyright (C) 2024-2026 Nous Research Inc.
+Portions Copyright (C) 2024-2026 Hermes Agent Contributors
+Portions Copyright (C) 2024-2026 Qwerty Contributors
+
+All intellectual property rights in upstream code, including original copyrights
+and licenses, are preserved and retained pursuant to the requirements of the
+MIT License and 17 U.S.C. § 1202.
+
+Modifications, security and penetration testing modules, stealth engine
+integrations (Camoufox), codebase graph indexing (Graphify), and interface
+enhancements are:
+Copyright (C) 2026 Sam Sepi0l <sepiol026@gmail.com> and Kestrel Contributors.
+
+This software is licensed under the GNU Affero General Public License v3.0
+(AGPL-3.0) or compatible terms, with original components continuing under the
+MIT License permissions.

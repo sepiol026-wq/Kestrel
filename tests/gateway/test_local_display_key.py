@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``/reasoning show|hide`` and ``/footer`` on a local session take effect on every local surface (T7).
 
 The gateway handler keeps writing the per-platform key (``display.platforms.cli.*``: LOCAL's config key,

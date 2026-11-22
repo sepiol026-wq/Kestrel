@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Skill write-origin provenance: a ContextVar separating background-review skill writes from foreground
 user-directed writes (the curator only curates skills the self-improvement review fork created; skills a user
 asked for belong to the user). run_agent.py binds the origin before each tool loop, mirroring

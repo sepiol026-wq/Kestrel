@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Unattended-platform runs resolve flagged commands from ``approvals.unattended_mode`` unless a
 client can actually answer the card. The gateway exports ``HERMES_EXEC_ASK=1`` to every session
 it runs, so without this a webhook run posted its card to the route's delivery chat (where

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Telegram notification-mode gating (#132516): "important" mode silences ordinary sends, but a
 human-decision prompt (``is_approval_prompt``) must always push — a silently delivered prompt is
 indistinguishable from "no prompt" and costs the full approvals.timeout before the command is refused.

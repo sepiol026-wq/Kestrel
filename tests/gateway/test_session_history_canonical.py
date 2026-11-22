@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``session.history`` on the canonical owner: the durable display transcript with each row's ``row_id``.
 
 Main's TUI sidecar served it (``tui_gateway/methods_session.py``); Desktop's edit-after-interrupt resolves the edited turn's row from it, and without an answer the edit only appends (TUI-15, #134889).

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Streaming-TTS arm gate regression (#84046): ``_chat_setup_turn_audio`` used to gate
 streaming TTS on a ``sounddevice`` import, which raises on macOS (PortAudio/CoreAudio
 init triggers a kTCCServiceMediaLibrary prompt) even though the speaker path

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Which port Web Access serves a gateway's Webapp on (``hermes_cli.webapp_access._port_to_serve``).
 
 The default profile's gateway serves the documented address, 9120 unless ``webapp.port`` says otherwise.

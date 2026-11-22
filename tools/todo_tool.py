@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Todo tool: in-memory, revisioned task list for multi-step work. State lives on the
 AIAgent (one per session), is re-injected after context compression, and every write bumps
 a monotonic revision so UI clients can reject stale updates. One ``todo_list`` tool: pass

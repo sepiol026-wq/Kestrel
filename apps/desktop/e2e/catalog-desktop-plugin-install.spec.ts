@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 /**
  * A desktop-only catalog plugin installed from its catalog card (Accent Picker, reported on X on
  * 2026-11-07): the install worked, but the card kept its "+", the plugin sat switched off (it ships

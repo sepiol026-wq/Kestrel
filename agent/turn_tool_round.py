@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """One tool-calling round of the conversation turn loop: validate/cap/dedupe the model's
 tool calls, persist the tool-call turn BEFORE any side effect, execute the tools, honour
 guardrail halts / persistence failures, then compress after tool results. Nothing here

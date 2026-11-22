@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A dashboard login may act on the ``<provider>:<user>`` rows Desktop stamps for it.
 
 Desktop stamps its rows as ``<provider>:<user>`` (tui_gateway/session_transports.py), while a

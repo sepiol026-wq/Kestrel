@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Meta Model API (``muse-image``): OpenAI-compatible (https://api.meta.ai/v1), so the OpenAI SDK
 is pointed at Meta's base URL with ``META_MODEL_API_KEY``. Output is base64 WebP → image cache.
 Selection: ``model`` kwarg → ``META_IMAGE_MODEL`` → ``image_gen.meta-ai.model`` → ``image_gen.model``

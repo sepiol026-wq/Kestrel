@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // The Desktop half of the consented "close it and retry" for a Desktop app swap blocked by a
 // program outside Hermes (#101789). The consent is bound to the ONE hand-off run the retry starts
 // (its run id reaches the swap as HERMES_UPDATE_CORRELATION_ID) and to the exact processes the

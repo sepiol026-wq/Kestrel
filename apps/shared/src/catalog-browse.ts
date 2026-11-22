@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 /** Shared with the docs catalog: taxonomy order is independent of popularity. Keep keys in sync
  *  with CATALOG_CATEGORIES in hermes_cli/plugin_catalog.py and website/scripts/extract-plugins.py. */
 export const PLUGIN_CATEGORIES: Record<string, { label: string; icon: string; blurb: string }> = {

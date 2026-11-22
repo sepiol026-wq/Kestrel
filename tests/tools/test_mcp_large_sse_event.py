@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """One MCP response delivered as a single SSE event larger than 1 MiB.
 
 httpx2 2.12 bounds every ``EventSource`` at 1 MiB by default, and the mcp SDK's Streamable HTTP

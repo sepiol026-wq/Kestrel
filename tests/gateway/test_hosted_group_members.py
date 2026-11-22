@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Which local bots a Desktop group may seat, on a default install with no ``hosted_rooms`` key.
 
 Regression for #139002: Desktop -> Bots -> New Group Chat refused every multi-bot group with a bare

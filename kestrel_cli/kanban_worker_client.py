@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Dispatcher subprocess: submit one claim to its profile owner; never run an agent."""
 # Spawned as a bare ``sys.executable -m``: in a PM install that interpreter carries no dependencies
 # until hermes_bootstrap selects the committed environment, so it must be the first import.

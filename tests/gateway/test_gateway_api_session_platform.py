@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """#134889 T22: a session created over the gateway's own API is platform ``LOCAL`` whether the client
 is on this host or remote (Desktop -> remote gateway). The platform is not renamed (stored rows and
 shipped client filters read ``LOCAL``); the connection's mode is what tells a remote client apart:

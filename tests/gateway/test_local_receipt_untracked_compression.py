@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A local session created under 0.22.1 and then used under 0.22.2 opens again on the gateway (#140060).
 
 0.22.1 was cut from the gateway line, so its sessions carry a ``gateway.local_policy.v1`` receipt.

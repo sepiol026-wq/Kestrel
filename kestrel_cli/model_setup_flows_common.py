@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Shared skeleton for the ``_model_flow_*`` wizards: banner, credentials, model list, picker,
 persist, confirmation — one copy of each step. Prompt strings and the config keys written (and
 their insertion order = config.yaml key order) are behavior; keep them byte-identical.

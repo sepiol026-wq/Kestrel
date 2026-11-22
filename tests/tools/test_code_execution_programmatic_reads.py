@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Tool calls made from inside an execute_code cell are consumed by code, not shown to the model.
 
 Regression for #82711 / #44843: a cell's repeated ``read_file(p)["content"]`` raised ``KeyError``

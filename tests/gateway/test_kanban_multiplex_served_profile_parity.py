@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Standalone-vs-served parity for the kanban dispatcher and notifier under
 ``gateway.multiplex_profiles``: a worker spawned for served profile X gets the env a standalone
 ``hermes -p X`` dispatcher would build, and X's notifications are rendered/filtered under X's

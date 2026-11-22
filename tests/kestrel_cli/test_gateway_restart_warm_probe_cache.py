@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``hermes gateway restart`` of a manual gateway must not attach to the gateway it just stopped.
 
 The host-gateway probe is memoized for ``HOST_GATEWAY_CACHE_TTL_S``. The restart probes before the

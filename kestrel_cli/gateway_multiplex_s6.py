@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """s6 leg of the one-gateway-per-host convergence, shared by container boot and in-process migration.
 
 Inside the official image every profile has an s6 slot (``/run/hermes-service/gateway-<profile>``). The

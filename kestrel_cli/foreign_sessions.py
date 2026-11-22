@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Import sessions from foreign coding agents (Claude Code, Codex CLI). Foreign files are only ever read;
 imported history must satisfy the provider role-alternation invariant (see ``_merge_turns``)."""
 

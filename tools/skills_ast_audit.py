@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """AST-level deep audit for skill Python files — opt-in diagnostic (``hermes skills audit --deep``), not a
 security gate (SECURITY.md §2.4). Flags dynamic import / attribute access for human review; every pattern has
 legitimate uses, so findings are hints, not verdicts."""

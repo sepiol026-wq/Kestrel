@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The ``api_content`` sidecar backfill writers for SessionDB (#124102 FILE_LINES split).
 
 Split out of :mod:`hermes_state_messages`: the two row-addressed sidecar UPDATEs the turn prologue

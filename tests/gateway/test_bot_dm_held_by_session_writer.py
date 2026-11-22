@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A Bot Chat DM the owner refuses before any admission, because another session writer holds the
 chat (a pre-#106742 Desktop backend's lease on a legacy Bot Chat), is a definite, named no-send:
 the tool says the message was NOT sent, and the locally pinned intent is settled so nothing replays

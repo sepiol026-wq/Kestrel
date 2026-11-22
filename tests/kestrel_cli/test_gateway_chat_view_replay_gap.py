@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """GatewayChatView (`chat -q`, stream-json, `-z`, the thin chat) across a ``session.replay_gap``: it re-attaches;
 a one-shot prints the reply once; stream-json emits no ``text`` after the gap and its ``result`` carries the
 whole reply with ``replay_gap: true``. Adoption wakes a waiting one-shot; a control blocks only an admission

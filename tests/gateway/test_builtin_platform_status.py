@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """gateway.config_env.builtin_platform_status: the gateway's (enabled, connected) for one built-in platform,
 from a profile's config dict, without load_gateway_config(). Run here without a multiplexer, so the env pass's
 explicit-disable rule is visible (the dashboard's scoped reads run as a multiplex secondary, where the shared-

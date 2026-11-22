@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Minimal stdio JSON-RPC client for ``python -m tui_gateway.entry`` — the process the Ink
 TUI spawns on every OS. Frames are UTF-8 JSON lines with non-ASCII left literal, exactly
 what Node's ``JSON.stringify`` + ``stdin.write`` produce, so the pipe encoding the gateway

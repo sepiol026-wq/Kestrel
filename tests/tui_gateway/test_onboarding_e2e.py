@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """First-run onboarding end to end through the gateway's real card path: setup_beat runs in the agent's
 inline executor, its card goes out as the ``setup_beat`` server request (params checked against the
 contract), a fake desktop answers each frame, and general tool results settle beats through the

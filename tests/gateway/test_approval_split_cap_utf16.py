@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The full-command send ahead of a truncated approval card refuses a command that splits past
 Telegram's ``MAX_SPLIT_MESSAGES`` (#152012: past it a chat floods into a ban). Telegram splits in UTF-16
 code units, so an astral-heavy command can fit the cap counted with ``len`` yet split past it on the

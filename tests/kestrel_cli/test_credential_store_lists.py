@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The Bitwarden and 1Password secret caches and the Photon sidecar record are covered by every guard
 over credential stores (profile export, file tools, gateway media delivery, the dashboard Files API,
 backups), at their current location and at the one earlier releases used.

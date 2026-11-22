@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The OpenAI-compatible URL a client built from a provider URL calls: dual-surface hosts that serve
 both an Anthropic ``/anthropic`` route and an OpenAI sibling map to the sibling."""
 from __future__ import annotations

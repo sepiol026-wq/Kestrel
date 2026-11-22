@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Module-level registry for DashboardAuthProvider instances. Plugins call ``register_provider``
 via the plugin context hook at startup; the auth gate iterates ``list_providers()`` and uses
 ``get_provider`` to dispatch on the session's ``provider`` field.

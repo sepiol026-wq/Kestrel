@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The heartbeat poller coalesces behind an in-flight heartbeat admission wherever it lives: on the
 route's logical owner after compression, and as a LOCAL route's local_automation_v1 row."""
 from types import SimpleNamespace

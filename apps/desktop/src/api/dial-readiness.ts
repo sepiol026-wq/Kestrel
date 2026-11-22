@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Session-wire readiness for HermesGateway's dials. A native dial is canonical by provenance and
 // ready at once; a public dial is ready at the first `gateway.ready` its own socket delivers. The
 // gate owns each dial's settle, its timeout, the `open` it holds back from state subscribers, and

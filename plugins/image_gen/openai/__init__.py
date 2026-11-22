@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """OpenAI GPT Image 2 and 2.5 Flare/Sunburst quality tiers;
 base64 output → image cache. Selection: ``OPENAI_IMAGE_MODEL`` → ``image_gen.openai.model`` →
 ``image_gen.model`` → :data:`DEFAULT_MODEL`; an id outside the catalog is sent verbatim.

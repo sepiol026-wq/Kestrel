@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Invariant: the LLM transport (``agent/process_bootstrap``) and the platform adapters
 (``gateway/platforms/base``) answer "is this host in NO_PROXY" with the same matcher, so a
 corporate ``NO_PROXY=10.0.0.0/8`` bypasses the proxy for a self-hosted ``10.x`` model endpoint

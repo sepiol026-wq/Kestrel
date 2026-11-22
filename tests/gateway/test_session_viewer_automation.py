@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``session.automation``: the classic CLI's /goal, /subgoal, /loop, /heartbeat managers run by the owner.
 
 Real authority + SQLite: every mutation lands in the owner's ``state_meta`` row for the session's physical

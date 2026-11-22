@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Regression tests for #48820 Bug 2: an explicit ``platforms.<x>.enabled: false``
 in config.yaml must survive ``_apply_env_overrides`` when that platform's
 credentials are present in the environment.

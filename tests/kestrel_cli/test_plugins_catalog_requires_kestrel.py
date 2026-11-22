@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The catalog entry's ``requires_hermes`` is enforced, not just displayed: an install by catalog name
 refuses on a Hermes the spec rejects (CLI, dashboard/Desktop, TUI RPC and the left-core auto-install all
 go through one seam), and ``update`` keeps the installed pin rather than moving to one that needs a newer

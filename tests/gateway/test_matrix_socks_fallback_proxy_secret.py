@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """With ``aiohttp_socks`` missing, ``_create_matrix_session`` drops the SOCKS ``MATRIX_PROXY`` and returns a
 ``trust_env`` session that dials HTTPS_PROXY instead: the whoami failure must be redacted against that
 environment proxy, traceback included. Real aiohttp request, real adapter catch; mautrix's ``whoami`` is

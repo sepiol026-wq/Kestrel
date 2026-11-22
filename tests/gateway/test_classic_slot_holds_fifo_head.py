@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A user message admitted while a classic fallback wake holds the route's slot waits queued and runs
 as its own admitted turn; it is never handed to the wake's busy path and booked completed unrun (N82).
 Real GatewayRunner, DiscordAdapter, SessionAuthority and drain over SQLite; the turn is a stand-in."""

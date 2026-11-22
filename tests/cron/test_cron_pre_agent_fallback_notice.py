@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A cron job whose primary provider failed credential resolution and ran on a fallback entry must say
 so in the delivered report (#74349): the cron agent has no status rail, so the pre-agent switch would
 otherwise live only in the scheduler log. Drives the real ``run_job`` path with AIAgent and

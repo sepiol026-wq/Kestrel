@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The file-tools env creation path applies the container cwd guard through the same predicate the
 terminal tool uses, so a plugin backend declaring ``is_container`` gets a host-path override
 sanitized exactly like docker does (#101013)."""

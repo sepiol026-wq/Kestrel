@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Regression for #118388: a platform singleton secret (``TELEGRAM_BOT_TOKEN``) duplicated across
 local profile homes was invisible to ``hermes doctor`` / ``hermes gateway status``; the only signal
 was the losing standalone gateway's log. Doctor, status and the migrate preflight now share one

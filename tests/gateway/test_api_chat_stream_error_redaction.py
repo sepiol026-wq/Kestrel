@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A failed agent run's error text is redacted on streaming ``/v1/chat/completions`` too.
 
 The non-streaming reply, the ``X-Hermes-Error`` header and both ``/v1/responses`` paths pass the

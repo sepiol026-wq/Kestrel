@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``free_tier.status`` / ``free_tier.ack_notice`` (pull) and the free-tier branch of ``billing.state``,
 driven through the registered RPC handlers against a claimed welcome trial on the desktop's local
 backend (the fake account service in ``tests.hermes_cli.anon_portal``)."""

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // A tab opened before `hermes update` rebuilt the SPA still references the old
 // hashed chunks; the rebuild deleted them, so the first lazy page it opens 404s
 // and React unmounts the whole app (blank page). A reload picks up the new

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """User-supplied CDP endpoints (live ``/browser connect``, ``BROWSER_CDP_URL``, ``browser.cdp_url``),
 dialog-policy config and the per-task CDP supervisor lifecycle."""
 

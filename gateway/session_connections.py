@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The ``manage_connections`` card on the session authority: ``connection.respond``, the operation's ``status``/``wake`` and the card's Try again (``connectors.connect`` with ``reconnect``), plus the open card a resume restores (``pending_connection``).
 
 The operation lives in ``tools/connectors/live.py`` under the turn's session key (the live session's route) and profile, so a card can only drive its own session's operation. Account-owned calls (the Connectors page) are not the session's and stay on the legacy handlers (``tui_gateway/methods_connectors.py``). Answers and refusals share that file's code (``tools.connectors.run.respond``, ``tui_gateway/connector_refusals.py``); ``ConnectorRefusal`` carries a refusal through the authority's error path.

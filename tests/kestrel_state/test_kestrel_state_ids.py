@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Session-id minting contract: every surface that creates a session mints through
 ``hermes_state_ids.new_session_id`` and the id it produces is what lost-and-found salvage classifies
 as a session id (the shape is the recovery sentinel for schema-less rows).

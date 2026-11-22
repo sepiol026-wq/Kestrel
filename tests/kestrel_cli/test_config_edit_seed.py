@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Every writer that seeds or first-configures config.yaml must leave each messaging platform's display defaults
 alone (#121230). The gateway loader merges no DEFAULT_CONFIG, so any written global ``display.<key>`` beats every
 platform tier (e.g. Telegram/Slack tool_progress ``off`` -> ``all``, QQBot show_reasoning ``False`` -> ``True``)."""

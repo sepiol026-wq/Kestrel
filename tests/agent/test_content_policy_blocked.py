@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Regression guard for #18028: provider content-policy / safety-filter
 blocks must classify as ``content_policy_blocked``, be non-retryable, and
 trigger the ``is_client_error`` abort path so the loop jumps straight to a

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The classic CLI's `/toolsets` and `/platforms` reports as plain lines.
 
 Shared by the classic CLI (`CLIInfoMixin.show_toolsets` / `_show_gateway_status`) and the shared

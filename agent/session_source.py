@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Session source vocabulary: the ``source`` label a session row carries, and which sources have a
 person reading the turn as it runs. A leaf (its one import is the stdlib-only session context), so
 the ``run_agent`` facade and its siblings import it directly."""

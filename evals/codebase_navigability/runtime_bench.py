@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Runtime benchmarks for one tree. Usage: python runtime_bench.py <tree> <label> [reps]
 
 Each probe runs in a FRESH subprocess with an isolated HERMES_HOME so nothing is cached across reps.

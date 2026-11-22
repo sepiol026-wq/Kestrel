@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Cross-window de-dupe for one-shot side-effects (OS notifications, the turn-end
 // sound, spoken replies). Every desktop window is its own renderer process, so N
 // open windows each independently react to the same backend event. The main

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Deterministic loop outcomes (context overflow, empty reply, persistence failure) end as
 failed turns whose chat copy names the slash command to run, and whose ``failure_reason``
 lets the desktop card pick a code-specific action instead of a blind Retry.

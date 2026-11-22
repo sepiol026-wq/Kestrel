@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A deferred turn this host has no recorded home for (dispatched before homes were recorded), whose
 profile's roster entry is gone: the home its daemon ran from is unknown, so an absent conventional
 profile directory proves nothing and the turn keeps Disband waiting."""

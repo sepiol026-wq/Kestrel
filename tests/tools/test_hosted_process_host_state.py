@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A hosted agent's process activity leaves this host's process files alone: the running-process
 checkpoint (``processes.json``) and the completed-process receipts under ``logs/process-results``.
 Its remote kernel's commands run under the turn that issues them."""

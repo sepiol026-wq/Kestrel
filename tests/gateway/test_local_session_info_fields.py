@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``session.info`` carries what main's classic CLI read off itself for /status, the status bar and the
 exit summary (wave A2): title, started/last-active times, yolo, api_mode, tool_count and a masked
 credential hint (never the key); re-published when the auto-title lands."""

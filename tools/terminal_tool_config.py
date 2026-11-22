@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Terminal backend configuration: scope-aware TERMINAL_* reads, env-var parsing,
 container-cwd sanity checks, plugin-backend classification, and the ``_quiet``
 best-effort block shared by the terminal_tool_* modules.

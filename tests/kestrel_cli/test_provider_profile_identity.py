@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Plugin ProviderProfiles resolve wherever a provider NAME is resolved at switch time (#69576).
 
 Discovery is real (a plugin dir under the test HERMES_HOME); only the remote model probe is stubbed.

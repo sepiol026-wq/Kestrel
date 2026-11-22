@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The plugin-era "## Messaging other agents" SOUL append is dead weight: the server injects
 the live section in Bot Chat only, so every copy in SOUL.md must vanish — at load time for
 sessions that start before the migration runs, and on disk once the migration runs."""

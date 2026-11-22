@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Regression for #115702: a paid Nous model behind an empty credit balance answers HTTP 404
 ``insufficient_credits_for_paid_model``. The code must classify as billing (fallback chain armed,
 no retry burn) and the resulting switch must be a WARNING naming the failing profile and remedy.

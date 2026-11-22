@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """DuckDuckGo search via the optional ``ddgs`` package (search only, no key). ``is_available()``
 reflects package importability; the plugin registers either way so ``hermes tools`` can offer to
 install it. Isolation: ``ddgs``/``primp`` can block inside native code while holding the GIL, so a

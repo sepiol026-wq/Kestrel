@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Nous agent keys live ~1 h. Every agent in a process must not learn about expiry from its own 401.
 
 In a 1,393-subagent run the hourly expiry produced 620 authentication_error 401s (177 in one hour) and

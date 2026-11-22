@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Route fields a delegation backend returns: ``service_tier`` is checked like ``/fast`` and survives child
 construction, an unknown ``reasoning_effort`` refuses that task, and a backend-routed result reports what the
 child actually ran on. Real ``delegate_task``, real credential resolution and tier gates; only the child's

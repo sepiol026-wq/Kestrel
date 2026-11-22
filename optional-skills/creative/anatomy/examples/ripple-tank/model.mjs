@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 export const WATER = { depth: 0.006, gravity: 9.81, tension: 0.0728, density: 998, index: 1.333, viscosity: 1.0e-6 };
 export const GLASS = 1.52;
 export const RANGE = { frequency: [8, 28], spacing: [20, 80] };

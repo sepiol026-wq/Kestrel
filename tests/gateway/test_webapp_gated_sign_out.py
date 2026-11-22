@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Signing out of a gateway's Webapp behind the sign-in gate signs the browsers out (a real gateway).
 
 The gateway binds its Webapp on loopback with a public URL, which puts it behind the sign-in gate, and

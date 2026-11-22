@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Protected-instruction approval fails closed at once, without asking anyone, where nobody can answer.
 
 ``hermes chat -q`` (how kanban spawns every worker), cron and unattended platforms can have the CLI approval

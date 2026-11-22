@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 import { cameraOf, roundedPlan } from "./iso-kit.mjs";
 import { add3, sub3, mul3, dot3, len3, unit3, pathLength, resample, curveRuns, cut as cutAlong, tangentAlong } from "./lathe.mjs";
 import { runsOf } from "./tube.mjs";

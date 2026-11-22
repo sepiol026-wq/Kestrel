@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Idle-job scheduling shared by the skill curator (``agent/curator.py``) and plugin idle tasks
 (``hermes_cli/plugins_idle_tasks.py``): the interval gate, whose first observation seeds
 ``last_run_at`` and defers one interval, and the cross-process run claim."""

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 /** Ink's gateway client: `@hermes/shared/gateway-client` wired to the `hermes --tui` launcher (its
  *  bootstrap, `HERMES_TUI_*` overrides, launch tool-progress pin, i18n and crash-log breadcrumbs). */
 import { type ConnectGateway, GatewayClient as SharedGatewayClient } from '@hermes/shared/gateway-client'

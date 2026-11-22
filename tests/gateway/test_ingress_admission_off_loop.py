@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Ingress admissions commit off the owner loop: a SQLite writer held by another process must
 not freeze every session, timer and socket while a producer waits for its ACK (andrexibiza-21,
 JoaoMarcos44-R7). One row per ingress admission site this lane owns (see SWEEP_owner-loop-writes)."""

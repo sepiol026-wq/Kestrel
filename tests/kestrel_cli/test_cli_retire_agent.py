@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The interactive CLI must release the old AIAgent's LLM clients when it drops the instance
 for a rebuild (/personality, /reasoning, /fast, model/route/credential change, MoA one-shot):
 on the codex_app_server route the app-server child belongs to that instance and ``self.agent =

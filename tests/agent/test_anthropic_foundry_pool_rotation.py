@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A Foundry session must not rotate onto the Claude Code OAuth row after a 429 (#154242), even when
 the attached pool is the whole ``anthropic`` pool (``_rebind_primary_credential_pool`` reloads it
 with ``load_pool()`` after a fallback turn). Real config, real pool seeding and the real recovery

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Pluggable languages (``methods_i18n.py``): the language list and the pack/overlay catalog layer a
 renderer merges over its own bundled English. Both ride ``profile`` so a multiplexed backend answers
 for the profile whose overlay dir and ``display.language`` the client is showing.

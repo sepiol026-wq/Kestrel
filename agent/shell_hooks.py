@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Shell-script hooks bridge: ``hooks:`` config → first-use consent per ``(event, command)`` →
 callbacks on the plugin hook manager, so every ``invoke_hook()`` site dispatches to the scripts.
 Wire: stdin JSON ``{hook_event_name, tool_name, tool_input, session_id, cwd, extra}``; optional stdout

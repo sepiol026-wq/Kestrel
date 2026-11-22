@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Editing any repo module that desktop preparation's Node programs load must change the desktop
 // input-cache key (scripts/ci/desktop_build_cache.py), or a restore prefers an entry built from
 // the old module. The module graph is observed at runtime with a resolve hook; the key comes from

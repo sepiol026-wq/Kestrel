@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The tenancy file scanner checks each routing row the multiplex launch-home index holds for another
 profile as that profile's: its own data is no leak, a third profile's canary in it still is, and a
 foreign canary anywhere else in the launch home (its own session rows and routing entries) is a leak.

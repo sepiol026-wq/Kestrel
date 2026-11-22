@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 # Wait for the relaunched app's backend after a Squirrel.Mac update and save its /api/health.
 # usage: mac-backend-health.sh --payload <agent-payload dir> --newer-than <app pid> --timeout <s> --out <file>
 # Prints the backend's port. Processes are found by executable path, not parentage: the

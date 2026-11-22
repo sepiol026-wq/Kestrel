@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``hermes doctor`` validates a configured GITHUB_TOKEN/GH_TOKEN against api.github.com (#115257).
 
 An expired PAT left in ``.env`` used to be reported as "GitHub token configured" while every

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """#86317: a container-teardown worker must be joined at exit even after the idle reaper popped its
 env out of ``_active_environments`` (the atexit drain only knew the registry, so ``docker rm`` for a
 detached env died with the interpreter and left a stopped, labeled container behind)."""

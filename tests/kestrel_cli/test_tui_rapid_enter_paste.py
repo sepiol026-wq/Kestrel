@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Enter arriving mid-paste (no bracketed paste; each newline is its own key event) must not
 submit / steer the partial line (#10994). Only the Enter-vs-recent-text-change timing is exercised;
 the real prompt_toolkit Buffer carries the text so the newline lands where the user's did."""

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """LC-4: the gateway runs every local session and never loads ``./.hermes/plugins``. A session whose
 client opted in (``HERMES_ENABLE_PROJECT_PLUGINS``, forwarded in ``client_env``) from a folder that has
 project plugins gets a gateway.log line and a client-visible ``config_warning`` saying so."""

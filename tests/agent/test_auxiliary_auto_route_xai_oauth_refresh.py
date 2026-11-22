@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Auto-routed auxiliary calls on xAI OAuth refresh the grant after a 403 bad-credentials (#84845).
 
 A plugin/hook ``call_llm`` with no provider override inherits the main ``xai-oauth`` route as

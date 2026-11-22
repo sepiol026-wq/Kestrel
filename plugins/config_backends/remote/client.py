@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """HTTP client for the agent routes of the config plane (contract.md §7.1, §7.2).
 
 Plain HTTP (D9), stdlib only: it runs inside ``load_hermes_dotenv`` before most of Hermes is

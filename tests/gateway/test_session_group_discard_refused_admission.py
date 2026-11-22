@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Discard overlapping a Retry whose admission the member then refuses: the receipt Discard saved
 names a run the member never kept, so a later Discard asks by key again (closing it) instead of
 trusting that receipt, and Disband can finish. The closed key still refuses a late POST."""

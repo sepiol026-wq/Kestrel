@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """TUI-26: the owner's canonical prompt.submit may answer ``{voice_stopped: true}`` (a bare stop
 phrase typed into a LOCAL session whose owner /voice mode is on: the voice chat ends and nothing is
 admitted). The ACP adapter settles that prompt as an ended turn with the stop notice instead of

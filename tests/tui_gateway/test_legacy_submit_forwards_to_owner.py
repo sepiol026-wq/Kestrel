@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """RT-37 (#140385): a Desktop prompt on a session whose gateway owner is running a turn (a Bot Chat
 delivery) is admitted into the OWNER's durable FIFO and runs after that turn, exactly once. It is not
 refused ``SESSION_NOT_OWNED``, nothing runs in the legacy backend, and the Desktop gets a queued

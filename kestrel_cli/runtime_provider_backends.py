@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Provider-specific runtime builders for :mod:`hermes_cli.runtime_provider`: Azure Foundry, the
 OpenRouter / bare-custom fallback resolver, Bedrock, and external-process providers. Origin-internal
 collaborators are resolved on the origin module at call time via :func:`_rp` so test patches on

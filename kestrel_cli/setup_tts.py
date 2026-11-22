@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Text-to-speech provider setup (provider picker, API-key prompts, local engine installs, xAI OAuth).
 setup.py names are resolved through the module object so test patches on ``hermes_cli.setup.<name>``
 take effect; setup.py re-exports the public entry points."""

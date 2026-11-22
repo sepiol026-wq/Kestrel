@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A Cloud agent's first remote config read, in a cold process, with the Nous credential.
 
 In Cloud mode (no ``GATEWAY_RELAY_IDP_*``) the plane bearer is the Nous Portal access token from the

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """follow_profile_config follow-ups (andrexibiza C14-C18, C03): one profile read per turn, explicit
 create-time choices over followed defaults, a held pick still follows the rotated key, followed secrets
 are never recovered from the frozen receipt, and the profile's toolsets are followed. Real SessionStore /

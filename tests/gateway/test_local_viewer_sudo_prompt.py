@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A local viewer's turn asks for the sudo password through the TUI's masked prompt, as main's sidecar
 did (``tui_gateway/agent_callbacks.py`` ``set_sudo_password_callback``): FINDINGS row 9, where the
 canonical owner registered no callback and ``sudo`` failed headless in 0.1 s."""

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Monitoring emitter: fire-and-forget queue + background dispatcher — the single seam between
 producers (gateway status hooks, diagnostic log handler) and consumers (OTLP streamers).
 Hot-path invariant: ``emit()`` MUST return in O(microseconds), MUST NOT block on disk/network, and

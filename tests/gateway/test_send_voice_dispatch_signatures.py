@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Every platform adapter's ``send_voice`` must accept the ``is_voice`` keyword the base media
 dispatch passes (``BasePlatformAdapter._deliver_media_from_response`` →
 ``send_voice(..., is_voice=is_voice)``). An explicit signature without it raises ``TypeError`` and

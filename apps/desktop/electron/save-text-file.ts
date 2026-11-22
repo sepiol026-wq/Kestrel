@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // T11 (#134889): file-writing slash commands (/save) write on the Electron side. The gateway may be
 // remote, so it only returns the rendered content; this module asks the user where the file goes
 // (native save dialog) and writes it from the main process. Never a gateway write to the client's disk.

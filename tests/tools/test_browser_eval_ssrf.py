@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Page-driven JS must not bypass the browser SSRF guard via URL literals.
 
 ``fetch('http://127.0.0.1/secret')`` never updates ``location.href``, so no page-URL recheck can see it.

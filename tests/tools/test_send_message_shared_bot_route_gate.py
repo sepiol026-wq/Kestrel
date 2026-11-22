@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """#147602: a shared-bot satellite borrows the primary's bots unscoped (``_adapters_for_profile``),
 so every send_message path that hands it the live adapter for a caller-chosen target must apply the
 route gate. ``_live_adapter`` is that single choke point: send, react and cron's standalone fallback

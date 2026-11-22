@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``nous.anthropic_wire`` selects the Portal route for ``anthropic/*``: ``chat`` (default) rides
 /v1/chat/completions, ``native`` rides /v1/messages. Read through the real config loader against a
 temp HERMES_HOME (the loader is keyed on config path + mtime, so a fresh home is a fresh read), and

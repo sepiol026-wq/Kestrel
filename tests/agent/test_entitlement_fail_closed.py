@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """#106475: with a single credential, a Codex ChatGPT-account entitlement 400 must fail closed —
 the rejected slug is skipped by the fallback walk and restore_primary_runtime must not switch back
 and announce an unverified "Primary model restored" that would oscillate forever.

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The classic CLI's /goal, /loop, /heartbeat managers on a gateway session are proxies over
 ``session.automation``: no local GoalManager (so no read-write state.db in the CLI pid, no judge model
 call), main's read helpers run on the mirrored state, and manager refusals keep main's exceptions."""

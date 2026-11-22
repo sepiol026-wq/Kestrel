@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Turn-end verification guard for coding edits. Policy-only: it never runs
 checks itself, it turns the passive verification ledger into a bounded follow-up
 when the model tries to finish right after editing code without fresh evidence."""

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // A "session genuinely doesn't exist" failure (deleted, or an id from a wiped /
 // rotated backend) — the REST transcript 404s with `Session not found`. Distinct
 // from a transient/wedged backend (ECONNREFUSED, timeout), which must still

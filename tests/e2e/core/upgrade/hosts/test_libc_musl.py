@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Install on a musl libc host (Alpine) through the real ``scripts/install.sh``.
 
 Failure class: libc. Hermes's PM store pins glibc (``-linux-gnu``) builds of uv, CPython and

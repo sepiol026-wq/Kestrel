@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // The inline message-edit composer is a second `/` palette: it must reach the
 // edited session's OWNER exactly like the main composer does (#141583). Before
 // it passed its sessionId, its catalog went out on the ambient socket with no

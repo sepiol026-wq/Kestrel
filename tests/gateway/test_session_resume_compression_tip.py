@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Fast unit test of session.resume's legacy-source branch: a pre-authority cli/tui/gui tip is handed
 to resolve_local_target (monkeypatched here). Canonical ``source=local`` segments are covered end to
 end, with a real authority and SQLite, by test_local_resume_compression_child.py (LC-12)."""

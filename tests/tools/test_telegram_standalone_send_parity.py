@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The standalone Telegram sender (``hermes send``, the ``send_message`` tool, standalone cron
 delivery) makes the gateway adapter's outbound decisions for the same text: the push-notification
 mode, the invisible-only guard, the ``rich_messages`` fast-path, and a MarkdownV2 retry before

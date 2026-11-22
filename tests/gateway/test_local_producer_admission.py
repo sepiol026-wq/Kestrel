@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Background producers reach the chat that started them, through the real authorities, adapters,
 turn path and SQLite. Only the model call is stubbed; it records the frozen session policy each turn
 resolved. Regression coverage for #139377 and #139699.

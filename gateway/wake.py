@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Wake an existing agent session from a background completion event. Push-capable adapters
 (``supports_async_delivery``) get a synthetic ``MessageEvent(internal=True)`` via handle_message;
 stateless adapters (API server) would run that under a ``build_session_key()`` key that never

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Codex-style Esc backtrack, the two states that live outside the browse overlay:
 //  - PRIME: the first Esc on an idle, empty composer. No time window: it lasts until the next key
 //    that is not Esc, a click, a paste, a turn starting or a session switch. The second Esc opens

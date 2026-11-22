@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Free managed Perplexity fast search for any Nous identity: anonymous guest, or signed in with no
 usable credits and no tool pool. The gateway serves ``POST /search`` + ``search_type: "fast"`` without
 funding checks, so the local paid-tool gate must not block this one route while every other managed

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """vault.preview.fill: the Desktop Browser bar's key button fills a saved login into one pinned in-app
 browser tab. The renderer is faked at the server-request boundary (``server_requests.send``); the vault,
 classifier, origin guard and fill script are real. The password reaches only the page script, never the

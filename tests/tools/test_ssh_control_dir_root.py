@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The SSH ControlMaster dir sits under a predictable name, in the shared ``/tmp`` whenever the
 scratch TMPDIR is too deep for ``sun_path`` (macOS always). It is used only once proven ours (a
 real directory, our uid, owner-only); a squatted name never hosts our master socket and never

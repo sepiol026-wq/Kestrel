@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """#110737: an interrupting message that carries image attachments is a ``(text, images)``
 tuple on ``_interrupt_queue``; the re-queue block in ``_chat_render_turn`` must hand it to
 ``_pending_input`` intact instead of string-joining it (TypeError, swallowed by ``chat()``)."""

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Billing overlay (`/topup`, credit purchases, card step-up). Owned namespace: `billing`.
 // Leaves are strings or `(...args) => string`; packs supply `{0}`, `{1}` positional
 // placeholders, so keep argument order stable and comment it when >1 arg.

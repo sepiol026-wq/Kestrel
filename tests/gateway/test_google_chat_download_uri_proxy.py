@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Google Chat's ``downloadUri`` fallback fetches a host outside the Chat API (``lh3.googleusercontent.com``),
 so a NO_PROXY entry that bypasses only the API hosts must not clear the env-proxy redaction of its error."""
 

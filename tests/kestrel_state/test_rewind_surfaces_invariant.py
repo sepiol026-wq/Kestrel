@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Invariant: every /undo + /retry surface persists through ``SessionDB.rewind_user_turn``, so the same
 session rewound through the CLI, the gateway store, or the TUI helper leaves the IDENTICAL active
 message set, and an out-of-range target changes nothing on every surface."""

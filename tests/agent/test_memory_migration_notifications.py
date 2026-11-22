@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A configured memory provider that cannot be recovered at agent start is shown to the user,
 never only logged (#119769): the CLI prints it; other drivers get a warn notice, which a
 messaging-gateway agent (callbacks wired per turn) replays on its first turn."""

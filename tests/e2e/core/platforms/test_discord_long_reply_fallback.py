@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A long Discord reply whose file upload is refused still arrives whole, as paced messages.
 
 A reply past ``MAX_SPLIT_MESSAGES`` goes out as one ``.md`` file (#152012). When Discord refuses the

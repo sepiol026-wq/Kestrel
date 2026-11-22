@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A canonical local session keeps the source label it was created with, and human pickers hide the
 non-conversation labels (``tool`` integrations, finite ``oneshot`` runs) as on the classic surfaces."""
 from pathlib import Path

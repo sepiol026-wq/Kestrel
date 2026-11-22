@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``HERMES_CONFIG_BACKEND=<kind>`` resolves to the package ``plugins/config_backends/<kind>/``
 through one entry point (``get_backend()``), and everything core needs from a backend is a protocol
 method (teknium1 P2-1 on #122509). A backend core has never heard of is served end to end: the

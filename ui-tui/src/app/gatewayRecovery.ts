@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Crash-recovery budget for the gateway exit handler. A gateway that
 // crash-loops on startup must not let the TUI spawn-storm, so respawn+resume
 // attempts are capped to GATEWAY_RECOVERY_LIMIT within a sliding

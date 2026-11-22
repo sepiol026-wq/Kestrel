@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Shared helpers for the bundled ``image_gen`` provider plugins. Providers are loaded by path
 (``hermes_plugins.image_gen__<name>``) and resolve this via the repo root on ``sys.path``;
 not a plugin itself (the scanner only looks at directories)."""

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Durable interrupted-turn markers for the desktop/TUI auto-continue path. A running turn's progress
 lives only in process memory (the agent flushes to SQLite at turn end), so a marker is written at turn
 start and cleared on any conclusion — only a process death leaves one behind, and ``session.resume``

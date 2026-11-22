@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The Linux launcher asks the Hermes binary itself whether Chromium's sandbox starts (#130177).
 
 Under ``kernel.apparmor_restrict_unprivileged_userns=1`` a generic ``unshare --user`` succeeds while

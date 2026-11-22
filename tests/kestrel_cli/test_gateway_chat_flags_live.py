@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Launch flags on the classic CLI (main's HermesCLI, gateway-backed): bare -c, --resume latest, --list-tools,
 resume footer. Expectations are main's (git archive 3b63f7b0a4c, lanes/pushready/probe_oneshot.py)."""
 import json

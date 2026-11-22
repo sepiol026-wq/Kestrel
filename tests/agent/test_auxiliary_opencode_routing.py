@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Auxiliary clients for OpenCode Zen/Go follow the per-model wire table the main runtime uses (#98799).
 
 The relay serves Responses-only, Anthropic-wire and chat/completions models behind one provider, so

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Session-row ``cwd`` is row metadata, split from the execution cwd: the classic CLI records what
 main's own lazy create stamped (``row_cwd``: the launch dir, or none for ``/new`` and
 ``--create-if-missing``) while the frozen policy keeps the directory its tools run in."""

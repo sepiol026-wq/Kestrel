@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The Ink TUI keeps every transcript word exactly once, in order, through terminal resizes —
 idle and mid-stream, shrinking, growing and dragging — and its content width follows the
 terminal (#96372 history cleared on resize, #35804 content width stuck).

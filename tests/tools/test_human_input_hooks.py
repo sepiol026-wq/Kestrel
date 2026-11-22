@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """on_human_input_request / on_human_input_resolved fire wherever the agent blocks for a human (#132333).
 
 Each surface's real choke point is driven end to end — sudo password prompt, clarify, dangerous-command

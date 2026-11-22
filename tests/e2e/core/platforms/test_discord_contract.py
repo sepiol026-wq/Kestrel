@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Messaging-adapter contract, Discord leg: the REAL gateway + REAL ``plugins/platforms/discord`` adapter.
 
 The child is ``hermes gateway run`` on a throwaway HOME; the adapter's own SDK (discord.py via the ``discord_shim`` sitecustomize) talks to

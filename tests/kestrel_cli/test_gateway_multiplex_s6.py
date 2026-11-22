@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """s6 container: the unset multiplex default resolves ON when the boot has parked every named
 slot, ``hermes gateway migrate --multiplex`` folds an UP slot in-process, a guard refusal on a
 multi-profile host is loud, and the resolved default is written back to config.yaml."""

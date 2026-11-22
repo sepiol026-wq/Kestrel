@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // The lock watcher (node-deps-lock.mjs runWatched): kills the child the relay started, with
 // everything it started, once the lock is no longer `token`'s. Started by the relay in a session
 // of its own; the child's pid arrives on stdin once the relay has started it, and the watcher ends

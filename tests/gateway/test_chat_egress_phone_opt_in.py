@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``security.redact_phone_numbers: false`` keeps only E.164 numbers in chat replies (#68911).
 
 The opt-in is read from a real config.yaml in a temp ``HERMES_HOME`` and judged through the gateway's

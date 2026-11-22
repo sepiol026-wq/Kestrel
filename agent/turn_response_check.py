@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Post-call response verification for the conversation turn's retry loop: stop the thinking
 spinner, validate the response shape (retry / eager fallback / terminal invalid-response
 result), derive ``finish_reason`` per api_mode, route content-policy refusals and

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """#140665 (#134889 CLI-39): a gateway-owned session's client cwd reaches the Docker terminal backend.
 
 Before #106742 every ``hermes chat`` was its own process with its own ``TERMINAL_CWD`` and its own

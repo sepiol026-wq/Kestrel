@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A TUI session's /status, /context and /cron on the shared owner read as main's TUI sidecar did;
 every local session's /cron reads run main's handler on the owner, and its writes run there only when
 the classic CLI sends them on its own command socket (a viewer's connection keeps main's refusal).

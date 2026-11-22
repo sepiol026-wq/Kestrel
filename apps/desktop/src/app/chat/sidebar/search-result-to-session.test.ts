@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Regression (#91068): the backend's /api/sessions/search payload carries the
 // real session title on every hit (web_routers/sessions.py add_lineage_result
 // enriches via get_session_rich_row), but the sidebar's search mapper dropped

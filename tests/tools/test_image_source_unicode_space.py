@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A media path the model retyped with a plain space still opens the macOS screenshot it names.
 
 macOS names screenshots ``Screenshot 2026-07-10 at 9.23.58<U+202F>AM.png`` (a NARROW NO-BREAK

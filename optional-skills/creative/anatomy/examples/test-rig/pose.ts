@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 import { insetPlan, onTop, pathOf, planOutline, slabOf, type Flat, type SolidPaths } from "../../kit/iso-kit";
 import { carried, type Pose } from "./rig";
 import { AZIMUTH, BUSH_END, COIL_R, COIL_TURNS, DIAL, DIAL_SPAN, DIAL_TOP, DIAL_R, FRAME_X, GLASS_H, GLASS_TOP, GLASS_Z, P, ROD_Y, ROD_Z, at, shift } from "./view";

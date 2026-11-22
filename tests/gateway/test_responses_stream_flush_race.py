@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Keyed Responses streaming: the end-of-stream flush waits for a timer flush still opening the message
 item. The keyed output index is now read off the loop, so that open yields; an end-of-stream flush that
 skipped the lock on an empty buffer closed the item before its index existed and failed the turn."""

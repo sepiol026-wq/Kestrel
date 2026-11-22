@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A ``hold_stream`` plugin holds the agent's user-facing text until its rewrite lands.
 
 Every surface (messaging, TUI/Desktop/CLI viewers, API server, ACP, managed workers) receives the

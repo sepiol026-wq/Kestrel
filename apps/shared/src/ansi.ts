@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // ANSI escape stripping shared by every TS surface (TUI, desktop, web).
 // Covers CSI (complete and truncated tails), OSC (hyperlinks, titles), DCS/SOS/PM/APC
 // strings, multi-byte non-CSI ESC sequences, stray ESC bytes and C0 controls — a

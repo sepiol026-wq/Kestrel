@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A settled native input stays on disk while the transcript still tells a follow-up turn where it
 is saved (dokterdok N28), in whichever spelling the note used, and is bounded by main's 24 h media
 age once settled, as main's document cache cleanup bounded the staging copy the note used to name."""

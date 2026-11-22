@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``no core override`` also catches a plugin rewiring Hermes's private containers in place
 (``get_plugin_manager()._hooks["x"].append(fn)``): the hook list is as much core as the function
 an assignment would replace. A plugin mutating its own lists or calling a public core method is

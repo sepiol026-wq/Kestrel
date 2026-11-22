@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Result dataclasses and pure text helpers shared by ``tools.file_operations``
 and its search/lint mixins. Leaf module (imports nothing from ``tools`` at module
 scope) so nothing cycles. The ``to_dict`` output of every class here IS tool

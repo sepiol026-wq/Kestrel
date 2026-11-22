@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """PM's dependency runtime in a Remote Config deployment (#122509): the runtime has no remote
 backend client and no plane credential, so reading a home's plugin selection there must neither
 fail closed nor reach for the plane. It reads the local file PM publishes to and CAS-checks."""

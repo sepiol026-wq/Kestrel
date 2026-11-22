@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``typing_indicator: false`` stops every Telegram ``sendChatAction``, not only the refresh loop (#40885).
 
 The flag gated ``_keep_typing`` and the post-send re-arm, but the turn's progress path, the proxy

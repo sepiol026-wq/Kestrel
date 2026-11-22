@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A routed compute-host session hydrates the profile's EXTERNAL secret sources before building its
 scope (#119521): the isolated turn process never ran the launch dotenv path for that profile, so
 without hydration a vault-only provider key is absent from the scope and the agent build fails closed."""

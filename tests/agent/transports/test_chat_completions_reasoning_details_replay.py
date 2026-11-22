@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``reasoning_details`` replay is route-scoped: OpenRouter-format gateways (OpenRouter, Kilo,
 Vercel AI Gateway, Nous Portal) and vendors documenting it read it; strict schemas (Groq,
 Mistral, Cerebras, Fireworks direct) 400/422 on the field and never receive it (#70233).

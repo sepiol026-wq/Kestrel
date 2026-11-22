@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A text-less ``rich_message`` group message is addressed exactly like the same text sent as plain text (#151730):
 every addressing check (other-bot leading mention, ``/cmd@other_bot``, wake words, the reply-expected rule and the
 other-participant guard on handle stripping) reads the same text, so a message meant for another bot stays theirs."""

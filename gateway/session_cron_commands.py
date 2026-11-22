@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``/cron`` on the shared gateway: the classic CLI's handler (hermes_cli/cli_cron_lines.py), run by the owner.
 
 The profile's cron store belongs to the gateway whose ticker fires its jobs, so no client writes it. Bare

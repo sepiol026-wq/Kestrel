@@ -1,4 +1,9 @@
 #!/usr/bin/env -S pnpm exec tsx
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Export the bundled TUI English catalog as a flat {key: template} JSON for translators.
 // Function leaves are rendered with positional `{0}`, `{1}`… placeholders (the pack format the
 // runtime formats with); leaves whose function branches on its argument are flagged so a

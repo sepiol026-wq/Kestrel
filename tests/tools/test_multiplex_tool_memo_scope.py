@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Under ``gateway.multiplex_profiles`` one process serves every profile; each routed turn runs with
 a context-local HERMES_HOME override. Tool-side state resolved once at import, or cached in a
 single unkeyed slot, would hand the launch profile's paths/limits to every other profile.

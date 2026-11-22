@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A remote image URL is fetched once per logical prompt: an un-acked submit's retry reuses what the first
 attempt staged (never a re-download that could change the content and so the input_id), and the editor's
 Stop during the download keeps the prompt from being submitted at all (Greptile review on #140188)."""

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Managed-worker pipe reads never occupy the loop's shared default executor: with as many
 parked (silent) workers as the pool has threads, an unrelated ``asyncio.to_thread`` still runs,
 and a cancelled read never leaves an orphaned reader that swallows the child's next frame."""

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Invariants for ``hermes_cli.config_effective.load_user_config_effective`` — the one loader every
 defaults-free config reader (gateway runtime, TUI gateway, cron, ``hermes send`` bridge, doctor,
 bootstrap modules) goes through."""

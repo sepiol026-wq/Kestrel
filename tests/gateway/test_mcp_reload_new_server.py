@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """CFG-3: an MCP server added to a profile's config after a local session started reaches that session only
 through a gateway-committed policy generation (``reload.mcp`` for the calling idle session, or the CFG-2
 refresh when a client attaches), definitions and private values included, so a managed worker connects it.

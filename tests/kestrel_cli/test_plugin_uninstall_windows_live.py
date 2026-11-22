@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """LIVE Windows E2E: ``hermes plugins uninstall`` while a real gateway has the plugin loaded.
 
 A real ``hermes gateway run`` child (temp HOME / HERMES_HOME) loads three enabled user plugins:

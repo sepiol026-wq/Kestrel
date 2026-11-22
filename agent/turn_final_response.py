@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """No-tool-call (final text) branch of the conversation turn loop: empty/think-only recovery,
 intent-ack / stall-guard continuation, length-continuation joining, dropped-tool-call
 re-prompt, scaffolding pop, stop gates, then the durable final flush. Extracted from

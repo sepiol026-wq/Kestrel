@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Computer-use provider plugins: ``computer_use.backend`` selects exactly one provider per profile, only that one
 is imported, the built-in ``cua`` stays the default, and an unknown name fails loudly instead of falling back."""
 

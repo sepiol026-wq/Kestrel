@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The browser-hosted Desktop on the gateway's own listener: config, bind address and browser credential.
 
 ``webapp.enabled`` in the gateway home's ``config.yaml`` turns it on; the gateway then binds its one HTTP

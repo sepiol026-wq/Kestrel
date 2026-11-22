@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``kestrel plugins update`` plus the provenance verbs around it: ``adopt``, ``trust-update-url`` and the
 read-only ``check-updates``; the dashboard update path shares the same pull/re-clone core.
 

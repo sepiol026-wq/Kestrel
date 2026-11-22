@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The owner runs a session's end-of-conversation lifecycle when its last viewer closes it.
 
 Regression for #134889 LC-1/LC-2/LC-6. Main's classic CLI and TUI ran the memory providers'

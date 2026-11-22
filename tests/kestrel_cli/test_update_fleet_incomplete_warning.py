@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Incomplete-fleet-restart hint on a systemd host (Linux arm of
 ``_warn_incomplete_gateway_fleet_restart``; the macOS arm lives in
 test_update_launchd_fleet_restart.py). Regression for #111866: this class used to

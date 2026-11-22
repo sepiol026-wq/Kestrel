@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Pre-API pressure gate for the conversation turn loop: the Ollama runtime-context floor,
 the provider-overflow re-check arming, the insufficient-progress blocker (compares fully
 assembled requests, not raw ``messages``) and the call into

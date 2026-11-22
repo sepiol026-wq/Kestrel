@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Live stress harness for PR #105125 (subagent background-process accounting) with a real orchestrator AND real
 children on one model. Each scenario: the parent is asked to delegate; the children do things with background
 processes; we read the runtime's own accounting (handed_off / orphaned / unread_completions) plus what the parent's

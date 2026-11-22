@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A sidecar live-session RPC (``@_rpc(..., live_session=True)``) resolves ``session_id`` in the
 sidecar's own session map, which never holds a shared-gateway session: the parity table must
 not list a client that calls one as served by the sidecar."""

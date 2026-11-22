@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A Slack turn can answer ``browser_vault`` one-time-code prompts through a button and a private modal.
 
 Same contract as the Discord card (``test_discord_vault_code_modal.py``, #141844): the card's button opens

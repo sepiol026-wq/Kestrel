@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """An auto-started (``--idle-exit``) gateway exits once idle; anything it serves keeps it up.
 
 Real SQLite ledger rows, a real cron store and real asyncio; the runner is a stand-in exposing

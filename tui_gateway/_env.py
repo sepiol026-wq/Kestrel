@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Tolerant env-var knob parsing shared by the gateway entry points: a bare
 ``float(os.environ[...])`` would raise at import on a typo (``...POLL_S=2s``) and kill a
 worker before it serves a command; these fall back to ``default`` on absent/empty/malformed."""

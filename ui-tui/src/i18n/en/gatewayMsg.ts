@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Lane t2 — app/createGatewayEventHandler.ts: notices/activity lines rendered from
 // gateway events. Owned namespace: `gatewayMsg`.
 // Function leaves take positional args; packs use `{0}`, `{1}` (argument order documented per leaf).

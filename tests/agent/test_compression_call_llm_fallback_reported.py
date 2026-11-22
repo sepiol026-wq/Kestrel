@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A compression summary that ``call_llm`` recovered on a fallback route is reported as a fallback.
 
 When ``auxiliary.compression`` points at a dead endpoint, ``call_llm``'s recovery ladder answers the summary

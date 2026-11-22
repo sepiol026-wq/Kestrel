@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Reads the importers of pnpm-lock.yaml without a YAML parser: node-deps.mjs runs
 // before any dependency (js-yaml included) is installed. pnpm writes this file
 // itself in a fixed shape (two-space indent, one key per line); anything that

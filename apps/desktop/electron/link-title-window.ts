@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Hidden BrowserWindow used by tier-2 link-title resolution: when curl can't
 // read a page <title> (bot walls, JS-rendered pages), we briefly load the URL
 // in an offscreen window and read its title. That window loads arbitrary

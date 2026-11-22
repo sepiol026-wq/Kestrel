@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Persistent registry of delivery targets confirmed unreachable. Re-sending to a permanently gone chat
 (deleted group, bot kicked/blocked, deactivated user) every cron tick wastes flood-control budget; delivery
 short-circuits targets proven dead and any later successful send clears the flag. Only *whole-chat* deaths

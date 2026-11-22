@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A present-but-blank ``matrix:`` key in config.yaml means "unset": the env-var fallback must fire
 exactly as it does when the key is absent (0.21.2 started seeding blank YAML values into
 ``config.extra``, which flipped the precedence and silently disabled free-response rooms)."""

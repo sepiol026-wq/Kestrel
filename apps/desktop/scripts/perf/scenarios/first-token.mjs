@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Time-to-first-token — Enter → first assistant token painted. The latency an
 // agent app is uniquely judged on, spanning the desktop submit path AND the
 // backend/agent-loop first-token time. Backend tier: fires a REAL prompt, needs

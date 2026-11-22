@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``GatewayConnection.call_until`` sends its one request on a socket of its own (#134889 PLG-7): never
 on the viewer's socket, never twice, and the socket is closed on the reply, on Ctrl+C (``wake``), on
 ``close()`` (CLI exit) and when the dial fails."""

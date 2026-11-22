@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A quote-reply to an ordinary (non-rich) bot message keeps the quoted text even when Telegram's
 ``reply_to_message`` echo carries no body (#147287): the adapter resolves it from its own sent-message
 index. REAL gateway + adapter against the Bot API stand-in, for a plain send and a streamed final."""

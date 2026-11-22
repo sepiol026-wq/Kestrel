@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A plain audio MEDIA file (``is_voice=False``: music, a sound effect) is never sent as a voice note.
 
 The media dispatch routes every audio extension to ``send_voice(..., is_voice=<bool>)``; adapters

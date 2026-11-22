@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Human-friendly generic gateway status phrases: short chat-safe lines for the long-running
 status surface without relaying raw model scratch text — only configured phrase strings are used;
 tool args, commands, previews, and reasoning are never interpolated. Built-in defaults live in

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Class: a retained submission identity (an un-acked prompt's input_id, a prepared control's
 request_id) is only for the retry that is the session's very next verb. Every native surface that
 retains one must retire it when any other verb goes to that session first; otherwise a later

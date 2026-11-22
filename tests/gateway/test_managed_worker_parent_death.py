@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A managed worker dies with its owner, descendants included, even when its turn ignores the
 interrupt (andrexibiza 29 / P3.g). The owner spawns it in its own session; the owner's death
 closes the control pipe, and the worker hard-kills its process group after a short grace."""

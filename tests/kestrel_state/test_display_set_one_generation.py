@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A resume's display read (``get_resume_conversations``) is one read generation: a compaction committing between
 its display SELECT and its removed-identities SELECT hides nothing (#150102 review; session.transcript reads
 inside ``transcript_read_snapshot``, so its own race test no longer reaches ``_display_set``'s transaction).

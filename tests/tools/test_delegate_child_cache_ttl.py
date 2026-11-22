@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Subagents never inherit the 1h prompt-cache tier: with ``prompt_caching.cache_ttl: 1h`` the parent
 keeps 1h, the child is built at 5m, and the child's wire markers carry no ``ttl``. A disabled cache
 stays disabled (the child is not re-enabled to 5m)."""

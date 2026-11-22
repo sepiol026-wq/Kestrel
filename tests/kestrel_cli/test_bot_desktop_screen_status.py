@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``hermes computer-use screen status`` shows the lease the way every RPC surface does: the holder's viewer
 id is a capability (whoever presents it co-drives or releases the lease), so only its short hash leaves the
 gateway. Regression for #110006."""

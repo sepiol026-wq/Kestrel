@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A gateway-owned session runs with ``provider_routing`` and ``prefill_messages_file`` from its own
 profile's config as of its creation, as a new ``hermes chat`` process read them once at startup on
 pre-merge main (CFG-6, CFG-7). The daemon-start snapshot on the runner never reaches it, and the

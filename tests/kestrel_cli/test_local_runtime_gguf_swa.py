@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """profile_from_gguf must trust the GGUF file's own per-layer SWA pattern over the hardcoded
 architecture-name table (#109551): an architecture absent from `_SWA_LAYER_FRACTION` that still
 declares `attention.sliding_window_pattern` should be priced from that pattern, not as fully

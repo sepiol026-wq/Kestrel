@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The Bot Chat a first delivery mints commits off the owner loop (N90): a held SQLite writer must
 not stall every session, Stop and socket the owner serves while the profile's Bot Chat is created;
 concurrent first deliveries and a titled ``session.create`` still converge on one Bot Chat."""

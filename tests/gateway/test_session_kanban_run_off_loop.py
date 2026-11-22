@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Kanban run_task's claim check and owner_admitted marker run off the owner loop (B1-26): the
 Kanban DB is the cross-profile dispatch bus (busy_timeout up to 120 s), so a dispatcher holding
 its writer must not freeze every session on the loop. Real Kanban SQLite, a real held writer."""

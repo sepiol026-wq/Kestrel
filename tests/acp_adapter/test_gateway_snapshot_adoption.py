@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Every fresh ``session.resume`` the editor installs advances the event watermark, so a ``session.info``
 queued behind it (another viewer's mode change) is skipped by the pump. Each such install projects the
 snapshot's own edit policy, so the editor never shows Default while the owner auto-allows edits."""

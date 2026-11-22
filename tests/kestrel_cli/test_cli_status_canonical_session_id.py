@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """T16 (#134889): classic-CLI ``/status`` names a gateway session by its canonical ``local-…`` id.
 
 Main printed the ``YYYYMMDD_HHMMSS_<hex>`` id it minted itself. Under the one gateway the

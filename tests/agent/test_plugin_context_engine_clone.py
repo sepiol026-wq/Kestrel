@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A plugin-registered context engine is one shared instance; agent init hands each agent its own
 copy through ``clone_for_agent()`` (default deepcopy), so engines with uncopyable state (locks,
 SQLite connections — hermes-lcm) stay selectable and a child's model never leaks into the parent

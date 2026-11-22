@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """plugins.isolation: host — the memory-provider seams cross the plugin host: a refused panel save
 (``json.JSONDecodeError`` raised in the host) is a 400 with no secret saved, a profile hook runs in
 the host with the new profile's home, and a host started only for that hook does not outlive it."""

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Locale scaffolding shared by the desktop and web i18n layers. Generic over the
 // translation catalog type: each app supplies its own `Translations`/`en` and
 // wraps `mergeTranslations` in a one-line `defineLocale`.

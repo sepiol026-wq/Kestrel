@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Delete of a compressed + branched root (NF4): the /branch child survives as its own conversation,
 its ``_branched_from`` naming the deleted segment, and the delete's tombstones age out after the retry
 horizon. The retired-session marker does not, so that name can never be issued to a new session the

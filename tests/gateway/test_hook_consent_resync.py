@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """#132993: a running gateway registers a shell hook once its consent is recorded, and drops it
 once revoked, without a restart or a session open, for the launch profile of a single-profile
 gateway and for a profile a multiplexer serves. Hooks only: adapters are never rebuilt for it."""

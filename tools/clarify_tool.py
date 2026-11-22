@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Clarify tool: structured multiple-choice / open-ended questions to the user.
 Schema, validation and a thin dispatcher; the UI lives in a platform-provided
 callback (cli.py, gateway/run.py, tui_gateway)."""

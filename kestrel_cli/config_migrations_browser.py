@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Config step 51 -> 52 (registered in ``hermes_cli.config_migrations.MIGRATIONS``): agent-browser and the
 built-in browser_* tools left Kestrel, so ``browser.backend`` / ``browser.extension_control`` go and the
 AGENT_BROWSER_* settings a home's .env gave agent-browser move to the ``browser.*`` keys the launcher reads."""

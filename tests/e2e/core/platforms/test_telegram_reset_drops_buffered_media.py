@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A photo still in the Telegram adapter's burst buffer when ``/new`` arrives never becomes a turn
 after it, whether a turn is running or the chat is idle; ``/status`` (not a reset) leaves it alone.
 REAL gateway + adapter against the Bot API stand-in (#81370)."""

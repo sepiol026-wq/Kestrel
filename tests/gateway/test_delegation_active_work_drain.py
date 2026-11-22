@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Regression: the gateway graceful-shutdown drain was structurally blind to in-flight
 background subagents (``delegate_task(background=true)``). They run as daemon threads in the
 owning process, tracked by ``tools.async_delegation`` and therefore outside

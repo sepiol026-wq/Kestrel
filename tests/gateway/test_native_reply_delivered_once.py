@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A native reply reaches the chat exactly once even when an already-running drain claims and
 runs the admission before ``admit_message`` resumes to register its delivery waiter
 (andrexibiza-6, andrexibiza-5480238075-1). Every native reply goes through one of two senders:

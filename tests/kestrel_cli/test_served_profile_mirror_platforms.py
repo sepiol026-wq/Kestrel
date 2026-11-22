@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A served secondary's api_server/webhook are MIRRORS of the default's listener (``/p/<profile>/...``),
 never adapters of their own, so the multiplexer record has no ``<profile>:api_server`` entry. Every
 status reader used to fall through to ``pending_restart``: the Desktop Messaging card and Command

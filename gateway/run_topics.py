@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Telegram forum-topic and Discord auto-thread binding/rename methods for GatewayRunner (MRO mixin).
 ``gateway.run`` internals are imported lazily inside method bodies (import cycle), so
 ``patch("gateway.run.X")`` keeps intercepting them at call time."""

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``session.transcript`` review fixes: a page and the cursor state it stores come from one read
 transaction (without a pooled reader: reads no write landed between, else ``reset``); the cursor state covers every displayed segment (an earlier segment's deleted rows reset a
 poller, as its reactions do); ``limit`` bounds the rows sent, handoff rows included, and a row's handoffs

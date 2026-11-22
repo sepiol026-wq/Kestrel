@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Oversized TEXT parts inside a multimodal tool envelope must go through the same persistence
 policy as string results (#95429): a ``browser_exec`` call that captured a screenshot bakes its
 whole stdout into the envelope's text part, and that used to bypass ``maybe_persist_tool_result``

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Messaging /new keeps a queued automation wake and runs it on the fresh session, as main's #114456
 kept a parked internal wake across /new; it is never stranded queued on the abandoned owner (N83).
 Real GatewayRunner, DiscordAdapter, SessionAuthority and drain over SQLite; the turn is a stand-in."""

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Secondary "session windows" — one extra OS window per chat so a user can
 // work with multiple chats side by side. The pure, Electron-free pieces live
 // here so they can be unit-tested with node --test (mirroring how the rest of

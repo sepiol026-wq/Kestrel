@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Tool result persistence -- preserves large outputs instead of truncating. Layers against
 context overflow: (1) per-tool caps inside each tool; (2) ``maybe_persist_tool_result`` —
 output over the tool's threshold is persisted and replaced by a preview + path; canonical home

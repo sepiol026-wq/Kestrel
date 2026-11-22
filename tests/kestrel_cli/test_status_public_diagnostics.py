@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``/api/status`` is public (``PUBLIC_API_PATHS``), so an unverified caller gets the gateway's
 diagnostics only as bounded codes: free-text adapter ``error_message``, any adapter-specific
 platform field, the raw ``gateway_exit_reason`` and the multiplex remediation prose stay for a

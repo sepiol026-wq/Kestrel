@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A Desktop session's lazily created row must get git_branch/git_repo_root (#108784).
 
 ``session.create`` runs ``_hydrate_session_cwd`` before any row exists, so its cwd claim is a no-op; the row lands

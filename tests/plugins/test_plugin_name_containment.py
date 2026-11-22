@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Config-selected plugin names (``memory.provider``, ``cron.provider``, ``context.engine``) stay
 inside their plugin roots, and a directory outside the bundled root is never classified bundled
 (which would import it in-process even under ``plugins.isolation: host``) (#141328)."""

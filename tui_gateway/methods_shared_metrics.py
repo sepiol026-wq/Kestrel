@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Shared-metrics consent JSON-RPC handlers (the Desktop twin of ``hermes setup``'s Shared Metrics
 section). Both opt-ins live in the focused profile's config.yaml exactly where the wizard writes
 them — ``telemetry.shared_metrics.enabled`` (local collection) and ``.send`` (daily upload) — so the

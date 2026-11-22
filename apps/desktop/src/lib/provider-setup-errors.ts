@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Fallback for gateways that send no `code` on the error event. Every alternative here is a
 // sentence the backend actually produces today: `agent_init` raises "No LLM provider configured"
 // on a blank install and `missing_provider_credentials_message()` the "is set in config.yaml

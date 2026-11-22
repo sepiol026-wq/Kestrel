@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Browser page backends registered by plugins via :meth:`PluginContext.register_browser_page_backend`,
 consumed by ``tools.browser_vault_tool``. The backend holding the task's live page wins over the CDP
 session; with none, the vault uses the CDP supervisor as before."""

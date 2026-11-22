@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The classic CLI is main's HermesCLI again: `hermes` / `hermes chat` (interactive and -q) reach
 ``cli.main``; only stream-json and the safe-mode bypass keep the gateway transport client."""
 import argparse

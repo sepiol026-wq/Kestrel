@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``transcript_revision`` keeps moving on a reaction, a display rewrite and checkpoint pruning after an older
 Hermes opened the store (#150102 review). Every writable open runs its build's ``DEFERRED_INDEX_SQL`` through
 ``_execute_ddl_skipping_settled_triggers``, which recreates a trigger whose stored body differs from the

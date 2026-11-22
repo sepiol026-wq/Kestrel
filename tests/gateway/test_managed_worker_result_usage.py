@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A managed turn's receipt keeps its spend: the worker's result frame carries the bounded
 accounting fields of ``run_conversation`` and the owner commits them with ``usage``, so
 ``-z --usage-file`` on a managed session reports tokens, cost, model and exit reason."""

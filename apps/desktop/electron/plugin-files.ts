@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // The folder-scoped file door behind the plugin SDK's `ctx.files`. A plugin
 // names a folder handle (`'data'` = its own data folder, or the id of a folder
 // the user granted it through the app's picker) plus a RELATIVE path; this

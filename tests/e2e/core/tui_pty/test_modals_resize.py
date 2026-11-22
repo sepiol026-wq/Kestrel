@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Blocking modals and streaming tool output in the Ink TUI survive terminal resizes: the clarify
 and approval cards stay on screen exactly once while the window is resized, the answer given
 after the resize reaches the tool (read back from the next wire request the agent sends), and the

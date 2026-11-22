@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Definitive F0 test: capture consecutive wire payloads on a real Fable 5.1 tool loop and diff the
 message prefix between call N and N+1. If Hermes strips prior-turn thinking, call N+1's messages[:k]
 will NOT equal call N's messages (prefix divergence) even though the conversation only grew.

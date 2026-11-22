@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The idle reaper keeps a hosted sandbox while any process carrying its key runs, even when the
 environment object cached under that key is not the one the process was spawned through; once the
 process is gone, the sandbox is suspended, not destroyed."""

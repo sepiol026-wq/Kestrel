@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """MemoryStore — bounded, file-backed curated memory (MEMORY.md / USER.md).
 Entries are joined by ``ENTRY_DELIMITER``; budgets are in chars (model-independent).
 Module state that tests monkeypatch (``get_memory_dir``, ``fcntl``/``msvcrt``) stays

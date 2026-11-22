@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Native messages queued behind a turn that exhausts its context run once, in order, on the fresh
 session the auto-reset creates; the exhausted turn is not replayed and a transport retry of a
 re-homed message still dedupes. Real GatewayRunner, DiscordAdapter, SessionAuthority and drain over

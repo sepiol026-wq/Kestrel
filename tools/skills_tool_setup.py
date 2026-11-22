@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Skill readiness: required env vars, secret capture, and setup notes. Split out of
 ``tools.skills_tool`` (names re-imported there); module state (``_secret_capture_callback``,
 ``load_env``) stays there and is read lazily at call time so origin-module patches are honored."""

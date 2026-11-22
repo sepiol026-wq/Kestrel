@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A pre-admission pin left on disk by an older build (or by a transient refusal on the legacy
 migration path) whose ``bot:<key>`` admission never committed is withdrawn by the owner's scan
 once past the grace window, so the scan stops warning and a same-id resend admits (#139138).

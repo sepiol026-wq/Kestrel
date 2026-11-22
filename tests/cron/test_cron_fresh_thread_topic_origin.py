@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``platforms.telegram.extra.cron_fresh_thread_per_run`` lets a topic-born continuable cron job
 open a fresh thread per run (#76548). Off by default: such a job keeps delivering to its origin
 topic, the guard b693bee100bd added. Drives the production ``_deliver_result`` with a live adapter

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Acceptance harness: ``hermes serve`` beside a running gateway that owns the same profile.
 
 Refs #145171 (EP-2, EP-3). After #106742 the gateway owns sessions for local surfaces, but

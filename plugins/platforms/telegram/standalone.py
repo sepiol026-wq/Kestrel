@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Out-of-process Telegram send (``hermes send``, the ``send_message`` tool, standalone cron delivery):
 a one-shot Bot API client built like the gateway adapter's, with the adapter's formatting, chunking,
 notification mode, rich-message fast-path, albums and fallbacks. Wired as the plugin's

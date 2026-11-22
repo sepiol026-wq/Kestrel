@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``hermes doctor`` probes survive a bracketed-IPv6 NO_PROXY environment (#118159).
 
 Clash Verge / mihomo write ``[::1]`` into NO_PROXY; httpx 0.28.1 turns that into an

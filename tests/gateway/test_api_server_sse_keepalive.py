@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """API-server SSE keepalive cadence while the agent is silent (preflight compression, long
 tool calls). Remote OpenAI-compatible clients commonly drop an idle stream after ~20 s and the
 disconnect interrupts the turn, so every SSE writer must emit a comment frame before that

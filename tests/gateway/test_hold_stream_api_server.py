@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """API server: a ``hold_stream`` redactor's session streams no raw text to OpenAI-compatible clients.
 
 Real ``APIServerAdapter`` routes (aiohttp test server) building a real ``AIAgent`` against a

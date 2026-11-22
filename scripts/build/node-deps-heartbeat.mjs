@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // The checkout lock's heartbeat, a worker thread of the run that holds it (node-deps-lock.mjs):
 // refreshes the lock until it is released, or until the lock is gone or holds another run's token
 // (broken while this process was stopped). Any other error (an antivirus or indexer handle on

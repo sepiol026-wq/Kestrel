@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """prompt.submit history-cut opt-ins: ``confirm_empty_truncate`` (wipe) and
 ``confirm_deep_truncate`` (#133716: a cut that archives more than one user turn — a valid
 anchor can still name the wrong, stale row)."""

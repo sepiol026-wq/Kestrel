@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Plugin activation writes and reads the SAME key on every surface (#27548, #73131, #82898).
 
 Runs the real ``hermes_cli.plugins_cmd`` commands against a temp HERMES_HOME and checks the verdict

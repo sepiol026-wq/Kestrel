@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent Contributors, Qwerty Contributors (MIT License)
+# Modifications & additions Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work pursuant to 17 U.S.C. § 1202. All upstream rights and notices retained.
+
 """Graphify codebase knowledge graph tools for Kestrel Agent.
 
 Provides direct structural inspection, AST symbol relations, architectural hubs,

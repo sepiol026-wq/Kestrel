@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Where a terminal tab's shell runs. A tab records the gateway it was opened
 // on; this resolves that record against the registry and the live SSH pool so
 // the PTY spawns on THAT host no matter which gateway the window shows later.

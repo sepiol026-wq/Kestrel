@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Background-loop plumbing for tools.mcp_tool: cross-process discovery file lock, scheduling
 coroutines onto the MCP loop from caller threads (with profile HOME override and dashboard OAuth
 flow propagation) and the loop's exception handler. Origin state (``_lock``, ``_mcp_loop``) is

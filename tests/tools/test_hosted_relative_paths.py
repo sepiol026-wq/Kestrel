@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A hosted relative path is never anchored on this host: neither a ``~`` TERMINAL_CWD expanded against this
 host's HOME nor the process working directory is sent to the sandbox or returned to the model. Outside a hosted
 scope both keep their local meaning."""

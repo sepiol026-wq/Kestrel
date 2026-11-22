@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Session-attach handshake: ``hermes --tui --resume SID`` must hand the TUI only the REAL owner's socket.
 
 When a resumed session is already open elsewhere, the launcher reads the owner's lease from the

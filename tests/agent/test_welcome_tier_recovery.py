@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Nous free tier, inference side: the dark-tier 403 keyed on the route, the one-shot model move
 after ``model_not_free``, the wrong-host heal, the long-wait rule for structured ``rate_limited``
 refusals, and the plain outage sentence once retries are spent.

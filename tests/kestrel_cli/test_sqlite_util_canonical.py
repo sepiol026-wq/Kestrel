@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Invariants for the canonical SQLite connect/transaction layer (``hermes_cli/sqlite_util.py``).
 
 Every small store used to carry its own connect + PRAGMA + ``with conn:`` stack, so the #69567 fd-leak

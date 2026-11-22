@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The home that admitted a turn answers for its Stop after the profile is moved to another home:
 the new home's "no such session" never settles it. The old home's daemon confirming the Stop
 settles it, and so does that daemon being gone, so a moved profile does not hold Disband forever."""

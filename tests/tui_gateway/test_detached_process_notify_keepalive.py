@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A detached Desktop/TUI session waiting on a background process's completion notice must survive the reapers.
 
 The agent starts ``terminal(background=True, notify_on_complete=True)`` and ends its turn on "I'll report back".

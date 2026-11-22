@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A delegated child's stored session stays addressable by its subagent_id after the registry forgets it.
 
 Through ``_build_child_agent`` with real AIAgents and a real SessionDB in a temp HERMES_HOME: the

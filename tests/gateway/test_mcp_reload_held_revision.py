@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A ``reload.mcp`` that names the revision the calling session already holds has nothing left to load:
 it answers the success shape (naming the configured server that is down) instead of the named refusal, so
 a client that only advances its accepted revision on ``status: reloaded`` can acknowledge it (#141769).

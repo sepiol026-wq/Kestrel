@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Per-session settings typed in the classic CLI run the gateway's handler (slash.exec) when the
 session is on the gateway; client-enforced state (/busy) is mirrored after the owner accepts."""
 from types import SimpleNamespace

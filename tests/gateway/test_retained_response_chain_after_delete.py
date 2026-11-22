@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A retained Responses chain whose transcript was deleted, continued with a fresh Idempotency-Key,
 moves to a new generation: it is neither refused forever (``not_found``) nor allowed to recreate
 the deleted transcript id. The history comes from the response store, so nothing is lost.

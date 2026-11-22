@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A skill named like a built-in command is kept out of auto-registration (the 370ebf2d3 guard)
 and every listing surface says so where the user looks: the ``/skills`` table, ``/help skills``
 and the ``commands.catalog`` palette RPC. A non-colliding skill carries no note."""

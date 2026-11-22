@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Durable resumable subagents, review round 1: the durable claim is the one gate for every continue, a claim never
 outlives the run that took it, boot recovery holds no write lock through its git probes, a continue picks up the
 child's newest conversation segment, and each profile's pins obey that profile's own cap.

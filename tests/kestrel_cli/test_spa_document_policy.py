@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Every privileged SPA document uses the same bootstrap policy: uncached, prefixed, and tokenless
 whenever the gate or the surface withholds the session token. Where the surface's policy keeps the
 token out of HTML (the Webapp), ``/index.html`` gets that bootstrap too; the dashboard serves its

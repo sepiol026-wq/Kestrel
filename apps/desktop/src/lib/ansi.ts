@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Minimal ANSI SGR parser for rendering terminal output inside chat tool
 // cards. Only handles the SGR codes that show up in practice (color, bold,
 // reset); cursor motions and other CSI sequences are dropped silently.

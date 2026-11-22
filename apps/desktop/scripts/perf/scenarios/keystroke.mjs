@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Composer input latency — keystroke → next paint. Subsumes measure-latency,
 // profile-typing, and leak-typing. This is the most-felt latency in a chat app
 // (users type constantly) and nothing measured it against a baseline before.

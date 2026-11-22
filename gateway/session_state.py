@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Per-session gateway state in one container (replaces ~19 session_key-keyed dicts on
 GatewayRunner that bred boundary drift and wholesale-reset races).  Scopes follow where each dict
 was CLEARED: ``turn`` at the end of every turn; ``conversation`` at conversation boundaries (/new,

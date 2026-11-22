@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Symlink-safe creation helpers for spill/cache files under ``~/.hermes`` (and for our own
 dirs in a shared temp root, ``ensure_owned_private_dir``), where a plain
 ``open(path, "w")`` would follow a pre-planted symlink onto ``~/.bashrc`` etc. New files use

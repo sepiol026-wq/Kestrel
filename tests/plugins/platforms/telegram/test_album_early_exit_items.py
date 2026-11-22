@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """An album item that skips the normal cache (a video sent as a document, a file too large to
 download, an oversized video) still joins its album: one album, one turn. Driven through the real
 ``_handle_media_message`` in production order, one item after another.

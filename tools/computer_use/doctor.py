@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """`hermes computer-use doctor` — thin client for cua-driver's `health_report` MCP tool. cua-driver owns the health
 model; we drive the stdio JSON-RPC handshake, call `health_report` and render the stable ``schema_version="1"``
 payload. cua-driver 0.10.x marks `health_report` risk-unclassified (isError=true, structuredContent

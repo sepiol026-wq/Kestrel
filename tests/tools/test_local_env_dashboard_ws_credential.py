@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The dashboard hands its PTY child two WebSocket URLs that carry a live dashboard
 credential in the query string (``?token=<_SESSION_TOKEN>`` on a loopback dashboard,
 ``?internal=<internal_ws_credential()>`` when the dashboard is gated):

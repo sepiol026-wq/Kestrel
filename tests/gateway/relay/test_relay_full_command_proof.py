@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A full command sent through the relay proves delivery only when it fits one message: the connector
 splits it, and the relay's send result has no field to report a lost chunk, so a long command must not
 leave Approve on the card on the strength of a ``success: true`` that may hide a dropped tail."""

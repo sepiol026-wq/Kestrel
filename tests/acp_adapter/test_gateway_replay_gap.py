@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """ACP across a ``session.replay_gap``: the pump re-attaches that session and survives; a cut prompt settles once,
 live or from one receipt read the pump owns; terminal evidence beats a recovery error; an interim stays whole;
 a reused reply is hidden after a gap or a receipt only when all of it was shown. (Refused re-attach:

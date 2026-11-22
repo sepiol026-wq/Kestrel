@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``pre_gateway_dispatch`` on relay deliveries runs at admission, before the commit, but never on the
 relay socket reader: a hook may await ``adapter.send()``, whose ``outbound_result`` only that reader
 delivers, or wait for another inbound message. A cancelled admission releases the media its

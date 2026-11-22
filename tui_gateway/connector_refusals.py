@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Connector refusals both connector handlers send: the legacy one (``methods_connectors``) and the session authority's (``gateway/session_connections``). Each entry is ``(code, ConnectorErrorReason, message)``."""
 from tools.connectors.run import LINK_STILL_VALID, MIXED_KINDS, NOT_ALLOWED, REFUSED, SETTLED, UNKNOWN_TARGET
 

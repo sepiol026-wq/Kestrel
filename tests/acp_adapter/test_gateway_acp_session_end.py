@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """ACP v0.9 has no per-session destroy: the last viewer leaving an idle ACP session is its end (#118216).
 
 Real authority + SQLite. Without an ``ended_at`` writer on the gateway path, source='acp' rows stay

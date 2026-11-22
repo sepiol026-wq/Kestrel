@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Per-terminal session breadcrumbs for ``kestrel -c`` / ``--continue``. Strictly best-effort: no
 function raises; without a stable terminal identity (no tty, no known multiplexer env var) ``-c``
 falls back to latest-session. Gated by ``session.terminal_continue`` (default true)."""

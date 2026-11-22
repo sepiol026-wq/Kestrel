@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``session.transcript`` bounds (#150091 review): no nested store read, a page never over its byte cap, tool
 results keep their call's label across a page cut, newest-first paging across a compaction, and every
 compaction a row even with the same prose."""

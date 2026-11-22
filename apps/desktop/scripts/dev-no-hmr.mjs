@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Launch the desktop renderer with HMR disabled so the React Fast Refresh
 // preamble path is skipped. This sidesteps a current Vite 8 / plugin-react 6
 // bug where the preamble script is not injected into index.html → renderer

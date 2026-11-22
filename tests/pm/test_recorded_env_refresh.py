@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """An entry recorded with an env the package code no longer produces is re-recorded on the next
 prepare, without re-fetching, so build admission accepts stores built before the change (a Desktop
 bundle restoring a pm-store cache from before Chromium stopped exporting AGENT_BROWSER_EXECUTABLE_PATH)."""

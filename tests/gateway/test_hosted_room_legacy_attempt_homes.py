@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A turn deferred before attempt homes were recorded, after its profile moved from home A to B
 while A's gateway stays up: A is asked for that exact turn's Stop. Its "holds nothing" settles the
 turn, a live hold keeps it (and gets the Stop), and Retry never starts another generation while A

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Discord channel obfuscation (Aug 2026 privacy change, HTTP omission mandatory Nov 16 2026):
 channels a bot lacks VIEW_CHANNEL on arrive named "___hidden___" with flag 1 << 17 set.
 Enumeration sites must skip them. #90154"""

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Cua-driver backend (macOS, Windows, Linux): MCP over stdio to `cua-driver`. The async `mcp` SDK runs on a
 background loop (``cua_backend_session``); the same tool surface works on all three platforms, and per-host gaps
 (no DISPLAY, missing AT-SPI, TCC) surface via `hermes computer-use doctor` instead of failing silently. Install

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Desktop (Electron) app: build/stamp, stage-and-swap pack, exe integrity gate, macOS signing, Linux sandbox, launch (hermes gui/desktop).
 
 Split out of ``hermes_cli/main.py``. Names that still live in main (``PROJECT_ROOT``, ...)

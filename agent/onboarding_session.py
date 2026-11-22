@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The onboarding chat's per-session pieces, shared by every runtime that hosts it (the session
 authority's local turns and the old sidecar): the ``onboarding`` toolset fold-in, the scripted opening
 and the per-turn note. Pure over the agent and the run record (``agent.onboarding_record``)."""

@@ -1,1 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 var e=`'JetBrains Mono', 'Cascadia Mono', 'Fira Code', 'MesloLGS NF', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace`,t=[`400`,`700`,`italic 400`].map(e=>`${e} 1em 'JetBrains Mono'`);function n(){return typeof document>`u`?void 0:document.fonts}function r(e,r,i=n()){if(!i?.load)return()=>void 0;try{if(t.every(e=>i.check(e)))return()=>void 0}catch{}let a=!1;return Promise.allSettled(t.map(e=>Promise.resolve().then(()=>i.load(e)))).then(t=>{if(a||!t.some(e=>e.status===`fulfilled`&&e.value.length>0))return;let n=e.options.fontFamily??`'JetBrains Mono', 'Cascadia Mono', 'Fira Code', 'MesloLGS NF', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace`;e.options.fontFamily=`monospace`,e.options.fontFamily=n,r(),e.clearTextureAtlas(),e.rows>0&&e.refresh(0,e.rows-1)}),()=>{a=!0}}export{r as n,e as t};

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 /** The renderer-free `hermes-gateway-v1` client (Node): ticketed WebSocket dial, `runtime.describe`, the
  *  `session.create` contract, reconnect with bounded owner recovery, typed requests and events. Where the
  *  URL and ticket come from is the caller's `connect` (Ink: `gateway_bootstrap.py`; any other local

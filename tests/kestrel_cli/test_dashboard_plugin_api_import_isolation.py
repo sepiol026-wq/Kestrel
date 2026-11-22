@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """How ``_mount_one_plugin_api`` imports a dashboard plugin's backend ``api`` file.
 
 Under ``plugins.isolation: host`` a user plugin's ``api`` file must never execute in the dashboard

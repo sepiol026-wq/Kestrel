@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Served-profile isolation of local browsers: one process serving profile A, then B, then A again must hand
 each profile its OWN Chromium (profile dir under that profile's HERMES_HOME), and A's browser again on the
 return trip, never B's (#110032). Runs the real session layer + launcher against a fake Chromium binary."""

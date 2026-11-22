@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Persistent MCP tool-schema cache for lazy server startup: per-server tool manifests on
 disk so Hermes can register MCP tools into the agent snapshot without spawning the stdio
 child at idle dashboard startup. Entries are keyed by server name + a fingerprint of the

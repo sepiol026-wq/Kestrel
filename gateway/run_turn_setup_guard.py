@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The pre-agent setup guard (#138358): session resolve, turn prepare and the ``agent:start`` hooks
 run before the inactivity watchdog exists, so a hang there held the turn's slot (and the session's
 durable FIFO behind it) forever. The guard bounds that phase and lets /stop or /new end it.

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Per-thread interrupt signaling for all tools: thread-scoped so interrupting one
 agent session does not kill tools in other sessions (the gateway runs many agents in one
 process). The agent passes its execution thread id to set_interrupt(); tools call

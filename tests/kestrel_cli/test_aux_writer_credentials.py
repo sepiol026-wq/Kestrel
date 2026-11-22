@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Every writer that re-points an ``auxiliary.<task>`` block drops the old route's credentials (#141832).
 
 The aux resolver (``_resolve_task_provider_model``) hands a block's ``api_key``/``key_env`` to

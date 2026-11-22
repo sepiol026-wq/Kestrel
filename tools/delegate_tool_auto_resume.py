@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``delegation.auto_resume``: continue stopped subagents without a person, and only while the parent still wants them.
 
 The gateway runs :func:`tick` every few seconds for each profile it serves, inside that profile's scope. A tick reads the

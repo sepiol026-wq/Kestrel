@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Classic CLI commands whose state lives in the gateway session are answered there (tracker #134889
 CLI-8, CLI-17, CLI-21): ``/diff session`` (the gateway tools' checkpoint baseline), ``/reload``
 (the gateway's ``.env``) and ``/handoff`` (the owner's ``handoff.*`` verbs, #143608). Driven

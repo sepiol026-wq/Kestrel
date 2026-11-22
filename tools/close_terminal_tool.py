@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Close a read-only agent terminal tab in the Hermes desktop GUI WITHOUT killing
 the mirrored ``terminal(background=true)`` process (output keeps buffering; the user
 can reopen it). Routes through the process registry's ``on_close`` sink, which the

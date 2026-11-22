@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A SPA bundle that cannot be served is explained to a browser as a page, and to an API client as
 JSON. The Webapp is internet-facing: a raw JSON body is all a signed-in viewer would see (#151152)."""
 from pathlib import Path

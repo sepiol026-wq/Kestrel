@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Outer-iteration bookkeeping for the conversation turn loop, in call order:
 ``begin_iteration`` (pending redirect, interrupt / review-budget / iteration-budget exits),
 ``prepare_iteration`` (``agent:step`` callback, skill-nudge counter, pre-API ``/steer`` drain as a

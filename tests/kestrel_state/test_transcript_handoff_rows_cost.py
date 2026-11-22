@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``SessionDB.transcript_handoff_rows`` looks its rows up in a fixed number of indexed reads, so its cost
 grows with the rows asked about, not with their product with the rows stored: a whole-lineage page asks
 about every row before its window. It finds what the one join it replaced found."""

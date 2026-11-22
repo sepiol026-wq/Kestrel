@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Durable resumable subagents, review round 3: a sweep planned before a child was continued never removes the tree
 the continue pinned (classic and archive mode, and a pin taken while the archive snapshot ran), the record keeps no
 credential from the endpoint URL yet still refuses a changed endpoint, and a failed first record write is retried

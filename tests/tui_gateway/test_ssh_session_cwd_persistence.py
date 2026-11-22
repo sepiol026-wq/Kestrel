@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """An ssh session's launch directory is a host path: kept in memory, never persisted as its remote workspace.
 
 A resume adopts a stored ssh cwd as the remote workspace, so a persisted launch directory (in the Docker image

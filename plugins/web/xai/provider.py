@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """xAI Web Search — search-only provider backed by Grok's server-side ``web_search`` tool on the
 Responses API (https://docs.x.ai/developers/tools/web-search); Grok is asked for structured JSON
 so rows match every other Hermes web provider. Config: ``web.backend: "xai"``; optional ``web.xai``:

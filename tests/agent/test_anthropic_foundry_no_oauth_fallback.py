@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A native-anthropic client at an Azure Foundry host with no key of its own must never be filled
 with the Claude Code OAuth token (#154242). Covers the three builders that fill an empty key:
 agent init, fallback activation and a mid-session model switch.

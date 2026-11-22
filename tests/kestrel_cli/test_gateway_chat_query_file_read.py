@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The live --query-file read keeps main's contract (B2-09): undecodable bytes are replaced; an
 unreadable or empty file exits 2 naming it, with a failed ``result`` line under stream-json."""
 import argparse

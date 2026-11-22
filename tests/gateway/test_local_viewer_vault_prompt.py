@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A local viewer's turn asks for browser-vault input (a site's one-time code, a login to save, a password
 manager's master password) through the Desktop/Ink cards, as main's sidecar did
 (``tui_gateway/agent_callbacks.py``). The canonical owner registered no vault callback, so ``browser_vault``

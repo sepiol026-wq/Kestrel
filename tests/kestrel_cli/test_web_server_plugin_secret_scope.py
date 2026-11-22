@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A plugin API handler's ``get_secret()`` resolves the requested profile's credentials (#120310),
 through the real mount path: the launch profile's copy in-process, a ``?profile=`` profile's own copy
 in its plugin host (PLG-3). Moved out of ``test_web_server.py``.

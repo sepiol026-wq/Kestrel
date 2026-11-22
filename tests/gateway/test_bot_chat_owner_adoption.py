@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Owner login history survives either delivery-first or open-first Bot Chat adoption, a live
 legacy writer refuses the delivery without losing the chat, and a forwarded login delivers into
 its own chat but never moves the owner's aside."""

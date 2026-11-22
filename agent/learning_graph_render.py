@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Terminal renderer for the learning timeline (learned skills + memories): the desktop starmap's data
 (``apps/desktop/src/app/starmap``) drawn as a timeline bar chart (date rows, skill/memory bars colored by dominant
 category, cumulative trajectory sparkline) plus per-slice bucket metadata the TUI walks as a tree. Age gradient and

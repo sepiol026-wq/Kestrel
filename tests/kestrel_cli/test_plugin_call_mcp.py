@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Tests for the capability-gated ``ctx.call_mcp`` plugin surface (#64204).
 
 The gate: ``plugins.entries.<plugin_id>.mcp_allowlist`` — a list of MCP

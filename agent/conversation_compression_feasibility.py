@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """When the compression feasibility probe runs: after a main-runtime change, once a request first reaches
 the smallest summariser window, and again when a warm agent meets a compression route other than the one
 it probed. The probe itself is ``check_compression_model_feasibility`` in ``agent.conversation_compression``."""

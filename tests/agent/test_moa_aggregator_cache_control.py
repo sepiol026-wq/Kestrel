@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """MoA aggregator cache decoration: the acting aggregator (``MoAChatCompletions``)
 and advisor fan-out are re-read across iterations and stay decorated; the one-shot
 ``/moa <prompt>`` synthesis (``aggregate_moa_context``) embeds this call's reference

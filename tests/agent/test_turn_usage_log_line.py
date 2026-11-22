@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The per-call log line carries what a cost or cache investigation needs: the cache write count, the
 provider's response id, and the serving upstream when the route reports one. Existing parsers read a
 prefix of the line, so the fields are appended and optional."""

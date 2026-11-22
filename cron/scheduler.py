@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 # health: allow FILE_LINES -- security fix for #82010: distinguish an explicitly-empty toolset allowlist (fail closed, nothing allowed) from an absent one (no restriction); the added lines are minimal fail-closed branches at this existing chokepoint. Also #141468: match the `mcp-<server>` toolset spelling so a narrow job's MCP allowlist is not widened into every enabled server — a minimal branch at the same chokepoint.
 """Cron job scheduler: tick() runs due jobs (gateway calls it every 60s from a background thread).
 A file lock (~/.hermes/cron/.tick.lock) keeps overlapping processes to one tick at a time.

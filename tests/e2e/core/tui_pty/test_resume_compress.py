@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A long Ink TUI session renders every transcript word at most once after ``/compress`` and
 when it is resumed later (``hermes --tui --resume <id>`` and ``/resume <id>`` from a fresh TUI):
 a compressed-transcript block is never painted twice (#88906), the protected tail is on screen

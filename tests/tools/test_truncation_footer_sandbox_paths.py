@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Truncation footers tell the AGENT where the full text lives, and the agent's read_file runs inside
 the active terminal backend: under docker the mounted cache is at /root/.hermes, so a host path in the
 footer is unreadable from the sandbox (#72389, #81984, #77015)."""

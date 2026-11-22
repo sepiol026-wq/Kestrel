@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """NEEDS_ATTENTION after a suspended host (#126825): Windows' ``time.monotonic()`` keeps counting
 through Modern Standby, so a platform queued just before the laptop slept looked hours-failed on
 the first watcher pass after resume, before it had retried once. Both reconnect lanes (the launch

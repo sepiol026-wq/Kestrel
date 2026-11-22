@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """RFB client-message framing at the bridge: a client-declared ClientCutText length is bounded at the header
 (the bridge must not buffer up to 2 GiB for a viewer that holds a ticket but no lease), and every message
 type Xvnc is configured to accept must be framed, or the stream dies on it."""

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Live judge A/B on the run's real "waiting" response shape. Usage: python judge_ab.py <repo_root> [n]"""
 import os, sys
 root = sys.argv[1]; n = int(sys.argv[2]) if len(sys.argv) > 2 else 3

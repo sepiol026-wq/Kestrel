@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Scan baseline for background-review ``skill_manage`` writes: only findings a write introduces
 block it. ``scan_skill`` is reached lazily through ``tools.skill_manager_tool`` so that module
 stays the patch seam; ``_guarded_write`` there owns the write and rollback."""

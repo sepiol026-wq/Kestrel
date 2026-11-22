@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A profile whose retirement misses its deadline keeps its slot (its writer may still run) but
 refuses every admission: it must leave the published served set and the ticket store at once,
 so discovery stops reporting it ready (and reads its parked verdict) instead of handing clients

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 /** The `hermes --tui` launcher's environment as `session.create` options and the launch tool-progress
  *  pin: Ink's launch contract, read here and handed to the shared gateway client. */
 import type { GatewayRpc } from './app/interfaces.js'

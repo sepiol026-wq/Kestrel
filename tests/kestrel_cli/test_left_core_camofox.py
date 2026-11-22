@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Camofox left core for the ``camofox`` catalog plugin: a home that ran core's Camofox backend gets the
 plugin once, and its core-era ``browser`` toolset (Camofox's browser_* tools then; browser_exec now) becomes
 the plugin's ``camofox`` toolset, a one-time conversion a later run never undoes.

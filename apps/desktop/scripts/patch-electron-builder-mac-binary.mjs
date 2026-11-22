@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Loaded in the builder child before osx-sign. Keep its walk and classifier,
 // but own each probe through close: isbinaryfile's path API resolves too early.
 // The prebuilder lifecycle also imports this file to validate the supplier pins.

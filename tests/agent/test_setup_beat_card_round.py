@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A setup_beat round in the turn loop. It never ends in the empty-response nudge: the line written with
 the card is the turn's reply when the follow-up comes back empty (agent/turn_tool_round.py
 ``_LINE_IS_REPLY_TOOLS``). A card the user wrote past ends the turn on its result."""

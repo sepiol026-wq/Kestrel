@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Anthropic Messages API adapter: client construction + the Messages call for Hermes's
 OpenAI-style internals. Auth: Console API keys (``sk-ant-api*``/``-usr*``/``-svc*``/``-admin*``) ->
 x-api-key; OAuth setup-tokens (``sk-ant-oat*``) and Claude Code credentials -> Bearer + beta header.

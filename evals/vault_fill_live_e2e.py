@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Live E2E: vault fill through the REAL browser_exec path (Browser Use CLI + Hermes' packaged Chromium).
 
 Proves problem (1) of the #106480 re-review is fixed: on the default browser backend the login page lives in

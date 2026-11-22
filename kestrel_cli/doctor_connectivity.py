@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """API connectivity probes for ``kestrel doctor`` (split out of ``doctor.py``).
 
 Every probe is a pure function: one HTTP/SDK call returning a ``ProbeResult`` with the row(s) to

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The real-profile snapshot (the overlay of the user's Cookies / Login Data onto the profile copy) is part of the
 launch step under the copy dir's cross-process launcher lock: two Hermes processes of one profile never copy into
 the same snapshot dir at once, nor over a copy-browser that just came up (the later one attaches instead), and a

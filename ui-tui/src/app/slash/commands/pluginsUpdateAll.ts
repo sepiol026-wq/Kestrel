@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // `/plugins update` in the TUI: the batch runs over `plugins.manage update_all` (the RPC Desktop uses),
 // never inside `slash.exec`, whose worker is killed after 45 s while a clone, scan or dependency sync
 // may still be publishing.

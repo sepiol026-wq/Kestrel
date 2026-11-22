@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """B1-17: an unattended (auto-approving) finite turn is ``hermes -z`` only. Main set HERMES_YOLO_MODE inside
 the one-shot's own process; over the wire only the local bootstrap principal on its own CLI session may
 ask for it. Every other submitter (dashboard identity, operator attach, a Desktop/TUI/Bot Chat session)

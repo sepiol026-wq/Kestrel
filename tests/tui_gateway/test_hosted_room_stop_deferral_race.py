@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The worker can defer a turn behind its member's unconfirmed Stop while a room Stop or Disband is
 already deciding about that turn. A turn that is deferred when the cancel commits needs the member's
 confirmed Stop, whichever state the earlier snapshot showed; Disband refuses until it has it."""

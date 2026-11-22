@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """SSE approvals on a real gateway: one turn, one pending approval, two clients.
 
 Refs #145171 (EP-2): rebuilds the manual #134889 "SSE approvals over /v1/chat/completions" check as

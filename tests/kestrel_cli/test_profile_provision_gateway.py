@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``hermes profile create`` through the gateway: the create runs in the caller's profile, refusals keep
 their type and full text, an older or unreachable gateway falls back only when no URL names it, an
 answer that can't be confirmed is never a local create, and two creates of one name in one process end

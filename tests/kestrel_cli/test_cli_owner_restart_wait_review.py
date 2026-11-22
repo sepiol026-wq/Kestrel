@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Review follow-ups for the classic CLI's wait on a restarting gateway: a retry re-sends the first
 attempt's exact request, Ctrl+C stops in-flight waits, local errors are not waited out, and a -q
 cancel exits 130."""

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Shared base for the bundled cloud-browser plugins. Every vendor speaks the same REST shape
 (POST to create a session, one request to release it); :class:`CloudBrowserProvider` owns that
 lifecycle, subclasses supply attributes + hooks. Logs go to the subclass module's logger with the

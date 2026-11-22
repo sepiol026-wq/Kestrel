@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A gateway-backed classic CLI leaves the end of its session to the gateway.
 
 Regression for #134889 LC-2. The CLI's ``end_session`` (exit, ``/new``) detaches with an ``end_reason``

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The managed worker's reservation and loss writes run off the owner loop (B1-13): a state.db
 writer held by another process (up to _WRITE_PATIENCE_S) must not freeze every other session,
 timer, socket and Stop on the loop. Real child, real SQLite, a real competing writer."""

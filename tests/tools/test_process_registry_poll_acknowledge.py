@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """#94455: ``process(action='poll', acknowledge=true)`` on an exited process tells Hermes the agent
 handled the result inline, so the gateway watcher must not inject a stale completion turn. A plain
 poll stays read-only, so a status check still gets its autonomous turn (#10156)."""

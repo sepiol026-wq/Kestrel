@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Description-aware fuzzy scoring for slash-menu completions (ported from superagent-ai/grok-cli
 ``src/ui/slash-menu.ts``; mirrored in ``apps/shared/src/slash-score.ts``). Tiers: exact command
 token (0), prefix (1), substring (2); the DESCRIPTION is tokenized and matched at +3 (3/4/5), so

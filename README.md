@@ -70,6 +70,12 @@ kestrel --version
 
 ---
 
+## Attribution & Upstream Acknowledgements
+
+Kestrel Agent is an independent fork and derivative work built upon Hermes Agent and Qwerty by Nous Research Inc. and community contributors. All original rights, contributor attribution, and upstream MIT license grants are retained pursuant to 17 U.S.C. § 1202. See [NOTICE](NOTICE) for full provenance details.
+
+---
+
 ## License
 
 GNU Affero General Public License v3 (AGPL-3.0). See [LICENSE](LICENSE) for details.

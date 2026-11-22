@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Standalone-vs-served parity for goals/loops, completion notices and process recovery under
 ``gateway.multiplex_profiles``: every read that decides FOR a served profile must run inside that
 profile's runtime scope, and every store the served profile wrote must be recovered under it.

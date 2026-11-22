@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A configured trigger far below the window must leave compaction room under that trigger.
 
 ``compression.threshold_tokens: 12000`` on a 64K window: the lean 10K tail floor used to keep ~10K of verbatim

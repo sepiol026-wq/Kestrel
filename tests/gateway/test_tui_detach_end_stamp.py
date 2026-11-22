@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The TUI's close of a canonical session stamps the row as main's sidecar did (PR #106742 rows 28/35/38).
 
 Main's TUI closed its session on ``/new`` / resume-switch (``tui_close``) and on exit (``tui_shutdown``),

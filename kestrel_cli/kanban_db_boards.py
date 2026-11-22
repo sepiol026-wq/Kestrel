@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Board metadata (``board.json``) and board lifecycle management for the Kanban DB:
 read/write of per-board display metadata, board creation/discovery/archival, and the
 ``board.json``-as-identity-marker rule.

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Live-DB test-isolation guard and the per-process "last init error" record.
 Every SessionDB construction resolves its path through _ensure_test_isolation
 so a pytest-context process (env OR ancestry) can never open a production

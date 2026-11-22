@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A managed worker (every Kanban run, opt-in CLI sessions) builds its agent with the session's
 provider routing and service tier, as ``hermes chat`` did on main (``HermesCLI._init_agent``):
 ``provider_routing.ignore``/``data_collection`` and a static ``agent.service_tier`` reach AIAgent."""

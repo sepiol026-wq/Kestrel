@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """#86515: the lock-free mode=ro read pool needs a CONFIRMED WAL header. When the on-disk probe at open
 is blocked by a concurrent opener, apply_wal_with_fallback reports "wal" as the assumed mode with nothing
 touched; SessionDB must not turn that assumption into pooled readers on a file that is really DELETE."""

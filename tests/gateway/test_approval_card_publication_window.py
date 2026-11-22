@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A card tap can approve only a request whose card was rendered for it: an id-less tap (a card from an
 older build) settles nothing, and a freshly queued request is Deny-only from the moment it is enqueued,
 so no tap path can approve it in the window before its renderer has decided what the card may offer."""

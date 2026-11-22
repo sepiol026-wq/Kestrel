@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Bug-fix regression tests for #84046: ``AudioRecorder.stop()`` must apply the CONFIGURED
 silence threshold (``self._silence_threshold``, wired from ``voice.silence_threshold`` by the
 CLI before each recording), not the hardcoded ``SILENCE_RMS_THRESHOLD`` default of 200 —

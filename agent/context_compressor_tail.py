@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Lean-mode stale-tail demotion for ContextCompressor (old tail tool results become one-line recovery stubs), and
 the Skill Safety Rule the compaction handoff carries whenever its transcript holds a skill prune marker."""
 

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Invariant: ``/stop`` ends the session's BACKGROUND delegate_task children too — whether the session is
 mid-turn (busy fast path) or idle after the dispatching turn already ended — instead of only the in-turn
 children, leaving the detached unit to run to completion and wake the chat later. See #114456.

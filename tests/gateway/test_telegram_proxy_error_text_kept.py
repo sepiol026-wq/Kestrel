@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A Telegram error raised through a proxy whose URL holds no secret keeps its full text (and the
 polling-error traceback) at every site that redacts for a proxy: only a URL carrying something the
 log rendering leaves out (userinfo, path, query) reduces the text to ``<Type> via <host:port>``.

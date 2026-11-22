@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """With verify-on-stop off (the default) the evidence ledger must be fully inert: no
 recording, no staleness tracking, and no ``verification_evidence.db`` ever created.
 The ledger's only consumer is the stop guard; an unconsumed ledger is disk churn."""

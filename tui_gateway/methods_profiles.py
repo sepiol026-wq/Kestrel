@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Profile JSON-RPC handlers — the ws twin of the dashboard's /api/profiles (desktop plugins
 only have the ws door), on the same `hermes_cli.profiles` primitives. Bodies are rebound onto
 server.py's globals (method_ctx.bind_module) and use them bare; module-level names are published

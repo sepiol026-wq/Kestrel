@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """andrexibiza P1-B: ``ConfigBackendUnavailable`` is a ``SystemExit`` on purpose (a fail-open reader
 must never serve defaults instead of the selected backend's config; boot fails closed), so an
 ``except Exception`` / ``suppress(Exception)`` around a config read does not catch it. Each

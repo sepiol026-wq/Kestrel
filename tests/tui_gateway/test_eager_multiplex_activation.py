@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Eager multi-profile activation: when a host arms the fail-closed secret guard, and when it must not.
 
 ``profiles_to_serve`` takes the multiplex flag as an ARGUMENT and never reads config, so the eager

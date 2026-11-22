@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """#134889 W2: a token-lock dir this user may not write gives one named warning, never a crash loop.
 
 The Windows reports were ``Permission denied`` on ``gateway-locks\\telegram-bot-token-*.lock``; the

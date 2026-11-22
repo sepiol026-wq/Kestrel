@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Two multiplexed profiles that name the same MCP server with different credentials are two
 connections (#106005, #91654): the ledgers in ``tools.mcp_tool`` are keyed per owning profile
 scope, and an owner's scoped reload re-registers the profiles that had adopted its connection."""

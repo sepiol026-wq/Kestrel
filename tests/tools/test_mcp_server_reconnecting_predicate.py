@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``mcp_server_reconnecting`` (cron preflight's "is this outage healing on its own?" question)
 must say True only for a transient park. A server parked on a PERMANENT error (revoked
 credentials, endpoint gone) fails its self-probe identically every time, so treating it as

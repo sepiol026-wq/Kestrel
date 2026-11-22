@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """A background provider call that never returns pins its mem-sync worker thread forever (Python cannot
 stop a thread), and MemoryManagers are rebuilt per agent. The process-wide gate skips calls once
 _MAX_STUCK_CALLS calls that started after the provider's last success are stuck, admits one half-open

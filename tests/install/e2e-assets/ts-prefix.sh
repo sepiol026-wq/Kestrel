@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 # ts_prefix: prefix each stdin line with [+MM:SS] relative to the DRIVER's
 # start (TS_BASE), not this pipe's start -- every log in a leg shares one
 # time base, so the playback.html sync (one offset slider against the

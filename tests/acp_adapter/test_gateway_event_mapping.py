@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The gateway's turn events reach the editor as the in-process ACP agent projected them (#134889
 ACP-5, ACP-15): native plan updates, the executor's tool verdict, closed tool and permission bubbles,
 and ``messageId`` on assistant chunks."""

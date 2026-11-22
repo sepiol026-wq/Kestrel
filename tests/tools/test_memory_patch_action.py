@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Regression for #124582: the memory tool had no find-and-splice edit, so a
 partial edit of one clause of a packed multi-fact entry could only be expressed
 as a whole-entry ``replace`` — silently discarding the sibling facts in the same

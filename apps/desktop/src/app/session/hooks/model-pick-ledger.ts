@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Per-session ledger of in-flight model picks, shared by every surface that
 // mounts useModelControls. A pick's own pre-pick snapshot is only the
 // OPTIMISTIC paint of whatever pick came before it, so rollback must target

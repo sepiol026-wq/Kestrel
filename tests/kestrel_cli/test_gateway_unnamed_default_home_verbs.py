@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Unnamed dashboard gateway lifecycle verbs issued from the DEFAULT home must name
 ``-p default`` explicitly (``_own_profile_selector``), so the spawned child can never
 re-read the sticky ``active_profile`` and restart another profile's gateway, and so the

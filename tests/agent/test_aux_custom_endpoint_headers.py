@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """The aux client's anonymous custom arm (``provider: custom`` + a base URL) sends the ``extra_headers``
 of the custom provider entry whose base URL is that endpoint, as the main agent's client does, and
 never another entry's: the borrowed one-shot route and every aux task with ``provider: custom`` go here."""

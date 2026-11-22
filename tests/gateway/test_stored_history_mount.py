@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Old stored chats no loader restores open read-only for their owner (#143547 RT-30b, RT-48, RT-49, RT-54).
 
 Pre-update cron runs, subagent transcripts, API rows without a binding, WebUI rows and rows the

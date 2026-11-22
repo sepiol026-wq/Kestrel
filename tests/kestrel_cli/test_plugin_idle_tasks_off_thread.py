@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Plugin idle tasks run on their own thread: the host's poll (gateway housekeeping, CLI startup,
 ``hermes serve``'s ticker) starts each due run and returns at once, the claim still keeps one run
 at a time, and the worker records the run and releases the claim whatever ``fn`` does."""

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """worker.register requires the worker-adoption capability a launched worker's ticket carries
 (B1-14): an interactive client (session:control) must not park a 'registered' compute row that
 nothing reaps, pausing the session's FIFO until a restart turns it unknown. Real SQLite, real

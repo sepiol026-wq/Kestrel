@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """config.yaml ``platforms.<name>.allowed_users`` gates DMs on the platforms moved from core into plugins.
 
 Their registry entries declare ``allowed_users_env``, so with no env allowlist the gateway reads the live

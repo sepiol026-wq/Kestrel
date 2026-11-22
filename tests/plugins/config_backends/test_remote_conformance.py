@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Vendored config-plane conformance fixtures, run against the agent's client-side rules
 (contract.md §13): path grammar, secret-shaped keys, the profile-level write check fed
 ``expect.locks``, and ``defaultsMerge`` against ``_deep_merge``. The digest test pins the vendored

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Git working-tree probing for the gateway: run git, resolve repo roots, fold linked worktrees.
 Probing runs where the gateway runs (covers remote backends). Roots go through a thread-safe
 single-flight cache so concurrent identical probes share one ``git`` spawn: positives live for the

@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``PUT /api/tools/terminal/backend`` validates the backend against the TARGET profile's plugin
 backends, the same list ``GET /api/tools/terminal/backends?profile=`` shows: a backend plugin installed
 only in a secondary profile (the ``singularity`` plugin after the backend left core) is selectable

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+// Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+// Derivative work. All upstream attribution and rights retained.
+
 // Branching a chat another profile owns must not let that profile's runtime
 // overwrite the ACTIVE profile's approval chip: forkBranch passes the branch's
 // owner (the parent row's route) to applyRuntimeInfo, which only reconciles the

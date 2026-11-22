@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """``session.transcript`` shows each compaction handoff once, before the first row in the whole transcript
 that holds it, wherever a page starts: paged at any ``limit``, either order, the rows are exactly a full
 read's, across identical uid-less handoffs on several carriers, several handoffs on one carrier, in-place

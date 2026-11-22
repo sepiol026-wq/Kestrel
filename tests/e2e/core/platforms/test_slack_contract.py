@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+# Portions Copyright (c) 2024-2026 Nous Research, Hermes Agent & Qwerty Contributors (MIT License)
+# Modifications Copyright (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
+# Derivative work. All upstream attribution and rights retained.
+
 """Messaging-adapter contract, Slack leg: the REAL gateway + REAL ``plugins/platforms/slack`` adapter.
 
 The child is ``hermes gateway run`` on a throwaway HOME; the adapter's own SDK (slack_bolt Socket Mode + slack_sdk via the ``slack_shim`` sitecustomize) talks to
