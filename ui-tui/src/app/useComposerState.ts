@@ -675,8 +675,9 @@ export function useComposerState({ gw, submitRef, sys }: UseComposerStateOptions
             return handleResolvedPaste({ bracketed: false, cursor, text: preferredText, value })
           }
 
-          // No text on the clipboard — an image paste looks exactly like this.
-          return pasteClipboardImage(value, cursor, false)
+          // No text on the clipboard — an image paste looks exactly like this. Quiet:
+          // a copy/paste key with nothing on the clipboard must not narrate itself.
+          return pasteClipboardImage(value, cursor, true)
         })
       }
 

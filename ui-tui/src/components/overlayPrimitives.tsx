@@ -95,7 +95,9 @@ export function listRowStyle(t: Theme, active: boolean): { backgroundColor?: str
     return {}
   }
 
-  const backgroundColor = t.color.completionCurrentBg
+  // A selected row must be unmistakable: the accent-tinted chip, not a tone that
+  // blends into the panel.
+  const backgroundColor = mix(t.color.completionCurrentBg, t.color.accent, 0.35)
 
   // The chip guarantees its own ink: a cross-polarity theme (dark palette on
   // a light terminal) pairs pale text with a light chip, so lift the ink

@@ -18,6 +18,12 @@ export const tabsEn = {
     codeRunning: 'running…',
     codeTitle: 'code mode',
     ctrlCAgain: 'ctrl+c again to exit',
-    compact: (index: number, total: number) => `${index}/${total}`
+    compact: (index: number, total: number) => `${index}/${total}`,
+    hintCommands: 'commands',
+    hintCode: 'code',
+    hintTabs: 'tabs',
+    keysCommands: '/help',
+    keysCode: 'alt+c',
+    keysTabs: 'alt+1-9'
   }
 }

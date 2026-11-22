@@ -67,10 +67,10 @@ export const edgePreview = (s: string, head = 16, tail = 28) => {
       : `${one.slice(0, head).trimEnd()}.. ${one.slice(-tail).trimStart()}`
 }
 
-export const pasteTokenLabel = (text: string, lineCount: number) => {
+export const pasteTokenLabel = (text: string, _lineCount?: number) => {
   const preview = edgePreview(text)
-
-  const chip = t('libText.text.pasteLinesChip', compactNumber(lineCount))
+  // The chip says how big the paste is; the line count is for the paste section.
+  const chip = t('libText.text.pasteCharsChip', compactNumber(text.length))
 
   if (!preview) {
     return `[[ ${chip} ]]`

@@ -3,6 +3,7 @@
 // Modifications Copyleft (c) 2026 Sam Sepi0l <sepiol026@gmail.com> (AGPL-3.0)
 // Derivative work. All upstream attribution and rights retained.
 
+import { compactNumber } from '@hermes/shared/format'
 import { describe, expect, it } from 'vitest'
 
 import { t } from '../i18n/runtime.js'
@@ -172,10 +173,12 @@ describe('thinkingPreview over-bound tail', () => {
   })
 })
 describe('pasteTokenLabel', () => {
-  it('builds readable long-paste labels with counts', () => {
-    const label = pasteTokenLabel('Vampire Bondage ropes slipped from her neck, still stained with blood', 250)
+  it('builds readable long-paste labels that state the size of the paste', () => {
+    const body = 'Vampire Bondage ropes slipped from her neck, still stained with blood'
+    const label = pasteTokenLabel(body, 250)
+
     expect(label.startsWith('[[ ')).toBe(true)
-    expect(label).toContain(t('libText.text.pasteLinesChip', '250'))
+    expect(label).toContain(t('libText.text.pasteCharsChip', compactNumber(body.length)))
     expect(label.endsWith(' ]]')).toBe(true)
   })
 })

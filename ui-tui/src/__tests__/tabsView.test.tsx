@@ -76,6 +76,20 @@ describe('TabBar', () => {
     expect(view.indexOf('▐ code ▌')).toBeLessThan(view.indexOf('+ new session'))
   })
 
+  it('shows the current session as a tab even before it joins the roster', () => {
+    patchUiState({
+      roster: [{ id: 'a', running: false, title: 'older' }],
+      sessionTitle: 'fresh chat',
+      sid: 'brand-new',
+      theme: DEFAULT_THEME
+    })
+
+    const view = paint(<TabBar actions={noopActions} cols={100} />)
+
+    expect(view).toContain('fresh chat')
+    expect(view.indexOf('older')).toBeLessThan(view.indexOf('fresh chat'))
+  })
+
   it('marks the selected session, not the first one', () => {
     patchUiState({
       roster: [

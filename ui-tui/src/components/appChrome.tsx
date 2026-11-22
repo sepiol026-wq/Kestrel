@@ -434,7 +434,7 @@ function SpawnHud({ t }: { t: Theme }) {
   )
 }
 
-function SessionDuration({ hidden = false, startedAt }: { hidden?: boolean; startedAt: number }) {
+function SessionDuration({ startedAt }: { startedAt: number }) {
   const [now, setNow] = useState(() => Date.now())
   const isOccluded = useStore($isStatusRuleOccluded)
 
@@ -452,9 +452,7 @@ function SessionDuration({ hidden = false, startedAt }: { hidden?: boolean; star
     return () => clearInterval(id)
   }, [isOccluded, startedAt])
 
-  // A clock counting up from launch read as noise: the read-out stays empty until
-  // the session has produced something (a running turn, or a finished one).
-  return hidden ? '' : fmtDuration(now - startedAt)
+  return fmtDuration(now - startedAt)
 }
 
 function IdleSince({ endedAt }: { endedAt: number }) {
@@ -662,7 +660,12 @@ export function StatusRule({
       : ''
 
   const showBar = !!bar && fits(SEP + stringWidth(`[${bar}] ${pct != null ? `${contextMark}${pct}%` : ''}`))
-  const showDuration = segs.duration && ok('duration') && !!sessionStartedAt && fits(SEP + MAX_DURATION_WIDTH)
+
+  // A clock counting up from launch read as noise: show it once the session has
+  // something to time (a running turn, or one that already ended).
+  const showDuration =
+    segs.duration && ok('duration') && !!sessionStartedAt && (busy || lastTurnEndedAt != null) &&
+    fits(SEP + MAX_DURATION_WIDTH)
 
   // Idle clock — time since the last final agent response. Hidden while busy
   // (the FaceTicker's elapsed tail covers the live turn) and before the first
@@ -798,7 +801,7 @@ export function StatusRule({
         {showDuration ? (
           <Text color={t.color.muted} wrap="truncate-end">
             {' │ '}
-            <SessionDuration hidden={!busy && lastTurnEndedAt == null} startedAt={sessionStartedAt!} />
+            <SessionDuration startedAt={sessionStartedAt!} />
           </Text>
         ) : null}
         {showIdle ? (

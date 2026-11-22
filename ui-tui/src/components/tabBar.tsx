@@ -39,8 +39,7 @@ type TabBarProps = {
 /** Surface tones for the rail: a raised bar with a mode chip a step brighter. */
 const railTones = (theme: Theme) => ({
   bar: theme.color.statusBg,
-  chip: mix(theme.color.statusBg, theme.color.text, 0.1),
-  shadow: mix(theme.color.statusBg, '#000000', 0.35)
+  chip: mix(theme.color.statusBg, theme.color.text, 0.1)
 })
 
 /** Spinner frame that only ticks while some tab is running (no idle repaints). */
@@ -102,7 +101,15 @@ export const TabBar = memo(function TabBar({ actions, cols }: TabBarProps) {
   const T = useT()
 
   const tones = railTones(ui.theme)
-  const sessions = ui.roster
+  // The current session may not be in the roster yet (a fresh chat registers on
+  // its first turn): show it as its own tab so the active tab always exists.
+  const roster = ui.roster
+
+  const sessions =
+    ui.sid && !roster.some(session => session.id === ui.sid)
+      ? [...roster, { id: ui.sid, running: false, title: ui.sessionTitle.trim() || 'new' }]
+      : roster
+
   const codeIndex = sessions.length
   const selectedSession = sessions.findIndex(session => session.id === ui.sid)
   const spin = useSpin(sessions.some(session => session.running))
@@ -202,11 +209,7 @@ export const TabBar = memo(function TabBar({ actions, cols }: TabBarProps) {
         {body}
       </Box>
 
-      <Box backgroundColor={tones.bar} paddingX={1}>
-        <Text backgroundColor={tones.shadow} color={tones.bar}>
-          {'▁'.repeat(Math.max(0, cols - 2))}
-        </Text>
-      </Box>
+
     </Box>
   )
 
@@ -244,7 +247,7 @@ export const TabBar = memo(function TabBar({ actions, cols }: TabBarProps) {
 
       <Text color={ui.theme.color.border}>│</Text>
 
-      {win.hiddenLeft > 0 && <Text color={ui.theme.color.muted}>{` ${T.tabs.hiddenLeft(win.hiddenLeft)} `}</Text>}
+      {win.hiddenLeft > 0 && <Text color={ui.theme.color.muted}>{`  ${T.tabs.hiddenLeft(win.hiddenLeft)}  `}</Text>}
 
       {win.labels.slice(win.start, win.end).map((label, offset) => {
         const index = win.start + offset
@@ -293,7 +296,7 @@ export const TabBar = memo(function TabBar({ actions, cols }: TabBarProps) {
         <Text color={ui.theme.color.accent}>{`${newLabel} `}</Text>
       </Box>
 
-      {hint ? <Text color={ui.theme.color.border}>{hint}</Text> : null}
+      {hint ? <Text color={ui.theme.color.border}>{`  ${hint}`}</Text> : null}
     </>
   )
 })

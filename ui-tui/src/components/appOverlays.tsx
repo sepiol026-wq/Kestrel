@@ -311,7 +311,10 @@ export function FloatingOverlays({
   // down, bouncing the height on every keystroke.
   const viewportSize = Math.min(COMPLETION_WINDOW, completions.length)
 
-  const start = Math.max(0, Math.min(compIdx - Math.floor(COMPLETION_WINDOW / 2), completions.length - viewportSize))
+  // Nothing picked yet still highlights the first row: the popup has to show
+  // where Enter would land.
+  const picked = compIdx >= 0 ? compIdx : 0
+  const start = Math.max(0, Math.min(picked - Math.floor(COMPLETION_WINDOW / 2), completions.length - viewportSize))
 
   // Every floating panel is a widget in a single-column grid. Panels keep
   // their intrinsic (content-hugging) widths inside full-width cells today;
@@ -449,7 +452,16 @@ export function FloatingOverlays({
     widgets.push({
       id: 'completions',
       render: () => (
-        <FloatBox color={theme.color.primary}>
+        <Box
+          alignSelf="flex-start"
+          backgroundColor={theme.color.surface}
+          borderColor={theme.color.border}
+          borderStyle="round"
+          flexDirection="column"
+          marginTop={1}
+          opaque
+          paddingX={1}
+        >
           {/* No painted panel fill: FloatBox is `opaque`, so rows sit on the
               terminal's own background — the one color that is always right
               on a canvas we don't own (a full completionBg fill was the lone
@@ -466,18 +478,20 @@ export function FloatingOverlays({
               const nameW = Math.max(...visible.map(item => stringWidth(item.display))) + 2
 
               return visible.map((item, i) => {
-                const active = start + i === compIdx
+                const active = start + i === picked
                 const row = listRowStyle(theme, active)
 
                 return (
                   <Box
                     backgroundColor={row.backgroundColor}
                     flexDirection="row"
+                    height={1}
                     key={`${start + i}:${item.text}:${item.display}:${item.meta ?? ''}`}
+                    overflow="hidden"
                     width="100%"
                   >
                     <Box flexShrink={0} width={nameW}>
-                      <Text bold color={theme.color.label}>
+                      <Text backgroundColor={row.backgroundColor} bold color={active ? row.color : theme.color.label}>
                         {' '}
                         {item.display}
                       </Text>
@@ -487,16 +501,22 @@ export function FloatingOverlays({
                       // tone — label vs muted are near-twins on some skins,
                       // which made command and description read as one run.
                       // Active row: meta rides the chip, so it uses row ink.
-                      <Text backgroundColor={row.backgroundColor} color={active ? row.color : theme.color.statusFg}>
+                      <Text
+                        backgroundColor={row.backgroundColor}
+                        color={active ? row.color : theme.color.statusFg}
+                        wrap="truncate-end"
+                      >
                         {item.meta}
                       </Text>
                     ) : null}
+
+                    <Text backgroundColor={row.backgroundColor}>{' '}</Text>
                   </Box>
                 )
               })
             })()}
           </Box>
-        </FloatBox>
+        </Box>
       )
     })
   }

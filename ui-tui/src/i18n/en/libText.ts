@@ -111,6 +111,7 @@ export const libTextEn = {
       errorLabel: 'Error',
       /** {0} = pre-formatted line count; sits inside a `[[ … ]]` composer token */
       pasteLinesChip: (count: string) => `[${count} lines]`,
+      pasteCharsChip: (count: string) => `[pasted ${count} chars]`,
       /** {0} = question count */
       clarifyHead: (count: string) => `ask (${count} questions)`,
       /** {0} = question, {1} = locked answer */

@@ -39,6 +39,10 @@ export interface ThemeColors {
   sessionLabel: string
   sessionBorder: string
 
+  /** Raised panel surface (composer, cards) — a step above the page background. */
+  surface: string
+  /** Seam: the darker edge between a raised panel and the page. */
+  seam: string
   statusBg: string
   statusFg: string
   statusGood: string
@@ -323,7 +327,9 @@ const DIFF_LIGHT = {
 
 export function buildPalette(seeds: ThemeSeeds, isLight: boolean): ThemeColors {
   const tones = deriveTones(seeds)
-  const surface = seeds.surface ?? tones.surface
+  // Panels must READ as panels: a surface a clear step off the page, not a
+  // near-twin of it (a 2% lift looked transparent on real terminals).
+  const surface = seeds.surface ?? mix(seeds.bg, seeds.text, isLight ? 0.08 : 0.14)
   const activeRow = seeds.activeRow ?? (seeds.surface ? mix(surface, seeds.accent, 0.22) : tones.activeRow)
   const muted = seeds.muted ?? tones.muted
 
@@ -361,6 +367,8 @@ export function buildPalette(seeds: ThemeSeeds, isLight: boolean): ThemeColors {
     sessionLabel: muted,
     sessionBorder: muted,
 
+    surface,
+    seam: mix(surface, '#000000', 0.5),
     statusBg: surface,
     statusFg: tones.statusFg,
     statusGood: seeds.statusGood,
@@ -892,7 +900,12 @@ export function fromSkin(
   // `background` is theme-sdk's cross-surface base: the TUI paints the
   // terminal with it (applySkin → setTerminalBackground), so panels/status
   // must sit on it too — fall the surface back to it below completion_menu_bg.
-  const surface = c('completion_menu_bg') ?? c('background') ?? derived.completionBg
+  // A skin that authors `background` is painting the terminal with it, so a panel
+  // that reused it sat flush with the page (every card read as transparent). Lift
+  // the panel surface one visible step off the canvas instead.
+  const surface =
+    c('completion_menu_bg') ??
+    (skinBg ? mix(skinBg, seeds.text ?? base.text, isLight ? 0.08 : 0.14) : derived.completionBg)
 
   // Re-mix the chip only when the skin authored its own surface; otherwise
   // the derived value already carries the identity seeds (e.g. Hermes navy).
@@ -910,6 +923,7 @@ export function fromSkin(
     completionMetaCurrentBg: c('completion_menu_meta_current_bg') ?? activeRow,
     sessionLabel: c('session_label') ?? c('banner_dim') ?? derived.sessionLabel,
     sessionBorder: c('session_border') ?? c('banner_dim') ?? derived.sessionBorder,
+    seam: c('seam') ?? mix(surface, '#000000', 0.5),
     statusBg: c('status_bar_bg') ?? surface,
     statusFg: c('status_bar_text') ?? c('ui_text') ?? c('banner_text') ?? derived.statusFg,
     selectionBg: c('selection_bg') ?? c('completion_menu_current_bg') ?? derived.selectionBg,

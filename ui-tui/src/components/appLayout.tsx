@@ -7,7 +7,6 @@
 import '../sdk/apps/index.js'
 
 import { AlternateScreen, Box, NoSelect, ScrollBox, Text } from '@hermes/ink'
-import { mix } from '@hermes/shared/color'
 import { useStore } from '@nanostores/react'
 import { Fragment, memo, type MutableRefObject, useEffect, useMemo, useRef } from 'react'
 
@@ -58,6 +57,19 @@ import { type InputCursorSnapshot, TextInput, type TextInputMouseApi } from './t
 
 // Box geometry, kept here so the transcript's reservation math matches the
 // rendered overlay exactly.
+
+/** Background rows behind a panel: painted as real cells so a repaint keeps them. */
+const PanelFill = memo(function PanelFill({ bg, rows, width }: { bg: string; rows: number; width: number }) {
+  return (
+    <Box flexDirection="column" left={0} position="absolute" top={0}>
+      {Array.from({ length: Math.max(0, rows) }, (_, i) => (
+        <Text backgroundColor={bg} key={i}>
+          {' '.repeat(Math.max(0, width))}
+        </Text>
+      ))}
+    </Box>
+  )
+})
 
 /** Blank-input hint: live STT text while dictating (stt.streaming) always wins; else a rotating
  *  placeholder on a fresh transcript, or the busy hint. */
@@ -389,7 +401,7 @@ const ComposerPane = memo(function ComposerPane({
   const promptWidth = composerPromptWidth(promptText)
   const promptBlank = ' '.repeat(promptWidth)
   // The composer sits in a rounded frame: 2 cells of border + 2 of inner padding.
-  const framedCols = Math.max(12, composer.cols - 4)
+  const framedCols = Math.max(12, composer.cols - 6)
   // One cell of slack: an exact-width input could push the frame's right edge off.
   const inputColumns = stableComposerColumns(framedCols - 1, promptWidth, TERMUX_TUI_MODE)
   // A paste expanded for editing can be taller than the screen: show a window
@@ -401,6 +413,8 @@ const ComposerPane = memo(function ComposerPane({
     rows: inputRows,
     scroll: inputScroll
   } = composerViewport(composer.input, inputSel, inputColumns, composer.pasteHint === 'collapse', composer.pagerPageSize)
+
+  const panelBg = ui.theme.color.surface
 
   const inputMouseRef = useRef<null | TextInputMouseApi>(null)
 
@@ -502,12 +516,34 @@ const ComposerPane = memo(function ComposerPane({
 
         {!isBlocked && (
           <Box
+            backgroundColor={panelBg}
             borderColor={ui.busy ? ui.theme.color.accent : ui.theme.color.border}
             borderStyle="round"
             flexDirection="column"
-            // Phones/Termux: the frame's own padding would eat the text width.
-            paddingX={composer.cols < 50 ? 0 : 1}
+            paddingX={1}
+            position="relative"
           >
+            <PanelFill
+              bg={panelBg}
+              rows={1 + inputRows + (composer.pasteHint ? 1 : 0) + (composer.cols >= 48 ? 1 : 0)}
+              width={composer.cols - 2}
+            />
+
+            {/* Header rail: what the prompt will run on, and where. */}
+            <Box>
+              <Text bold color={ui.theme.color.text}>
+                {(ui.info?.model ?? '').split('/').pop()}
+              </Text>
+
+              {ui.info?.reasoning_effort ? (
+                <Text color={ui.theme.color.muted}>{` · ${ui.info.reasoning_effort}`}</Text>
+              ) : null}
+
+              <Box flexGrow={1} />
+
+              <Text color={ui.theme.color.muted}>{status.cwdLabel}</Text>
+            </Box>
+
             {composer.inputBuf.map((line, i) => (
               <Box key={i}>
                 <Box width={promptWidth}>
@@ -570,15 +606,29 @@ const ComposerPane = memo(function ComposerPane({
             </Box>
 
             <PasteHint hint={composer.pasteHint} indent={promptWidth} t={ui.theme} />
-          </Box>
-        )}
 
-        {!isBlocked && (
-          // Raised look: a half-block shadow one row under the frame.
-          <Box paddingX={1}>
-            <Text color={mix(ui.theme.color.border, '#000000', 0.35)}>
-              {'▁'.repeat(Math.max(0, composer.cols - 2))}
-            </Text>
+            {/* Footer rail: key hints as label + shortcut pairs, the opencode footer shape. */}
+            {composer.cols >= 48 && (
+              <Box>
+                {(
+                  [
+                    [T.tabs.hintCommands, T.tabs.keysCommands],
+                    [T.tabs.hintTabs, T.tabs.keysTabs],
+                    [T.tabs.hintCode, T.tabs.keysCode]
+                  ] as const
+                ).map(([label, keys]) => (
+                  <Box key={label}>
+                    <Box width={2} />
+
+                    <Text bold color={ui.theme.color.text}>
+                      {label}
+                    </Text>
+
+                    <Text color={ui.theme.color.muted}>{` ${keys}`}</Text>
+                  </Box>
+                ))}
+              </Box>
+            )}
           </Box>
         )}
       </Box>
