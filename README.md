@@ -11,75 +11,130 @@
   <a href="#"><img src="https://img.shields.io/badge/Gateway-Goygram%20%2F%20Telegram-0284C7?style=for-the-badge" alt="Goygram Telegram Gateway"></a>
 </p>
 
-**Kestrel Agent** is a hardened autonomous penetration testing and developer agent engineered for high-performance terminal workflows and offensive operations. Powered by a responsive electric cyan & deep slate native interface, custom Cyber Falcon mascot, unrestricted host **Code Mode**, 100% autonomous YOLO execution, and high-speed **Goygram** MTProto Telegram integration, Kestrel delivers instant developer and security operations directly to your environment.
+**Kestrel Agent** is an autonomous AI agent for hacking: penetration testing,
+red teaming, vulnerability research, reverse engineering and hard systems work.
+You point it at a target, a repository or a broken machine; it reconnoitres,
+forms a hypothesis, runs the commands, checks the result against reality, and
+keeps going until the job is actually done. It lives in the terminal, in a shell
+next to your editor and in Telegram, and it does the work instead of describing
+the work.
+
+This is not a chat wrapper around a model. It is an operator: shell and file
+system on the host, a browser that survives anti-bot walls, a knowledge graph of
+whatever codebase you give it, and a skill library of field-tested tradecraft it
+loads on demand.
 
 ---
 
-## Key Features
+## What it actually does
 
-### ✻ Native Fluid Terminal UI (Cyan & Electric Blue Palette)
-Kestrel features a refined, low-latency terminal interface with dynamic viewport adaptation:
-- **Cyber Falcon Mascot**: Compact Unicode block art responsive across any terminal window width.
-- **Electric Cyan Accents**: Vibrant `#38BDF8` glyphs, signature teardrop asterisk (`✻`), and crisp gutter hierarchy (`│`).
-- **Dynamic Terminal Adaptation**: Realtime reflow on window resize (`SIGWINCH`), fluid column formatting, and instant startup (<50ms).
-- **Turn Commentary**: Progressive multi-step progress feedback keeping you informed during complex turn loops.
+| Domain | What Kestrel does |
+| --- | --- |
+| **Recon** | Port and service discovery, banner fingerprinting, certificate and DNS enumeration, masscan/zmap sweeps, host inventory that separates real machines from honeypots |
+| **Pentesting** | Web and API testing, authentication and access-control review, CVE-driven exploitation, privilege escalation, container and orchestrator escapes |
+| **Red teaming** | Credential and pivot planning, Active Directory and lateral movement, covert persistence, log and artefact hygiene |
+| **Reverse engineering** | Binary inspection, disassembly and debugging sessions, protocol and file-format reconstruction, APK and firmware work |
+| **Vulnerability research** | Codebase audits driven by an AST dependency graph, data-flow reasoning, proof-of-concept construction and reproduction |
+| **Ops** | Service deployment, host hardening, disk and process forensics, incident cleanup, monitoring and cron upkeep |
 
-### ⚡ Code Mode (Direct Host Execution — Zero Sandbox Overhead)
-Execute multi-step programmatic workflows directly on the host machine without container or VM latency:
-- **Direct Workspace Primitives**: Integrated `tools.bash(cmd)`, `tools.read_file(path)`, `tools.write_file(path, content)`, `tools.edit_file(path, target, repl)`, `tools.search_files(pattern)`, and `tools.grep(regex)`.
-- **Compound Script Execution**: Collapse dozens of sequential LLM turns into a single high-speed Python script, cutting latency and context consumption.
-- **Host Direct Access**: Inspect git status, compile code, execute tests, and manage files at full native speed.
-- **Instant Toggle**: Switch effortlessly using `/codemode` (or `/code`, `/repl`).
+Every path runs through the same loop: the agent reads real output, not
+plausible-looking text. When a command fails it fixes the command; when a result
+is suspicious it double-checks it; when a claim cannot be verified it says so.
 
-### 📱 Goygram Telegram Engine (Native MTProto Gateway)
-Kestrel features a specialized messaging bridge powered by **Goygram**, an ultra-low-latency MTProto transport engine:
-- **Direct MTProto Persistent Socket**: Communicates directly over Telegram's native binary MTProto protocol instead of slow HTTP Bot API polling or webhook ports, ensuring instant real-time delivery and high throughput.
-- **Dual Intake & Streaming**: Bi-directional event dispatch with formatted live draft streaming, rich message updates, and concurrent multi-thread handling.
-- **100% Autonomous YOLO Execution**: Zero confirmation bottlenecks. All interactive approval prompts and execution gates have been removed — the agent runs fully autonomously, backed by built-in anti-trojan guardrails to prevent destructive code injection.
-- **Voice, Media & Session Resilience**: Voice note processing, rich documents/artifacts transfer, and persistent session recovery across gateway restarts.
+## Capabilities
 
-### 🎯 Deep Security, Recon & Pentest Architecture
-Built from the ground up for autonomous offensive security, reconnaissance, and codebase auditing:
-- **Camoufox Stealth Engine**: Integrated anti-detection browser (`camoufox_fetch`) that bypasses Cloudflare Turnstile, DataDome, Akamai, and browser fingerprinting challenges.
-- **Graphify Codebase Knowledge Graph**: Structural AST dependency analysis, architectural hub ("god-nodes") discovery, and change-impact traversal for deep codebase audits.
-- **Field-Tested Exploitation Skills**: Native tradecraft for anonymous service exploitation (Redis, Docker, Nomad, Kubelet to root), honeypot farm detection, and covert persistence.
+### Autonomous execution loop
+Every turn can plan, act, observe and correct without asking permission after
+each step. Long jobs — a scan, a build, a migration, a hunt — keep running in
+the background, report progress while they work, and come back with the finished
+result instead of a status message.
 
-### 🛠 Core Commands
-- `/codemode` — Toggle host Code Mode execution.
-- `/model` — Select active model and configure custom endpoints with 500K context.
-- `/reload [all|mcp|skills|env]` — Refresh environment variables, MCP tools, and skills on the fly.
-- `/clear` — Clear current conversation context.
-- `/help` — Display comprehensive command reference.
+### Native terminal UI
+A low-latency TUI in electric cyan with a compact Cyber Falcon mascot, live turn
+commentary and one key to every mode. Startup under 50 ms.
 
----
+### Host-direct Code Mode
+Multi-step work collapses into one Python script executed on the host instead of
+a dozen round-trips: read files, patch them, run builds, drive pipelines,
+transform data, all in a single call. Toggle with `/codemode`.
+
+### Browser that does not fold
+An integrated stealth browser (Camoufox) with humanised input, so pages behind
+Cloudflare, DataDome, Akamai and similar walls open instead of returning a
+challenge page. Useful for research, panel access, and anything that decides
+whether you are a robot before it decides whether to answer.
+
+### Codebase knowledge graph
+Structural analysis of a repository — modules, symbols, dependency edges, hub
+("god") nodes and change-impact traversal. It gives penetration testing and code
+review the map a senior engineer carries in their head.
+
+### Telegram gateway
+Native MTProto transport (Goygram) instead of HTTP polling: instant delivery,
+rich messages, media and artefacts, session recovery across restarts. The agent
+is reachable from a phone and behaves exactly as in the terminal.
+
+### Skills
+Procedural knowledge as loadable files: pentest suites, CVE playbooks, Android
+reverse engineering, browser automation, deployment recipes, document pipelines,
+and the field-tested security skills shipped with this repository:
+
+- `node-hunting-at-scale` — where real hosts come from, how to sweep provider
+  ranges, how to gate candidates before trusting them.
+- `honeypot-farm-detection` — separating a real daemon from an imitation that
+  only answers.
+- `anonymous-service-to-root` — turning a no-auth service or a CVE into a root
+  shell, ordered by conversion rate.
+- `covert-node-persistence` — relay access, hidden files and processes, session
+  accounting, cover story.
+
+Skills are plain markdown; write your own and the agent picks them up on
+`/reload skills`.
 
 ## Quickstart
 
-### CLI Usage
-Launch Kestrel Agent from anywhere:
-
 ```bash
-# Start interactive terminal session
+# interactive terminal session
 kestrel chat
 
-# Execute a one-shot query
-kestrel chat -q "Audit repository and run tests"
+# one-shot task
+kestrel chat -q "audit this repository and run the test suite"
 
-# Start background Goygram / Telegram messaging gateway
+# telegram / goygram gateway
 kestrel gateway run
 
-# Display version and runtime diagnostics
+# version and runtime diagnostics
 kestrel --version
 ```
 
----
+Requirements: Linux or macOS, Python 3.11+, and a model endpoint (local or
+hosted). Optional: Docker for container work, a stealth browser binary for
+anti-bot pages.
 
-## Attribution & Upstream Acknowledgements
+## Commands
 
-Kestrel Agent is an independent fork and derivative work built upon Hermes Agent and Qwerty by Nous Research Inc. and community contributors. All original rights, contributor attribution, and upstream MIT license grants are retained pursuant to 17 U.S.C. § 1202. See [NOTICE](NOTICE) for full provenance details.
+| Command | Purpose |
+| --- | --- |
+| `/codemode` | Toggle host-direct code execution |
+| `/model` | Select a model or a custom endpoint |
+| `/reload [all\|mcp\|skills\|env]` | Refresh tools, skills and environment |
+| `/clear` | Reset the conversation |
+| `/help` | Full command reference |
 
----
+## Scope and intent
+
+Kestrel is built for people who work on systems they own or are authorised to
+test: their own servers, their clients' infrastructure, their own code. It is a
+tool — judgement about what to point it at stays with the operator. The skills in
+this repository encode technique, not permission.
+
+## Attribution
+
+Kestrel Agent is an independent fork and derivative work built upon Hermes Agent
+and Qwerty by Nous Research Inc. and community contributors. All original rights,
+contributor attribution and upstream MIT license grants are retained pursuant to
+17 U.S.C. § 1202. See [NOTICE](NOTICE) for provenance.
 
 ## License
 
-GNU Affero General Public License v3 (AGPL-3.0). See [LICENSE](LICENSE) for details.
+GNU Affero General Public License v3 (AGPL-3.0). See [LICENSE](LICENSE).
