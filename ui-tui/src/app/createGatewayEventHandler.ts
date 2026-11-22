@@ -64,6 +64,7 @@ import { loadSlashCatalog, refreshSlashCatalogOnSkillsChange } from './slashCata
 import { reportStartupLatency } from './startupLatency.js'
 import { markNextSubmitVoice } from './submissionCore.js'
 import { captureDestination, isCurrentDestination } from './submissionDestination.js'
+import { noteCodeEnd, noteCodeStart } from './tabStore.js'
 import { turnController } from './turnController.js'
 import { getTurnState } from './turnStore.js'
 import { getUiState, patchUiState } from './uiStore.js'
@@ -1568,6 +1569,8 @@ export function createGatewayEventHandler(ctx: GatewayEventHandlerContext): (ev:
           ev.payload.labels ?? undefined
         )
 
+        noteCodeStart(ev.payload.tool_id, ev.payload.name ?? 'tool', ev.payload.args_text ? stripAnsi(String(ev.payload.args_text)) : '')
+
         return
       case 'tool.complete': {
         // The clarify tool finishing with its overlay still live means it was
@@ -1586,6 +1589,8 @@ export function createGatewayEventHandler(ctx: GatewayEventHandlerContext): (ev:
           ev.payload.inline_diff && getUiState().inlineDiffs ? stripAnsi(String(ev.payload.inline_diff)).trim() : ''
 
         const resultText = ev.payload.result_text ? stripAnsi(String(ev.payload.result_text)) : undefined
+
+        noteCodeEnd(ev.payload.tool_id, resultText)
 
         if (inlineDiffText) {
           turnController.recordInlineDiffToolComplete(

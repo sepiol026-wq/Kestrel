@@ -33,6 +33,7 @@ import { sessionEn } from './en/session.js'
 import { slashEn } from './en/slash.js'
 import { slashCmdEn } from './en/slashCmd.js'
 import { subscriptionEn } from './en/subscription.js'
+import { tabsEn } from './en/tabs.js'
 import { userMessagesEn } from './en/userMessages.js'
 
 export const en = {
@@ -55,7 +56,8 @@ export const en = {
   ...subscriptionEn,
   ...connectionEn,
   ...canonicalEn,
-  ...connectorsEn
+  ...connectorsEn,
+  ...tabsEn
 }
 
 /** The sibling catalogs `en` is composed from, for the disjointness test. */
@@ -78,6 +80,7 @@ export const EN_SIBLINGS: readonly Record<string, unknown>[] = [
   billingEn,
   subscriptionEn,
   connectionEn,
+  tabsEn,
   canonicalEn,
   connectorsEn
 ]

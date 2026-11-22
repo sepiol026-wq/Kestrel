@@ -27,7 +27,23 @@ export function applyLiveSessionRoster(sessions: SessionActiveItem[]) {
   const liveSessionCount = sessions.length
   const sessionTitle = sessions.find(s => s.current || s.id === prev.sid)?.title?.trim() ?? ''
 
-  if (prev.liveSessionCount !== liveSessionCount || prev.sessionTitle !== sessionTitle) {
-    patchUiState({ liveSessionCount, sessionTitle })
+  // Tab strip order: oldest session first, so a busy sibling never reorders the strip
+  // between two 1.5 s polls.
+  const roster = [...sessions]
+    .sort((a, b) => (a.started_at ?? 0) - (b.started_at ?? 0))
+    .map(s => ({
+      id: s.id,
+      running: s.status === 'starting' || s.status === 'working',
+      title: s.title?.trim() ?? ''
+    }))
+
+  const signature = (rows: typeof roster) => rows.map(r => `${r.id}:${r.title}:${r.running ? 1 : 0}`).join('|')
+
+  if (
+    prev.liveSessionCount !== liveSessionCount ||
+    prev.sessionTitle !== sessionTitle ||
+    signature(prev.roster) !== signature(roster)
+  ) {
+    patchUiState({ liveSessionCount, roster, sessionTitle })
   }
 }

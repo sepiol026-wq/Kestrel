@@ -16,6 +16,7 @@ import { $inputSelection } from '../app/inputSelectionStore.js'
 import type { AppLayoutProps } from '../app/interfaces.js'
 import { $isBlocked, $overlayState, patchOverlayState } from '../app/overlayStore.js'
 import { $petBox } from '../app/petFlashStore.js'
+import { $codeTab } from '../app/tabStore.js'
 import { $uiState } from '../app/uiStore.js'
 import { usePet } from '../app/usePet.js'
 import { $voicePartial } from '../app/voicePartialStore.js'
@@ -40,6 +41,7 @@ import { GoodVibesHeart, StatusRule, StickyPromptTracker, TranscriptScrollbar } 
 import { FloatingOverlays, PromptZone } from './appOverlays.js'
 import { Banner, Panel, SessionPanel } from './branding.js'
 import { HalfBlockImage, KittyImage } from './cellImage.js'
+import { CodePane } from './codePane.js'
 import { FpsOverlay } from './fpsOverlay.js'
 import { GoalBar } from './goalBar.js'
 import { HelpHint } from './helpHint.js'
@@ -50,6 +52,7 @@ import { PasteHint } from './pasteSections.js'
 import { QueuedMessages } from './queuedMessages.js'
 import { RewindFocusScroller, useBacktrackHint, useRewindFocusIndex } from './rewindFocus.js'
 import { LiveTodoPanel, StreamingAssistant } from './streamingAssistant.js'
+import { TabBar } from './tabBar.js'
 import { type InputCursorSnapshot, TextInput, type TextInputMouseApi } from './textInput.js'
 
 // Box geometry, kept here so the transcript's reservation math matches the
@@ -650,6 +653,7 @@ export const AppLayout = memo(function AppLayout({
 }: AppLayoutProps) {
   const overlay = useStore($overlayState)
   const ui = useStore($uiState)
+  const codeTab = useStore($codeTab)
 
   const cursorSnapshotRef = useRef<InputCursorSnapshot | null>(null)
   useEffect(() => {
@@ -665,6 +669,8 @@ export const AppLayout = memo(function AppLayout({
   return (
     <Shell {...shellProps}>
       <Box flexDirection="column" flexGrow={1} position={NATIVE_MODE ? undefined : 'relative'}>
+        {!overlay.agents && !overlay.journey && <TabBar actions={actions} cols={composer.cols} />}
+
         <Box flexDirection="row" flexGrow={1}>
           {!overlay.agents && !overlay.journey && <AmbientRail side="left" />}
           {overlay.agents ? (
@@ -674,6 +680,10 @@ export const AppLayout = memo(function AppLayout({
           ) : overlay.journey ? (
             <PerfPane id="journey">
               <JourneyPane />
+            </PerfPane>
+          ) : codeTab ? (
+            <PerfPane id="code">
+              <CodePane cols={Math.max(1, composer.cols - 2)} />
             </PerfPane>
           ) : (
             <PerfPane id="transcript">

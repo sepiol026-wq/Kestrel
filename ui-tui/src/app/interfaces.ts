@@ -28,6 +28,7 @@ import type { ApprovalReq, ClarifyReq, ConfirmReq, DetailsMode, Msg, PanelSectio
 
 import type { RewindSubmission } from './backtrackStore.js'
 import type { SubmissionDestination } from './submissionDestination.js'
+import type { RosterSession } from './tabStore.js'
 
 export interface StateSetter<T> {
   (value: SetStateAction<T>): void
@@ -368,6 +369,8 @@ export interface UiState {
   focusView: boolean
   info: null | SessionInfo
   liveSessionCount: number
+  /** Live-session roster behind the tab strip (empty until the first session.list answers). */
+  roster: RosterSession[]
   inlineDiffs: boolean
   // `display.inline_images` isn't off: transcript rows draw (and reserve rows for) their images.
   inlineImages: boolean

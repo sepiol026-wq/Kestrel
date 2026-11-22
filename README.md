@@ -50,8 +50,14 @@ the background, report progress while they work, and come back with the finished
 result instead of a status message.
 
 ### Native terminal UI
-A low-latency TUI in electric cyan with a compact Cyber Falcon mascot, live turn
-commentary and one key to every mode. Startup under 50 ms.
+A full-screen app, not a banner and a prompt line. The top rail is a tab strip:
+the Cyber Falcon mark, one numbered tab per live session (a running turn spins in
+place of its number), the `code` tab and a `+` for a new session. `alt+1…9` jumps
+straight to a tab, `alt+c` toggles code mode, and the strip slides with `←N` / `→N`
+counters instead of squeezing titles. The `code` tab replays every code-mode call
+of the session — the snippet, the shell command, the patch — next to what it
+printed, so you read the work without scrolling the transcript. Startup under
+50 ms.
 
 ### Host-direct Code Mode
 Multi-step work collapses into one Python script executed on the host instead of
