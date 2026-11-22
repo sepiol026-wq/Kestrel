@@ -368,3 +368,4 @@ kestrel-telegram.vault
 .venv-next/
 sitecustomize.py
 
+*.egg-info/

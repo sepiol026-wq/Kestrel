@@ -649,7 +649,7 @@ def _finish_source_update(root: Path, *, current: bool, pending: Path) -> None:
     try:
         code = run(
             [sys.executable, "-I", "-B", "-u",
-             str(root / "hermes_cli/source_completion.py"),
+             str(root / "kestrel_cli/source_completion.py"),
              "--source", str(root), "--finish-update",
              *(("--desktop",) if desktop else ())],
             inherit_lock=True, cwd=root, env=activation_environment(root), stdout=sys.__stderr__,

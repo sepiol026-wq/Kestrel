@@ -216,7 +216,7 @@ hermes skills list                  # 确认已安装的 skill
 
 1. 使用 `hermes cron run <job_id>` 运行任务（在下次 gateway tick 时触发），观察聊天输出中的错误
 2. 查看 `~/.hermes/logs/agent.log` 中的调度器消息和 `~/.hermes/logs/errors.log` 中的警告
-3. 在 [github.com/NousResearch/kestrel-agent](https://github.com/NousResearch/kestrel-agent) 提交 issue，并附上：
+3. 在 [github.com/sepiol026-wq/Kestrel](https://github.com/sepiol026-wq/Kestrel) 提交 issue，并附上：
    - 任务 ID 和调度表达式
    - 投递目标
    - 预期行为与实际行为

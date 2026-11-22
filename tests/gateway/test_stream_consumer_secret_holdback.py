@@ -172,7 +172,7 @@ def _draft_adapter(frames: list):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("reply", [
-    "See https://github.com/NousResearch/kestrel-agent/pull/123 for details",
+    "See https://github.com/sepiol026-wq/Kestrel/pull/123 for details",
     'Config: {"api_key": 1, "x": 2} ok',
     "Use https://bob:" + _TOKEN + "@example.com/v1 to log in",
 ], ids=["url", "json-key", "url-userinfo"])

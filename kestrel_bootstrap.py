@@ -603,24 +603,24 @@ if not _pm_repair:
             os.execv(str(_launch_python), _command)
     except Exception as exc:
         if isinstance(exc, PermissionError) and (message := install_state_permission_message(_root, exc)):
-            print(f"hermes: {message}", file=sys.stderr)
+            print(f"kestrel: {message}", file=sys.stderr)
             raise SystemExit(1) from None
         # Degrade, never brick the CLI: the previous dependency generation is still selected
         # (a failed sync commits nothing), so an offline or half-finished update leaves a
-        # usable Hermes plus a warning. Activation below is the real gate — a tree whose
+        # usable Kestrel plus a warning. Activation below is the real gate — a tree whose
         # dependencies cannot load still exits with the repair remedy.
-        print(f"hermes: source-update completion failed: {exc}; "
-              "running with the previous dependencies — run `hermes update` to finish it",
+        print(f"kestrel: source-update completion failed: {exc}; "
+              "running with the previous dependencies — run `kestrel update` to finish it",
               file=sys.stderr)
     try:
         recover_if_needed(_root)
         activate_dependencies(_root)
     except (RuntimeError, OSError) as exc:
         if isinstance(exc, PermissionError) and (message := install_state_permission_message(_root, exc)):
-            print(f"hermes: {message}", file=sys.stderr)
+            print(f"kestrel: {message}", file=sys.stderr)
             raise SystemExit(1) from None
         if command_argv(sys.argv[1:])[:1] != ["pm"]:
-            print(f"hermes: {exc}; run `hermes pm repair`", file=sys.stderr)
+            print(f"kestrel: {exc}; run `kestrel pm repair`", file=sys.stderr)
             raise SystemExit(1) from None
 install_happy_eyeballs_socket_connect()
 export_scratch_tmp_env()

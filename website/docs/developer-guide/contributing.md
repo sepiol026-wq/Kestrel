@@ -322,7 +322,7 @@ See [Package management](../reference/package-management.md) for PM commands and
 - **Comments**: Only when explaining non-obvious intent, trade-offs, or API quirks
 - **Error handling**: Catch specific exceptions. Use `logger.warning()`/`logger.error()` with `exc_info=True` for unexpected errors
 - **Cross-platform**: Never assume Unix (see below)
-- **Profile-safe paths**: Never hardcode `~/.hermes` — use `get_hermes_home()` from `hermes_constants` for code paths and `display_hermes_home()` for user-facing messages. See [AGENTS.md](https://github.com/NousResearch/kestrel-agent/blob/main/AGENTS.md#profiles-multi-instance-support) for full rules.
+- **Profile-safe paths**: Never hardcode `~/.hermes` — use `get_hermes_home()` from `hermes_constants` for code paths and `display_hermes_home()` for user-facing messages. See [AGENTS.md](https://github.com/sepiol026-wq/Kestrel/blob/main/AGENTS.md#profiles-multi-instance-support) for full rules.
 
 ## Cross-Platform Compatibility
 
@@ -467,7 +467,7 @@ When you ask Hermes to review a PR in a repository that has `.agents/checks/`, t
 
 ## Reporting Issues
 
-- Use [GitHub Issues](https://github.com/NousResearch/kestrel-agent/issues)
+- Use [GitHub Issues](https://github.com/sepiol026-wq/Kestrel/issues)
 - Include: OS, Python version, Hermes version (`hermes --version`), full error traceback
 - Include steps to reproduce
 - Check existing issues before creating duplicates
@@ -481,4 +481,4 @@ When you ask Hermes to review a PR in a repository that has `.agents/checks/`, t
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the [MIT License](https://github.com/NousResearch/kestrel-agent/blob/main/LICENSE).
+By contributing, you agree that your contributions will be licensed under the [MIT License](https://github.com/sepiol026-wq/Kestrel/blob/main/LICENSE).

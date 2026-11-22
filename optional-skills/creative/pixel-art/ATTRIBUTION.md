@@ -6,7 +6,7 @@ All reuse is credited here.
 ## pixel-art-studio (Synero)
 
 - Source: https://github.com/Synero/pixel-art-studio
-- License: MIT
+- License: AGPLv3
 - Copyright: © Synero, MIT-licensed contributors
 
 ### What was ported
@@ -49,6 +49,6 @@ and in the SKILL.md credits block. No code was relicensed.
 
 ## pixel-art skill itself
 
-- License: MIT (inherits from kestrel-agent repo)
+- License: AGPLv3 (inherits from kestrel-agent repo)
 - Original author of the skill shell: dodo-reach
 - Expansion with palettes + video: Kestrel Agent contributors

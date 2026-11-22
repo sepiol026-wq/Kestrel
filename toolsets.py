@@ -73,11 +73,15 @@ TOOLSETS = {
     "search": _ts("Web search only (no content extraction/scraping)", ["web_search"]),
     "camoufox": _ts(
         "Camoufox anti-detection stealth browser automation",
-        ["browser_exec", "browser_cdp", "browser_dialog", "browser_vault"],
+        ["browser_exec", "browser_cdp", "browser_dialog", "browser_vault", "camoufox_fetch"],
     ),
     "camofox": _ts(
         "Camoufox anti-detection stealth browser alias",
-        ["browser_exec", "browser_cdp", "browser_dialog", "browser_vault"],
+        ["browser_exec", "browser_cdp", "browser_dialog", "browser_vault", "camoufox_fetch"],
+    ),
+    "graphify": _ts(
+        "Codebase architecture knowledge graph extraction and symbol relations",
+        ["graphify"],
     ),
     "pentest": _ts(
         "Advanced penetration testing & red team security assessment suite",

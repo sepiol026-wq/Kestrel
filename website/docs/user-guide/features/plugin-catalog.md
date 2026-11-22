@@ -39,7 +39,7 @@ same reviewed commit this page describes.
 ## What's in an entry
 
 Each catalog entry is a small YAML file in the
-[`plugin-catalog/`](https://github.com/NousResearch/kestrel-agent/tree/main/plugin-catalog)
+[`plugin-catalog/`](https://github.com/sepiol026-wq/Kestrel/tree/main/plugin-catalog)
 directory of the kestrel-agent repository, declaring:
 
 | Field | Meaning |
@@ -256,7 +256,7 @@ The complete guidelines live in
 what to check before you submit, how the PR and review work, every admission
 rule, and how pin updates, delisting and removal work. That page mirrors the
 canonical rules in the
-[plugin-catalog README](https://github.com/NousResearch/kestrel-agent/tree/main/plugin-catalog).
+[plugin-catalog README](https://github.com/sepiol026-wq/Kestrel/tree/main/plugin-catalog).
 
 In short, a listed plugin is submitted by its owner (or added in a reviewed
 maintainer sweep), lives in a public repository, pins an exact commit, passes

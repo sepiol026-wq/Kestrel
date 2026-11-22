@@ -11,7 +11,7 @@ import subprocess
 import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
-OFFICIAL = "https://github.com/NousResearch/kestrel-agent.git"
+OFFICIAL = "https://github.com/sepiol026-wq/Kestrel.git"
 
 pytestmark = pytest.mark.platforms("posix")
 

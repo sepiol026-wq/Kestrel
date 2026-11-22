@@ -8,7 +8,7 @@ sent.  Moving the ``add_middleware(CORSMiddleware, …)`` call *after*
 all ``@app.middleware("http")`` registrations makes CORS outermost so
 preflights are answered before auth runs.
 
-See: https://github.com/NousResearch/kestrel-agent/issues/59052
+See: https://github.com/sepiol026-wq/Kestrel/issues/59052
 """
 
 from __future__ import annotations

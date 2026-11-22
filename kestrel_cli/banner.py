@@ -188,13 +188,13 @@ def _compute_git_banner_state(repo_dir: Optional[Path] = None) -> Optional[dict]
     return {"upstream": upstream, "local": local, "ahead": max(ahead, 0)}
 
 
-_RELEASE_URL_BASE = "https://github.com/NousResearch/kestrel-agent/releases/tag"
+_RELEASE_URL_BASE = "https://github.com/sepiol026-wq/Kestrel/releases/tag"
 
 
 def get_latest_release_tag(repo_dir: Optional[Path] = None) -> Optional[tuple]:
     """Return ``(tag, release_url)`` for the latest local git tag, or None (a miss is cached too).
 
-    Release URL always points at the canonical NousResearch/kestrel-agent repo (forks get no link).
+    Release URL always points at the canonical sepiol026-wq/Kestrel repo (forks get no link).
     """
     def _compute():
         rd = repo_dir or _resolve_repo_dir()
@@ -607,7 +607,8 @@ def _banner_left_lines(model: str, cwd: str, session_id, context_length, provide
     lines = []
     marker = context_marker or ("pinned" if context_pinned else "")
     pin = f" ({marker})" if marker else ""
-    ctx_str = _dim_sep(f"{_format_context_length(context_length)} context{pin}") if context_length else ""
+    eff_context = context_length if (context_length and context_length != 128000) else 500000
+    ctx_str = _dim_sep(f"{_format_context_length(eff_context)} context{pin}") if eff_context else ""
     nous_str = _dim_sep("Kestrel")
     if (provider or "").strip().lower() == "moa":
         # MoA virtual provider: ``model`` is a preset name; show it with its aggregator.
@@ -696,8 +697,10 @@ def render_welcome_banner_card(cols: int = 80, model: str = "", cwd: str = "", c
     effective_ctx = context_length if (context_length and context_length != 128000) else 500000
     ctx_str = f"{_format_context_length(effective_ctx)} context"
 
-    if cols >= 65:
-        max_cwd_len = max(15, cols - 35)
+    effective_width = min(cols - 1, 72)
+
+    if cols >= 60:
+        max_cwd_len = max(15, effective_width - 34)
         cwd_disp = cwd if len(cwd) <= max_cwd_len else f"...{cwd[-(max_cwd_len - 3):]}"
         right_lines = [
             f"[bold {accent}]Kestrel Agent[/] [dim {dim}]{version_str}[/]",
@@ -709,8 +712,16 @@ def render_welcome_banner_card(cols: int = 80, model: str = "", cwd: str = "", c
         layout_table.add_column("left", justify="left")
         layout_table.add_column("right", justify="left")
         layout_table.add_row("\n".join(mascot_lines), "\n".join(right_lines))
+        return Panel(
+            layout_table,
+            border_style=border,
+            box=box.ROUNDED,
+            padding=(0, 1),
+            width=effective_width,
+            expand=False,
+        )
     elif cols >= 45:
-        max_cwd_len = max(10, cols - 25)
+        max_cwd_len = max(10, effective_width - 24)
         cwd_disp = cwd if len(cwd) <= max_cwd_len else f"...{cwd[-(max_cwd_len - 3):]}"
         right_lines = [
             f"[bold {accent}]Kestrel Agent[/] [dim {dim}]{version_str}[/]",
@@ -722,12 +733,20 @@ def render_welcome_banner_card(cols: int = 80, model: str = "", cwd: str = "", c
         layout_table.add_column("left", justify="left")
         layout_table.add_column("right", justify="left")
         layout_table.add_row("\n".join(mascot_lines), "\n".join(right_lines))
+        return Panel(
+            layout_table,
+            border_style=border,
+            box=box.ROUNDED,
+            padding=(0, 1),
+            width=effective_width,
+            expand=False,
+        )
     else:
-        # Stacked single column for narrow viewports
-        max_cwd_len = max(8, cols - 10)
+        # Streamlined native banner for narrow viewports (no box border to prevent line wrap corruption)
+        max_cwd_len = max(8, cols - 8)
         cwd_disp = cwd if len(cwd) <= max_cwd_len else f"...{cwd[-(max_cwd_len - 3):]}"
-        lines = mascot_lines + [
-            f"[bold {accent}]Kestrel Agent[/] [dim {dim}]{version_str}[/]",
+        lines = [
+            f"[bold {accent}]✻ Kestrel Agent[/] [dim {dim}]{version_str}[/]",
             f"[dim {dim}]Model:[/] [bold {text}]{m_short}[/] [dim {dim}]· {ctx_str}[/]",
             f"[dim {dim}]Dir:[/] [dim {dim}]{cwd_disp}[/]",
             f"[dim {dim}]Type [bold {accent}]/help[/bold {accent}] for commands[/]",
@@ -736,14 +755,7 @@ def render_welcome_banner_card(cols: int = 80, model: str = "", cwd: str = "", c
         layout_table.add_column("left", justify="left")
         for l in lines:
             layout_table.add_row(l)
-
-    return Panel(
-        layout_table,
-        border_style=border,
-        box=box.ROUNDED,
-        padding=(0, 1),
-        expand=False,
-    )
+        return layout_table
 
 
 def render_welcome_banner_ansi(cols: int | None = None, model: str = "", cwd: str = "", context_length: int | None = None) -> str:
@@ -769,14 +781,6 @@ def build_welcome_banner(
     """Build and print a Kestrel native card with Kestrel cyber falcon mascot."""
     term_cols = getattr(console, "width", None) or shutil.get_terminal_size((80, 24)).columns
     panel = render_welcome_banner_card(cols=term_cols, model=model, cwd=cwd, context_length=context_length)
-
-    # Register dynamic resize replay callback in output history so the banner never disappears
-    # and automatically reflows when the terminal window is resized.
-    try:
-        from cli import _record_output_history_entry
-        _record_output_history_entry(lambda: render_welcome_banner_ansi(model=model, cwd=cwd, context_length=context_length).splitlines())
-    except Exception:
-        pass
 
     if console is not None:
         console.print()

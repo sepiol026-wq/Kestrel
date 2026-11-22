@@ -153,7 +153,7 @@ When the gateway withdraws a question (timeout, interrupt, answered from another
 
 ### Pi-style RPC mapping
 
-Every command in the Pi-mono RPC spec ([issue #360](https://github.com/NousResearch/kestrel-agent/issues/360)) has a TUI-gateway equivalent:
+Every command in the Pi-mono RPC spec ([issue #360](https://github.com/sepiol026-wq/Kestrel/issues/360)) has a TUI-gateway equivalent:
 
 | Pi command | Hermes equivalent |
 |------------|-------------------|

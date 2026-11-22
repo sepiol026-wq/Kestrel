@@ -29,8 +29,8 @@
 
 set -euo pipefail
 
-OFFICIAL_HTTPS="https://github.com/NousResearch/hermes-agent.git"
-OFFICIAL_SSH="git@github.com:NousResearch/hermes-agent.git"
+OFFICIAL_HTTPS="https://github.com/sepiol026-wq/Kestrel.git"
+OFFICIAL_SSH="git@github.com:sepiol026-wq/Kestrel.git"
 DEFAULT_SOURCE="https://github.com/ethernet8023/hermes-agent.git"
 
 SUBCMD=""

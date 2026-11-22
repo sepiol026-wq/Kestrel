@@ -1,4 +1,4 @@
-"""Regression for NousResearch/kestrel-agent#149497: shared tool-store pins stay usable."""
+"""Regression for sepiol026-wq/Kestrel#149497: shared tool-store pins stay usable."""
 
 import shutil
 

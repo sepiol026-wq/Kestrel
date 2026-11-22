@@ -748,7 +748,7 @@ class TestGithubCurlNotExempt:
 
     def test_gh_cli_and_unauthenticated_github_curl_allowed(self):
         assert _scan_cron_prompt("Run `gh api /rate_limit` and report the remaining quota.") == ""
-        assert _scan_cron_prompt("curl -s https://api.github.com/repos/NousResearch/kestrel-agent") == ""
+        assert _scan_cron_prompt("curl -s https://api.github.com/repos/sepiol026-wq/Kestrel") == ""
 
     def test_private_key_reads_detected(self):
         # Coverage gap found during adversarial testing: the scanner had no

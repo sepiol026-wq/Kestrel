@@ -44,7 +44,7 @@ writing the same home while either version performs migrations.
 ## 2. Clone an independent checkout
 
 ```bash
-git clone https://github.com/NousResearch/kestrel-agent.git
+git clone https://github.com/sepiol026-wq/Kestrel.git
 cd kestrel-agent
 ```
 

@@ -49,7 +49,7 @@ def _resume(mgr, arg, render):
     if state is None:
         return GoalCommandResult(render("gateway.goal.no_resume", "No goal to resume."))
     return GoalCommandResult(render("gateway.goal.resumed", "▶ Goal resumed: {goal}", goal=state.goal),
-                             prompt=mgr.next_continuation_prompt())
+                             prompt=mgr.next_continuation_prompt(), kickoff=True)
 
 
 def _clear(mgr, arg, render):

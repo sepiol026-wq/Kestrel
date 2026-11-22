@@ -65,7 +65,7 @@ _OWN_REPO_PREFIXES = ("nousresearch/kestrel-agent/skills/", "skills-sh/nousresea
 
 def bundled_skill_for_install(identifier: str) -> Optional[str]:
     """Bundled skill name an install identifier means, else None: a bare bundled name, or this
-    repo's own copy of one (``NousResearch/kestrel-agent/skills/<cat>/<name>``, which the Skills Hub
+    repo's own copy of one (``sepiol026-wq/Kestrel/skills/<cat>/<name>``, which the Skills Hub
     site hands out for built-ins, or its ``skills-sh/nousresearch/kestrel-agent/<name>`` mirror).
     Fetched from GitHub, that copy is scanned as a community skill and refused — every time."""
     ident = identifier.strip().strip("/")

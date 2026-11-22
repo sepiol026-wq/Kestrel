@@ -63,17 +63,17 @@ No clone needed. Nix fetches, builds, and runs everything:
 
 ```bash
 # Run the desktop app
-nix run github:NousResearch/kestrel-agent#desktop
+nix run github:sepiol026-wq/Kestrel#desktop
 
 # Or install persistently
-nix profile install github:NousResearch/kestrel-agent#desktop
+nix profile install github:sepiol026-wq/Kestrel#desktop
 
 # run the tui
-nix run github:NousResearch/kestrel-agent -- setup
-nix run github:NousResearch/kestrel-agent -- --tui
+nix run github:sepiol026-wq/Kestrel -- setup
+nix run github:sepiol026-wq/Kestrel -- --tui
 
 # or install it in your profile
-nix profile install github:NousResearch/kestrel-agent
+nix profile install github:sepiol026-wq/Kestrel
 hermes setup
 hermes --tui
 ```
@@ -91,7 +91,7 @@ The `default` package adds ~700 MB to the closure. If you only need messaging pl
 <summary><strong>Running from a local clone</strong></summary>
 
 ```bash
-git clone https://github.com/NousResearch/kestrel-agent.git
+git clone https://github.com/sepiol026-wq/Kestrel.git
 cd kestrel-agent
 nix develop
 hermes-checkout setup
@@ -116,7 +116,7 @@ This module needs NixOS. Hermes is an agent for one person. If you want an agent
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    kestrel-agent.url = "github:NousResearch/kestrel-agent";
+    kestrel-agent.url = "github:sepiol026-wq/Kestrel";
   };
 
   outputs = { nixpkgs, kestrel-agent, ... }: {
@@ -637,7 +637,7 @@ The option set is the same set that the NixOS module uses. It is `services.kestr
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    kestrel-agent.url = "github:NousResearch/kestrel-agent";
+    kestrel-agent.url = "github:sepiol026-wq/Kestrel";
   };
 }
 ```
@@ -901,7 +901,7 @@ External flakes can override the package directly:
 
 ```nix
 {
-  inputs.kestrel-agent.url = "github:NousResearch/kestrel-agent";
+  inputs.kestrel-agent.url = "github:sepiol026-wq/Kestrel";
   outputs = { kestrel-agent, nixpkgs, ... }: {
     nixpkgs.overlays = [ kestrel-agent.overlays.default ];
     # Then:

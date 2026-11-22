@@ -417,7 +417,7 @@ TELEGRAM_WEBHOOK_SECRET="$(openssl rand -hex 32)"  # required
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `TELEGRAM_WEBHOOK_URL` | Yes | Public HTTPS URL where Telegram will send updates. The URL path is auto-extracted (e.g., `/telegram` from the example above). |
-| `TELEGRAM_WEBHOOK_SECRET` | **Yes** (when `TELEGRAM_WEBHOOK_URL` is set) | Secret token that Telegram echoes in every webhook request for verification. The gateway refuses to start without it — see [GHSA-3vpc-7q5r-276h](https://github.com/NousResearch/kestrel-agent/security/advisories/GHSA-3vpc-7q5r-276h). Generate with `openssl rand -hex 32`. |
+| `TELEGRAM_WEBHOOK_SECRET` | **Yes** (when `TELEGRAM_WEBHOOK_URL` is set) | Secret token that Telegram echoes in every webhook request for verification. The gateway refuses to start without it — see [GHSA-3vpc-7q5r-276h](https://github.com/sepiol026-wq/Kestrel/security/advisories/GHSA-3vpc-7q5r-276h). Generate with `openssl rand -hex 32`. |
 | `TELEGRAM_WEBHOOK_PORT` | No | Local port the webhook server listens on (default: `8443`). |
 | `TELEGRAM_WEBHOOK_HOST` | No | Local bind host for the webhook server. Default: unset → dual-stack bind on all interfaces (IPv4+IPv6). Set this on IPv6-only deployments (e.g. Fly.io 6PN) or to pin the listener to a specific interface. Can also be set via `platforms.telegram.extra.webhook_host` in `config.yaml`. |
 
@@ -1520,7 +1520,7 @@ trust store and `SSL_CERT_FILE` are still used. The tradeoff is opting out of
 post-quantum key exchange for Telegram. Other platforms and model-provider
 clients keep their existing TLS settings. The default is `false`; remove the
 setting or set it to `false` to restore OpenSSL's default groups. A value other
-than true/false is ignored with a warning in the gateway log. See also [the related OpenSSL 3.5 report](https://github.com/NousResearch/kestrel-agent/issues/106384).
+than true/false is ignored with a warning in the gateway log. See also [the related OpenSSL 3.5 report](https://github.com/sepiol026-wq/Kestrel/issues/106384).
 
 ## Message Reactions
 
@@ -1555,7 +1555,7 @@ If the bot doesn't have permission to add reactions in a group, the reaction cal
 
 While a turn runs, the bot shows "typing…" by calling `sendChatAction` every few seconds. Some
 Telegram clients move the view while that indicator is on, so your last message can appear to
-jump up the chat until the reply arrives ([#40885](https://github.com/NousResearch/kestrel-agent/issues/40885)).
+jump up the chat until the reply arrives ([#40885](https://github.com/sepiol026-wq/Kestrel/issues/40885)).
 To turn the indicator off for Telegram:
 
 ```yaml

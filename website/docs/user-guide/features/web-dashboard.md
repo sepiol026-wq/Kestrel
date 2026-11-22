@@ -83,7 +83,7 @@ the agent's own terminal and file tools can still reach sibling profiles
 (`~/.hermes/profiles/*`). Different auth per profile's server
 does not change that. To keep people's data apart (family members,
 customers, teams), run each tenant's Hermes as a **separate OS user** or in
-a **separate container**. See [SECURITY.md](https://github.com/NousResearch/kestrel-agent/blob/main/SECURITY.md) §2.2.
+a **separate container**. See [SECURITY.md](https://github.com/sepiol026-wq/Kestrel/blob/main/SECURITY.md) §2.2.
 :::
 
 The **Chat** tab follows the switcher too: a scoped chat spawns its PTY

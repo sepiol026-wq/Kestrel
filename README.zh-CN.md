@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://kestrel-agent.nousresearch.com/docs/"><img src="https://img.shields.io/badge/Docs-hermes--agent.nousresearch.com-FFD700?style=for-the-badge" alt="Documentation"></a>
   <a href="https://discord.gg/NousResearch"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"></a>
-  <a href="https://github.com/NousResearch/kestrel-agent/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License: MIT"></a>
+  <a href="https://github.com/sepiol026-wq/Kestrel/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-AGPLv3-0284C7?style=for-the-badge" alt="License: AGPLv3"></a>
   <a href="https://nousresearch.com"><img src="https://img.shields.io/badge/Built%20by-Nous%20Research-blueviolet?style=for-the-badge" alt="Built by Nous Research"></a>
   <a href="README.md"><img src="https://img.shields.io/badge/Lang-English-lightgrey?style=for-the-badge" alt="English"></a>
   <a href="README.ur-pk.md"><img src="https://img.shields.io/badge/Lang-اردو-green?style=for-the-badge" alt="اردو"></a>
@@ -178,14 +178,14 @@ PM 引导、Python 3.14 测试环境和规范验证命令见
 
 - 💬 [Discord](https://discord.gg/NousResearch)
 - 📚 [技能中心](https://agentskills.io)
-- 🐛 [问题反馈](https://github.com/NousResearch/kestrel-agent/issues)
-- 💡 [讨论区](https://github.com/NousResearch/kestrel-agent/discussions)
+- 🐛 [问题反馈](https://github.com/sepiol026-wq/Kestrel/issues)
+- 💡 [讨论区](https://github.com/sepiol026-wq/Kestrel/discussions)
 - 🔌 [HermesClaw](https://github.com/AaronWong1999/hermesclaw) — 社区微信桥接：在同一微信账号上运行 Kestrel Agent 和 OpenClaw。
 
 ---
 
 ## 许可证
 
-MIT — 详见 [LICENSE](LICENSE)。
+AGPLv3 — 详见 [LICENSE](LICENSE)。
 
 由 [Nous Research](https://nousresearch.com) 构建。

@@ -800,6 +800,9 @@ class CLICommandsMixin(CLICommandsSessionToolsMixin):
         if len(target) >= 2 and target[0] + target[-1] in {"<>", "[]", '""', "''"}:
             target = target[1:-1].strip()
         if not target:
+            mgr = self._session_manager(self._get_goal_manager, _t("goal.label")) if hasattr(self, "_session_manager") and hasattr(self, "_get_goal_manager") else None
+            if mgr and mgr.has_goal():
+                return self._handle_goal_command("/goal resume")
             _cp(f"  {_t('resume.usage')}")
             if self._show_recent_sessions(reason="resume"):
                 # Arm a one-shot bare-number selection; must be the same list the table showed
@@ -2149,3 +2152,73 @@ class CLICommandsMixin(CLICommandsSessionToolsMixin):
             return  # already persisted — don't rewrite config or re-announce
         if _save("wake_word.enabled", enabled):
             _cp(_dim(_t("wake.enabled_in_config" if enabled else "wake.disabled_in_config")))
+
+    def _handle_continue_command(self, cmd_original: str = "") -> None:
+        """Handle /continue (/c, /cont, /proceed) — resume paused goal or continue previous turn immediately."""
+        mgr = self._session_manager(self._get_goal_manager, _t("goal.label")) if hasattr(self, "_session_manager") and hasattr(self, "_get_goal_manager") else None
+        if mgr and mgr.has_goal():
+            return self._handle_goal_command("/goal resume")
+        prompt = "Continue where you left off. Proceed with the task and finish the remaining steps autonomously."
+        if self._kick_goal(prompt):
+            _cp("  ▶ Continuing task autonomously...")
+        else:
+            _cp("  No active task or goal to continue. Enter a prompt to start.")
+
+    def _handle_graphify_command(self, cmd_original: str) -> None:
+        """Handle /graphify [scan | god-nodes | explain <symbol> | affected <symbol> | path <a> <b> | query <q>]."""
+        import shutil
+        import subprocess
+        if not shutil.which("graphify"):
+            return _cp("  ✗ graphify CLI not found in PATH.")
+        arg = _command_arg(cmd_original).strip()
+        tokens = arg.split(None, 1)
+        sub = tokens[0].lower() if tokens else "scan"
+        rest = tokens[1].strip() if len(tokens) > 1 else ""
+
+        _cp(f"  ✻ Graphify: running {sub}...")
+        try:
+            if sub in ("scan", "extract", "init", ""):
+                _cp("  Extracting codebase knowledge graph (code-only AST)...")
+                res = subprocess.run(["graphify", "extract", ".", "--code-only", "--max-workers", "4"],
+                                     capture_output=True, text=True, timeout=180)
+                if res.returncode == 0:
+                    _cp("  ✓ Graph extracted. Clustering communities...")
+                    subprocess.run(["graphify", "cluster-only", ".", "--no-label"],
+                                   capture_output=True, text=True, timeout=60)
+                    _cp("  ✓ Knowledge graph saved to graphify-out/graph.json & GRAPH_REPORT.md")
+                else:
+                    _cp(f"  ✗ graphify extract failed: {res.stderr[:200]}")
+            elif sub == "god-nodes":
+                top = rest if rest.isdigit() else "10"
+                res = subprocess.run(["graphify", "god-nodes", "--top", top],
+                                     capture_output=True, text=True, timeout=30)
+                _cp(res.stdout or res.stderr)
+            elif sub == "explain":
+                if not rest:
+                    return _cp("  Usage: /graphify explain <symbol>")
+                res = subprocess.run(["graphify", "explain", rest],
+                                     capture_output=True, text=True, timeout=30)
+                _cp(res.stdout or res.stderr)
+            elif sub == "affected":
+                if not rest:
+                    return _cp("  Usage: /graphify affected <symbol>")
+                res = subprocess.run(["graphify", "affected", rest, "--depth", "2"],
+                                     capture_output=True, text=True, timeout=30)
+                _cp(res.stdout or res.stderr)
+            elif sub == "path":
+                pts = rest.split(None, 1)
+                if len(pts) < 2:
+                    return _cp("  Usage: /graphify path <node_a> <node_b>")
+                res = subprocess.run(["graphify", "path", pts[0], pts[1]],
+                                     capture_output=True, text=True, timeout=30)
+                _cp(res.stdout or res.stderr)
+            elif sub in ("query", "q"):
+                if not rest:
+                    return _cp("  Usage: /graphify query <question>")
+                res = subprocess.run(["graphify", "query", rest],
+                                     capture_output=True, text=True, timeout=30)
+                _cp(res.stdout or res.stderr)
+            else:
+                _cp("  Usage: /graphify [scan | god-nodes | explain <symbol> | affected <symbol> | path <a> <b> | query <q>]")
+        except Exception as exc:
+            _cp(f"  ✗ Graphify error: {exc}")

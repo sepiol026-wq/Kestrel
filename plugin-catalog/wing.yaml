@@ -10,7 +10,7 @@
 "known_issues":
 - "Requires the matching Wing Android client. Email cards need a Wing build with wing-email-draft rendering; other clients see the tool fields/reference as text."
 - "Voice context uses undocumented Hermes prompt-inspection and voice helpers that can change; admission validation reports these imports for reviewer inspection."
-- "Live subscription voice requires a profile sign-in with voice access. OpenAI API voice is unavailable pending host-owned per-call instructions/voice support in NousResearch/kestrel-agent#151774. Email drafts require neither."
+- "Live subscription voice requires a profile sign-in with voice access. OpenAI API voice is unavailable pending host-owned per-call instructions/voice support in sepiol026-wq/Kestrel#151774. Email drafts require neither."
 "sha": "9b0ca946ea82cc9e2180f51929844a535231b958"
 "version": "0.3.4"
 "requires_hermes": ">=0.23.0"

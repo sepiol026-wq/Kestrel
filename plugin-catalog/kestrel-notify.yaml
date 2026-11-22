@@ -1,4 +1,4 @@
-# Catalog entry for NousResearch/kestrel-agent plugin-catalog/hermes-notify.yaml.
+# Catalog entry for sepiol026-wq/Kestrel plugin-catalog/hermes-notify.yaml.
 # 0.2.0 merged in #149220. 0.2.3 (SHA-bump PR #153618): Linux and Windows, `hermes notify setup`, phone approvals by default,
 # inbound answer webhooks, stale-runtime and reply-collection fixes.
 name: hermes-notify

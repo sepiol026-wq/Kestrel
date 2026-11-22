@@ -17,7 +17,7 @@ screenshots:
   - https://raw.githubusercontent.com/jeremiebergel/context-manager-intelligence/e1f6713d9e4f1ed1651c46b0002e296691feae79/docs/catalog/shot-results.png
   - https://raw.githubusercontent.com/jeremiebergel/context-manager-intelligence/e1f6713d9e4f1ed1651c46b0002e296691feae79/docs/catalog/shot-memory.png
 known_issues:
-  - "Imports private Hermes core helpers (token estimator, tool-summary helper, ContextCompressor, pricing) that can break on a Hermes release; public seams requested in NousResearch/kestrel-agent#152139."
+  - "Imports private Hermes core helpers (token estimator, tool-summary helper, ContextCompressor, pricing) that can break on a Hermes release; public seams requested in sepiol026-wq/Kestrel#152139."
 capabilities:
   provides_tools: []
   provides_hooks: []

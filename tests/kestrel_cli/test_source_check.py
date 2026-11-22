@@ -284,7 +284,7 @@ def test_channel_failure_never_probes_or_heals_a_branch(installation, name, fail
     elif failure == "malformed":
         body = "not JSON"
     elif failure == "foreign":
-        body["repository"] = "NousResearch/kestrel-agent"
+        body["repository"] = "sepiol026-wq/Kestrel"
     else:
         body["policy"] = "preview"
         del body["delivery"]
@@ -338,8 +338,8 @@ def test_running_revision_is_not_applied_to_an_explicit_target(installation, mon
     assert check_for_updates(install_root=linked, home=home)["currentSha"] == head
     # Default invocation retains the Nix revision probe even without a Git checkout.
     monkeypatch.setattr("hermes_cli.config.get_project_root", lambda: home)
-    responses[MAIN_CHANNEL] = (200, source_channel("main", "NousResearch/kestrel-agent"))
-    responses["/repos/NousResearch/kestrel-agent/commits/main"] = (200, "e" * 40)
+    responses[MAIN_CHANNEL] = (200, source_channel("main", "sepiol026-wq/Kestrel"))
+    responses["/repos/sepiol026-wq/Kestrel/commits/main"] = (200, "e" * 40)
     assert check_for_updates(home=home)["behind"] == 0
 
 
@@ -472,7 +472,7 @@ def test_embedded_revision_keeps_https_ref_advertisement_recovery(installation, 
     monkeypatch.setenv("HERMES_REVISION", head)
     monkeypatch.setattr("hermes_cli.config.get_project_root", lambda: home)
     monkeypatch.setattr("hermes_cli.config.detect_install_method", lambda root: "nix")
-    responses[MAIN_CHANNEL] = (200, source_channel("main", "NousResearch/kestrel-agent"))
+    responses[MAIN_CHANNEL] = (200, source_channel("main", "sepiol026-wq/Kestrel"))
     original = subprocess.run
     probes = []
 
@@ -485,7 +485,7 @@ def test_embedded_revision_keeps_https_ref_advertisement_recovery(installation, 
     monkeypatch.setattr(subprocess, "run", advertise)
     assert check_for_updates(home=home)["behind"] == 0
     assert len(probes) == 1
-    assert "https://github.com/NousResearch/kestrel-agent.git" in probes[0][0]
+    assert "https://github.com/sepiol026-wq/Kestrel.git" in probes[0][0]
     assert probes[0][1]["stdin"] == subprocess.DEVNULL
     assert probes[0][1]["env"]["GIT_TERMINAL_PROMPT"] == "0"
 
@@ -509,13 +509,13 @@ def test_malformed_optional_changelog_and_cache_do_not_hide_the_update(installat
                         f"/repos/fixture/fork/compare/{head}...{'a' * 40}"] * 2
 
 
-@pytest.mark.parametrize("repository,heals", [("NousResearch/kestrel-agent", True), ("fixture/fork", False)])
+@pytest.mark.parametrize("repository,heals", [("sepiol026-wq/Kestrel", True), ("fixture/fork", False)])
 def test_official_ssh_healing_uses_public_https_without_retargeting_forks(installation, monkeypatch, repository, heals):
     from kestrel_cli.source_check import check_for_updates
     from kestrel_cli.update_channel import set_install_channel
     root, linked, home, _base, head, responses, _requests, git = installation
     git("remote", "set-url", "origin", f"git@github.com:{repository}.git")
-    git("config", f"url.{root.as_uri()}.insteadOf", "https://github.com/NousResearch/kestrel-agent.git")
+    git("config", f"url.{root.as_uri()}.insteadOf", "https://github.com/sepiol026-wq/Kestrel.git")
     # The branch heal is a main-channel concern; an official checkout's default is stable.
     set_install_channel("main", linked)
     monkeypatch.setenv("GIT_SSH_COMMAND", "false")
@@ -581,7 +581,7 @@ def test_stable_release_the_checkout_already_contains_is_a_rollback(installation
     git("tag", "v1.2.3", shas[release], cwd=bare)
     git("remote", "set-url", "origin", str(bare))
     git("checkout", "-q", "--detach", shas[on])
-    api = "/repos/NousResearch/kestrel-agent"
+    api = "/repos/sepiol026-wq/Kestrel"
     responses[f"{api}/releases/latest"] = (200, {"draft": False, "prerelease": False, "tag_name": "v1.2.3"})
     responses[f"{api}/commits/v1.2.3"] = (200, {"sha": shas[release]})
 
@@ -623,7 +623,7 @@ def test_stable_release_the_updater_refuses_is_held_not_offered(
     git("checkout", "-q", "main")
     if ledgered:
         _ledgered_store(sibling)
-    api = "/repos/NousResearch/kestrel-agent"
+    api = "/repos/sepiol026-wq/Kestrel"
     responses[f"{api}/releases/latest"] = (200, {"draft": False, "prerelease": False, "tag_name": "v1.2.3"})
     responses[f"{api}/commits/v1.2.3"] = (200, {"sha": release})
 
@@ -679,15 +679,15 @@ def test_an_unfetched_release_is_judged_from_github(installation, tmp_path, monk
     git("remote", "set-url", "origin", str(bare))
     assert subprocess.run(["git", "cat-file", "-e", f"{release}^{{commit}}"], cwd=root,
                           stderr=subprocess.DEVNULL, check=False).returncode != 0
-    api = "/repos/NousResearch/kestrel-agent"
+    api = "/repos/sepiol026-wq/Kestrel"
     responses[f"{api}/releases/latest"] = (200, {"draft": False, "prerelease": False, "tag_name": "v1.2.3"})
     responses[f"{api}/commits/v1.2.3"] = (200, {"sha": release})
     responses[f"{api}/compare/{git('rev-parse', 'HEAD')}...{release}"] = (200, {"status": "diverged"})
     responses[f"{api}/git/trees/{release}"] = (200, {"truncated": False, "tree": [
         {"path": "hermes_state.py", "type": "blob"}, {"path": "hermes_state_common.py", "type": "blob"},
         {"path": "run_agent.py", "type": "blob"}]})
-    responses[f"/NousResearch/kestrel-agent/{release}/hermes_state.py"] = (200, "from kestrel_state_common import *\n")
-    responses[f"/NousResearch/kestrel-agent/{release}/hermes_state_common.py"] = (
+    responses[f"/sepiol026-wq/Kestrel/{release}/hermes_state.py"] = (200, "from kestrel_state_common import *\n")
+    responses[f"/sepiol026-wq/Kestrel/{release}/hermes_state_common.py"] = (
         200, "SCHEMA_SQL = 'CREATE TABLE IF NOT EXISTS sessions (id)'\n")
     if ledgered:
         _ledgered_store(home)

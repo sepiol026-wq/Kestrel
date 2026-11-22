@@ -1466,3 +1466,70 @@ class GatewaySlashCommandsMixin(
             return t("gateway.update.start_failed", error=e)
         self._schedule_update_notification_watch()
         return t("gateway.update.starting")
+
+    async def _handle_c_command(self, event: MessageEvent) -> str:
+        return await self._handle_continue_command(event)
+
+    async def _handle_cont_command(self, event: MessageEvent) -> str:
+        return await self._handle_continue_command(event)
+
+    async def _handle_proceed_command(self, event: MessageEvent) -> str:
+        return await self._handle_continue_command(event)
+
+    async def _handle_graphify_command(self, event: MessageEvent) -> str:
+        """Handle /graphify [scan | god-nodes | explain <sym> | affected <sym> | path <a> <b> | query <q>] in gateway."""
+        import shutil
+        import subprocess
+        if not shutil.which("graphify"):
+            return "✗ graphify CLI not found in PATH."
+        arg = (event.get_command_args() or "").strip()
+        tokens = arg.split(None, 1)
+        sub = tokens[0].lower() if tokens else "scan"
+        rest = tokens[1].strip() if len(tokens) > 1 else ""
+
+        try:
+            if sub in ("scan", "extract", "init", ""):
+                res = subprocess.run(["graphify", "extract", ".", "--code-only", "--max-workers", "4"],
+                                     capture_output=True, text=True, timeout=180)
+                if res.returncode == 0:
+                    subprocess.run(["graphify", "cluster-only", ".", "--no-label"],
+                                   capture_output=True, text=True, timeout=60)
+                    return "✓ Graphify scan complete. Knowledge graph saved to graphify-out/graph.json & GRAPH_REPORT.md"
+                return f"✗ graphify extract failed: {res.stderr[:200]}"
+            elif sub == "god-nodes":
+                top = rest if rest.isdigit() else "10"
+                res = subprocess.run(["graphify", "god-nodes", "--top", top],
+                                     capture_output=True, text=True, timeout=30)
+                return res.stdout or res.stderr or "No architectural hubs found."
+            elif sub == "explain":
+                if not rest:
+                    return "Usage: /graphify explain <symbol>"
+                res = subprocess.run(["graphify", "explain", rest],
+                                     capture_output=True, text=True, timeout=30)
+                return res.stdout or res.stderr or f"No graph node found for: {rest}"
+            elif sub == "affected":
+                if not rest:
+                    return "Usage: /graphify affected <symbol>"
+                res = subprocess.run(["graphify", "affected", rest, "--depth", "2"],
+                                     capture_output=True, text=True, timeout=30)
+                return res.stdout or res.stderr or f"No affected nodes found for: {rest}"
+            elif sub == "path":
+                pts = rest.split(None, 1)
+                if len(pts) < 2:
+                    return "Usage: /graphify path <node_a> <node_b>"
+                res = subprocess.run(["graphify", "path", pts[0], pts[1]],
+                                     capture_output=True, text=True, timeout=30)
+                return res.stdout or res.stderr or f"No path found between {pts[0]} and {pts[1]}"
+            elif sub in ("query", "q"):
+                if not rest:
+                    return "Usage: /graphify query <question>"
+                res = subprocess.run(["graphify", "query", rest],
+                                     capture_output=True, text=True, timeout=30)
+                return res.stdout or res.stderr or "No query results."
+            else:
+                return "Usage: /graphify [scan | god-nodes | explain <symbol> | affected <symbol> | path <a> <b> | query <q>]"
+        except Exception as exc:
+            return f"✗ Graphify error: {exc}"
+
+    async def _handle_graph_command(self, event: MessageEvent) -> str:
+        return await self._handle_graphify_command(event)

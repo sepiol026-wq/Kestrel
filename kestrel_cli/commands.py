@@ -178,7 +178,12 @@ COMMAND_REGISTRY: list[CommandDef] = [
                gateway_only=True, aliases=("set-home",), desktop="terminal"),
     CommandDef("resume", "Resume a previously-named session", "Session",
                args_hint="[name]", argument_mode="mixed"),
+    CommandDef("continue", "Continue where the agent left off or resume an active/paused goal immediately", "Session",
+               aliases=("c", "cont", "proceed"), busy_policy="dispatch"),
     CommandDef("sessions", "Browse and resume previous sessions", "Session"),
+    CommandDef("graphify", "Codebase knowledge graph extraction, symbol connections, and architecture analysis", "Tools & Skills",
+               aliases=("graph",), args_hint="[scan | god-nodes | explain <symbol> | affected <symbol> | path <a> <b> | query <q>]",
+               subcommands=("scan", "god-nodes", "explain", "affected", "path", "query")),
 
     # Configuration
     CommandDef("config", "Show current configuration", "Configuration",

@@ -543,7 +543,7 @@ A few situations stop with a message rather than carry on, because carrying on c
 hermes --version
 ```
 
-Compare against the latest release at the [GitHub releases page](https://github.com/NousResearch/kestrel-agent/releases).
+Compare against the latest release at the [GitHub releases page](https://github.com/sepiol026-wq/Kestrel/releases).
 
 ### Updating from Messaging Platforms
 

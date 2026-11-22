@@ -9,7 +9,7 @@
 Valoramos las contribuciones en este orden:
 
 1. **Correcciones de errores** — bloqueos, comportamiento incorrecto, pérdida de datos. Siempre la máxima prioridad.
-2. **Compatibilidad entre plataformas** — macOS, diferentes distribuciones de Linux y WSL2 en Windows. Queremos que Hermes funcione en todas partes.
+2. **Compatibilidad entre plataformas** — macOS, diferentes distribuciones de Linux y WSL2 en Windows. Queremos que Kestrel funcione en todas partes.
 3. **Fortalecimiento de seguridad** — inyección de shell, inyección de prompts, traversal de rutas, escalada de privilegios. Ver [Consideraciones de Seguridad](#consideraciones-de-seguridad).
 4. **Rendimiento y robustez** — lógica de reintento, manejo de errores, degradación elegante.
 5. **Nuevas habilidades** — pero solo las ampliamente útiles. Ver [¿Debería ser una Habilidad o una Herramienta?](#debería-ser-una-habilidad-o-una-herramienta)
@@ -38,26 +38,26 @@ Esta es la pregunta más común para los nuevos colaboradores. La respuesta casi
 
 ### ¿Debería la Habilidad estar incluida?
 
-Las habilidades incluidas (en `skills/`) se envían con cada instalación de Hermes. Deben ser **ampliamente útiles para la mayoría de los usuarios**:
+Las habilidades incluidas (en `skills/`) se envían con cada instalación de Kestrel. Deben ser **ampliamente útiles para la mayoría de los usuarios**:
 
 - Manejo de documentos, investigación web, flujos de trabajo de desarrollo comunes, administración de sistemas
 - Usadas regularmente por una amplia gama de personas
 
-Si tu habilidad es oficial y útil pero no universalmente necesaria (ej., una integración de servicio de pago, una dependencia pesada), ponla en **`optional-skills/`** — se envía con el repositorio pero no está activada por defecto. Los usuarios pueden descubrirla a través de `hermes skills browse` (etiquetada como "oficial") e instalarla con `hermes skills install` (sin advertencia de terceros, confianza integrada).
+Si tu habilidad es oficial y útil pero no universalmente necesaria (ej., una integración de servicio de pago, una dependencia pesada), ponla en **`optional-skills/`** — se envía con el repositorio pero no está activada por defecto. Los usuarios pueden descubrirla a través de `kestrel skills browse` (etiquetada como "oficial") e instalarla con `kestrel skills install` (sin advertencia de terceros, confianza integrada).
 
-Si tu habilidad es especializada, contribuida por la comunidad o de nicho, es mejor para un **Skills Hub** — súbela a un registro de habilidades y compártela en el [Discord de Nous Research](https://discord.gg/NousResearch). Los usuarios pueden instalarla con `hermes skills install`.
+Si tu habilidad es especializada, contribuida por la comunidad o de nicho, es mejor para un **Skills Hub** — súbela a un registro de habilidades y compártela en el [Discord de Nous Research](https://discord.gg/NousResearch). Los usuarios pueden instalarla con `kestrel skills install`.
 
 ---
 
 ## Proveedores de Memoria: Publicar como Plugin Independiente
 
-**Ya no aceptamos nuevos proveedores de memoria en este repositorio.** El conjunto de proveedores integrados en `plugins/memory/` (byterover, retaindb) está cerrado, y los antiguos proveedores integrados hindsight, honcho, supermemory, mem0, openviking y holographic ahora se distribuyen desde el catálogo de plugins. Si quieres añadir un nuevo backend de memoria, publícalo como un **repositorio de plugin independiente** que los usuarios instalen en `~/.hermes/plugins/` (o a través de un entry point de pip).
+**Ya no aceptamos nuevos proveedores de memoria en este repositorio.** El conjunto de proveedores integrados en `plugins/memory/` (byterover, retaindb) está cerrado, y los antiguos proveedores integrados hindsight, honcho, supermemory, mem0, openviking y holographic ahora se distribuyen desde el catálogo de plugins. Si quieres añadir un nuevo backend de memoria, publícalo como un **repositorio de plugin independiente** que los usuarios instalen en `~/.kestrel/plugins/` (o a través de un entry point de pip).
 
 Los plugins de memoria independientes:
 
-- Implementan el mismo ABC `MemoryProvider` (`agent/memory_provider.py`) — `sync_turn`, `prefetch`, `shutdown` y opcionalmente `post_setup(hermes_home, config)` para integración con el asistente de configuración
+- Implementan el mismo ABC `MemoryProvider` (`agent/memory_provider.py`) — `sync_turn`, `prefetch`, `shutdown` y opcionalmente `post_setup(kestrel_home, config)` para integración con el asistente de configuración
 - Usan el mismo sistema de descubrimiento — `discover_memory_providers()` los recoge desde directorios de plugins de usuario/proyecto y entry points de pip
-- Se integran con `hermes memory setup` a través de `post_setup()` — sin necesidad de tocar el código base
+- Se integran con `kestrel memory setup` a través de `post_setup()` — sin necesidad de tocar el código base
 - Pueden registrar sus propios subcomandos CLI a través de `register_cli(subparser)` en un archivo `cli.py`
 - Obtienen todos los mismos hooks de ciclo de vida y plomería de configuración que los proveedores incluidos en el árbol
 
@@ -79,14 +79,14 @@ En Bash, desde la raíz del repositorio:
 
 ```bash
 source ./activate
-hermes --version
+kestrel --version
 ```
 
 En PowerShell:
 
 ```powershell
 . .\activate.ps1
-hermes --version
+kestrel --version
 ```
 
 ### Entorno independiente de pruebas
@@ -100,14 +100,14 @@ scripts/run_tests.sh tests/agent/ -v
 
 La ruta de salida no debe existir. Para regenerarla, detén sus procesos y elimina
 explícitamente solo ese entorno desechable. PM no elimina destinos existentes.
-No modifiques los entornos de Hermes con comandos directos de pip o uv.
+No modifiques los entornos de Kestrel con comandos directos de pip o uv.
 En Windows, ejecuta el script de pruebas mediante Bash.
 
 Si cambias `pyproject.toml`, regenera el lock, vuelve a cargar la activación y
 confirma `pyproject.toml` junto con `uv.lock`:
 
 ```bash
-hermes pm lock
+kestrel pm lock
 source ./activate
 ```
 
@@ -121,10 +121,10 @@ Para JavaScript, ejecuta `pnpm install --frozen-lockfile` en la raíz del reposi
 ```
 kestrel-agent/
 ├── run_agent.py              # Clase AIAgent — bucle de conversación central, despacho de herramientas, persistencia de sesión
-├── cli.py                    # Clase HermesCLI — TUI interactiva, integración prompt_toolkit
+├── cli.py                    # Clase KestrelCLI — TUI interactiva, integración prompt_toolkit
 ├── model_tools.py            # Orquestación de herramientas (capa delgada sobre tools/registry.py)
-├── toolsets.py               # Agrupaciones y presets de herramientas (hermes-cli, hermes-telegram, etc.)
-├── hermes_state.py           # Base de datos de sesiones SQLite con búsqueda de texto completo FTS5, títulos de sesión
+├── toolsets.py               # Agrupaciones y presets de herramientas (kestrel-cli, kestrel-telegram, etc.)
+├── kestrel_state.py           # Base de datos de sesiones SQLite con búsqueda de texto completo FTS5, títulos de sesión
 ├── batch_runner.py           # Procesamiento en lote paralelo para generación de trayectorias
 │
 ├── agent/                    # Internos del agente (módulos extraídos)
@@ -135,7 +135,7 @@ kestrel-agent/
 │   ├── model_metadata.py         # Longitudes de contexto del modelo, estimación de tokens
 │   └── trajectory.py             # Ayudantes para guardar trayectorias
 │
-├── hermes_cli/               # Implementaciones de comandos CLI
+├── kestrel_cli/               # Implementaciones de comandos CLI
 │   ├── main.py                   # Punto de entrada, análisis de argumentos, despacho de comandos
 │   ├── config.py                 # Gestión de configuración, migración, definiciones de variables de entorno
 │   ├── setup.py                  # Asistente de configuración interactivo
@@ -176,28 +176,28 @@ kestrel-agent/
 │   ├── install.ps1               # Instalador Windows PowerShell
 │   └── whatsapp-bridge/          # Puente WhatsApp Node.js (Baileys)
 │
-├── skills/                   # Habilidades incluidas (copiadas a ~/.hermes/skills/ en la instalación)
+├── skills/                   # Habilidades incluidas (copiadas a ~/.kestrel/skills/ en la instalación)
 ├── optional-skills/          # Habilidades opcionales oficiales (descubribles vía hub, no activadas por defecto)
 ├── tests/                    # Suite de tests
 ├── website/                  # Sitio de documentación (kestrel-agent.nousresearch.com)
 │
-├── cli-config.yaml.example   # Configuración de ejemplo (copiada a ~/.hermes/config.yaml)
+├── cli-config.yaml.example   # Configuración de ejemplo (copiada a ~/.kestrel/config.yaml)
 └── AGENTS.md                 # Guía de desarrollo para asistentes de codificación IA
 ```
 
-### Configuración del usuario (almacenada en `~/.hermes/`)
+### Configuración del usuario (almacenada en `~/.kestrel/`)
 
 | Ruta | Propósito |
 |------|-----------|
-| `~/.hermes/config.yaml` | Configuración (modelo, terminal, toolsets, compresión, etc.) |
-| `~/.hermes/.env` | Claves API y secretos |
-| `~/.hermes/auth.json` | Credenciales OAuth (Nous Portal) |
-| `~/.hermes/skills/` | Todas las habilidades activas (incluidas + instaladas desde hub + creadas por el agente) |
-| `~/.hermes/memories/` | Memoria persistente (MEMORY.md, USER.md) |
-| `~/.hermes/state.db` | Base de datos de sesiones SQLite |
-| `~/.hermes/sessions/` | Índice de enrutamiento del gateway (`sessions.json`), migas de pan de solicitudes, transcripciones `*.jsonl` del gateway y exportaciones explícitas con `/save`. Ya no se escriben snapshots JSON automáticos; los archivos existentes se conservan y state.db es canónica. |
-| `~/.hermes/cron/` | Datos de trabajos programados |
-| `~/.hermes/whatsapp/session/` | Credenciales del puente WhatsApp |
+| `~/.kestrel/config.yaml` | Configuración (modelo, terminal, toolsets, compresión, etc.) |
+| `~/.kestrel/.env` | Claves API y secretos |
+| `~/.kestrel/auth.json` | Credenciales OAuth (Nous Portal) |
+| `~/.kestrel/skills/` | Todas las habilidades activas (incluidas + instaladas desde hub + creadas por el agente) |
+| `~/.kestrel/memories/` | Memoria persistente (MEMORY.md, USER.md) |
+| `~/.kestrel/state.db` | Base de datos de sesiones SQLite |
+| `~/.kestrel/sessions/` | Índice de enrutamiento del gateway (`sessions.json`), migas de pan de solicitudes, transcripciones `*.jsonl` del gateway y exportaciones explícitas con `/save`. Ya no se escriben snapshots JSON automáticos; los archivos existentes se conservan y state.db es canónica. |
+| `~/.kestrel/cron/` | Datos de trabajos programados |
+| `~/.kestrel/whatsapp/session/` | Credenciales del puente WhatsApp |
 
 ---
 
@@ -224,7 +224,7 @@ Mensaje del usuario → AIAgent._run_agent_loop()
 
 - **Herramientas auto-registradas**: Cada archivo de herramienta llama a `registry.register()` en el momento de importación. `model_tools.py` activa el descubrimiento importando todos los módulos de herramientas.
 - **Agrupación en toolsets**: Las herramientas se agrupan en toolsets (`web`, `terminal`, `file`, `browser`, etc.) que pueden habilitarse/deshabilitarse por plataforma.
-- **Persistencia de sesión**: Todas las conversaciones se almacenan en SQLite (`hermes_state.py`) con búsqueda de texto completo y títulos de sesión únicos.
+- **Persistencia de sesión**: Todas las conversaciones se almacenan en SQLite (`kestrel_state.py`) con búsqueda de texto completo y títulos de sesión únicos.
 - **Inyección efímera**: Los prompts del sistema y los mensajes de relleno se inyectan en el momento de la llamada API, nunca se persisten en la base de datos ni en los logs.
 - **Abstracción de proveedor**: El agente funciona con cualquier API compatible con OpenAI. La resolución del proveedor ocurre en el momento de la inicialización.
 - **Enrutamiento de proveedor**: Al usar OpenRouter, `provider_routing` en config.yaml controla la selección del proveedor.
@@ -342,7 +342,7 @@ prerequisites:                     # Requisitos de tiempo de ejecución heredado
   env_vars: [MY_API_KEY]
   commands: [curl, jq]
 metadata:
-  hermes:
+  kestrel:
     tags: [Categoría, Subcategoría, Palabras clave]
     related_skills: [other-skill-name]
     fallback_for_toolsets: [web]
@@ -375,7 +375,7 @@ Todo skill nuevo o modernizado — incluido, opcional o contribuido — debe cum
 
 1. **`description` ≤ 60 caracteres, una oración, termina con punto.** Las descripciones largas saturan la UI de listado de habilidades. Indica la capacidad, no la implementación. Sin palabras de marketing ("potente", "completo", "fluido", "avanzado").
 
-2. **Las herramientas referenciadas en el cuerpo de SKILL.md deben ser herramientas nativas de Hermes o servidores MCP que la habilidad espere explícitamente.** Usa los nombres de herramientas en comillas invertidas: `` `terminal` ``, `` `web_extract` ``, `` `web_search` ``, `` `read_file` ``, `` `write_file` ``, etc.
+2. **Las herramientas referenciadas en el cuerpo de SKILL.md deben ser herramientas nativas de Kestrel o servidores MCP que la habilidad espere explícitamente.** Usa los nombres de herramientas en comillas invertidas: `` `terminal` ``, `` `web_extract` ``, `` `web_search` ``, `` `read_file` ``, `` `write_file` ``, etc.
 
 3. **El campo `platforms:` auditado contra las importaciones reales del script.** Las habilidades que usen primitivos solo de POSIX deben declarar sus plataformas soportadas.
 
@@ -393,11 +393,11 @@ Todo skill nuevo o modernizado — incluido, opcional o contribuido — debe cum
 
 ## Añadir una Skin / Tema
 
-Hermes usa un sistema de skins basado en datos — no se necesitan cambios de código para añadir una nueva skin.
+Kestrel usa un sistema de skins basado en datos — no se necesitan cambios de código para añadir una nueva skin.
 
 **Opción A: Skin de usuario (archivo YAML)**
 
-Crea `~/.hermes/skins/<nombre>.yaml`:
+Crea `~/.kestrel/skins/<nombre>.yaml`:
 
 ```yaml
 name: mitema
@@ -429,7 +429,7 @@ Todos los campos son opcionales — los valores faltantes se heredan de la skin 
 
 **Opción B: Skin integrada**
 
-Añade al dict `_BUILTIN_SKINS` en `hermes_cli/skin_engine.py`. Usa el mismo esquema que arriba pero como dict de Python.
+Añade al dict `_BUILTIN_SKINS` en `kestrel_cli/skin_engine.py`. Usa el mismo esquema que arriba pero como dict de Python.
 
 **Activar:**
 - CLI: `/skin mitema` o establece `display.skin: mitema` en config.yaml
@@ -438,7 +438,7 @@ Añade al dict `_BUILTIN_SKINS` en `hermes_cli/skin_engine.py`. Usa el mismo esq
 
 ## Compatibilidad Multiplataforma
 
-Hermes se ejecuta en Linux, macOS y Windows nativo (además de WSL2). Al escribir código
+Kestrel se ejecuta en Linux, macOS y Windows nativo (además de WSL2). Al escribir código
 que toca el SO, asume que *cualquier* plataforma puede alcanzar tu ruta de código.
 
 > **Antes de hacer PR:** ejecuta `scripts/check-windows-footguns.py` para detectar
@@ -471,7 +471,7 @@ que toca el SO, asume que *cualquier* plataforma puede alcanzar tu ruta de códi
 
 ## Consideraciones de Seguridad
 
-Hermes tiene acceso al terminal. La seguridad importa.
+Kestrel tiene acceso al terminal. La seguridad importa.
 
 ### Protecciones existentes
 
@@ -523,7 +523,7 @@ refactor/descripcion   # Reestructuración de código
 ### Antes de enviar
 
 1. **Ejecutar tests**: `scripts/run_tests.sh` (recomendado; igual que CI) o `pytest tests/ -v` con el venv del proyecto activado
-2. **Probar manualmente**: Ejecuta `hermes` y ejercita la ruta de código que cambiaste
+2. **Probar manualmente**: Ejecuta `kestrel` y ejercita la ruta de código que cambiaste
 3. **Verificar impacto multiplataforma**: Si tocas E/S de archivos, gestión de procesos o manejo del terminal, considera macOS, Linux y WSL2
 4. **Mantén los PRs enfocados**: Un cambio lógico por PR. No mezcles una corrección de error con una refactorización con una nueva funcionalidad.
 
@@ -566,8 +566,8 @@ test(tools): añadir tests unitarios para file_operations
 
 ## Reportar Issues
 
-- Usa [GitHub Issues](https://github.com/NousResearch/kestrel-agent/issues)
-- Incluye: SO, versión de Python, versión de Hermes (`hermes --version`), traza de error completa
+- Usa [GitHub Issues](https://github.com/sepiol026-wq/Kestrel/issues)
+- Incluye: SO, versión de Python, versión de Kestrel (`kestrel --version`), traza de error completa
 - Incluye pasos para reproducir
 - Verifica los issues existentes antes de crear duplicados
 - Para vulnerabilidades de seguridad, por favor reporta de forma privada

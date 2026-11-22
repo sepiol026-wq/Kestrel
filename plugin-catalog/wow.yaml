@@ -4,7 +4,7 @@
 # Hermes plugin-catalog entry template for `wow`.
 #
 # Render with packaging/catalog/validate_catalog.py --sha <40-hex mirror commit>.
-# The rendered file goes into NousResearch/kestrel-agent as plugin-catalog/wow.yaml,
+# The rendered file goes into sepiol026-wq/Kestrel as plugin-catalog/wow.yaml,
 # one file, one commit. Do not edit the rendered copy by hand.
 name: wow
 title: WoW Hermes

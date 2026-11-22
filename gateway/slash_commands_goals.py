@@ -346,3 +346,19 @@ class GatewayGoalCommandsMixin:
         if result.get("created") and _quiet_bool(lambda: goal_blocks_loop_tick(mgr.session_id)):
             output += t("gateway.loop.goal_defers_note")
         return output
+
+    async def _handle_continue_command(self, event: MessageEvent) -> str:
+        """Handle /continue (/c, /cont, /proceed) — continue goal or task immediately."""
+        mgr, _session_entry = await self._get_goal_manager_for_event(event)
+        if mgr and mgr.has_goal():
+            # Delegate to /goal resume with kickoff=True
+            event_resume = MessageEvent(
+                text="/goal resume",
+                source=event.source,
+                channel_prompt=event.channel_prompt,
+            )
+            return await self._handle_goal_command(event_resume)
+
+        prompt = "Continue where you left off. Proceed with the task and finish the remaining steps autonomously."
+        self._enqueue_goal_turn(event, prompt, label="continue kickoff", kickoff=True)
+        return "▶ Continuing task autonomously..."

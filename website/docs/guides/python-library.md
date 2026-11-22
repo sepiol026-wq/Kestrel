@@ -15,7 +15,7 @@ Hermes isn't just a CLI tool. You can import `AIAgent` directly and use it progr
 Clone Hermes and prepare its source environment through PM. The Bash recipe is:
 
 ```bash
-git clone https://github.com/NousResearch/kestrel-agent.git
+git clone https://github.com/sepiol026-wq/Kestrel.git
 cd kestrel-agent
 source ./activate
 ```

@@ -1,6 +1,6 @@
 """`hermes memory status` should explain *why* a provider is unavailable.
 
-Regression coverage for NousResearch/kestrel-agent#2765: when the selected
+Regression coverage for sepiol026-wq/Kestrel#2765: when the selected
 provider reports unavailable, status lists the missing env vars and surfaces
 the systemd/gateway ``.env``-inheritance gotcha that most often causes it.
 """

@@ -38,7 +38,7 @@ def test_blobless_checkout_fetches_its_blobs_in_one_gzipped_request(tmp_path):
 
     site = N.HttpSite(recording_app)
     try:
-        cp = subprocess.run(["git", "clone", "-q", "--filter=blob:none", f"{site.url}/NousResearch/kestrel-agent.git",
+        cp = subprocess.run(["git", "clone", "-q", "--filter=blob:none", f"{site.url}/sepiol026-wq/Kestrel.git",
                              str(tmp_path / "checkout")], capture_output=True, text=True, timeout=300, check=False)
     finally:
         site.close()

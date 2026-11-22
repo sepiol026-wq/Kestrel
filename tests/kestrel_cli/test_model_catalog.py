@@ -248,7 +248,7 @@ class TestFallbackChain:
 
     PRIMARY = "https://kestrel-agent.nousresearch.com/docs/api/model-catalog.json"
     FALLBACK = (
-        "https://raw.githubusercontent.com/NousResearch/kestrel-agent"
+        "https://raw.githubusercontent.com/sepiol026-wq/Kestrel"
         "/main/website/static/api/model-catalog.json"
     )
 

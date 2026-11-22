@@ -1,6 +1,6 @@
 """Structured-output (``response_format``) handling on auxiliary routes that reject it.
 
-Covers NousResearch/kestrel-agent#83390 / #105191 / #113064 for the aux callers that attach
+Covers sepiol026-wq/Kestrel#83390 / #105191 / #113064 for the aux callers that attach
 ``response_format`` (``agent/title_generator.py`` and ``agent/plugin_llm.py``): a fallback candidate
 that rejects ``json_schema`` gets the same retry-without-the-field rung as the primary path instead of
 aborting the task, and a route+model known to reject a ``response_format`` type (provider profile or a

@@ -13,7 +13,7 @@ required_credential_files:
 metadata:
   hermes:
     tags: [Google, Gmail, Calendar, Drive, Sheets, Docs, Contacts, Email, OAuth]
-    homepage: https://github.com/NousResearch/kestrel-agent
+    homepage: https://github.com/sepiol026-wq/Kestrel
     related_skills: [himalaya]
 ---
 

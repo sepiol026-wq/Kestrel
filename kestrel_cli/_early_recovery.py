@@ -1065,7 +1065,7 @@ def _resume_killed_rollback(git, fields: dict[str, str], git_dir: Path, root: Pa
         back = (f"`git -C {root} checkout {ref}`" if ref
                 else f"`git -C {root} checkout --detach {fields.get('target', '').strip()[:10] or pre[:10]}`")
         print(f"⚠ An interrupted `kestrel update` rollback to {pre[:10]} was not resumed: HEAD now names "
-              f"another branch. Switch back with {back}, then launch `hermes` again to finish it.",
+              f"another branch. Switch back with {back}, then launch `kestrel` again to finish it.",
               file=sys.stderr)
         return None
     # A syntax rollback killed before it moved HEAD back: redo that step (HEAD and index, no file),

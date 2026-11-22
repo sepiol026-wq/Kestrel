@@ -680,7 +680,7 @@ def _stub_search(monkeypatch, results):
 
 
 @pytest.mark.parametrize("identifier", [
-    "computer-use", "NousResearch/kestrel-agent/skills/productivity/pdf",
+    "computer-use", "sepiol026-wq/Kestrel/skills/productivity/pdf",
     "skills-sh/nousresearch/kestrel-agent/google-workspace", "blender-bpy-enhanced"])
 def test_install_by_name_resolves_to_the_skill_it_names(monkeypatch, tmp_path, identifier):
     """`hermes skills install <bundled skill>` failed every time: the name resolved to a stranger's

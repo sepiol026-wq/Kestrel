@@ -1,4 +1,4 @@
-# Entry for NousResearch/kestrel-agent — plugin-catalog/anvilads.yaml
+# Entry for sepiol026-wq/Kestrel — plugin-catalog/anvilads.yaml
 # Schema per plugin-catalog/README.md in that repo (checked Nov 8, 2026).
 # The pinned package is "Agent Plugins v1" (plugin.json + mcp.json +
 # skills/) — the same format as aave-mcp.yaml in the catalog. Our root

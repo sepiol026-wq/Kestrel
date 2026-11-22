@@ -9,7 +9,7 @@
 <p align="center">
   <a href="https://kestrel-agent.nousresearch.com/docs/"><img src="https://img.shields.io/badge/Docs-hermes--agent.nousresearch.com-FFD700?style=for-the-badge" alt="Documentación"></a>
   <a href="https://discord.gg/NousResearch"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"></a>
-  <a href="https://github.com/NousResearch/kestrel-agent/blob/main/LICENSE"><img src="https://img.shields.io/badge/Licencia-MIT-green?style=for-the-badge" alt="Licencia: MIT"></a>
+  <a href="https://github.com/sepiol026-wq/Kestrel/blob/main/LICENSE"><img src="https://img.shields.io/badge/Licencia-AGPLv3-0284C7?style=for-the-badge" alt="Licencia: AGPLv3"></a>
   <a href="https://nousresearch.com"><img src="https://img.shields.io/badge/Creado%20por-Nous%20Research-blueviolet?style=for-the-badge" alt="Creado por Nous Research"></a>
   <a href="README.md"><img src="https://img.shields.io/badge/Lang-English-blue?style=for-the-badge" alt="English"></a>
   <a href="README.zh-CN.md"><img src="https://img.shields.io/badge/Lang-中文-red?style=for-the-badge" alt="中文"></a>
@@ -42,7 +42,7 @@ curl -fsSL https://kestrel-agent.nousresearch.com/install.sh | bash
 
 ### Windows (nativo, PowerShell)
 
-> **Nota:** En Windows nativo, Hermes funciona sin WSL — la CLI, el gateway, la TUI y las herramientas funcionan de forma nativa. Si prefieres usar WSL2, el comando de Linux/macOS de arriba también funciona allí. ¿Encontraste un error? Por favor [crea un issue](https://github.com/NousResearch/kestrel-agent/issues).
+> **Nota:** En Windows nativo, Hermes funciona sin WSL — la CLI, el gateway, la TUI y las herramientas funcionan de forma nativa. Si prefieres usar WSL2, el comando de Linux/macOS de arriba también funciona allí. ¿Encontraste un error? Por favor [crea un issue](https://github.com/sepiol026-wq/Kestrel/issues).
 
 Ejecuta esto en PowerShell:
 
@@ -193,7 +193,7 @@ de verificación están en [Development Setup](CONTRIBUTING.md#development-setup
 
 - 💬 [Discord](https://discord.gg/NousResearch)
 - 📚 [Skills Hub](https://agentskills.io)
-- 🐛 [Issues](https://github.com/NousResearch/kestrel-agent/issues)
+- 🐛 [Issues](https://github.com/sepiol026-wq/Kestrel/issues)
 - 🔌 [computer-use-linux](https://github.com/avifenesh/computer-use-linux) — Servidor MCP de control de escritorio Linux para Hermes y otros hosts MCP, con árboles de accesibilidad AT-SPI, entrada Wayland/X11, capturas de pantalla y targeting de ventanas del compositor.
 - 🔌 [HermesClaw](https://github.com/AaronWong1999/hermesclaw) — Puente WeChat comunitario: Ejecuta Kestrel Agent y OpenClaw en la misma cuenta de WeChat.
 
@@ -201,6 +201,6 @@ de verificación están en [Development Setup](CONTRIBUTING.md#development-setup
 
 ## Licencia
 
-MIT — ver [LICENSE](LICENSE).
+AGPLv3 — ver [LICENSE](LICENSE).
 
 Creado por [Nous Research](https://nousresearch.com).

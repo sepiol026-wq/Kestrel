@@ -46,11 +46,11 @@ uv2nix 环境、覆盖包、插件依赖和开发 shell 使用同一个解释器
 
 ```bash
 # 直接运行（首次使用时构建，之后使用缓存）
-nix run github:NousResearch/kestrel-agent -- setup
-nix run github:NousResearch/kestrel-agent -- chat
+nix run github:sepiol026-wq/Kestrel -- setup
+nix run github:sepiol026-wq/Kestrel -- chat
 
 # 或持久化安装
-nix profile install github:NousResearch/kestrel-agent
+nix profile install github:sepiol026-wq/Kestrel
 hermes setup
 hermes chat
 ```
@@ -61,7 +61,7 @@ hermes chat
 <summary><strong>从本地克隆构建</strong></summary>
 
 ```bash
-git clone https://github.com/NousResearch/kestrel-agent.git
+git clone https://github.com/sepiol026-wq/Kestrel.git
 cd kestrel-agent
 nix build
 ./result/bin/hermes setup
@@ -86,7 +86,7 @@ nix build
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    kestrel-agent.url = "github:NousResearch/kestrel-agent";
+    kestrel-agent.url = "github:sepiol026-wq/Kestrel";
   };
 
   outputs = { nixpkgs, kestrel-agent, ... }: {
@@ -696,7 +696,7 @@ services.kestrel-agent = {
 
 ```nix
 {
-  inputs.kestrel-agent.url = "github:NousResearch/kestrel-agent";
+  inputs.kestrel-agent.url = "github:sepiol026-wq/Kestrel";
   outputs = { kestrel-agent, nixpkgs, ... }: {
     nixpkgs.overlays = [ kestrel-agent.overlays.default ];
     # 然后：

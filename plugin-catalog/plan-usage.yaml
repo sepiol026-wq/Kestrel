@@ -11,7 +11,7 @@ version: "0.2.0"
 title: "Plan Usage"
 platforms: []
 known_issues:
-  - "Claude windows at exactly 1% used can show as 100% (and warn): Hermes core reads Anthropic's utilization as a 0-1 fraction. Plan Usage shows what Hermes reports. Upstream issue NousResearch/kestrel-agent#145660 (fix PRs #139916 and #145663, both open)."
+  - "Claude windows at exactly 1% used can show as 100% (and warn): Hermes core reads Anthropic's utilization as a 0-1 fraction. Plan Usage shows what Hermes reports. Upstream issue sepiol026-wq/Kestrel#145660 (fix PRs #139916 and #145663, both open)."
   - "Usage rows are matched to pool accounts by label in pool order; give each account its own --label so two accounts are never confused."
 capabilities:
   provides_tools: []

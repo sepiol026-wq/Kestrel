@@ -1,6 +1,6 @@
-# Catalog entry for NousResearch/kestrel-agent, plugin-catalog/neuron-steer.yaml
+# Catalog entry for sepiol026-wq/Kestrel, plugin-catalog/neuron-steer.yaml
 # Schema and admission rules verified against plugin-catalog/README.md in
-# NousResearch/kestrel-agent on 2026-11-11 (category "tools" is a listed
+# sepiol026-wq/Kestrel on 2026-11-11 (category "tools" is a listed
 # shelf; image may be empty; sha is a mandatory full 40-char pin).
 name: neuron-steer
 repo: https://github.com/mrfentmen/hermes-neuron-steer

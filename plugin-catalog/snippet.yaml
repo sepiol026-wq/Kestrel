@@ -13,7 +13,7 @@ version: "1.0.0"
 readme: true
 platforms: []
 known_issues:
-  - "Portable hermes mcp login against this package does not start OAuth today (https://github.com/NousResearch/kestrel-agent/issues/87253). Sign in with hermes mcp add and keep trust: untrusted."
+  - "Portable hermes mcp login against this package does not start OAuth today (https://github.com/sepiol026-wq/Kestrel/issues/87253). Sign in with hermes mcp add and keep trust: untrusted."
 capabilities:
   provides_tools: []
   provides_hooks: []

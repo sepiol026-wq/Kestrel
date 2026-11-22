@@ -17,7 +17,7 @@ known_issues:
   - "Hermes Desktop keeps a packaged plugin's page off until you enable it once: Capabilities → Plugins → Butler - Proactive Assistant."
   - "The plugin's manifest name is `butler`; it cannot be installed alongside another plugin whose manifest name is also `butler`."
   - "Message reactions and threaded replies (butler_expression / butler_imessage react, reply, edit, unsend) are disabled and fail closed until the gateway can bind a message ID to the active chat."
-  - "iMessage screen/bubble effects and polls are disabled and fail closed until Hermes adds send_effect/send_poll verbs to ctx.platform_actions (NousResearch/kestrel-agent#154299); images and voice notes are sent as normal reply attachments."
+  - "iMessage screen/bubble effects and polls are disabled and fail closed until Hermes adds send_effect/send_poll verbs to ctx.platform_actions (sepiol026-wq/Kestrel#154299); images and voice notes are sent as normal reply attachments."
   - "Watches are polled local files; there is no webhook receiver."
   - "Phone calling needs your own LiveKit SIP trunk and credentials, and live call audio needs the optional voice worker running (pip extra 'voice' plus OPENAI_API_KEY). The phone path is unit-tested but has not yet been exercised end to end against a real SIP trunk and carrier call."
   - "Background check-ins bind only to a DM or local session; if your only recent sessions are group chats, DM Butler once before running Quick Setup."

@@ -1360,7 +1360,7 @@ class TestConvertToolsToAnthropicDedup:
 
     Anthropic rejects requests with duplicate tool names.  This guard converts
     a hard failure into a warning log.  See:
-    https://github.com/NousResearch/kestrel-agent/issues/18478
+    https://github.com/sepiol026-wq/Kestrel/issues/18478
     """
 
     def _make_openai_tool(self, name: str) -> dict:
@@ -1816,7 +1816,7 @@ def test_oauth_system_prompt_sanitizer_preserves_docs_url():
                     "Kestrel Agent by Nous Research uses kestrel-agent skills. "
                     "Docs: https://kestrel-agent.nousresearch.com/docs ; "
                     "interpreter ~/.hermes/kestrel-agent/venv/bin/python ; "
-                    "source github.com/NousResearch/kestrel-agent ; mail kestrel-agent@example.com ; "
+                    "source github.com/sepiol026-wq/Kestrel ; mail kestrel-agent@example.com ; "
                     "skill_view(name='kestrel-agent') ; kestrel-agent's docs ; built by kestrel-agent."
                 ),
             },
@@ -1834,7 +1834,7 @@ def test_oauth_system_prompt_sanitizer_preserves_docs_url():
     # Paths and repo slugs are addresses too: a subagent told to run
     # ``~/.hermes/claude-code/venv/bin/python`` fails on a file that does not exist.
     assert "~/.hermes/kestrel-agent/venv/bin/python" in system_text
-    assert "github.com/NousResearch/kestrel-agent" in system_text
+    assert "github.com/sepiol026-wq/Kestrel" in system_text
     assert "kestrel-agent@example.com" in system_text
     assert "skill_view(name='kestrel-agent')" in system_text  # a quoted slug is an identifier
     assert "built by claude-code." in system_text  # a sentence-final dot is prose
