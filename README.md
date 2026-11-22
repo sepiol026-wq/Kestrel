@@ -61,8 +61,20 @@ transform data, all in a single call. Toggle with `/codemode`.
 ### Browser that does not fold
 An integrated stealth browser (Camoufox) with humanised input, so pages behind
 Cloudflare, DataDome, Akamai and similar walls open instead of returning a
-challenge page. Useful for research, panel access, and anything that decides
-whether you are a robot before it decides whether to answer.
+challenge page. It is one tool among many, not a trick: no faked User-Agent
+strings, no header games. When a page decides by JavaScript, the browser runs the
+JavaScript; when it does not, Kestrel uses a CLI and the answer is faster.
+
+### Hacker toolbox
+The agent drives ordinary Unix security tools through the shell and knows which
+one fits which job — ports and services (`nmap`, `masscan`, `naabu`), web
+(`ffuf`, `feroxbuster`, `whatweb`, `nuclei`, `wpscan`, `nikto`, `sqlmap`,
+`katana`), credential work (`hydra`, `medusa`, `john`, `hashcat`, `sshpass`),
+tunnels and pivots (`ssh -D/-L/-R`, `proxychains4`, `socat`), packet truth
+(`tcpdump`, `tshark`), Active Directory (`netexec`, `impacket`), and container
+runtimes (`docker`, `kubectl`, `nomad`, `crictl`). The full map, including what to
+install and when to skip it, ships as the `security-toolbox` skill; run
+`scripts/kestrel-tools-check.sh` to see what is already on a host.
 
 ### Codebase knowledge graph
 Structural analysis of a repository — modules, symbols, dependency edges, hub
