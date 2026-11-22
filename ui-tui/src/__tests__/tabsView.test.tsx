@@ -13,7 +13,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { $codeTab, noteCodeEnd, noteCodeStart, resetCodeRuns, setCodeTab } from '../app/tabStore.js'
 import { patchUiState, resetUiState } from '../app/uiStore.js'
 import { CodePane } from '../components/codePane.js'
-import { TabBar } from '../components/tabBar.js'
+import { TabBar, tabCellColors } from '../components/tabBar.js'
 import { DEFAULT_THEME } from '../theme.js'
 
 const paint = (element: React.ReactElement, columns = 100): string => {
@@ -70,10 +70,10 @@ describe('TabBar', () => {
     // The cell is " 1 vector search " — number, then title, in that order.
     expect(view).toContain('1 vector search')
     expect(view).toContain('2 hotaru port')
-    // The code tab sits after the sessions, the new-session button after it.
-    expect(view.indexOf('vector search')).toBeLessThan(view.indexOf('3 code'))
-    expect(view).toContain('3 code')
-    expect(view).toContain('+ new session')
+    // Modes are a separate group behind a divider, after every session tab.
+    expect(view).toContain('▐ code ▌')
+    expect(view.indexOf('hotaru port')).toBeLessThan(view.indexOf('▐ code ▌'))
+    expect(view.indexOf('▐ code ▌')).toBeLessThan(view.indexOf('+ new session'))
   })
 
   it('marks the selected session, not the first one', () => {
@@ -91,6 +91,13 @@ describe('TabBar', () => {
     // Selected tab (2) is the one the window is built around: it stays visible
     // even when the strip is too narrow for both.
     expect(paint(<TabBar actions={noopActions} cols={40} />)).toContain('2 second')
+  })
+
+  it('paints the selected tab on the selection background, and the rest plain', () => {
+    // Ink renders styles through chalk, which is level 0 under a test runner: assert
+    // the decision the cell paints with, not the escape codes ansi would carry.
+    expect(tabCellColors(true, DEFAULT_THEME)).toEqual({ bg: DEFAULT_THEME.color.selectionBg, fg: DEFAULT_THEME.color.text })
+    expect(tabCellColors(false, DEFAULT_THEME)).toEqual({ bg: undefined, fg: DEFAULT_THEME.color.muted })
   })
 
   it('swaps a running session number for a spinner frame', () => {

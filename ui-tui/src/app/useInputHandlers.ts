@@ -44,7 +44,7 @@ import { togglePasteSections } from './pasteStore.js'
 import { respondToServerRequest } from './serverRequestStore.js'
 import { turnController } from './turnController.js'
 import { patchTurnState } from './turnStore.js'
-import { $uiState, getUiState } from './uiStore.js'
+import { $uiState, getUiState, patchUiState } from './uiStore.js'
 
 const isCtrl = (key: { ctrl: boolean }, ch: string, target: string) => key.ctrl && ch.toLowerCase() === target
 
@@ -675,6 +675,8 @@ export function useInputHandlers(ctx: InputHandlerContext): InputHandlerResult {
   // still the dedicated discard (pushes the draft to history so Up recalls it).
   // On an idle, empty composer Esc primes backtrack and a second Esc browses.
   const lastEscRef = useRef(0)
+  // Ctrl+C only exits on the second press inside this window (first press reports itself).
+  const lastCtrlCRef = useRef(0)
 
   // A primed backtrack ends when a turn starts; a session switch also drops an armed edit.
   useEffect(
@@ -695,10 +697,33 @@ export function useInputHandlers(ctx: InputHandlerContext): InputHandlerResult {
     const live = getUiState()
     const isVoiceKey = key.escape && isVoiceToggleKey(key, ch, voice.recordKey)
     const now = Date.now()
+
     // Escape-configured voice bindings (ctrl/alt/super+escape PTT) must win
     // over the double-Esc interrupt, exactly as they win over the generic
     // Esc handlers below — two quick PTT presses are a stop/start pair,
     // not an interrupt.
+    // Esc stops a running turn at once. A draft still clears (below), and an
+    // open prompt overlay keeps owning the key until it is answered.
+    if (
+      key.escape &&
+      !isVoiceKey &&
+      !isBlocked &&
+      live.busy &&
+      live.sid &&
+      !cState.input &&
+      !cState.inputBuf.length
+    ) {
+      lastEscRef.current = 0
+      void turnController.interruptTurn({
+        appendMessage: actions.appendMessage,
+        gw: gateway.gw,
+        sid: live.sid,
+        sys: actions.sys
+      })
+
+      return
+    }
+
     const isDouble = key.escape && !isVoiceKey && now - lastEscRef.current <= DOUBLE_ESC_MS
 
     if (key.escape) {
@@ -965,6 +990,17 @@ export function useInputHandlers(ctx: InputHandlerContext): InputHandlerResult {
       if (cancelPendingRewind(actions.sys)) {
         return
       }
+
+      // Idle exit is a deliberate double press: the first reports itself in the
+      // status rule so a stray Ctrl+C never closes the app mid-reading.
+      if (now - lastCtrlCRef.current > DOUBLE_ESC_MS) {
+        lastCtrlCRef.current = now
+        patchUiState({ status: t('tabs.ctrlCAgain') })
+
+        return
+      }
+
+      lastCtrlCRef.current = 0
 
       return handleIdleHotkeyExit(actions, DASHBOARD_TUI_MODE, () => {
         gateway.gw.publishLocalEvent({

@@ -16,6 +16,8 @@ export const tabsEn = {
     codeInput: 'in',
     codeOutput: 'out',
     codeRunning: 'running…',
-    codeTitle: 'code mode'
+    codeTitle: 'code mode',
+    ctrlCAgain: 'ctrl+c again to exit',
+    compact: (index: number, total: number) => `${index}/${total}`
   }
 }

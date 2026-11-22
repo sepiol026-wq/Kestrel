@@ -1353,6 +1353,8 @@
   "tabs.codeOutput",
   "tabs.codeRunning",
   "tabs.codeTitle",
+  "tabs.compact",
+  "tabs.ctrlCAgain",
   "tabs.cycleHint",
   "tabs.hiddenLeft",
   "tabs.hiddenRight",

@@ -7,6 +7,7 @@
 import '../sdk/apps/index.js'
 
 import { AlternateScreen, Box, NoSelect, ScrollBox, Text } from '@hermes/ink'
+import { mix } from '@hermes/shared/color'
 import { useStore } from '@nanostores/react'
 import { Fragment, memo, type MutableRefObject, useEffect, useMemo, useRef } from 'react'
 
@@ -387,7 +388,10 @@ const ComposerPane = memo(function ComposerPane({
 
   const promptWidth = composerPromptWidth(promptText)
   const promptBlank = ' '.repeat(promptWidth)
-  const inputColumns = stableComposerColumns(composer.cols, promptWidth, TERMUX_TUI_MODE)
+  // The composer sits in a rounded frame: 2 cells of border + 2 of inner padding.
+  const framedCols = Math.max(12, composer.cols - 4)
+  // One cell of slack: an exact-width input could push the frame's right edge off.
+  const inputColumns = stableComposerColumns(framedCols - 1, promptWidth, TERMUX_TUI_MODE)
   // A paste expanded for editing can be taller than the screen: show a window
   // of rows that follows the cursor instead of pushing it off the bottom.
   const inputSel = useStore($inputSelection)
@@ -497,7 +501,13 @@ const ComposerPane = memo(function ComposerPane({
         {!nativeMode && composer.input === '?' && !composer.inputBuf.length && <HelpHint t={ui.theme} />}
 
         {!isBlocked && (
-          <>
+          <Box
+            borderColor={ui.busy ? ui.theme.color.accent : ui.theme.color.border}
+            borderStyle="round"
+            flexDirection="column"
+            // Phones/Termux: the frame's own padding would eat the text width.
+            paddingX={composer.cols < 50 ? 0 : 1}
+          >
             {composer.inputBuf.map((line, i) => (
               <Box key={i}>
                 <Box width={promptWidth}>
@@ -517,7 +527,7 @@ const ComposerPane = memo(function ComposerPane({
               onMouseDrag={dragFromPromptRow}
               onMouseUp={endInputDrag}
               position="relative"
-              width={Math.max(1, composer.cols - 2)}
+              width={framedCols}
             >
               <Box width={promptWidth}>
                 {sh ? (
@@ -560,7 +570,16 @@ const ComposerPane = memo(function ComposerPane({
             </Box>
 
             <PasteHint hint={composer.pasteHint} indent={promptWidth} t={ui.theme} />
-          </>
+          </Box>
+        )}
+
+        {!isBlocked && (
+          // Raised look: a half-block shadow one row under the frame.
+          <Box paddingX={1}>
+            <Text color={mix(ui.theme.color.border, '#000000', 0.35)}>
+              {'▁'.repeat(Math.max(0, composer.cols - 2))}
+            </Text>
+          </Box>
         )}
       </Box>
 

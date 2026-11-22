@@ -434,7 +434,7 @@ function SpawnHud({ t }: { t: Theme }) {
   )
 }
 
-function SessionDuration({ startedAt }: { startedAt: number }) {
+function SessionDuration({ hidden = false, startedAt }: { hidden?: boolean; startedAt: number }) {
   const [now, setNow] = useState(() => Date.now())
   const isOccluded = useStore($isStatusRuleOccluded)
 
@@ -452,7 +452,9 @@ function SessionDuration({ startedAt }: { startedAt: number }) {
     return () => clearInterval(id)
   }, [isOccluded, startedAt])
 
-  return fmtDuration(now - startedAt)
+  // A clock counting up from launch read as noise: the read-out stays empty until
+  // the session has produced something (a running turn, or a finished one).
+  return hidden ? '' : fmtDuration(now - startedAt)
 }
 
 function IdleSince({ endedAt }: { endedAt: number }) {
@@ -796,7 +798,7 @@ export function StatusRule({
         {showDuration ? (
           <Text color={t.color.muted} wrap="truncate-end">
             {' │ '}
-            <SessionDuration startedAt={sessionStartedAt!} />
+            <SessionDuration hidden={!busy && lastTurnEndedAt == null} startedAt={sessionStartedAt!} />
           </Text>
         ) : null}
         {showIdle ? (

@@ -21,6 +21,9 @@ import { WidgetGrid } from './widgetGrid.js'
 
 const LOADER_TICK_MS = 120
 
+/** A version the gateway could not resolve arrives as the word "unknown" — print nothing then. */
+const knownVersion = (version?: string) => Boolean(version && !/^unknown$/i.test(version.trim()))
+
 function InlineLoader({ label, t }: { label: string; t: Theme }) {
   const [tick, setTick] = useState(0)
   const spinner = unicodeSpinners.braille
@@ -377,7 +380,6 @@ export function SessionPanel({ info, maxWidth, sid, t }: SessionPanelProps) {
 
       <Text color={t.color.accent}>
         {(info.model ?? '').split('/').pop()}
-        <Text color={t.color.muted}> · Nous Research</Text>
       </Text>
 
       <Text color={t.color.muted} wrap="truncate-end">
@@ -399,7 +401,7 @@ export function SessionPanel({ info, maxWidth, sid, t }: SessionPanelProps) {
         <Box justifyContent="center" marginBottom={1}>
           <Text bold color={t.color.primary}>
             {t.brand.name}
-            {info.version ? ` v${info.version}` : ''}
+            {knownVersion(info.version) ? ` v${info.version}` : ''}
             {info.release_date ? ` (${info.release_date})` : ''}
           </Text>
         </Box>
@@ -409,7 +411,6 @@ export function SessionPanel({ info, maxWidth, sid, t }: SessionPanelProps) {
         <Box flexDirection="column" marginBottom={1}>
           <Text color={t.color.accent} wrap="truncate-end">
             {(info.model ?? '').split('/').pop()}
-            <Text color={t.color.muted}> · Nous Research</Text>
           </Text>
           <Text color={t.color.muted} wrap="truncate-end">
             {info.cwd || process.cwd()}
