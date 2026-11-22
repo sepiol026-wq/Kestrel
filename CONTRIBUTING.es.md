@@ -73,7 +73,7 @@ Esto no es una barra de calidad — es una decisión de acoplamiento y mantenimi
 
 Se requieren Git y git-lfs. PM proporciona Python 3.14 (`>=3.14,<3.15`) y las herramientas fijadas.
 Sigue el [flujo de desarrollo de PM](website/docs/reference/package-management.md#developer-workflow).
-Selecciona un `HERMES_HOME` de desarrollo antes de preparar el checkout.
+Selecciona un `KESTREL_HOME` de desarrollo antes de preparar el checkout.
 
 En Bash, desde la raíz del repositorio:
 
@@ -296,7 +296,7 @@ importado por `discover_builtin_tools()` en `tools/registry.py` cuando `model_to
 se carga. **No** hay una lista de importaciones manual en `model_tools.py` que mantener.
 
 Todavía debes añadir el nombre de la herramienta a la lista apropiada en `toolsets.py`
-(por ejemplo `_HERMES_CORE_TOOLS` o un toolset dedicado); de lo contrario la herramienta
+(por ejemplo `_KESTREL_CORE_TOOLS` o un toolset dedicado); de lo contrario la herramienta
 se registra pero nunca se expone al agente.
 
 Consulta `AGENTS.md` (sección **Adding New Tools**) para rutas conscientes del perfil y

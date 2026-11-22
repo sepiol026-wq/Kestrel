@@ -1,11 +1,11 @@
-# hermes_cli/ + cli.py — CLI, slash commands, config, skins, updater, profiles
+# kestrel_cli/ + cli.py — CLI, slash commands, config, skins, updater, profiles
 
 Applies on top of the root `AGENTS.md`. Long-form: `website/docs/developer-guide/cli-internals.md`.
 
 ## CLI architecture
 
-`cli.py` holds `HermesCLI` (REPL loop, config, slash dispatch); behaviour lives in mixins
-`hermes_cli/cli_commands_mixin.py`, `cli_stream_mixin.py`, `cli_status_bar_mixin.py`,
+`cli.py` holds `KestrelCLI` (REPL loop, config, slash dispatch); behaviour lives in mixins
+`kestrel_cli/cli_commands_mixin.py`, `cli_stream_mixin.py`, `cli_status_bar_mixin.py`,
 `cli_billing_mixin.py`, `cli_tui_mixin.py` (widgets, keybindings, panels), `cli_tui_runtime_mixin.py`
 (run-loop phases: input dispatch, startup, signals, shutdown), `cli_init_mixin.py` (the `__init__`
 phases), ... Module-level helpers live in topical siblings that `cli.py` re-exports:
@@ -19,27 +19,27 @@ Moved bodies late-bind cli-level names via `from cli import ...` at call time, s
 handles input + autocomplete; `KawaiiSpinner` (`agent/display.py`) animates API calls and prints
 the `┊` activity feed. `load_cli_config()` in `cli.py` merges CLI defaults + user YAML.
 
-`hermes_cli/gateway.py` is the `hermes gateway` facade (process discovery, PM-aware systemd unit
+`kestrel_cli/gateway.py` is the `kestrel gateway` facade (process discovery, PM-aware systemd unit
 generation/refresh, command dispatch); topical siblings re-exported by the facade include
 `gateway_launchd.py` (macOS LaunchAgent backend), `gateway_setup_wizard.py`
-(`hermes gateway setup`: `_PLATFORMS` registry, status table, per-platform prompts, service offer),
+(`kestrel gateway setup`: `_PLATFORMS` registry, status table, per-platform prompts, service offer),
 `gateway_windows*.py`, `gateway_supervised_restart.py`, `gateway_migrate*.py`, `gateway_multiplex_*.py`,
 `gateway_enroll.py`, `gateway_command_errors.py`. Sibling bodies read facade names through `_gw()`
-(late binding on `hermes_cli.gateway`), so monkeypatch on the facade; mutable state such as
+(late binding on `kestrel_cli.gateway`), so monkeypatch on the facade; mutable state such as
 `_resolved_launchd_domain` stays a facade global.
 `process_command()` resolves the canonical name via `resolve_command()` then dispatches through
-`HermesCLI._SLASH_DISPATCH` (`canonical -> (method name, pass_arg)`), falling back to a
+`KestrelCLI._SLASH_DISPATCH` (`canonical -> (method name, pass_arg)`), falling back to a
 `_handle_<name>_command` method by naming convention. **There is no `elif` ladder — do not add one.**
-Skill slash commands (`agent/skill_commands.py`) scan `~/.hermes/skills/` and inject as a **user
+Skill slash commands (`agent/skill_commands.py`) scan `~/.kestrel/skills/` and inject as a **user
 message**, never into the system prompt (prompt caching).
 
-Rules: all interactive menu-pickers use curses (`hermes_cli/curses_ui.py`; example
-`hermes_cli/tools_config.py`). Never emit `\033[K` (ANSI erase-to-EOL) in spinner/display code —
+Rules: all interactive menu-pickers use curses (`kestrel_cli/curses_ui.py`; example
+`kestrel_cli/tools_config.py`). Never emit `\033[K` (ANSI erase-to-EOL) in spinner/display code —
 it leaks as literal `?[K` under prompt_toolkit's `patch_stdout`; space-pad instead:
 `f"\r{line}{' ' * pad}"`. Wrapper CLIs extend via the protected hooks in `cli_tui_mixin.py`
 (`website/docs/developer-guide/extending-the-cli.md`), not by overriding `run()`.
 
-## Slash command registry (`hermes_cli/commands.py`)
+## Slash command registry (`kestrel_cli/commands.py`)
 
 `COMMAND_REGISTRY` (list of `CommandDef`) is the single source; everything derives from it: CLI
 dispatch (`resolve_command()`), gateway `GATEWAY_KNOWN_COMMANDS` + dispatch, `gateway_help_lines()`,
@@ -63,14 +63,14 @@ invalidation with `--now` opt-in (root invariant).
 
 ### Shared goal commands
 
-`hermes_cli/goal_command.py::dispatch_goal_command` owns `/goal` parsing and manager
+`kestrel_cli/goal_command.py::dispatch_goal_command` owns `/goal` parsing and manager
 mutations. CLI, messaging gateway, TUI/Desktop/dashboard and Desktop goal controls
 all delegate there; adapters only resolve sessions, authorize gate creation, render
 results, and schedule kickoff/continuation prompts. Async callers preserve ContextVars
 when running dispatch off-loop (drafting uses profile-scoped auxiliary credentials).
 Do not add a surface-specific goal parser. ACP has no goal command or goal loop yet.
 
-## Config system (`hermes_cli/config.py`)
+## Config system (`kestrel_cli/config.py`)
 
 - **config.yaml option:** add to `DEFAULT_CONFIG`. Bump `_config_version` ONLY to actively
   migrate/transform existing config (rename keys, restructure); new keys deep-merge automatically.
@@ -83,49 +83,49 @@ archive_after_days, backup.*`.
   `{"description", "prompt", "url", "password": True, "category": provider|tool|messaging|setting}`.
   Non-secret settings go in config.yaml; if internal code needs an env mirror, bridge it in code
   (`gateway_timeout`; `terminal.cwd` → `TERMINAL_CWD`). `MESSAGING_CWD` is removed and `TERMINAL_CWD`
-  in `.env` is deprecated — the loader warns; canonical is `terminal.cwd`. `hermes config
+  in `.env` is deprecated — the loader warns; canonical is `terminal.cwd`. `kestrel config
 set/get/unset <NAME>` route any bare name registered in `OPTIONAL_ENV_VARS` / `_EXTRA_ENV_KEYS`
   (or carrying a `setup_hidden_env` platform suffix) to `.env` via `config_env_routing.py` — the
   file the platform setup flows write — never to the top level of config.yaml.
 - **One writer seam.** Every write of a `config.yaml` (main or profile) goes through
-  `hermes_cli.config.atomic_config_write` (refuses deletion by omission) or the explicit
+  `kestrel_cli.config.atomic_config_write` (refuses deletion by omission) or the explicit
   `atomic_config_replace` full-state path (→ `utils.atomic_roundtrip_yaml_save`, ruamel
   round-trip): formatting survives, and the fail-closed unreadable-file guard runs first. Deliberate `pop()`/unset/migration paths use `atomic_config_replace`; additive
   writers stay on `atomic_config_write`. Never call
   `atomic_yaml_write` / `yaml.dump` / `yaml.safe_dump` on a config path — `scripts/check_config_yaml_writers.py`
-  (CI lint) rejects it, and `tests/hermes_cli/test_config_yaml_comment_preservation.py` guards each
+  (CI lint) rejects it, and `tests/kestrel_cli/test_config_yaml_comment_preservation.py` guards each
   path (#92554). The commented example blocks are appended only when the file is created.
 - **Reads** too go only through `config_backend.py`; see `developer-guide/config-backend.md`.
   In daemon, RPC and tick code catch `ConfigBackendUnavailable` explicitly: it is a `SystemExit`, so `except Exception` won't stop it.
 - **Three loaders — know which you're in:** `load_cli_config()` (CLI, `cli.py`); `load_config()`
-  (`hermes tools/setup`, most subcommands, `hermes_cli/config.py`, merges `DEFAULT_CONFIG`);
-  `hermes_cli/config_effective.py::load_user_config_effective()` (gateway runtime via
-  `gateway/run.py::_load_gateway_config`, TUI gateway `_load_cfg`, cron, `hermes send`, doctor,
-  `hermes_time`/`hermes_logging`: user file + managed overlay + `${VAR}` expansion + model-key
+  (`kestrel tools/setup`, most subcommands, `kestrel_cli/config.py`, merges `DEFAULT_CONFIG`);
+  `kestrel_cli/config_effective.py::load_user_config_effective()` (gateway runtime via
+  `gateway/run.py::_load_gateway_config`, TUI gateway `_load_cfg`, cron, `kestrel send`, doctor,
+  `kestrel_time`/`kestrel_logging`: user file + managed overlay + `${VAR}` expansion + model-key
   canon, NO defaults — for presence-sensitive readers). If the CLI sees a key and the gateway
   doesn't (or vice versa), you're on the wrong loader — check `DEFAULT_CONFIG` coverage. Never
   hand-roll raw-read → overlay → expand; `read_user_config_raw` is for write-back round-trips only.
 - **Every `DEFAULT_CONFIG` key has a runtime reader, and every reader a registry entry.** Both drift
   modes are silent: a registered key nothing reads (a knob that does nothing) and a reader of a key
   never registered (never shown, never migrated; new roots also go in `_KNOWN_ROOT_KEYS`). For a new
-  key: `rg -n '"<key>"' hermes_cli/config_defaults.py` AND `rg -n '<key>' --glob '!tests' .` both hit,
+  key: `rg -n '"<key>"' kestrel_cli/config_defaults.py` AND `rg -n '<key>' --glob '!tests' .` both hit,
   and one invariant test sets it in a temp `config.yaml` and asserts the behaviour through the loader
   the consuming surface uses. Under multiplex the process env never overrides a profile's YAML.
 - **Working directory:** CLI uses `os.getcwd()`; messaging uses `terminal.cwd`, bridged to
   `TERMINAL_CWD` for child tools.
 
-## Skin engine (`hermes_cli/skin_engine.py`)
+## Skin engine (`kestrel_cli/skin_engine.py`)
 
 Skins are **pure data** (`SkinConfig`); no code change to add one. `init_skin_from_config()` reads
 `display.skin` at startup; `get_active_skin()` (cached), `set_active_skin(name)` (`/skin`),
-`load_skin(name)` (user `~/.hermes/skins/*.yaml` → built-ins → default; missing values inherit
+`load_skin(name)` (user `~/.kestrel/skins/*.yaml` → built-ins → default; missing values inherit
 from `default`). Built-ins in `_BUILTIN_SKINS`: `default`, `ares`, `mono`, `slate`. Keys: `colors.*`
 (banner border/title/accent/dim/text, response_border), `spinner.*` (waiting/thinking faces,
 thinking_verbs, wings), `tool_prefix`, `tool_emojis`, `branding.*` (agent_name, welcome,
 response_label, prompt_symbol). Consumers: `banner.py`, `display.py`, `cli.py`. Key-by-key table
 and YAML template: `website/docs/user-guide/features/skins.md`.
 
-## Update pipeline (`hermes update`)
+## Update pipeline (`kestrel update`)
 
 Transactional, `plan → snapshot → apply → restart-per-kind → verify → report`; every stage guards a
 real field failure (fleet campaign #91277), and a PR that weakens a stage answers for that class.
@@ -146,10 +146,10 @@ The stage-by-stage contract: `website/docs/developer-guide/cli-internals.md` § 
 
 ## Profiles (multi-instance)
 
-`_apply_profile_override()` in `hermes_cli/main.py` sets `HERMES_HOME` before any module import for
-single-profile commands (`hermes -p x <cmd>`), so there `get_hermes_home()` scopes to the active
+`_apply_profile_override()` in `kestrel_cli/main.py` sets `KESTREL_HOME` before any module import for
+single-profile commands (`kestrel -p x <cmd>`), so there `get_kestrel_home()` scopes to the active
 profile. The multiplex gateway and the Desktop/dashboard `serve` backend instead bind the active
-profile per activity via a contextvar override while `os.environ["HERMES_HOME"]` keeps the launch
+profile per activity via a contextvar override while `os.environ["KESTREL_HOME"]` keeps the launch
 profile — a module constant or import-time read there freezes to the launch profile (rules in
 root). Profiles are independent
 islands by design — no live config inheritance; `--clone` copies at creation, minus messaging
@@ -162,7 +162,7 @@ and TUI all go through it). Clones are built in `profiles/.<name>.staging-<pid>`
 symlinked `.env`/`config.yaml` are materialized first so a clone never writes through to its source. Multiplex
 (`gateway.multiplex_profiles`) secret-scope rules: `gateway/AGENTS.md`. The served set is
 `profiles.py::profiles_to_serve(multiplex=True)` = default + every live dir under `profiles/` — live =
-carries an identity marker (`hermes_constants.named_profile_has_identity`: `config.yaml`/`.env`/`SOUL.md`/
+carries an identity marker (`kestrel_constants.named_profile_has_identity`: `config.yaml`/`.env`/`SOUL.md`/
 `profile.yaml`/`auth.json`/`state.db`) and is not tombstoned. A marker-less dir (cron/log side-effect
 shell, stray infrastructure dir) is never listed, served, ticked, `.env`-backfilled or resolvable via `-p`
 (#95188, #99392); `profile create` replaces it only when it is also tombstoned (a live marker-less dir may hold user
@@ -170,16 +170,16 @@ files — fail closed, never rmtree). A dangling symlinked marker still counts a
 `tools/bot_mode_probe._roster` (Bot Mode teammate roster, `bot_relay.deliver` target check) applies the same
 predicate. There is no allowlist (`gateway.multiplex_profile_allowlist` was retired in config v43).
 Enumeration is a pure read: never `mkdir` a profile home from a served path (`SessionDB`, logging,
-cron all go through `mkdir_under_hermes_home` / `_ensure_cron_dir`, which refuse a deleted or
+cron all go through `mkdir_under_kestrel_home` / `_ensure_cron_dir`, which refuse a deleted or
 missing named profile, #94590). Process-global per-profile slots (MCP discovery in `mcp_startup.py`,
-tool registry overlays) key on `hermes_constants.hermes_home_key()`, never a single flag.
+tool registry overlays) key on `kestrel_constants.kestrel_home_key()`, never a single flag.
 `gateway.multiplex_profiles` defaults to **on**, but `GatewayConfig` keeps an unset flag `None` and
 `gateway_multiplex_mode.resolve_multiplex_mode` settles it once per boot (called from
 `load_gateway_config_for_runner`): default profile, >= 2 profiles, no standalone secondary gateway,
 no preflight blocker, migratable host → `True`; else `False` + a logged reason. Explicit values pass
 through. CLI/dashboard readers use `default_gateway_multiplexes` (live `served_profiles` record, then
 the explicit flag) — never the merged default, which would guess a verdict only the gateway makes.
-Migration from per-profile gateways: `hermes_cli/gateway_migrate.py` (`hermes gateway migrate
+Migration from per-profile gateways: `kestrel_cli/gateway_migrate.py` (`kestrel gateway migrate
 --multiplex`, the only mode — `--standalone` is deleted and a per-profile fleet is not a supported
 target; table-driven `_PREFLIGHT_CHECKS`; manifest `<default>/gateway_migration.json` = UNFINISHED,
 a re-run resumes from it; a named profile's `gateway install|start|run` refuse without `--force` via
@@ -187,11 +187,11 @@ a re-run resumes from it; a named profile's `gateway install|start|run` refuse w
 `web_server_gateway.py::multiplexed_profile_refusal`);
 `update_cmd_fleet_verify._verify_fleet_after_update` calls `maybe_auto_migrate_after_update` on the success
 path only; `gateway_migrate_guards.py` holds the auto-path-only refusals (table `_AUTO_MIGRATION_GUARDS`:
-other service domain / UNIX user / HERMES_HOME outside `profiles/` — notices for the explicit command,
+other service domain / UNIX user / KESTREL_HOME outside `profiles/` — notices for the explicit command,
 blockers for the hook) and the `gateway.auto_multiplex_migration` opt-out (#109954). Blockers reuse `GatewayRunner._adapter_credential_fingerprint` and `platform_binds_port`;
 "has a `/p/<profile>/` ingress" is the adapter class attribute `serves_profile_prefix` — set it on a
 new HTTP-inbound adapter when it answers the prefix, never extend a list here.
-`hermes gateway restart` for a gateway Hermes did not install (custom launchd agent / unit running
+`kestrel gateway restart` for a gateway Kestrel did not install (custom launchd agent / unit running
 `gateway run --external-supervisor`): `gateway_supervised_restart.py` — the gateway's SELF-declared
 supervisor (control-socket `identify` answering anything but `manual`, OR the argv marker) decides; hand back via SIGUSR1 and wait
 for a fresh supervised PID, never stop + foreground `run_gateway` (that stamps the CLI's PID and wedges
@@ -203,16 +203,16 @@ never a dir-owner fallback), `gateway_launchd.py::generate_launchd_plist` (`gui/
 `~/Library/LaunchAgents` glob; the whole launchd backend — plist refresh, `launchctl` bootstrap/kickstart,
 `launchd_start/stop/restart/status`, detached-process degrade — lives in that sibling, with the domain cache
 `_resolved_launchd_domain` staying a facade global), Windows Scheduled Task and the Desktop-spawned backend all carry the
-profile's `HERMES_HOME` (and `HOME` for the service user) explicitly — a supervisor starts with an
+profile's `KESTREL_HOME` (and `HOME` for the service user) explicitly — a supervisor starts with an
 empty environment, so the env override that makes `-p` work interactively does not exist there. A
 change to install/restart/status regenerates and diffs every kind; both user and system units are
 recorded when both exist. Process liveness is `(pid, start_time)` or the canonical matchers
 (`gateway.status.live_gateway_pid_for_home`), never bare PID existence.
 
-## Nous free tier (`hermes_cli/anon_auth.py`)
+## Nous free tier (`kestrel_cli/anon_auth.py`)
 
 `anon_auth.run_sign_in()` is the one sign-in composition: it yields `SignInState`s that carry their
 own `.copy` / `.copy_terminal`, persists only after a completed promotion AND a token grant, and runs
-`settle_after_upgrade` exactly once per completion. `hermes auth upgrade`, the CLI and gateway
+`settle_after_upgrade` exactly once per completion. `kestrel auth upgrade`, the CLI and gateway
 `/login` and the desktop poller are renderers over it; the desktop's plain device-code login
 (`_nous_plain_poller`) stays a separate path. Long form: `cli-internals.md` § Nous free tier sign-in.
