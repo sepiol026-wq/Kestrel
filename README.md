@@ -74,7 +74,9 @@ tunnels and pivots (`ssh -D/-L/-R`, `proxychains4`, `socat`), packet truth
 (`tcpdump`, `tshark`), Active Directory (`netexec`, `impacket`), and container
 runtimes (`docker`, `kubectl`, `nomad`, `crictl`). The full map, including what to
 install and when to skip it, ships as the `security-toolbox` skill; run
-`scripts/kestrel-tools-check.sh` to see what is already on a host.
+`scripts/kestrel-tools-check.sh` to see what is already on a host, and
+`scripts/install-security-toolbox.sh` to provision the whole chain (apt/dnf/pacman
+packages, Go binaries into `~/.local/bin`, pipx tools) in one idempotent pass.
 
 ### Codebase knowledge graph
 Structural analysis of a repository — modules, symbols, dependency edges, hub
