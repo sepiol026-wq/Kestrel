@@ -13,7 +13,7 @@ import threading
 import pytest
 
 from tests.gateway.fixtures.replay_gap_owner import FINAL, Owner, frame_cap  # frame_cap: autouse
-from tests.hermes_cli.test_gateway_agent import SID, FakeClient, connect_with, frame
+from tests.kestrel_cli.test_gateway_agent import SID, FakeClient, connect_with, frame
 
 GAP = frame("session.replay_gap", {}, admission=None)
 

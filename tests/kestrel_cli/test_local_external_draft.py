@@ -21,8 +21,8 @@ import pytest
 from kestrel_cli.local_runtime import bootstrap, catalog, presets
 from kestrel_cli.local_runtime.catalog import AssetFile, CatalogEntry, QuantVariant
 from kestrel_cli.local_runtime.estimator import HardwareBudget
-from tests.hermes_cli import test_local_download_jobs
-from tests.hermes_cli.test_local_download_jobs import poll
+from tests.kestrel_cli import test_local_download_jobs
+from tests.kestrel_cli.test_local_download_jobs import poll
 
 client = test_local_download_jobs.client  # the download-jobs app, for this file's route tests
 

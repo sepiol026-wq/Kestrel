@@ -10,8 +10,8 @@ Ensure returns a ready owner before discovery, so the discovery-path repair in
 """
 import pytest
 
-from tests.hermes_cli import test_gateway_windows_dead_launcher as dead_launcher
-from tests.hermes_cli.test_gateway_windows_dead_launcher import _interpreter
+from tests.kestrel_cli import test_gateway_windows_dead_launcher as dead_launcher
+from tests.kestrel_cli.test_gateway_windows_dead_launcher import _interpreter
 
 store_update = dead_launcher.store_update  # the Store-update fixture, on a default and a custom home
 

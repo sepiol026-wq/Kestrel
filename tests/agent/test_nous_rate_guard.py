@@ -11,7 +11,7 @@ import time
 
 import pytest
 
-from tests.hermes_cli.anon_portal import make_jwt
+from tests.kestrel_cli.anon_portal import make_jwt
 
 
 @pytest.fixture

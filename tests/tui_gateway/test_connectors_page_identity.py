@@ -6,7 +6,7 @@
 """The desktop Connectors page, the CLI and the agent tool, and the guest identity behind hosted connectors.
 
 Contracts, for a user with no Nous identity (the fake account service in
-``tests.hermes_cli.anon_portal``, Hermes' real RPC handlers and CLI):
+``tests.kestrel_cli.anon_portal``, Hermes' real RPC handlers and CLI):
 - opening the page (list, catalog, accounts) creates no identity; the catalog comes from the Portal's
   public route, asked once and without a bearer, and rules are refused rather than invented
 - ``hermes connectors list`` and the agent's ``manage_connections`` status each create exactly one
@@ -25,7 +25,7 @@ import pytest
 
 import tui_gateway.server as srv
 from kestrel_cli import free_tier_offer
-from tests.hermes_cli.anon_portal import install_portal
+from tests.kestrel_cli.anon_portal import install_portal
 from tests.waiting import wait_until
 from tools.connectors import live
 

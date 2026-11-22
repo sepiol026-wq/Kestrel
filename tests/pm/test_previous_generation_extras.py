@@ -19,7 +19,7 @@ from pm.environments import install_state_dir, runtime_facts_path
 from pm.lock import Facts
 import pytest
 
-from tests.hermes_cli import test_first_generation_carries_legacy_extras as _legacy
+from tests.kestrel_cli import test_first_generation_carries_legacy_extras as _legacy
 
 
 # The pre-PM carry suite's tree and real PM sync wiring, past its migration.

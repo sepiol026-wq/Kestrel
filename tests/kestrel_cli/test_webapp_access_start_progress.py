@@ -26,7 +26,7 @@ from fastapi.testclient import TestClient
 
 @pytest.fixture()
 def client(monkeypatch):
-    from tests.hermes_cli.native_gateway_client import native_desktop_client
+    from tests.kestrel_cli.native_gateway_client import native_desktop_client
 
     return native_desktop_client(monkeypatch)
 
@@ -122,7 +122,7 @@ def test_a_profile_with_its_own_gateway_never_shows_another_gateways_start(resta
     default gateway's Start builds, ``served`` shows it and ``solo`` shows none."""
     from kestrel_cli import webapp
     from kestrel_constants import get_kestrel_home
-    from tests.hermes_cli.native_gateway_client import native_desktop_client
+    from tests.kestrel_cli.native_gateway_client import native_desktop_client
 
     profiles = {"solo": get_kestrel_home() / "profiles" / "solo", "served": get_kestrel_home() / "profiles" / "served"}
     for name, config in (("solo", "gateway:\n  standalone: true\n"), ("served", "")):

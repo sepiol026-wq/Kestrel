@@ -21,7 +21,7 @@ import types
 from kestrel_cli import mcp_startup
 from kestrel_cli import web_server
 from kestrel_cli import web_server_lifecycle
-from tests.hermes_cli.test_dashboard_auth_gate import _stub_uvicorn_run
+from tests.kestrel_cli.test_dashboard_auth_gate import _stub_uvicorn_run
 
 
 def _reset_discovery_state(monkeypatch):

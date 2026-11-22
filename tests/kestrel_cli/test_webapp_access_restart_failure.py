@@ -23,7 +23,7 @@ pytest.importorskip("fastapi")
 
 @pytest.fixture()
 def client(monkeypatch):
-    from tests.hermes_cli.native_gateway_client import native_desktop_client
+    from tests.kestrel_cli.native_gateway_client import native_desktop_client
 
     return native_desktop_client(monkeypatch)
 

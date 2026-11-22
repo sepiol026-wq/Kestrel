@@ -17,8 +17,8 @@ from types import SimpleNamespace
 import pytest
 
 import plugins.dashboard_auth.session_token as session_token_plugin
-from tests.hermes_cli import test_webapp_gated_sign_out as webapp_gate
-from tests.hermes_cli.test_webapp_gated_sign_out import (
+from tests.kestrel_cli import test_webapp_gated_sign_out as webapp_gate
+from tests.kestrel_cli.test_webapp_gated_sign_out import (
     _bearer, _gateway_socket_with, _native_app_sign_in, _renew, _refused)
 
 gated = webapp_gate.gated  # the Webapp behind the sign-in gate, password and OAuth providers registered
@@ -75,7 +75,7 @@ def test_the_refresh_route_refuses_the_deployment_token_before_asking_any_provid
     calling a provider, so an unreachable one cannot turn it into a 503."""
     from kestrel_cli.dashboard_auth import ProviderError, register_provider
     from kestrel_cli.dashboard_auth import routes
-    from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+    from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
     calls, audits = [], []
 

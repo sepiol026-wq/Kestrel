@@ -34,7 +34,7 @@ from starlette.websockets import WebSocketDisconnect
 from kestrel_cli import plugins as plugins_mod
 from kestrel_cli import web_server
 from kestrel_cli.plugin_host import PluginHost
-from tests.hermes_cli import test_plugin_api_consent_gate as consent_gate
+from tests.kestrel_cli import test_plugin_api_consent_gate as consent_gate
 
 daemon = consent_gate.daemon  # the multiplexed daemon stand-in fixture
 _install, _plugins, listed = consent_gate._install, consent_gate._plugins, consent_gate.listed

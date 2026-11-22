@@ -905,7 +905,7 @@ def test_another_viewer_completing_the_clarify_batch_releases_mains_panel(make_a
     close it from the connection thread; the pump then reads the turn's completion instead of sitting
     in the modal until clarify_timeout."""
     import cli
-    from tests.hermes_cli.test_cli_clarify_batch import _make_cli_stub
+    from tests.kestrel_cli.test_cli_clarify_batch import _make_cli_stub
     monkeypatch.setattr(cli, "CLI_CONFIG", {"agent": {"clarify_timeout": 60}})
     panel = _make_cli_stub()
     panel._ring_bell = lambda **kw: None
@@ -936,7 +936,7 @@ def test_another_viewer_answering_a_vault_prompt_releases_mains_panel(make_agent
     until its own 120-180 s deadline instead of reading the rest of the turn."""
     from unittest.mock import MagicMock
     from agent.vault_backends import unlock
-    from tests.hermes_cli.test_cli_clarify_batch import _make_cli_stub
+    from tests.kestrel_cli.test_cli_clarify_batch import _make_cli_stub
     panel = _make_cli_stub()
     panel._sudo_state = None
     panel._sudo_deadline = 0

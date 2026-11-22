@@ -168,7 +168,7 @@ async def test_a_reaction_on_an_earlier_segments_row_resets_the_poller(tmp_path,
 async def test_a_reaction_resets_the_poller_after_an_older_build_opened_the_store(tmp_path, monkeypatch):
     """An older Hermes sharing the profile opens state.db writable between two polls (its DDL path runs over
     the revision trigger), then the held row gets a reaction: the next poll still resets onto it."""
-    from tests.hermes_state.test_transcript_revision_trigger_skew import open_as_older_build
+    from tests.kestrel_state.test_transcript_revision_trigger_skew import open_as_older_build
     with _session(tmp_path, monkeypatch) as (db, _authority, owner, ref, target):
         db.append_message(target, 'user', 'question 1')
         held = db.append_message(target, 'assistant', 'answer 1')

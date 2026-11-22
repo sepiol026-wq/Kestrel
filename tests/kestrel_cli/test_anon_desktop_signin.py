@@ -21,8 +21,8 @@ from fastapi.testclient import TestClient
 from kestrel_cli import anon_auth
 from kestrel_cli.auth import _load_auth_store
 from kestrel_cli.web_server import _SESSION_TOKEN, app
-from tests.hermes_cli.anon_portal import as_local_desktop_backend, claimed_trial
-from tests.hermes_cli.test_anon_upgrade import (
+from tests.kestrel_cli.anon_portal import as_local_desktop_backend, claimed_trial
+from tests.kestrel_cli.test_anon_upgrade import (
     EMAIL, FREE_PICK, INFERENCE, PORTAL, WELCOME, _model_config, _write_model_config, free_account, portal)
 
 client = TestClient(app)

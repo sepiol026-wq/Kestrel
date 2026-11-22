@@ -15,7 +15,7 @@ from fastapi.testclient import TestClient
 
 from kestrel_cli import web_server
 from kestrel_cli.dashboard_auth import clear_providers, register_provider
-from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
 
 @pytest.fixture

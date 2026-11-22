@@ -11,7 +11,7 @@ import contextlib
 import pytest
 
 from kestrel_cli import anon_auth, install_state, welcome_trial
-from tests.hermes_cli.anon_portal import as_local_desktop_backend, claimed_trial, install_portal, off_local_desktop
+from tests.kestrel_cli.anon_portal import as_local_desktop_backend, claimed_trial, install_portal, off_local_desktop
 
 
 @pytest.fixture

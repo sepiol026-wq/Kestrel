@@ -21,7 +21,7 @@ from kestrel_cli import left_core_migration as lcm
 from kestrel_cli import plugin_catalog as pc_cat
 from kestrel_cli import plugins_cmd as pc
 from kestrel_cli import plugins_manifest
-from tests.hermes_cli.test_plugins_cmd_catalog import _commit, _head, world  # world: the seeded catalog + plugins dir
+from tests.kestrel_cli.test_plugins_cmd_catalog import _commit, _head, world  # world: the seeded catalog + plugins dir
 from tests.pm._fixtures import client, isolated_python  # fixtures world needs
 
 pytestmark = pytest.mark.skipif(shutil.which("git") is None, reason="git not available")

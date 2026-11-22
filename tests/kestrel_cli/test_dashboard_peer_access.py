@@ -34,7 +34,7 @@ from kestrel_cli.dashboard_auth import ProviderError, TokenPrincipal, clear_prov
 from kestrel_cli.profiles import get_profile_dir
 from kestrel_cli.web_routers import peer as peer_routes
 from kestrel_constants import get_kestrel_home
-from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider, _sign
+from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider, _sign
 
 AGENT_KEY = "local-api-server-key-0123456789abcdef"
 MESSAGE, CONTROL = "agents:message", "agents:control"

@@ -29,7 +29,7 @@ from kestrel_state import (
     classify_persistence_error, refuse_deleted_wal_generation,
 )
 from kestrel_state_dbfile import _pread_db_header, iter_deleted_sqlite_sidecar_holders
-from tests.hermes_state._wal_generation_harness import (
+from tests.kestrel_state._wal_generation_harness import (
     gateway_writer, integrity_ok_path, lose_sidecars, make_db, message_count, pin_wal, require_wal,
     write_second_generation,
 )

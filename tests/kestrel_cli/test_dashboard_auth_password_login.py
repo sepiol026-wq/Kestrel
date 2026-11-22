@@ -44,7 +44,7 @@ from kestrel_cli.dashboard_auth.routes import (
     _reset_password_rate_limit,
 )
 from kestrel_cli.web_server_lifecycle import _dashboard_forwarded_allow_ips
-from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
 
 # ---------------------------------------------------------------------------

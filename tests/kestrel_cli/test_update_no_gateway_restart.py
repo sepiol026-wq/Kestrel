@@ -10,7 +10,7 @@ import shutil
 
 from kestrel_cli import update_completion
 from kestrel_cli.subcommands.update import build_update_parser
-from tests.hermes_cli.test_update_completion_process import transition
+from tests.kestrel_cli.test_update_completion_process import transition
 
 
 def test_restart_deferral_crosses_real_completion_process(transition):

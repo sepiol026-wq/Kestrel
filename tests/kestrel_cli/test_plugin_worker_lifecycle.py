@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import pytest
 
-from tests.hermes_cli.plugin_worker_support import (
+from tests.kestrel_cli.plugin_worker_support import (
     plugin_world as plugin_world,  # noqa: PLC0414 -- the self-alias is load-bearing: it suppresses F811 for the pytest fixture parameter shadowing this import
     isolated_python as isolated_python,  # noqa: PLC0414 -- the self-alias is load-bearing: it suppresses F811 for the pytest fixture parameter shadowing this import
 )
@@ -66,7 +66,7 @@ def test_declaration_consent_admission_and_resync(plugin_world, monkeypatch, cap
 def test_active_force_reinstall_decline_preserves_entire_selection(plugin_world, monkeypatch):
     from kestrel_cli import plugins_cmd
     from pm import paths
-    from tests.hermes_cli.plugin_worker_support import git, version
+    from tests.kestrel_cli.plugin_worker_support import git, version
 
     world = plugin_world
     origin, first = world.origin()
@@ -105,7 +105,7 @@ def test_active_force_reinstall_decline_preserves_entire_selection(plugin_world,
 def test_active_reinstall_does_not_overwrite_a_later_disable(plugin_world, monkeypatch, flag):
     from kestrel_cli import plugins_cmd
     from pm import paths
-    from tests.hermes_cli.plugin_worker_support import version
+    from tests.kestrel_cli.plugin_worker_support import version
 
     world = plugin_world
     origin, first = world.origin()
@@ -131,7 +131,7 @@ def test_malformed_portable_member_cannot_join_a_new_generation(plugin_world, mo
     from kestrel_cli import plugins_cmd
     from kestrel_cli.agent_plugins import PLUGIN_SCHEMA_V1
     from pm import client, paths
-    from tests.hermes_cli.plugin_worker_support import git
+    from tests.kestrel_cli.plugin_worker_support import git
 
     world = plugin_world
     origin, _ = world.origin(surface="pyproject")
@@ -156,7 +156,7 @@ def test_pack_admits_compatible_members_and_reports_conflict(plugin_world, monke
     import json
     import kestrel_yaml as yaml
     from kestrel_cli import plugins_cmd
-    from tests.hermes_cli.plugin_worker_support import git, version
+    from tests.kestrel_cli.plugin_worker_support import git, version
 
     world = plugin_world
     incumbent, first = world.origin()
@@ -206,7 +206,7 @@ def test_concurrent_commands_keep_acknowledged_enables(plugin_world, sibling_pro
     import sys
     import kestrel_yaml as yaml
     from kestrel_constants import set_kestrel_home_override, reset_kestrel_home_override
-    from tests.hermes_cli.plugin_worker_support import worker_command
+    from tests.kestrel_cli.plugin_worker_support import worker_command
 
     world = plugin_world
     homes = [world.home, world.home]

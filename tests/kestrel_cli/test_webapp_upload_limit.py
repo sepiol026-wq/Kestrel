@@ -24,7 +24,7 @@ from kestrel_cli.dashboard_auth import clear_providers, register_provider
 from kestrel_cli.dashboard_auth.cookies import SESSION_AT_COOKIE
 from kestrel_constants import WEBAPP_ATTACHMENT_MAX_BYTES
 from kestrel_cli.web_upload_limit import CHAT_FILE_BODY_MAX_BYTES
-from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
 
 @pytest.fixture

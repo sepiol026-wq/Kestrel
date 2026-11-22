@@ -60,7 +60,7 @@ def test_a_wildcard_webapp_takes_cookie_writes_only_from_its_own_page(tmp_path, 
     from kestrel_cli.config import read_raw_config
     from kestrel_cli.dashboard_auth import clear_providers, register_provider
     from kestrel_constants import get_kestrel_home
-    from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+    from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
     for key in ("bound_host", "bound_port", "auth_required", "trusted_public_hosts"):
         monkeypatch.setattr(web_server.app.state, key, getattr(web_server.app.state, key, None), raising=False)

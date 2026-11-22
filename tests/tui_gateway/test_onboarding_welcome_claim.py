@@ -18,7 +18,7 @@ import pytest
 
 from agent.onboarding_flow import Facts
 from kestrel_cli import anon_auth, install_state
-from tests.hermes_cli.anon_portal import as_local_desktop_backend, install_portal
+from tests.kestrel_cli.anon_portal import as_local_desktop_backend, install_portal
 from tui_gateway import server
 
 
@@ -188,7 +188,7 @@ def test_the_due_answer_is_worked_out_at_boot_and_served_from_there(portal, monk
 
 def _connector_guest_from_another_profile(_managed: Path) -> None:
     from kestrel_cli.auth_nous import _write_shared_nous_state
-    from tests.hermes_cli.anon_portal import PORTAL
+    from tests.kestrel_cli.anon_portal import PORTAL
 
     _write_shared_nous_state({"auth_method": anon_auth.ANON_AUTH_METHOD, "account_tier": anon_auth.ANON_ACCOUNT_TIER,
                               "anon_token": "anon_other", "client_id": anon_auth.ANON_CLIENT_ID,

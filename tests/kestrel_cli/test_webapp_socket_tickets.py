@@ -23,7 +23,7 @@ from fastapi import FastAPI
 from starlette.testclient import TestClient
 from starlette.websockets import WebSocketDisconnect
 
-from tests.hermes_cli.test_web_host_terminal_persistence import IdleBridge, metadata
+from tests.kestrel_cli.test_web_host_terminal_persistence import IdleBridge, metadata
 
 _TOKEN = "a" * 43
 _SESSION = {"X-Hermes-Session-Token": _TOKEN}
@@ -136,8 +136,8 @@ def test_a_signed_in_browser_opens_its_host_shell_with_a_terminal_ticket(webapp,
     """Wildcard host: the dashboard's cookie sign-in mints the ticket, and the shell is that login's."""
     from kestrel_cli.dashboard_auth import clear_providers, register_provider
     from kestrel_cli.dashboard_auth.ws_tickets import _reset_for_tests
-    from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
-    from tests.hermes_cli.test_dashboard_auth_ws_auth import _logged_in
+    from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
+    from tests.kestrel_cli.test_dashboard_auth_ws_auth import _logged_in
 
     server, host = webapp.server, webapp.host
     _reset_for_tests()
@@ -263,8 +263,8 @@ def test_a_signed_in_browser_opens_its_voice_streams_with_their_own_tickets(weba
     open one."""
     from kestrel_cli.dashboard_auth import clear_providers, register_provider
     from kestrel_cli.dashboard_auth.ws_tickets import _reset_for_tests
-    from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
-    from tests.hermes_cli.test_dashboard_auth_ws_auth import _logged_in
+    from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
+    from tests.kestrel_cli.test_dashboard_auth_ws_auth import _logged_in
 
     server = webapp.server
     _reset_for_tests()

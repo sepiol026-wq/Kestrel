@@ -21,7 +21,7 @@ async def test_runtime_preserves_browser_ticket_gate(tmp_path):
     from kestrel_constants import get_kestrel_home
     from kestrel_cli.dashboard_auth import register_provider, clear_providers
     from kestrel_cli.dashboard_auth.ws_tickets import mint_ticket
-    from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+    from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
     home = get_kestrel_home()
     (home / 'config.yaml').write_text('dashboard:\n  public_url: https://gateway.example.test\n')

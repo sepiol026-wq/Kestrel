@@ -20,6 +20,8 @@ def current_name(name: str, moves: dict[str, str]) -> str | None:
         return "kestrel"
     if name.startswith("agent.transports.hermes_"):
         return "agent.transports.kestrel_" + name[len("agent.transports.hermes_"):]
+    if name.startswith("tests.hermes_"):
+        return "tests.kestrel_" + name[len("tests.hermes_"):]
     parts = name.split(".")
     for size in range(len(parts), 0, -1):
         old = ".".join(parts[:size])
@@ -99,6 +101,9 @@ class Finder(importlib.abc.MetaPathFinder):
         if new is None:
             return None
         if self.strict:
+            if fullname not in self.moves and not any(fullname.startswith(f"{k}.") for k in self.moves):
+                if importlib.machinery.PathFinder.find_spec(fullname, path) is not None:
+                    return None
             raise ImportError(f"{fullname} has moved: import {new}", name=fullname)
         parent, _, child = fullname.rpartition(".")
         moved_parent = current_name(parent, self.moves) if parent else None

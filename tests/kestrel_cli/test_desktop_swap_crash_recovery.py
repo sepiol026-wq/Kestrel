@@ -12,7 +12,7 @@ import os
 from pathlib import Path
 
 from kestrel_cli import main_desktop
-from tests.hermes_cli.test_desktop_swap_file_lock_retry import _staged_over_live
+from tests.kestrel_cli.test_desktop_swap_file_lock_retry import _staged_over_live
 
 
 def test_swap_after_a_crash_between_renames_keeps_the_previous_app(tmp_path, monkeypatch):

@@ -18,7 +18,7 @@ from unittest.mock import Mock
 from kestrel_cli.gateway_agent import GatewayAgent
 from kestrel_cli.gateway_connection import GatewayConnection
 from kestrel_cli.gateway_session_store import GatewaySessionStore
-from tests.hermes_cli.test_gateway_agent import SID, FakeClient, connect_with, frame
+from tests.kestrel_cli.test_gateway_agent import SID, FakeClient, connect_with, frame
 from tests.waiting import wait_until
 
 DISPLAY = "Background Process Finished: sleep 6; echo BGDONE"

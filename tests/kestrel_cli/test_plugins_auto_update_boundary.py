@@ -12,7 +12,7 @@ import json
 
 import pytest
 
-from tests.hermes_cli import test_plugin_update_transaction as _tx
+from tests.kestrel_cli import test_plugin_update_transaction as _tx
 from tests.pm import test_plugin_survival_contract as _survival
 
 # Shared fixtures, bound by assignment so the test parameters that request them are not import shadows.
@@ -113,7 +113,7 @@ def test_cli_update_all_skips_a_catalog_install_held_with_ref(tmp_path, monkeypa
     put it, like every other Update all; naming the plugin is what moves it."""
     from kestrel_cli import plugins_cmd, plugins_cmd_update, plugins_updates
     from kestrel_cli.plugins_cmd_update_all import cmd_update_all
-    from tests.hermes_cli.test_plugins_auto_update import _Row, _held_install_metadata
+    from tests.kestrel_cli.test_plugins_auto_update import _Row, _held_install_metadata
 
     home = tmp_path / "hermes-home"
     (home / "plugins" / "held").mkdir(parents=True)

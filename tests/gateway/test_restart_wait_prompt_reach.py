@@ -19,7 +19,7 @@ from kestrel_state_runtime import RuntimeStoreError, begin_runtime_epoch, list_s
 
 @pytest.mark.platforms("linux")
 def test_ensure_hands_out_the_restart_wait_owner_as_draining_with_its_endpoint(tmp_path):
-    from tests.hermes_cli.test_gateway_runtime import control_peer
+    from tests.kestrel_cli.test_gateway_runtime import control_peer
     from kestrel_cli.gateway_runtime import discover_gateway_endpoint
     from kestrel_cli.gateway_runtime_cli import ensure_exit_code
 
@@ -52,7 +52,7 @@ def test_update_fence_hands_out_only_the_draining_owners_restart_wait(tmp_path):
     a stopping one, none at all) stays ``update_paused`` and nothing is ever started."""
     import os
     import time
-    from tests.hermes_cli.test_gateway_runtime import control_peer
+    from tests.kestrel_cli.test_gateway_runtime import control_peer
     from kestrel_cli.gateway_runtime import ensure_gateway_runtime
     from kestrel_cli.update_lock import MARKER_NAME, process_create_time
 
@@ -324,7 +324,7 @@ async def test_restart_wait_lets_a_webapp_tab_dial_back_in_to_answer_the_parked_
 
     from gateway.run_api import GatewayRuntimeAPI
     from gateway.session_authority import LiveSession, SessionAuthority
-    from tests.hermes_cli.test_webapp_socket_tickets import _SESSION, serve_webapp
+    from tests.kestrel_cli.test_webapp_socket_tickets import _SESSION, serve_webapp
     from tests.waiting import async_wait_until
     from tui_gateway import server as tui_server
 
@@ -409,7 +409,7 @@ async def test_restart_wait_admits_a_browser_ticket_only_where_its_gate_redeems_
     """Off the Webapp the loopback dashboard gate takes the legacy ``?token=`` and never redeems a
     ticket, so a ticket-shaped subprotocol beside it is still closed 1013 during the wait."""
     from gateway.run_api import GatewayRuntimeAPI
-    from tests.hermes_cli.test_webapp_socket_tickets import _TOKEN, serve_webapp
+    from tests.kestrel_cli.test_webapp_socket_tickets import _TOKEN, serve_webapp
 
     web = serve_webapp(tmp_path, monkeypatch).server
     monkeypatch.delattr(web.app.state, "ui_surface")  # the gateway's own listener, as on main

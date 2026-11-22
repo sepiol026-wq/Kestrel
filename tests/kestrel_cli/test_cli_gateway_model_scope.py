@@ -14,7 +14,7 @@ from types import SimpleNamespace
 import pytest
 
 from kestrel_cli.model_switch import ModelSwitchResult
-from tests.hermes_cli.test_cli_gateway_model_route import RecordingConnection, _agent, _model_routes
+from tests.kestrel_cli.test_cli_gateway_model_route import RecordingConnection, _agent, _model_routes
 
 _CONFIRM_MESSAGE = "Large context: this switch re-reads the whole session."
 
@@ -34,7 +34,7 @@ class GuardedConnection(RecordingConnection):
 def _cli(monkeypatch, conn):
     import cli as cli_mod
     from kestrel_cli.gateway_session_store import GatewaySessionStore
-    from tests.hermes_cli.test_cli_model_once import _StubCLI
+    from tests.kestrel_cli.test_cli_model_once import _StubCLI
     stub = _StubCLI()
     stub.agent = _agent(conn, model="old/model", provider="openrouter")
     stub._snapshot_model_runtime = cli_mod.HermesCLI._snapshot_model_runtime.__get__(stub)

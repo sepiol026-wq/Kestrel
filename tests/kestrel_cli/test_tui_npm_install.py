@@ -12,7 +12,7 @@ import subprocess
 
 import pytest
 from kestrel_cli import main_tui_launch
-from tests.hermes_cli.test_source_build import source_checkout, source_products, _events
+from tests.kestrel_cli.test_source_build import source_checkout, source_products, _events
 
 
 def _touch_tui_entry(root: Path) -> None:
@@ -275,7 +275,7 @@ def test_fallback_notice_never_holds_an_unwatched_launch(monkeypatch, tmp_path, 
 def test_fresh_bundle_does_not_prepare_or_compile(tui_source, monkeypatch, termux):
     root, acquired = tui_source
     _touch_tui_entry(root / "ui-tui")
-    from tests.hermes_cli.test_source_build import stamp_product
+    from tests.kestrel_cli.test_source_build import stamp_product
     stamp_product(root, "tui", root / "ui-tui/dist")
     if termux:
         monkeypatch.setenv("TERMUX_VERSION", "test")

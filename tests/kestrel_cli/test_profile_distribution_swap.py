@@ -13,7 +13,7 @@ from pathlib import Path
 import pytest
 
 from kestrel_cli.profile_distribution import install_distribution
-from tests.hermes_cli import test_profile_distribution as _base
+from tests.kestrel_cli import test_profile_distribution as _base
 
 _make_staging_dir = _base._make_staging_dir
 profile_env = _base.profile_env

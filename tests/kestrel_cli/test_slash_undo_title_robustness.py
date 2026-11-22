@@ -16,7 +16,7 @@ Covers:
 
 from unittest.mock import patch
 
-from tests.hermes_cli.test_cli_init import _make_cli
+from tests.kestrel_cli.test_cli_init import _make_cli
 
 
 def test_undo_non_numeric_count_keeps_repl_alive():

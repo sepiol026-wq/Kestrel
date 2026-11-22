@@ -32,7 +32,7 @@ from kestrel_cli import plugins as plugins_mod
 from kestrel_cli import web_server
 from kestrel_cli.web_server_dashboard import PluginApiWebSocketGate
 from kestrel_cli.web_server_profiles import _config_profile_scope
-from tests.hermes_cli import test_plugin_api_consent_gate as consent_gate
+from tests.kestrel_cli import test_plugin_api_consent_gate as consent_gate
 
 daemon = consent_gate.daemon  # the multiplexed daemon stand-in fixture
 _plugins = consent_gate._plugins

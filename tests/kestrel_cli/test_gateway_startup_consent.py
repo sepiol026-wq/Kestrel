@@ -13,7 +13,7 @@ import pytest
 
 def test_gateway_launch_honors_interactive_consent_without_policy_environment_mutation(monkeypatch):
     from kestrel_cli import main
-    from tests.hermes_cli.test_cli_startup_model_cost_guard import _chat_args
+    from tests.kestrel_cli.test_cli_startup_model_cost_guard import _chat_args
     captured = []
     monkeypatch.setattr('hermes_cli.config.load_config', lambda: {
         'model': {'provider': 'openai-codex', 'default': 'gpt-5.5'}})

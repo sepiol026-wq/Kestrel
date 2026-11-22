@@ -98,6 +98,7 @@ class PrivilegedIntentsRequired(Exception):
 
 
 def _discord_classifier():
+    pytest.importorskip("plugins.platforms.discord.adapter")
     from plugins.platforms.discord.adapter import DiscordAdapter
 
     # Instance-bound (the intents branch reads the adapter's allowlists to
@@ -109,6 +110,9 @@ def _discord_classifier():
 
 
 class TestDiscordConnectClassification:
+    def setup_method(self):
+        pytest.importorskip("plugins.platforms.discord.adapter")
+
     def test_login_failure_is_terminal(self):
         code, _message, retryable = _discord_classifier()(LoginFailure("Improper token"))
         assert code == "discord_auth_error"
@@ -140,7 +144,11 @@ class TestDiscordConnectClassification:
 
 
 class TestPhotonSidecarStartupClassification:
+    def setup_method(self):
+        pytest.importorskip("plugins.platforms.photon.adapter")
+
     def _make_adapter(self, monkeypatch):
+        pytest.importorskip("plugins.platforms.photon.adapter")
         monkeypatch.setenv("PHOTON_PROJECT_ID", "pid")
         monkeypatch.setenv("PHOTON_PROJECT_SECRET", "psecret")
         from plugins.platforms.photon import adapter as photon_adapter
@@ -205,7 +213,11 @@ class TestPhotonSidecarStartupClassification:
 
 
 class TestEmailConnectClassification:
+    def setup_method(self):
+        pytest.importorskip("plugins.platforms.email.adapter")
+
     def _make_adapter(self, monkeypatch):
+        pytest.importorskip("plugins.platforms.email.adapter")
         for key, value in {
             "EMAIL_ADDRESS": "bot@example.com",
             "EMAIL_PASSWORD": "app-password",

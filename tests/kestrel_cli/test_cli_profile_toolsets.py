@@ -12,7 +12,7 @@ import pytest
 
 from kestrel_cli.gateway_connection import GatewayConnection
 from kestrel_cli.gateway_session_store import GatewaySessionStore
-from tests.hermes_cli.test_gateway_session_store import FakeClient
+from tests.kestrel_cli.test_gateway_session_store import FakeClient
 
 CONFIG = {"agent": {}, "platform_toolsets": {"cli": ["terminal", "gone_plugin"]}}
 
@@ -61,7 +61,7 @@ def _created(client):
 def test_stale_profile_toolset_warns_and_the_session_is_created(store, monkeypatch):
     from gateway.session_local_inventory import _policy_tools, _unknown_toolsets
     from gateway.session_policy import build_policy
-    from tests.hermes_cli import test_gateway_session_store as fake
+    from tests.kestrel_cli import test_gateway_session_store as fake
     db, client = store
     # The gateway judges the profile list against its own plugins and reports the stale name with the
     # session (``unknown_toolsets``); the CLI prints main's "Unknown toolsets" line from it (PLG-7).

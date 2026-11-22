@@ -29,7 +29,7 @@ async def probe(peer, creator):
     from kestrel_cli.dashboard_auth import register_provider, clear_providers
     from kestrel_state_local import local_receipt
     from kestrel_state_runtime import list_session_admissions
-    from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+    from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
     from tests.gateway.test_normal_runtime_boot import control
 
     home = Path(os.environ['HERMES_HOME'])

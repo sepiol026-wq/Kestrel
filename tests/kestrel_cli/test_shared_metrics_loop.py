@@ -17,7 +17,7 @@ from kestrel_cli.observability import relay_shared_metrics
 from kestrel_cli.observability import shared_metrics_loop as loop
 from kestrel_cli.observability.shared_metrics import SharedMetricsStore
 from kestrel_constants import reset_kestrel_home_override, set_kestrel_home_override
-from tests.hermes_cli.test_relay_shared_metrics_runtime import direct_runtime
+from tests.kestrel_cli.test_relay_shared_metrics_runtime import direct_runtime
 
 _LOOP_METRICS = {
     "hermes.memory.op.count", "hermes.curator.run.count", "hermes.delegation.run.count",

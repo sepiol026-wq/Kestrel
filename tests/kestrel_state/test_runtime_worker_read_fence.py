@@ -5,7 +5,7 @@
 
 """Worker read receipts leave the session CAS fence where a client last saw it (W14)."""
 from kestrel_state_runtime import mutate_runtime_session
-from tests.hermes_state.test_runtime_worker_lifecycle import setup_store
+from tests.kestrel_state.test_runtime_worker_lifecycle import setup_store
 
 
 def test_worker_reads_keep_revision_and_writes_still_advance_it(tmp_path):

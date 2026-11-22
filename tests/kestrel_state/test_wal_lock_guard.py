@@ -22,7 +22,7 @@ from pathlib import Path
 import pytest
 
 from kestrel_state import SessionDB
-from tests.hermes_state._wal_generation_harness import make_db, pin_wal, require_wal
+from tests.kestrel_state._wal_generation_harness import make_db, pin_wal, require_wal
 
 pytestmark = pytest.mark.platforms("linux")
 

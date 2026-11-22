@@ -16,7 +16,7 @@ import sys
 import pytest
 
 from kestrel_cli import worktree_ops
-from tests.hermes_cli import test_worktree
+from tests.kestrel_cli import test_worktree
 
 
 @pytest.mark.skipif(sys.platform == "win32", reason="POSIX git shim")

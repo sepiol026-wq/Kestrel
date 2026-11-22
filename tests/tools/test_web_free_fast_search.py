@@ -16,7 +16,7 @@ from threading import Thread
 
 import pytest
 
-from tests.hermes_cli.anon_portal import as_local_desktop_backend
+from tests.kestrel_cli.anon_portal import as_local_desktop_backend
 
 # Anonymous guest: NAS tier claim says "anonymous" — no Portal account behind the identity. It claimed
 # the desktop's welcome trial (``_write_home`` reads it on the local desktop backend).

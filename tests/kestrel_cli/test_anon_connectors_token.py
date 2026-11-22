@@ -25,7 +25,7 @@ from kestrel_cli import anon_auth, anon_challenge
 from kestrel_cli import auth as auth_mod
 from kestrel_cli.auth_nous import resolve_nous_runtime_credentials
 
-from tests.hermes_cli.anon_portal import WELCOME, claimed_trial, install_portal, make_jwt
+from tests.kestrel_cli.anon_portal import WELCOME, claimed_trial, install_portal, make_jwt
 
 
 @pytest.fixture

@@ -17,7 +17,7 @@ from concurrent.futures import ThreadPoolExecutor
 import httpx
 import pytest
 
-from tests.hermes_cli.test_webapp_socket_tickets import _SESSION, serve_webapp
+from tests.kestrel_cli.test_webapp_socket_tickets import _SESSION, serve_webapp
 from tests.waiting import async_wait_until
 
 _WORKERS = 4

@@ -39,7 +39,7 @@ from kestrel_cli.dashboard_auth import (
 )
 from kestrel_cli.dashboard_auth import native_flow
 from kestrel_cli.dashboard_auth.base import Session
-from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
 
 # ---------------------------------------------------------------------------
@@ -430,7 +430,7 @@ def test_status_loopback_mode_has_no_auth_flows():
 @pytest.fixture
 def pw_gated_client():
     from kestrel_cli.dashboard_auth.routes import _reset_password_rate_limit
-    from tests.hermes_cli.test_dashboard_auth_password_login import (
+    from tests.kestrel_cli.test_dashboard_auth_password_login import (
         PasswordProvider,
     )
 
@@ -678,7 +678,7 @@ def test_native_password_login_rejects_cross_provider_completion(
     server-set PKCE cookie. The mismatch is rejected BEFORE credential
     verification and preserves the pending entry, so the user can still
     submit the form the flow was started for."""
-    from tests.hermes_cli.test_dashboard_auth_password_login import (
+    from tests.kestrel_cli.test_dashboard_auth_password_login import (
         PasswordProvider,
     )
 

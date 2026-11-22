@@ -11,8 +11,8 @@ import sqlite3
 from pathlib import Path
 
 import kestrel_state_repair as repair
-from tests.hermes_state import test_fts_cjk_index_retirement as retirement
-from tests.hermes_state.test_state_db_malformed_repair import _corrupt_duplicate_fts
+from tests.kestrel_state import test_fts_cjk_index_retirement as retirement
+from tests.kestrel_state.test_state_db_malformed_repair import _corrupt_duplicate_fts
 
 cjk_db = retirement.cjk_db
 

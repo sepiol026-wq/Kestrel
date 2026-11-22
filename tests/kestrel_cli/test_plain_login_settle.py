@@ -19,8 +19,8 @@ from types import SimpleNamespace
 import pytest
 
 from kestrel_cli import anon_auth, auth_nous
-from tests.hermes_cli.test_guest_handoff import holds_auth_locks
-from tests.hermes_cli.test_anon_upgrade import (
+from tests.kestrel_cli.test_guest_handoff import holds_auth_locks
+from tests.kestrel_cli.test_anon_upgrade import (
     EMAIL, FREE_PICK, INFERENCE, PORTAL, REFRESH_TOKEN, WELCOME, _jwt, _model_config, _write_model_config,
     free_account, portal)
 

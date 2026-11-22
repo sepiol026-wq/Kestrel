@@ -18,7 +18,7 @@ import pytest
 from kestrel_cli.gateway_agent import GatewayAgent
 from kestrel_cli.gateway_connection import GatewayConnection
 from kestrel_cli.model_switch import ModelSwitchResult
-from tests.hermes_cli.test_gateway_agent import SID, FakeClient, connect_with
+from tests.kestrel_cli.test_gateway_agent import SID, FakeClient, connect_with
 
 REFUSAL = {"status": "confirmation_required", "confirm": "tok-1",
            "confirm_message": "This session holds ~150,000 tokens of context.",

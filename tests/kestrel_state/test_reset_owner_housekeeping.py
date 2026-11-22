@@ -17,7 +17,7 @@ import pytest
 
 from kestrel_state import SessionDB
 import kestrel_state_runtime as rt
-from tests.hermes_state.test_target_advance_fence import _local_session, _mutate
+from tests.kestrel_state.test_target_advance_fence import _local_session, _mutate
 
 
 def _store_reset(db, epoch, sid):

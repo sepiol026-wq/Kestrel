@@ -10,7 +10,7 @@ import asyncio
 
 import pytest
 
-from tests.hermes_cli.test_pty_session import FakeBridge, FakeWS
+from tests.kestrel_cli.test_pty_session import FakeBridge, FakeWS
 from tests.waiting import async_wait_until
 
 

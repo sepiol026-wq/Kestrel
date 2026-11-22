@@ -7,8 +7,8 @@
 
 from unittest.mock import patch
 
-from tests.hermes_cli.test_tool_progress_scrollback import _make_cli
-import tests.hermes_cli.test_tool_progress_scrollback as _scrollback
+from tests.kestrel_cli.test_tool_progress_scrollback import _make_cli
+import tests.kestrel_cli.test_tool_progress_scrollback as _scrollback
 
 
 def _announce(cli, names):

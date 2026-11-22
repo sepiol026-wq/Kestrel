@@ -23,7 +23,7 @@ except ModuleNotFoundError as exc:
         raise  # the bootstrap exists but cannot load: skipping it would skip PM activation
 else:
     # Stop a ``utils/``/``proxy/``/``ui/`` package in the launch cwd from shadowing Hermes modules.
-    hermes_bootstrap.harden_import_path()
+    kestrel_bootstrap.harden_import_path()
 
 # `hermes-acp` runs without hermes_cli.main: repair a `kestrel update` killed mid-pull here, before
 # importing anything else from the checkout (a no-op under `hermes acp`, which already did).

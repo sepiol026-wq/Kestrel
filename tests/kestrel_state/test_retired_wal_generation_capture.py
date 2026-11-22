@@ -28,7 +28,7 @@ from kestrel_state import DeletedWalGenerationError, SessionDB
 from kestrel_state_dbfile import (
     RETIRED_GENERATION_MANIFEST, RetiredGenerationCaptureError, capture_retired_wal_generation,
 )
-from tests.hermes_state._wal_generation_harness import (
+from tests.kestrel_state._wal_generation_harness import (
     gateway_writer, integrity_ok_conn, lose_sidecars, make_db, pin_wal, require_wal, write_second_generation,
 )
 

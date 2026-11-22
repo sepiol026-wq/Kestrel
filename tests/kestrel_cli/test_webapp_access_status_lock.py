@@ -21,7 +21,7 @@ pytest.importorskip("fastapi")
 
 def test_a_status_poll_waiting_on_the_gateway_does_not_block_a_skills_request(monkeypatch):
     from kestrel_cli import webapp_launcher
-    from tests.hermes_cli.native_gateway_client import native_desktop_client
+    from tests.kestrel_cli.native_gateway_client import native_desktop_client
 
     client = native_desktop_client(monkeypatch)
     in_control, release = threading.Event(), threading.Event()

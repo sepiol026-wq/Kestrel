@@ -14,8 +14,8 @@ import pytest
 import kestrel_state_repair as repair
 from kestrel_state import SessionDB
 from kestrel_state_fts import drop_retired_cjk_index
-from tests.hermes_state import test_fts_cjk_index_retirement as retirement
-from tests.hermes_state.test_fts_cjk_index_retirement import (
+from tests.kestrel_state import test_fts_cjk_index_retirement as retirement
+from tests.kestrel_state.test_fts_cjk_index_retirement import (
     _cjk_residue,
     _store_snapshot,
 )

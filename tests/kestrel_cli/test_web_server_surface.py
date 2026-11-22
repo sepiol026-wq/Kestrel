@@ -25,7 +25,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from kestrel_cli import web_server
-from tests.hermes_cli.native_gateway_client import native_desktop_client
+from tests.kestrel_cli.native_gateway_client import native_desktop_client
 
 WEB_ACCESS = (("get", "/api/webapp-access/status", None), ("post", "/api/webapp-access/start", {}),
               ("post", "/api/webapp-access/stop", None), ("post", "/api/webapp-access/restart", None))

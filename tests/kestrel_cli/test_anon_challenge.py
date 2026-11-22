@@ -16,7 +16,7 @@ import pytest
 
 from kestrel_cli import anon_auth, anon_challenge
 
-from tests.hermes_cli.anon_portal import PORTAL, claimed_trial, install_portal
+from tests.kestrel_cli.anon_portal import PORTAL, claimed_trial, install_portal
 
 
 @pytest.fixture

@@ -12,8 +12,8 @@ import pytest
 from starlette.testclient import TestClient
 from starlette.websockets import WebSocketDisconnect
 
-from tests.hermes_cli.test_web_host_terminal_persistence import metadata
-from tests.hermes_cli.test_webapp_socket_tickets import _SESSION, serve_webapp
+from tests.kestrel_cli.test_web_host_terminal_persistence import metadata
+from tests.kestrel_cli.test_webapp_socket_tickets import _SESSION, serve_webapp
 
 
 @pytest.fixture
@@ -152,7 +152,7 @@ def test_detached_ssh_shell_is_retired_when_its_saved_target_changes(ssh_webapp,
 
 def test_ssh_shell_cannot_be_attached_as_a_local_shell_or_another_saved_connection(ssh_webapp):
     from kestrel_cli import gateway_connections as store
-    from tests.hermes_cli.test_webapp_socket_tickets import _mint
+    from tests.kestrel_cli.test_webapp_socket_tickets import _mint
 
     served = ssh_webapp
     store.save_connection({"id": "other", "kind": "ssh", "label": "Other", "host": "another.example"})
@@ -174,7 +174,7 @@ def test_cold_ssh_dial_does_not_hold_up_other_new_terminals(ssh_webapp, monkeypa
     import threading
 
     from kestrel_cli import gateway_connections_ssh as ssh
-    from tests.hermes_cli.test_webapp_socket_tickets import _mint
+    from tests.kestrel_cli.test_webapp_socket_tickets import _mint
 
     dialing, release = threading.Event(), threading.Event()
     calls = []
@@ -220,7 +220,7 @@ def test_ssh_terminal_does_not_enable_shells_on_other_surfaces(ssh_webapp, monke
 def test_ssh_terminal_keeps_relay_ticket_origin_and_identity_checks(ssh_webapp):
     from kestrel_cli.web_routers.webapp import mint_socket_ticket
     from kestrel_cli.web_session_sockets import RELAY_SOCKET
-    from tests.hermes_cli.test_webapp_socket_tickets import _mint, _TOKEN
+    from tests.kestrel_cli.test_webapp_socket_tickets import _mint, _TOKEN
 
     served = ssh_webapp
     with TestClient(served.host) as client:

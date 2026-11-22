@@ -1145,27 +1145,6 @@ class GatewayStreamConsumer(StreamTransportMixin, StreamFallbackMixin, StreamThi
         shows as ``!alt`` plus an unfurl (#141806). The tag is removed without trimming the text
         around it, so interim frames stay prefix-stable. A silence marker closing the reply on its own
         line is dropped (``strip_trailing_silence_marker``); a bare marker is left for the silence check.
-
-    def _is_flood_error(self, result) -> bool:
-        """Check if a SendResult failure is due to flood control / rate limiting."""
-        err = getattr(result, "error", "") or ""
-        err_lower = err.lower()
-        return "flood" in err_lower or "retry after" in err_lower or "rate" in err_lower
-
-    def _resolve_draft_streaming(self) -> bool:
-        """Decide whether this run should use native draft streaming.
-
-        Honors ``cfg.transport``:
-          * ``"edit"``  → never use drafts (legacy progressive-edit path).
-          * ``"draft"`` → require draft support; gracefully fall back to edit
-            when the adapter declines.  Logs the downgrade at debug.
-          * ``"auto"``  → use drafts when the adapter supports them for this
-            chat type; otherwise edit.
-
-        Adapter eligibility is checked via
-        :meth:`BasePlatformAdapter.supports_draft_streaming`, which considers
-        the chat type (e.g. Telegram drafts are DM-only) and platform-version
-        gates (e.g. goygram 0.7.71+).
         """
         return redact_to_fixpoint(GatewayStreamConsumer._display_text(text))
 

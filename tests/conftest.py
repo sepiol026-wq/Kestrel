@@ -138,7 +138,7 @@ import kestrel_constants
 # The hourly scratch prune runs in a detached child process. An import-time boot hook during
 # collection must not start one: mark this process's once-per-process prune done. Tests that
 # reload hermes_constants reset that flag, so the per-test fixture below stubs the spawn itself.
-hermes_constants._scratch_pruned_once = True
+kestrel_constants._scratch_pruned_once = True
 
 _HERMES_EXPORTED_TMP = os.environ.get(SCRATCH_DIR_MARKER_ENV, "")
 if _HERMES_EXPORTED_TMP:
@@ -307,7 +307,7 @@ def _hermetic_environment(tmp_path, tmp_path_factory, monkeypatch):
     #    a stable HOME. Hardcoded real-home I/O must still trip the guard.
     import kestrel_constants
 
-    platform_default = hermes_constants._get_platform_default_kestrel_home
+    platform_default = kestrel_constants._get_platform_default_kestrel_home
 
     def isolated_platform_default() -> Path:
         root = platform_default()
@@ -316,7 +316,7 @@ def _hermetic_environment(tmp_path, tmp_path_factory, monkeypatch):
         return tmp_path / root.name if root.parent == _NATIVE_HERMES_PARENT else root
 
     monkeypatch.setattr(
-        hermes_constants, "_get_platform_default_kestrel_home", isolated_platform_default
+        kestrel_constants, "_get_platform_default_kestrel_home", isolated_platform_default
     )
     fake_kestrel_home = tmp_path / "hermes_test"
     fake_kestrel_home.mkdir()
@@ -398,11 +398,11 @@ def _hermetic_environment(tmp_path, tmp_path_factory, monkeypatch):
     if tui_server_mod is not None and hasattr(tui_server_mod, "_served_profile_homes"):
         monkeypatch.setattr(tui_server_mod, "_served_profile_homes", set())
     # A classic CLI's gateway-session toolset reader is process-global too (``_ensure_gateway_session``).
-    tools_config_mod = sys.modules.get("hermes_cli.tools_config")
+    tools_config_mod = sys.modules.get("kestrel_cli.tools_config") or sys.modules.get("hermes_cli.tools_config")
     if tools_config_mod is not None and hasattr(tools_config_mod, "_gateway_plugin_toolsets"):
         monkeypatch.setattr(tools_config_mod, "_gateway_plugin_toolsets", None)
 
-    hermes_state_mod = sys.modules.get("hermes_state")
+    hermes_state_mod = sys.modules.get("kestrel_state") or sys.modules.get("hermes_state")
     if hermes_state_mod is not None and hasattr(hermes_state_mod, "DEFAULT_DB_PATH"):
         monkeypatch.setattr(
             hermes_state_mod, "DEFAULT_DB_PATH", fake_kestrel_home / "state.db"
@@ -686,8 +686,8 @@ def _kanban_write_guard(_hermetic_environment, monkeypatch):
     Uses ``monkeypatch.setattr`` so pytest restores ``connect`` automatically
     after each test (no stacked wrappers or state leakage across tests).
     """
-    _kdb = sys.modules.get("hermes_cli.kanban_db")
-    _kdbc = sys.modules.get("hermes_cli.kanban_db_connect")
+    _kdb = sys.modules.get("kestrel_cli.kanban_db") or sys.modules.get("hermes_cli.kanban_db")
+    _kdbc = sys.modules.get("kestrel_cli.kanban_db_connect") or sys.modules.get("hermes_cli.kanban_db_connect")
     if _kdb is None or _kdbc is None:
         return
 
@@ -733,7 +733,7 @@ def scratch_prune_spawns(monkeypatch):
     import kestrel_constants_scratch_detach
 
     spawned: list = []
-    monkeypatch.setattr(hermes_constants_scratch_detach, "spawn_prune", spawned.append)
+    monkeypatch.setattr(kestrel_constants_scratch_detach, "spawn_prune", spawned.append)
     return spawned
 
 
@@ -755,7 +755,7 @@ def scratch_prune_spawns(monkeypatch):
 
 @pytest.fixture(autouse=True)
 def _state_db_write_guard(request, monkeypatch):
-    _hs = sys.modules.get("hermes_state")
+    _hs = sys.modules.get("kestrel_state") or sys.modules.get("hermes_state")
     if _hs is None or not hasattr(_hs, "_STATE_DB_GUARD_BYPASS"):
         yield
         return

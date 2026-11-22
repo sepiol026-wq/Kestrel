@@ -23,7 +23,7 @@ from fastapi.testclient import TestClient
 def client(monkeypatch):
     """Native Desktop on this computer, calling the gateway's own listener as its Web Access pane
     does: one native grant per request."""
-    from tests.hermes_cli.native_gateway_client import native_desktop_client
+    from tests.kestrel_cli.native_gateway_client import native_desktop_client
 
     return native_desktop_client(monkeypatch)
 

@@ -11,7 +11,7 @@ import shutil
 
 import pytest
 
-from tests.hermes_cli import test_web_server as web_server_tests
+from tests.kestrel_cli import test_web_server as web_server_tests
 
 _EXAMPLE_PLUGIN_FIXTURE = web_server_tests._EXAMPLE_PLUGIN_FIXTURE
 _install_example_plugin = web_server_tests._install_example_plugin  # the fixture

@@ -44,7 +44,7 @@ from fastapi.testclient import TestClient
 from kestrel_cli import web_server
 from kestrel_cli.dashboard_auth import clear_providers, register_provider
 from kestrel_cli.dashboard_auth import prefix as prefix_mod
-from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
 
 HA_INGRESS_DASHBOARD_PREFIX = (
@@ -680,7 +680,7 @@ class TestLoginPageWholeClassPrefix:
         (the PKCE cookie Path matches the mount, so a root-absolute POST
         would silently drop the cookie and break native login)."""
         from kestrel_cli.dashboard_auth import clear_providers, register_provider
-        from tests.hermes_cli.test_dashboard_auth_password_login import (
+        from tests.kestrel_cli.test_dashboard_auth_password_login import (
             PasswordProvider)
 
         clear_providers()
@@ -699,7 +699,7 @@ class TestLoginPageWholeClassPrefix:
         """The RFC 8252 desktop provider chooser shares the login template,
         so its font URLs must honour the prefix too (rendered when more
         than one interactive provider is registered)."""
-        from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+        from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
         from kestrel_cli.dashboard_auth.login_page import (
             render_native_provider_choice_html)
 
@@ -722,7 +722,7 @@ class TestLoginPageWholeClassPrefix:
         assert 'href="/hermes/auth/native/authorize?' in html
 
     def test_native_chooser_bare_root_without_prefix(self):
-        from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+        from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
         from kestrel_cli.dashboard_auth.login_page import (
             render_native_provider_choice_html)
 

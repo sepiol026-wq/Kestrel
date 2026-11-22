@@ -15,10 +15,10 @@ from pathlib import Path
 
 from kestrel_cli import desktop_plugin_halves as halves
 from kestrel_cli import desktop_plugin_install as install
-from tests.hermes_cli.test_desktop_plugin_install import URL, _catalog, _commit, _git
+from tests.kestrel_cli.test_desktop_plugin_install import URL, _catalog, _commit, _git
 
 # The sibling's real-Git fixtures: `repo`, a local repository the https identifier clones from, and `home`.
-pytest_plugins = ["tests.hermes_cli.test_desktop_plugin_install"]
+pytest_plugins = ["tests.kestrel_cli.test_desktop_plugin_install"]
 
 DESKTOP_ONLY = {"plugin.yaml": "name: gizmo\n", "desktop/plugin.js": "export default { id: 'gizmo' }\n"}
 

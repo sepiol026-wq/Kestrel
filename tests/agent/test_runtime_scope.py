@@ -641,7 +641,7 @@ def test_claim_fence_reads_the_claimed_admission(tmp_path):
 
     import kestrel_state_runtime as rt
     from kestrel_state import SessionDB
-    from tests.hermes_state.test_target_advance_fence import _local_session
+    from tests.kestrel_state.test_target_advance_fence import _local_session
 
     with closing(SessionDB(tmp_path / "state.db")) as db:
         rt.begin_runtime_epoch(db, instance_id="owner")

@@ -28,7 +28,7 @@ import kestrel_cli.auth as auth_mod
 from kestrel_cli import auth_nous
 from agent.credential_pool import CredentialPool, PooledCredential
 
-from tests.hermes_cli.test_auth_nous_provider import _invoke_jwt, _setup_nous_auth
+from tests.kestrel_cli.test_auth_nous_provider import _invoke_jwt, _setup_nous_auth
 
 
 def test_forced_refresh_adopts_peer_rotation_instead_of_reposting(tmp_path, monkeypatch):

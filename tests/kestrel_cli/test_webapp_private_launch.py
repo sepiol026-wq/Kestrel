@@ -23,7 +23,7 @@ import pytest
 
 from kestrel_cli import main as cli_main
 from kestrel_cli import webapp_launcher as launcher
-from tests.hermes_cli import test_webapp_launcher as launcher_tests
+from tests.kestrel_cli import test_webapp_launcher as launcher_tests
 
 LINK, _args = launcher_tests.LINK, launcher_tests._args
 world = launcher_tests.world  # the launcher's recorded side effects, as those tests use them

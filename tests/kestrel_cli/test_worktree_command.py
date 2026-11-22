@@ -134,8 +134,8 @@ def _gateway_stub(rpc=None):
     """A CLI attached to a (scripted) gateway session: the tools run there, not in this process."""
     from kestrel_cli.gateway_connection import GatewayConnection
     from kestrel_cli.gateway_session_store import GatewaySessionStore
-    from tests.hermes_cli.test_gateway_agent import connect_with
-    from tests.hermes_cli.test_gateway_session_store import FakeClient
+    from tests.kestrel_cli.test_gateway_agent import connect_with
+    from tests.kestrel_cli.test_gateway_session_store import FakeClient
     client = FakeClient(known=("local-s",))
     if rpc is not None:
         client.rpc = rpc.__get__(client)
@@ -167,7 +167,7 @@ def test_new_refused_by_the_gateway_never_claims_the_tools_moved(repo):
     """A refused move (e.g. ``session_busy`` mid-turn) leaves the session where it was: say so, and
     keep this process (and a later /new's cwd) in the original checkout too."""
     from kestrel_cli.gateway_client import GatewayRPCError
-    from tests.hermes_cli.test_gateway_session_store import snapshot
+    from tests.kestrel_cli.test_gateway_session_store import snapshot
 
     async def refuse(self, method, *, _timeout=None, **params):
         self.calls.append((method, params))

@@ -10,7 +10,7 @@ import sys
 # top-level modules; ``hermes_bootstrap``'s name can't collide, so importing it first is safe.
 import kestrel_bootstrap
 
-hermes_bootstrap.harden_import_path()
+kestrel_bootstrap.harden_import_path()
 
 import json
 import logging

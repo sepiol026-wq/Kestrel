@@ -17,7 +17,7 @@ from kestrel_cli.gateway_client import DISCONNECTED, GatewayClientError, Gateway
 from kestrel_cli.gateway_connection import GatewayConnection
 from kestrel_cli.gateway_owner_restart import SuccessorWaitStopped, wait_for_successor
 from kestrel_cli.gateway_session_store import GatewaySessionStore
-from tests.hermes_cli.test_cli_owner_restart_wait import _host, _snapshot
+from tests.kestrel_cli.test_cli_owner_restart_wait import _host, _snapshot
 
 
 class Owner:

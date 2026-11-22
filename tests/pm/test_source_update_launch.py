@@ -106,7 +106,7 @@ def test_source_python_pin_update_survives_real_gc(source_launch, tmp_path, monk
     from pm.cli import cmd_gc
     from pm.lock import Lockfile
     from pm.store import current_target, tree_digest
-    from tests.hermes_cli.test_source_launcher_publication import BOOT_FILES
+    from tests.kestrel_cli.test_source_launcher_publication import BOOT_FILES
 
     root, old_python, _ = source_launch
     repository = Path(__file__).resolve().parents[2]

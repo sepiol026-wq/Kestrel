@@ -10,8 +10,8 @@ from types import SimpleNamespace
 
 import pytest
 
-from tests.hermes_cli import test_gateway_agent
-from tests.hermes_cli.test_gateway_agent import SID
+from tests.kestrel_cli import test_gateway_agent
+from tests.kestrel_cli.test_gateway_agent import SID
 
 make_agent = test_gateway_agent.make_agent  # the shared fixture, bound here so pytest finds it
 

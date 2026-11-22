@@ -19,7 +19,7 @@ from kestrel_cli.observability import relay_shared_metrics
 from kestrel_cli.observability import shared_metrics_contract as contract
 from kestrel_cli.observability import shared_metrics_efficiency as eff
 from kestrel_cli.observability.shared_metrics_model import record_model_friction
-from tests.hermes_cli.test_relay_shared_metrics_runtime import (
+from tests.kestrel_cli.test_relay_shared_metrics_runtime import (
     _stored_values,
     direct_runtime,
 )

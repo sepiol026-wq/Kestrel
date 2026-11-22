@@ -20,7 +20,7 @@ import pytest
 
 from kestrel_cli.anon_auth import WELCOME_CLAIM_FLAG
 from kestrel_cli.auth import _save_auth_store
-from tests.hermes_cli.anon_portal import as_local_desktop_backend
+from tests.kestrel_cli.anon_portal import as_local_desktop_backend
 
 GUEST_STATE = {
     "auth_method": "anonymous",

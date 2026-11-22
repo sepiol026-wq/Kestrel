@@ -16,7 +16,7 @@ from fastapi.testclient import TestClient
 from kestrel_cli import gateway_connections as store
 from kestrel_cli import gateway_connections_oauth as oauth
 from kestrel_cli import web_server
-from tests.hermes_cli import test_gateway_connections_oauth as oauth_tests
+from tests.kestrel_cli import test_gateway_connections_oauth as oauth_tests
 
 _save, remote = oauth_tests._save, oauth_tests.remote
 

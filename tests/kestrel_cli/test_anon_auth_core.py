@@ -21,7 +21,7 @@ import pytest
 
 from kestrel_cli import anon_auth
 from kestrel_cli.auth import _load_auth_store, resolve_provider
-from tests.hermes_cli.anon_portal import PORTAL, WELCOME, claimed_trial, install_portal, make_jwt as _jwt, off_local_desktop
+from tests.kestrel_cli.anon_portal import PORTAL, WELCOME, claimed_trial, install_portal, make_jwt as _jwt, off_local_desktop
 
 
 @pytest.fixture
@@ -331,7 +331,7 @@ class TestBootstrapNeverCreates:
 
     def test_bootstrap_on_a_fresh_machine_mints_nothing(self, portal, monkeypatch):
         monkeypatch.setattr("agent.bedrock_adapter.has_aws_credentials", lambda *_a, **_kw: False)
-        from tests.hermes_cli.anon_portal import as_local_desktop_backend
+        from tests.kestrel_cli.anon_portal import as_local_desktop_backend
         as_local_desktop_backend(monkeypatch)              # the trial is claimable here; boot still never claims it
         record = self._fresh().run_bootstrap(announce=False)
         assert record.has_identity is False and record.free_tier_account is False

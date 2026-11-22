@@ -17,7 +17,7 @@ import pytest
 from kestrel_state import SessionDB
 import kestrel_state_runtime as rt
 from kestrel_state_local import POLICY_PREFIX
-from tests.hermes_state.test_target_advance_fence import _local_session, _mutate
+from tests.kestrel_state.test_target_advance_fence import _local_session, _mutate
 
 OPERATIONS = {
     'single': lambda db, s0, s1: db.delete_session(s1, exclude_active_write_guards=True),

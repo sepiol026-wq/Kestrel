@@ -23,7 +23,7 @@ from starlette import formparsers
 from kestrel_cli import web_server
 from kestrel_cli.dashboard_auth import clear_providers, register_provider
 from kestrel_cli.dashboard_auth.cookies import SESSION_AT_COOKIE, SESSION_RT_COOKIE
-from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
 
 @pytest.fixture

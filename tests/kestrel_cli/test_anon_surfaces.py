@@ -34,7 +34,7 @@ from kestrel_cli import (
 )
 from kestrel_cli.auth import _load_auth_store
 from kestrel_constants import get_kestrel_home
-from tests.hermes_cli.anon_portal import as_local_desktop_backend, off_local_desktop
+from tests.kestrel_cli.anon_portal import as_local_desktop_backend, off_local_desktop
 
 WELCOME = "https://welcome-api.nousresearch.com/v1"
 # Words that must never appear on a user-facing free-tier surface.

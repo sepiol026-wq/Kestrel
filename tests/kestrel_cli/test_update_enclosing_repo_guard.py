@@ -13,7 +13,7 @@ import subprocess
 import pytest
 
 from kestrel_cli import main as cli_main
-from tests.hermes_cli.test_update_target_identity import git, update_tree
+from tests.kestrel_cli.test_update_target_identity import git, update_tree
 
 
 def _wrap_in_enclosing_repo(t):

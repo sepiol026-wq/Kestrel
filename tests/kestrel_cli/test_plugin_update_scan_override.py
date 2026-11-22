@@ -14,7 +14,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from tests.hermes_cli import test_plugin_update_transaction as _tx
+from tests.kestrel_cli import test_plugin_update_transaction as _tx
 from tests.pm import test_plugin_survival_contract as _survival
 
 # Shared fixtures, bound by assignment so the test parameters that request them are not import shadows.

@@ -18,7 +18,7 @@ from types import SimpleNamespace
 import httpx
 import pytest
 
-from tests.hermes_cli import test_guest_handoff as _gh
+from tests.kestrel_cli import test_guest_handoff as _gh
 
 portal = _gh.portal
 

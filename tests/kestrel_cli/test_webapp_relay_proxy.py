@@ -27,7 +27,7 @@ from starlette.testclient import TestClient
 from starlette.websockets import WebSocket, WebSocketDisconnect
 
 from kestrel_cli.web_routers import webapp_relay_proxy
-from tests.hermes_cli.test_webapp_socket_tickets import _SESSION, serve_webapp
+from tests.kestrel_cli.test_webapp_socket_tickets import _SESSION, serve_webapp
 from tests.waiting import wait_until
 
 _REAL_RELAY_CLIENT = webapp_relay_proxy.relay_client

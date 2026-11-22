@@ -19,7 +19,7 @@ from pathlib import Path
 import pytest
 
 from scripts.build.launchers import posix_launcher
-from tests.hermes_cli.test_gateway_service import _osascript_exec_argv
+from tests.kestrel_cli.test_gateway_service import _osascript_exec_argv
 
 ROOT = Path(__file__).resolve().parents[2]
 

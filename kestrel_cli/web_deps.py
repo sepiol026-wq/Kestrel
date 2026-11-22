@@ -19,11 +19,13 @@ import importlib
 import sys
 from typing import Any
 
-WEB_SERVER = "hermes_cli.web_server"
+WEB_SERVER = "kestrel_cli.web_server"
 
 
 def _server(module: str = WEB_SERVER):
     """Return the live ``module`` (imported on demand)."""
+    if module.startswith("hermes_cli"):
+        module = "kestrel_cli" + module[len("hermes_cli"):]
     mod = sys.modules.get(module)
     if mod is None:  # pragma: no cover - routers are only mounted by web_server
         mod = importlib.import_module(module)

@@ -32,7 +32,7 @@ from kestrel_cli.dashboard_auth.routes import (
     _reset_password_rate_limit,
     _validate_post_login_target,
 )
-from tests.hermes_cli.test_dashboard_auth_password_login import PasswordProvider
+from tests.kestrel_cli.test_dashboard_auth_password_login import PasswordProvider
 
 # Values that must be rejected: each resolves off-origin (or into the auth/API flow)
 # once a browser parses it, so none may survive the gate as a post-login target.

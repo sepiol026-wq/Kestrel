@@ -11,7 +11,7 @@ import pytest
 
 from kestrel_cli import main, uninstall
 from kestrel_cli.subcommands.uninstall import build_uninstall_parser
-from tests.hermes_cli.test_data_uninstall import layout
+from tests.kestrel_cli.test_data_uninstall import layout
 
 
 @pytest.mark.parametrize("entry", ["cli", "module", "cli-dry-run"])

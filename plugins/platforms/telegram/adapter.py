@@ -13,6 +13,7 @@ Uses the goygram hybrid MTProto bot for:
 """
 
 import asyncio
+import contextlib
 import html as _html
 import dataclasses
 import faulthandler
@@ -115,6 +116,39 @@ except ImportError:
     KbdBuilder = Any
     kbd_to_tl = None
 
+try:
+    import telegram
+    from telegram import Update, Bot, Message, InlineKeyboardButton, InlineKeyboardMarkup, LinkPreviewOptions
+    from telegram.ext import (
+        Application, CommandHandler, CallbackQueryHandler, InlineQueryHandler,
+        MessageHandler as TelegramMessageHandler, TypeHandler, ContextTypes, filters
+    )
+    from telegram.constants import ParseMode, ChatType
+    from telegram.request import HTTPXRequest
+    TELEGRAM_AVAILABLE = True
+except Exception as _tg_err:
+    TELEGRAM_AVAILABLE = False
+    Update = Any
+    Bot = Any
+    Message = Any
+    InlineKeyboardButton = Any
+    InlineKeyboardMarkup = Any
+    LinkPreviewOptions = None
+    Application = Any
+    CommandHandler = Any
+    CallbackQueryHandler = Any
+    InlineQueryHandler = Any
+    TelegramMessageHandler = Any
+    TypeHandler = Any
+    ContextTypes = Any
+    HTTPXRequest = Any
+    filters = None
+    ParseMode = None
+    ChatType = None
+    _tg_missing = getattr(_tg_err, "name", "telegram") or "telegram"
+    _tg_lvl = logging.WARNING if "ext" in str(_tg_missing) else logging.DEBUG
+    logger.log(_tg_lvl, "python-telegram-bot import failed (%s): %s", _tg_missing, _tg_err, exc_info=True)
+
 import sys
 from pathlib import Path as _Path
 sys.path.insert(0, str(_Path(__file__).resolve().parents[3]))
@@ -128,6 +162,7 @@ from gateway.platforms.base import (
     SendResult,
     classify_send_error,
     cache_image_from_bytes,
+    cache_image_from_bytes_async,
     cache_audio_from_bytes,
     cache_video_from_bytes,
     cache_document_from_bytes,
@@ -146,7 +181,68 @@ from plugins.platforms.telegram.telegram_network import (
     discover_fallback_ips,
     parse_fallback_ip_env,
 )
+from plugins.platforms.telegram.telegram_ingress import TelegramContactMixin
+from plugins.platforms.telegram.telegram_held_inbound import TelegramHeldInboundMixin
+from plugins.platforms.telegram.telegram_replacement import TelegramReplacementMixin
+from plugins.platforms.telegram.telegram_topic_routing import TelegramTopicRoutingMixin
+from plugins.platforms.telegram.telegram_polling_probe import TelegramPendingProbeMixin
+from plugins.platforms.telegram.telegram_media_flood import TelegramMediaFloodMixin
+from plugins.platforms.telegram.telegram_send_path_recovery import TelegramSendPathRecoveryMixin
+from plugins.platforms.telegram.telegram_vault_code import TelegramVaultCodeMixin
+from plugins.platforms.telegram.telegram_flood_cooldown import TelegramFloodCooldownMixin
+from plugins.platforms.telegram.telegram_audio_meta import (
+    _coerce_duration_seconds,
+    _probe_video_geometry,
+    _probe_voice_duration_seconds,
+    _video_thumbnail_jpeg,
+    audio_player_fields,
+)
+from plugins.platforms.telegram.telegram_media_retry import unconfirmed_media_result as _unconfirmed
+from plugins.platforms.telegram.telegram_send_errors import is_entity_parse_error
 from utils import atomic_replace, env_float, env_int
+
+_DISCONNECT_STEP_TIMEOUT: float = 2.0
+_MEDIA_SEND_READ_TIMEOUT: float = 60.0
+_MEDIA_SEND_DEADLINE: float = 300.0
+_FLOOD_INLINE_WAIT_CAP_SECS: float = 5.0
+
+
+def _flood_cap_result(wait: float) -> SendResult:
+    return SendResult(
+        success=False,
+        error=f"flood_control:{wait}",
+        retry_after=float(wait),
+    )
+
+
+def _iter_exception_graph(error: BaseException):
+    seen: set[int] = set()
+    stack: list[BaseException] = [error]
+    while stack:
+        cur = stack.pop()
+        ident = id(cur)
+        if ident in seen:
+            continue
+        seen.add(ident)
+        yield cur
+        cause = getattr(cur, "__cause__", None)
+        context = getattr(cur, "__context__", None)
+        if cause is not None:
+            stack.append(cause)
+        if context is not None:
+            stack.append(context)
+
+
+async def _await_with_thread_deadline(
+    awaitable, timeout: float, *, on_abandon=None, label: str = "telegram", dump_on_blocked_loop: bool = True,
+):
+    from agent.deadline import run_bounded_async
+    result = await run_bounded_async(
+        awaitable, timeout, label=label, on_abandon=on_abandon, dump_on_blocked_loop=dump_on_blocked_loop)
+    if result.timed_out:
+        raise TimeoutError(f"timed out after {timeout:.0f}s ({label})")
+    return result.value
+
 
 _inline_msg_id: ContextVar[Optional[Any]] = ContextVar("inline_msg_id", default=None)
 
@@ -163,13 +259,15 @@ _INLINE_DEMO_FIREFLY_URLS = (
     "https://wsrv.nl/?url=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fhoukai-star-rail%2Fimages%2Fe%2Fe4%2FCharacter_Firefly_Introduction.png%2Frevision%2Flatest%3Fcb%3D20240423040158%26output=jpg%26w=1200",
 )
 
-_TELEGRAM_IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".gif"}
+_TELEGRAM_IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".heic", ".heif"}
 _TELEGRAM_IMAGE_MIME_TO_EXT = {
     "image/png": ".png",
     "image/jpeg": ".jpg",
     "image/jpg": ".jpg",
     "image/webp": ".webp",
     "image/gif": ".gif",
+    "image/heic": ".heic",
+    "image/heif": ".heif",
 }
 _TELEGRAM_IMAGE_EXT_TO_MIME = {
     ".png": "image/png",
@@ -177,6 +275,8 @@ _TELEGRAM_IMAGE_EXT_TO_MIME = {
     ".jpeg": "image/jpeg",
     ".webp": "image/webp",
     ".gif": "image/gif",
+    ".heic": "image/heic",
+    ".heif": "image/heif",
 }
 
 def _coerce_duration_seconds(value: Any) -> Optional[int]:
@@ -257,26 +357,70 @@ def check_telegram_requirements() -> bool:
     so the adapter's class-level type aliases get rebound.
     """
     global GOYGRAM_AVAILABLE, GoyGram, KbdBuilder, kbd_to_tl
-    if GOYGRAM_AVAILABLE:
-        return True
-    try:
-        from goygram import GoyGram as _GoyGram
-        from goygram.types import KbdBuilder as _KbdBuilder
-        from goygram.types.kbd import kbd_to_tl as _kbd_to_tl
-    except ImportError:
+    global TELEGRAM_AVAILABLE, Update, Bot, Message, InlineKeyboardButton, InlineKeyboardMarkup, LinkPreviewOptions
+    global Application, CommandHandler, CallbackQueryHandler, InlineQueryHandler, TelegramMessageHandler, TypeHandler, ContextTypes, HTTPXRequest, filters, ParseMode, ChatType
+
+    if not GOYGRAM_AVAILABLE:
         try:
-            from tools.lazy_deps import ensure as _lazy_ensure
-            _lazy_ensure("platform.telegram", prompt=False)
             from goygram import GoyGram as _GoyGram
             from goygram.types import KbdBuilder as _KbdBuilder
             from goygram.types.kbd import kbd_to_tl as _kbd_to_tl
+            GoyGram = _GoyGram
+            KbdBuilder = _KbdBuilder
+            kbd_to_tl = _kbd_to_tl
+            GOYGRAM_AVAILABLE = True
+        except ImportError:
+            try:
+                from tools.lazy_deps import ensure as _lazy_ensure
+                _lazy_ensure("platform.telegram", prompt=False)
+                from goygram import GoyGram as _GoyGram
+                from goygram.types import KbdBuilder as _KbdBuilder
+                from goygram.types.kbd import kbd_to_tl as _kbd_to_tl
+                GoyGram = _GoyGram
+                KbdBuilder = _KbdBuilder
+                kbd_to_tl = _kbd_to_tl
+                GOYGRAM_AVAILABLE = True
+            except Exception:
+                pass
+
+    if not TELEGRAM_AVAILABLE or "telegram" in sys.modules:
+        try:
+            import telegram
+            from telegram import (
+                Update as _Update, Bot as _Bot, Message as _Message,
+                InlineKeyboardButton as _IKB, InlineKeyboardMarkup as _IKM,
+                LinkPreviewOptions as _LPO,
+            )
+            from telegram.ext import (
+                Application as _App, CommandHandler as _CMD,
+                CallbackQueryHandler as _CQH, InlineQueryHandler as _IQH,
+                MessageHandler as _MH, TypeHandler as _TH,
+                ContextTypes as _CT, filters as _filters,
+            )
+            from telegram.constants import ParseMode as _PM, ChatType as _CType
+            from telegram.request import HTTPXRequest as _HReq
+            Update = _Update
+            Bot = _Bot
+            Message = _Message
+            InlineKeyboardButton = _IKB
+            InlineKeyboardMarkup = _IKM
+            LinkPreviewOptions = _LPO
+            Application = _App
+            CommandHandler = _CMD
+            CallbackQueryHandler = _CQH
+            InlineQueryHandler = _IQH
+            TelegramMessageHandler = _MH
+            TypeHandler = _TH
+            ContextTypes = _CT
+            HTTPXRequest = _HReq
+            filters = _filters
+            ParseMode = _PM
+            ChatType = _CType
+            TELEGRAM_AVAILABLE = True
         except Exception:
-            return False
-    GoyGram = _GoyGram
-    KbdBuilder = _KbdBuilder
-    kbd_to_tl = _kbd_to_tl
-    GOYGRAM_AVAILABLE = True
-    return True
+            pass
+
+    return bool(GOYGRAM_AVAILABLE or TELEGRAM_AVAILABLE)
 
 
 class ParseMode:
@@ -559,7 +703,18 @@ class _MTInboundMedia:
 
 
 
-class TelegramAdapter(BasePlatformAdapter):
+class TelegramAdapter(
+    TelegramContactMixin,
+    TelegramHeldInboundMixin,
+    TelegramReplacementMixin,
+    TelegramTopicRoutingMixin,
+    TelegramPendingProbeMixin,
+    TelegramMediaFloodMixin,
+    TelegramSendPathRecoveryMixin,
+    TelegramVaultCodeMixin,
+    TelegramFloodCooldownMixin,
+    BasePlatformAdapter,
+):
     """
     Telegram bot adapter.
 
@@ -569,6 +724,11 @@ class TelegramAdapter(BasePlatformAdapter):
     - Forum topics (thread_id support)
     - Media messages
     """
+
+    # Image compression limits
+    _IMG_JPEG_QUALITY = 85
+    _IMG_MAX_DIMENSION = 1600  # above this, resize before JPEG
+    _IMG_COMPRESS_THRESHOLD_BYTES = 1_048_576  # 1MB
 
     # Telegram message limits
     MAX_MESSAGE_LENGTH = 4096
@@ -1331,34 +1491,54 @@ class TelegramAdapter(BasePlatformAdapter):
         send_fn: Any,
         send_kwargs: Dict[str, Any],
         metadata: Optional[Dict[str, Any]],
-        reply_to_message_id: Optional[int],
-        media_label: str,
+        *args: Any,
         reset_media: Optional[Any] = None,
+        deadline: Optional[float] = None,
+        **kwargs: Any,
     ) -> Any:
         """Retry stale private-topic media replies once without the topic anchor."""
-        try:
-            return await send_fn(**send_kwargs)
-        except Exception as send_err:
-            if not self._should_retry_without_dm_topic_reply_anchor(
-                send_err,
-                metadata,
-                reply_to_message_id,
-            ):
-                raise
-            logger.warning(
-                "[%s] Reply target deleted for Telegram %s, "
-                "retrying without reply/topic anchor: %s",
-                self.name,
-                media_label,
-                _redact_telegram_error_text(send_err),
-            )
-            if reset_media is not None:
-                reset_media()
-            retry_kwargs = dict(send_kwargs)
-            retry_kwargs["reply_to_message_id"] = None
-            retry_kwargs.pop("message_thread_id", None)
-            retry_kwargs.pop("direct_messages_topic_id", None)
-            return await send_fn(**retry_kwargs)
+        if len(args) == 1:
+            media_label = str(args[0])
+            reply_to_message_id = send_kwargs.get("reply_to_message_id")
+        elif len(args) >= 2:
+            reply_to_message_id = args[0]
+            media_label = str(args[1])
+        else:
+            media_label = kwargs.get("media_label", "media")
+            reply_to_message_id = send_kwargs.get("reply_to_message_id")
+
+        chat_id = send_kwargs.get("chat_id")
+        slot = self._media_send_slot(chat_id) if hasattr(self, "_media_send_slot") else contextlib.nullcontext()
+        async with slot:
+            same_thread_retried = False
+            while True:
+                try:
+                    call = send_fn(**send_kwargs)
+                    if deadline or "_MEDIA_SEND_DEADLINE" in globals():
+                        return await _await_with_thread_deadline(
+                            call, timeout=deadline or _MEDIA_SEND_DEADLINE, label="telegram-media-send", dump_on_blocked_loop=False)
+                    return await call
+                except Exception as send_err:
+                    from plugins.platforms.telegram.telegram_dm_topic_send import dead_topic_may_reroute, dead_topic_retry_kwargs, topic_gone
+                    gone = dead_topic_may_reroute(chat_id, metadata) and topic_gone(chat_id, send_err)
+                    anchor_id = reply_to_message_id if reply_to_message_id is not None else send_kwargs.get("reply_to_message_id")
+                    if self._should_retry_without_dm_topic_reply_anchor(send_err, metadata, anchor_id):
+                        send_kwargs = {**send_kwargs, "reply_to_message_id": None}
+                    elif gone and send_kwargs.get("message_thread_id") and not same_thread_retried:
+                        same_thread_retried = True
+                    elif gone and (send_kwargs.get("message_thread_id") or send_kwargs.get("direct_messages_topic_id")):
+                        send_kwargs = dead_topic_retry_kwargs(send_kwargs)
+                        if hasattr(self, "_prune_stale_dm_topic_binding"):
+                            self._prune_stale_dm_topic_binding(chat_id, self._metadata_thread_id(metadata), metadata=metadata)
+                    else:
+                        raise
+                    logger.warning(
+                        "[%s] Telegram %s rejected (%s), retrying with routing %s",
+                        self.name, media_label, _redact_telegram_error_text(send_err),
+                        {k: send_kwargs.get(k) for k in ("message_thread_id", "direct_messages_topic_id", "reply_to_message_id")},
+                    )
+                    if reset_media is not None:
+                        reset_media()
 
     def _fallback_ips(self) -> list[str]:
         """Return validated fallback IPs from config (populated by _apply_env_overrides)."""
@@ -1444,6 +1624,26 @@ class TelegramAdapter(BasePlatformAdapter):
                 stack.append(cause)
             if context is not None:
                 stack.append(context)
+        return False
+
+    @staticmethod
+    def _looks_like_auth_error(error: Exception) -> bool:
+        name = error.__class__.__name__.lower()
+        return name in {"invalidtoken", "forbidden"}
+
+    @staticmethod
+    def _is_timed_out(error: Exception) -> bool:
+        name = error.__class__.__name__.lower()
+        return name in {"timedout", "timeout", "timeouterror"}
+
+    @staticmethod
+    def _exception_graph_matches(error: Exception, pattern: str) -> bool:
+        pat = pattern.lower()
+        for exc in _iter_exception_graph(error):
+            name = exc.__class__.__name__.lower()
+            text = str(exc).lower()
+            if pat in name or pat in text:
+                return True
         return False
 
     def _coerce_bool_extra(self, key: str, default: bool = False) -> bool:
@@ -4635,29 +4835,14 @@ class TelegramAdapter(BasePlatformAdapter):
         )
 
     async def delete_message(self, chat_id: str, message_id: str) -> bool:
-        """Delete a previously sent Telegram message.
+        """Delete a previously sent Telegram message once the chat's flood window is closed."""
+        from plugins.platforms.telegram.telegram_flood_window import delete_message
+        return await delete_message(self, chat_id, message_id)
 
-        Used by the stream consumer's fresh-final cleanup path (ported
-        from openclaw/openclaw#72038) to remove long-lived preview
-        messages after sending the completed reply as a fresh message.
-        Telegram's Bot API ``deleteMessage`` works for bot-posted
-        messages in the last 48 hours.  Failures are non-fatal — the
-        caller leaves the preview in place and logs at debug level.
-        """
-        if not self._bot:
-            return False
-        try:
-            await self._bot.delete_message(
-                chat_id=normalize_telegram_chat_id(chat_id),
-                message_id=int(message_id),
-            )
-            return True
-        except Exception as e:
-            logger.debug(
-                "[%s] Failed to delete Telegram message %s: %s",
-                self.name, message_id, _redact_telegram_error_text(e),
-            )
-            return False
+    async def delete_message_confirmed(self, chat_id: str, message_id: str) -> bool:
+        """Delete a previously sent Telegram message; True only once gone (never queued)."""
+        from plugins.platforms.telegram.telegram_flood_window import delete_message_confirmed
+        return await delete_message_confirmed(self, chat_id, message_id)
 
     def supports_draft_streaming(
         self,
@@ -6347,15 +6532,152 @@ class TelegramAdapter(BasePlatformAdapter):
             return True, None
         return False, self._telegram_media_too_large_note(label, size, max_bytes)
 
+    @staticmethod
+    def _sniff_raster_format(image_path: str) -> Optional[str]:
+        """Identify convertible raster formats by magic bytes."""
+        try:
+            with open(image_path, "rb") as fh:
+                head = fh.read(16)
+        except OSError:
+            return None
+        if head.startswith(b"\x89PNG\r\n\x1a\n"):
+            return "png"
+        if head.startswith((b"GIF87a", b"GIF89a")):
+            return None
+        if head.startswith(b"RIFF") and head[8:12] == b"WEBP":
+            return "webp"
+        if head.startswith(b"BM"):
+            return "bmp"
+        if head.startswith((b"II*\x00", b"MM\x00*")):
+            return "tiff"
+        return None
+
+    def _compress_image_to_jpeg(self, image_path: str) -> Optional[str]:
+        """Pre-compress a large image to progressive JPEG before upload."""
+        import tempfile
+
+        try:
+            file_size = os.path.getsize(image_path)
+        except OSError:
+            return None
+
+        ext = os.path.splitext(image_path)[1].lower()
+        if ext in (".jpg", ".jpeg"):
+            return None
+        if file_size < self._IMG_COMPRESS_THRESHOLD_BYTES:
+            return None
+        if self._sniff_raster_format(image_path) is None:
+            return None
+
+        try:
+            from PIL import Image
+        except Exception:
+            logger.warning("[%s] Pillow not available for image compression", self.name)
+            return None
+
+        try:
+            with Image.open(image_path) as src:
+                if src.mode in ("RGBA", "LA", "P"):
+                    background = Image.new("RGB", src.size, (255, 255, 255))
+                    layer = src.convert("RGBA") if src.mode == "P" else src
+                    if layer.mode in ("RGBA", "LA"):
+                        background.paste(layer, mask=layer.split()[-1])
+                    else:
+                        background.paste(layer)
+                    img = background
+                else:
+                    img = src.convert("RGB")
+
+            max_w, max_h = img.size
+            max_dim = max(max_w, max_h)
+            if max_dim > self._IMG_MAX_DIMENSION:
+                scale = self._IMG_MAX_DIMENSION / max_dim
+                img = img.resize((int(max_w * scale), int(max_h * scale)), Image.LANCZOS)
+
+            fd, tmp = tempfile.mkstemp(suffix=".jpg", prefix="tg_compress_")
+            os.close(fd)
+
+            img.save(tmp, "JPEG", quality=self._IMG_JPEG_QUALITY, progressive=True, optimize=True)
+            logger.info(
+                "[%s] Pre-compressed %s (%.1fKB → %s %.1fKB) for Telegram upload",
+                self.name, image_path, file_size / 1024, tmp, os.path.getsize(tmp) / 1024,
+            )
+            return tmp
+        except Exception as e:
+            logger.warning("[%s] Image compression failed, uploading original: %s", self.name, e)
+            return None
+
+    @contextlib.asynccontextmanager
+    async def _chat_send_lock(self, chat_id: Any):
+        """FIFO per-chat gate around outgoing API calls, reentrant within one asyncio task."""
+        key = str(normalize_telegram_chat_id(chat_id))
+        locks: dict[str, asyncio.Lock] = self.__dict__.setdefault("_telegram_chat_send_locks", {})
+        owners: dict[str, asyncio.Task] = self.__dict__.setdefault("_telegram_chat_send_lock_owners", {})
+        task = asyncio.current_task()
+        if owners.get(key) is task:
+            yield
+            return
+        lock = locks.setdefault(key, asyncio.Lock())
+        async with lock:
+            owners[key] = task
+            try:
+                yield
+            finally:
+                owners.pop(key, None)
+                if not getattr(lock, "_waiters", None):
+                    locks.pop(key, None)
+
+    def _media_send_kwargs(
+        self, chat_id: str, reply_to: Optional[str], metadata: Optional[dict[str, Any]]) -> tuple[Optional[int], dict[str, Any]]:
+        """Return (reply_to_id, base_kwargs) shared by every native media send."""
+        reply_to_id = self._reply_to_message_id_for_send(reply_to, metadata, reply_to_mode=self._reply_to_mode)
+        thread_kwargs = self._thread_kwargs_for_send(
+            chat_id, self._metadata_thread_id(metadata), metadata, reply_to_message_id=reply_to_id, reply_to_mode=self._reply_to_mode)
+        return reply_to_id, {
+            "chat_id": normalize_telegram_chat_id(chat_id), "reply_to_message_id": reply_to_id,
+            "read_timeout": _MEDIA_SEND_READ_TIMEOUT, **thread_kwargs, **self._notification_kwargs(metadata)}
+
+    @staticmethod
+    def _caption_1024(caption: Optional[str]) -> Optional[str]:
+        return caption[:1024] if caption else None
+
+    async def _warn_then(self, media_key: str, e: Exception, fallback) -> SendResult:
+        logger.warning("[%s] Failed to send %s: %s", self.name, media_key, _redact_telegram_error_text(e))
+        return await fallback
+
+    async def _send_voice_bubble(self, audio_file, chat_id, reply_to, metadata, caption, duration_secs,
+                                 send_fn=None, media_key="voice", **media_kwargs):
+        _caption_variants: list[tuple] = []
+        if caption:
+            try:
+                _formatted_caption = self.format_message(caption)
+                if utf16_len(_formatted_caption) <= 1024:
+                    _caption_variants.append((_formatted_caption, ParseMode.MARKDOWN_V2))
+            except Exception:
+                logger.debug("[%s] voice caption MarkdownV2 formatting failed; sending plain caption", self.name, exc_info=True)
+            _caption_variants.append((caption[:1024], None))
+        else:
+            _caption_variants.append((None, None))
+        _last_parse_error: Optional[Exception] = None
+        for _cap_text, _cap_parse_mode in _caption_variants:
+            try:
+                return await self._send_media(
+                    send_fn or self._bot.send_voice, chat_id, reply_to, metadata, media_key,
+                    reset_media=lambda: audio_file.seek(0), **{media_key: audio_file}, caption=_cap_text,
+                    parse_mode=_cap_parse_mode, duration=duration_secs, **media_kwargs)
+            except Exception as _cap_error:
+                if _cap_parse_mode is not None and is_entity_parse_error(_cap_error):
+                    logger.warning(
+                        "[%s] voice caption MarkdownV2 rejected, retrying plain: %s", self.name, _redact_telegram_error_text(_cap_error))
+                    _last_parse_error = _cap_error
+                    audio_file.seek(0)
+                    continue
+                raise
+        raise _last_parse_error or RuntimeError("Telegram send_voice failed for all caption variants")
+
     async def send_voice(
-        self,
-        chat_id: str,
-        audio_path: str,
-        caption: Optional[str] = None,
-        reply_to: Optional[str] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        **kwargs,
-    ) -> SendResult:
+        self, chat_id: str, audio_path: str, caption: Optional[str] = None, reply_to: Optional[str] = None,
+        metadata: Optional[dict[str, Any]] = None, **kwargs) -> SendResult:
         """Send audio as a native Telegram voice message or audio file."""
         if not self._bot:
             return SendResult(success=False, error="Not connected")
@@ -6364,92 +6686,56 @@ class TelegramAdapter(BasePlatformAdapter):
             ext = os.path.splitext(audio_path)[1].lower()
             kind = "voice" if ext in {".ogg", ".opus"} else "audio" if ext in {".mp3", ".m4a"} else "document"
             return await self._send_inline_media(chat_id, inline_msg_id, audio_path, kind, caption)
-        
+
+        _transcoded_voice_path: Optional[str] = None
+        source_path = audio_path
         try:
             if not os.path.exists(audio_path):
                 return SendResult(success=False, error=self._missing_media_path_error("Audio", audio_path))
-            
-            # Compute duration locally — Telegram drops it for long clips
-            # (~5 min+), which then show 0:00 in the player.
-            _duration_secs = await asyncio.to_thread(
-                _probe_voice_duration_seconds, audio_path
-            )
-
+            if kwargs.get("is_voice") and os.path.splitext(audio_path)[1].lower() not in (".ogg", ".opus"):
+                from gateway.platforms.base import transcode_to_ogg_opus
+                _transcoded_voice_path = await asyncio.to_thread(transcode_to_ogg_opus, audio_path)
+                if _transcoded_voice_path:
+                    audio_path = _transcoded_voice_path
+                else:
+                    logger.warning(
+                        "[%s] voice transcode unavailable for %s — sending original format (install ffmpeg for voice bubbles)",
+                        self.name, os.path.basename(audio_path))
+            _duration_secs = await asyncio.to_thread(_probe_voice_duration_seconds, audio_path)
             with open(audio_path, "rb") as audio_file:
                 ext = os.path.splitext(audio_path)[1].lower()
-                # .ogg / .opus files -> send as voice (round playable bubble)
                 if ext in {".ogg", ".opus"}:
-                    _voice_thread = self._metadata_thread_id(metadata)
-                    reply_to_id = self._reply_to_message_id_for_send(reply_to, metadata, reply_to_mode=self._reply_to_mode)
-                    voice_thread_kwargs = self._thread_kwargs_for_send(
-                        chat_id,
-                        _voice_thread,
-                        metadata,
-                        reply_to_message_id=reply_to_id,
-                        reply_to_mode=self._reply_to_mode
-                    )
-                    msg = await self._send_with_dm_topic_reply_anchor_retry(
-                        self._bot.send_voice,
-                        {
-                            "chat_id": normalize_telegram_chat_id(chat_id),
-                            "voice": audio_file,
-                            "caption": caption[:1024] if caption else None,
-                            "reply_to_message_id": reply_to_id,
-                            "duration": _duration_secs,
-                            **voice_thread_kwargs,
-                            **self._notification_kwargs(metadata),
-                        },
-                        metadata,
-                        reply_to_id,
-                        "voice",
-                        reset_media=lambda: audio_file.seek(0),
-                    )
+                    msg = await self._send_voice_bubble(audio_file, chat_id, reply_to, metadata, caption, _duration_secs)
                 elif ext in {".mp3", ".m4a"}:
-                    # Telegram's Bot API sendAudio only accepts MP3 / M4A.
-                    _audio_thread = self._metadata_thread_id(metadata)
-                    reply_to_id = self._reply_to_message_id_for_send(reply_to, metadata, reply_to_mode=self._reply_to_mode)
-                    audio_thread_kwargs = self._thread_kwargs_for_send(
-                        chat_id,
-                        _audio_thread,
-                        metadata,
-                        reply_to_message_id=reply_to_id,
-                        reply_to_mode=self._reply_to_mode
-                    )
-                    msg = await self._send_with_dm_topic_reply_anchor_retry(
-                        self._bot.send_audio,
-                        {
-                            "chat_id": normalize_telegram_chat_id(chat_id),
-                            "audio": audio_file,
-                            "caption": caption[:1024] if caption else None,
-                            "reply_to_message_id": reply_to_id,
-                            "duration": _duration_secs,
-                            **audio_thread_kwargs,
-                            **self._notification_kwargs(metadata),
-                        },
-                        metadata,
-                        reply_to_id,
-                        "audio",
-                        reset_media=lambda: audio_file.seek(0),
-                    )
+                    player = await asyncio.to_thread(audio_player_fields, audio_path)
+                    cover_path = player.pop("thumbnail_path", None)
+                    if cover_path:
+                        player["thumbnail"] = cover_path
+                    try:
+                        msg = await self._send_voice_bubble(
+                            audio_file, chat_id, reply_to, metadata, caption, _duration_secs,
+                            send_fn=self._bot.send_audio, media_key="audio", **player)
+                    finally:
+                        if cover_path:
+                            with contextlib.suppress(OSError):
+                                os.unlink(cover_path)
                 else:
-                    # Formats Telegram can't play natively (.wav, .flac, ...)
-                    # — fall back to document delivery instead of raising.
                     return await self.send_document(
-                        chat_id=chat_id,
-                        file_path=audio_path,
-                        caption=caption,
-                        reply_to=reply_to,
-                        metadata=metadata,
-                    )
+                        chat_id=chat_id, file_path=audio_path, caption=caption, reply_to=reply_to, metadata=metadata)
             return SendResult(success=True, message_id=str(msg.message_id))
         except Exception as e:
+            if (recovered := await self._media_flood_recover(e, chat_id, lambda p: self.send_voice(
+                    chat_id, p or source_path, caption, reply_to, metadata, **kwargs), f"voice {os.path.basename(source_path)}",
+                    source_path, metadata) or _unconfirmed(e, f"voice {os.path.basename(source_path)}")):
+                return recovered
             logger.error(
-                "[%s] Failed to send Telegram voice/audio, falling back to base adapter: %s",
-                self.name,
-                _redact_telegram_error_text(e),
-                exc_info=True,
-            )
+                "[%s] Failed to send Telegram voice/audio, falling back to base adapter: %s", self.name,
+                _redact_telegram_error_text(e), exc_info=True)
             return await super().send_voice(chat_id, audio_path, caption, reply_to, metadata=metadata)
+        finally:
+            if _transcoded_voice_path:
+                with contextlib.suppress(OSError):
+                    os.unlink(_transcoded_voice_path)
 
     async def _send_inline_media(
         self, chat_id: str, inline_msg_id: Any, media: Any,
@@ -6663,358 +6949,154 @@ class TelegramAdapter(BasePlatformAdapter):
                         pass
 
     async def send_image_file(
-        self,
-        chat_id: str,
-        image_path: str,
-        caption: Optional[str] = None,
-        reply_to: Optional[str] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        **kwargs,
-    ) -> SendResult:
+        self, chat_id: str, image_path: str, caption: Optional[str] = None, reply_to: Optional[str] = None,
+        metadata: Optional[dict[str, Any]] = None, **kwargs) -> SendResult:
         """Send a local image file natively as a Telegram photo."""
-        if not self._bot:
-            return SendResult(success=False, error="Not connected")
         inline_msg_id = _inline_msg_id.get() or (metadata or {}).get("inline_message_id")
         if inline_msg_id is not None:
             return await self._send_inline_media(chat_id, inline_msg_id, image_path, "photo", caption)
 
-        try:
-            if not os.path.exists(image_path):
-                return SendResult(success=False, error=self._missing_media_path_error("Image", image_path))
+        compressed = self._compress_image_to_jpeg(image_path)
+        actual_path = compressed or image_path
+        doc_name = os.path.splitext(os.path.basename(image_path))[0] + ".jpg" if compressed else os.path.basename(image_path)
 
-            _thread = self._metadata_thread_id(metadata)
-            reply_to_id = self._reply_to_message_id_for_send(reply_to, metadata, reply_to_mode=self._reply_to_mode)
-            thread_kwargs = self._thread_kwargs_for_send(
-                chat_id,
-                _thread,
-                metadata,
-                reply_to_message_id=reply_to_id,
-                reply_to_mode=self._reply_to_mode
-            )
-            with open(image_path, "rb") as image_file:
-                msg = await self._send_with_dm_topic_reply_anchor_retry(
-                    self._bot.send_photo,
-                    {
-                        "chat_id": normalize_telegram_chat_id(chat_id),
-                        "photo": image_file,
-                        "caption": caption[:1024] if caption else None,
-                        "reply_to_message_id": reply_to_id,
-                        **thread_kwargs,
-                        **self._notification_kwargs(metadata),
-                    },
-                    metadata,
-                    reply_to_id,
-                    "photo",
-                    reset_media=lambda: image_file.seek(0),
-                )
-            return SendResult(success=True, message_id=str(msg.message_id))
-        except Exception as e:
+        async def _photo_failed(e: Exception) -> SendResult:
             error_str = str(e)
-            # Dimension-related errors are the expected case for valid image
-            # files that Telegram just refuses as photos (screenshots, extreme
-            # aspect ratios). Log at INFO because the document fallback is
-            # the correct path. Any other send_photo failure also falls back
-            # to document (rate limits, corrupt file markers, format edge
-            # cases), but at WARNING because it's unexpected and worth
-            # surfacing in logs.
-            is_dim_error = (
-                "Photo_invalid_dimensions" in error_str
-                or "PHOTO_INVALID_DIMENSIONS" in error_str
-            )
-            if is_dim_error:
-                logger.info(
-                    "[%s] Image dimensions exceed Telegram photo limits, "
-                    "sending as document: %s",
-                    self.name,
-                    image_path,
-                )
+            if "Photo_invalid_dimensions" in error_str or "PHOTO_INVALID_DIMENSIONS" in error_str:
+                logger.info("[%s] Image dimensions exceed Telegram photo limits, sending as document: %s", self.name, image_path)
             else:
                 logger.warning(
-                    "[%s] Failed to send Telegram local image as photo, "
-                    "trying document fallback: %s",
-                    self.name,
-                    _redact_telegram_error_text(e),
-                    exc_info=True,
-                )
-            # Fallback to sending as document (file) — no dimension limit,
-            # only 50MB size limit. If even that fails, fall back to the
-            # base adapter's text-only "Image: /path" rendering.
+                    "[%s] Failed to send Telegram local image as photo, trying document fallback: %s", self.name,
+                    _redact_telegram_error_text(e), exc_info=True)
             try:
                 return await self.send_document(
-                    chat_id=chat_id,
-                    file_path=image_path,
-                    caption=caption,
-                    file_name=os.path.basename(image_path),
-                    reply_to=reply_to,
-                    metadata=metadata,
-                )
+                    chat_id=chat_id, file_path=actual_path, caption=caption, file_name=doc_name,
+                    reply_to=reply_to, metadata=metadata)
             except Exception as doc_err:
                 logger.error(
-                    "[%s] Failed to send Telegram local image as document, "
-                    "falling back to base adapter: %s",
-                    self.name,
-                    doc_err,
-                    exc_info=True,
-                )
-                return await super().send_image_file(chat_id, image_path, caption, reply_to, metadata=metadata)
+                    "[%s] Failed to send Telegram local image as document, falling back to base adapter: %s",
+                    self.name, doc_err, exc_info=True)
+                return await super(TelegramAdapter, self).send_image_file(chat_id, image_path, caption, reply_to, metadata=metadata)
+
+        try:
+            return await self._send_local_file(
+                "Image", actual_path, chat_id, reply_to, metadata, "photo",
+                lambda f: {"photo": f, "caption": self._caption_1024(caption)}, _photo_failed,
+                lambda p: self.send_image_file(chat_id, p or image_path, caption, reply_to, metadata, **kwargs), image_path)
+        finally:
+            if compressed:
+                with contextlib.suppress(OSError):
+                    os.remove(compressed)
 
     async def send_document(
-        self,
-        chat_id: str,
-        file_path: str,
-        caption: Optional[str] = None,
-        file_name: Optional[str] = None,
-        reply_to: Optional[str] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        **kwargs,
-    ) -> SendResult:
+        self, chat_id: str, file_path: str, caption: Optional[str] = None, file_name: Optional[str] = None,
+        reply_to: Optional[str] = None, metadata: Optional[dict[str, Any]] = None, **kwargs) -> SendResult:
         """Send a document/file natively as a Telegram file attachment."""
-        if not self._bot:
-            return SendResult(success=False, error="Not connected")
-
         inline_msg_id = _inline_msg_id.get() or (metadata or {}).get("inline_message_id")
         if inline_msg_id is not None:
             return await self._send_inline_media(chat_id, inline_msg_id, file_path, "document", caption, file_name=file_name)
 
-        try:
-            if not os.path.exists(file_path):
-                return SendResult(success=False, error=self._missing_media_path_error("File", file_path))
-
-            display_name = file_name or os.path.basename(file_path)
-            _thread = self._metadata_thread_id(metadata)
-            reply_to_id = self._reply_to_message_id_for_send(reply_to, metadata, reply_to_mode=self._reply_to_mode)
-            thread_kwargs = self._thread_kwargs_for_send(
-                chat_id,
-                _thread,
-                metadata,
-                reply_to_message_id=reply_to_id,
-                reply_to_mode=self._reply_to_mode
-            )
-
-            with open(file_path, "rb") as f:
-                msg = await self._send_with_dm_topic_reply_anchor_retry(
-                    self._bot.send_document,
-                    {
-                        "chat_id": normalize_telegram_chat_id(chat_id),
-                        "document": f,
-                        "filename": display_name,
-                        "caption": caption[:1024] if caption else None,
-                        "reply_to_message_id": reply_to_id,
-                        **thread_kwargs,
-                        **self._notification_kwargs(metadata),
-                    },
-                    metadata,
-                    reply_to_id,
-                    "document",
-                    reset_media=lambda: f.seek(0),
-                )
-            return SendResult(success=True, message_id=str(msg.message_id))
-        except Exception as e:
-            logger.warning(
-                "[%s] Failed to send document: %s",
-                self.name, _redact_telegram_error_text(e),
-            )
-            return await super().send_document(chat_id, file_path, caption, file_name, reply_to, metadata=metadata)
+        return await self._send_local_file(
+            "File", file_path, chat_id, reply_to, metadata, "document",
+            lambda f: {"document": f, "filename": file_name or os.path.basename(file_path), "caption": self._caption_1024(caption)},
+            lambda e: self._warn_then(
+                "document", e, super(
+                    TelegramAdapter, self,
+                ).send_document(chat_id, file_path, caption, file_name, reply_to, metadata=metadata)))
 
     async def send_video(
-        self,
-        chat_id: str,
-        video_path: str,
-        caption: Optional[str] = None,
-        reply_to: Optional[str] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        **kwargs,
-    ) -> SendResult:
+        self, chat_id: str, video_path: str, caption: Optional[str] = None, reply_to: Optional[str] = None,
+        metadata: Optional[dict[str, Any]] = None, **kwargs) -> SendResult:
         """Send a video natively as a Telegram video message."""
-        if not self._bot:
-            return SendResult(success=False, error="Not connected")
         inline_msg_id = _inline_msg_id.get() or (metadata or {}).get("inline_message_id")
         if inline_msg_id is not None:
             return await self._send_inline_media(chat_id, inline_msg_id, video_path, "video", caption)
 
+        geometry = await asyncio.to_thread(_probe_video_geometry, video_path)
+        thumb_path = (
+            await asyncio.to_thread(_video_thumbnail_jpeg, video_path, geometry.get("duration"))
+            if geometry else None
+        )
         try:
-            if not os.path.exists(video_path):
-                return SendResult(success=False, error=self._missing_media_path_error("Video", video_path))
+            def build_kwargs(f):
+                payload = {"video": f, "caption": self._caption_1024(caption), **geometry}
+                if thumb_path:
+                    payload["thumbnail"] = thumb_path
+                return payload
 
-            _thread = self._metadata_thread_id(metadata)
-            reply_to_id = self._reply_to_message_id_for_send(reply_to, metadata, reply_to_mode=self._reply_to_mode)
-            thread_kwargs = self._thread_kwargs_for_send(
-                chat_id,
-                _thread,
-                metadata,
-                reply_to_message_id=reply_to_id,
-                reply_to_mode=self._reply_to_mode
-            )
-            with open(video_path, "rb") as f:
-                msg = await self._send_with_dm_topic_reply_anchor_retry(
-                    self._bot.send_video,
-                    {
-                        "chat_id": normalize_telegram_chat_id(chat_id),
-                        "video": f,
-                        "caption": caption[:1024] if caption else None,
-                        "reply_to_message_id": reply_to_id,
-                        **thread_kwargs,
-                        **self._notification_kwargs(metadata),
-                    },
-                    metadata,
-                    reply_to_id,
-                    "video",
-                    reset_media=lambda: f.seek(0),
-                )
-            return SendResult(success=True, message_id=str(msg.message_id))
-        except Exception as e:
-            logger.warning(
-                "[%s] Failed to send video: %s",
-                self.name, _redact_telegram_error_text(e),
-            )
-            return await super().send_video(chat_id, video_path, caption, reply_to, metadata=metadata)
+            return await self._send_local_file(
+                "Video", video_path, chat_id, reply_to, metadata, "video", build_kwargs,
+                lambda e: self._warn_then(
+                    "video", e, super(TelegramAdapter, self).send_video(chat_id, video_path, caption, reply_to, metadata=metadata),
+                ), lambda p: self.send_video(chat_id, p or video_path, caption, reply_to, metadata, **kwargs), video_path)
+        finally:
+            if thumb_path:
+                with contextlib.suppress(OSError):
+                    os.remove(thumb_path)
 
     async def send_image(
-        self,
-        chat_id: str,
-        image_url: str,
-        caption: Optional[str] = None,
-        reply_to: Optional[str] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-    ) -> SendResult:
-        """Send an image natively as a Telegram photo.
-        
-        Tries URL-based send first (fast, works for <5MB images).
-        Falls back to downloading and uploading as file (supports up to 10MB).
-        """
+        self, chat_id: str, image_url: str, caption: Optional[str] = None, reply_to: Optional[str] = None,
+        metadata: Optional[dict[str, Any]] = None) -> SendResult:
+        """Send a URL image as a Telegram photo: URL send (<5MB) → download+upload (≤10MB) → base text."""
         if not self._bot:
             return SendResult(success=False, error="Not connected")
-
         from tools.url_safety import is_safe_url
         if not is_safe_url(image_url):
             logger.warning("[%s] Blocked unsafe image URL (SSRF protection)", self.name)
             return await super().send_image(chat_id, image_url, caption, reply_to, metadata=metadata)
-
         inline_msg_id = _inline_msg_id.get() or (metadata or {}).get("inline_message_id")
         if inline_msg_id is not None:
             return await self._send_inline_media(chat_id, inline_msg_id, image_url, "photo", caption)
 
+        photo_caption = self._caption_1024(caption)
         try:
-            # Telegram can send photos directly from URLs (up to ~5MB)
-            _photo_thread = self._metadata_thread_id(metadata)
-            reply_to_id = self._reply_to_message_id_for_send(reply_to, metadata, reply_to_mode=self._reply_to_mode)
-            photo_thread_kwargs = self._thread_kwargs_for_send(
-                chat_id,
-                _photo_thread,
-                metadata,
-                reply_to_message_id=reply_to_id,
-                reply_to_mode=self._reply_to_mode
-            )
-            msg = await self._send_with_dm_topic_reply_anchor_retry(
-                self._bot.send_photo,
-                {
-                    "chat_id": normalize_telegram_chat_id(chat_id),
-                    "photo": image_url,
-                    "caption": caption[:1024] if caption else None,
-                    "reply_to_message_id": reply_to_id,
-                    **photo_thread_kwargs,
-                    **self._notification_kwargs(metadata),
-                },
-                metadata,
-                reply_to_id,
-                "URL photo",
-            )
+            msg = await self._send_media(
+                self._bot.send_photo, chat_id, reply_to, metadata, "URL photo", photo=image_url, caption=photo_caption)
             return SendResult(success=True, message_id=str(msg.message_id))
         except Exception as e:
+            def redo(_path=None):
+                return self.send_image(chat_id, image_url, caption, reply_to, metadata)
+            if (recovered := await self._media_flood_recover(e, chat_id, redo, "URL photo", metadata=metadata) or _unconfirmed(e, "URL photo", as_failure=True)):
+                return recovered
             logger.warning(
-                "[%s] URL-based send_photo failed, trying file upload: %s",
-                self.name,
-                _redact_telegram_error_text(e),
-                exc_info=True,
-            )
-            # Fallback: download and upload as file (supports up to 10MB)
+                "[%s] URL-based send_photo failed, trying file upload: %s", self.name, _redact_telegram_error_text(e), exc_info=True)
             try:
+                from gateway.platforms.base import read_httpx_body_with_limit, ssrf_redirect_guard
                 from tools.url_safety import create_ssrf_safe_async_client
-                async with create_ssrf_safe_async_client(timeout=30.0) as client:
-                    resp = await client.get(image_url)
+                async with create_ssrf_safe_async_client(timeout=30.0, event_hooks={"response": [ssrf_redirect_guard]}) as client, \
+                        client.stream("GET", image_url) as resp:
                     resp.raise_for_status()
-                    image_data = resp.content
-
-                upload_thread_kwargs = self._thread_kwargs_for_send(
-                    chat_id,
-                    _photo_thread,
-                    metadata,
-                    reply_to_message_id=reply_to_id,
-                    reply_to_mode=self._reply_to_mode
-                )
-                msg = await self._send_with_dm_topic_reply_anchor_retry(
-                    self._bot.send_photo,
-                    {
-                        "chat_id": normalize_telegram_chat_id(chat_id),
-                        "photo": image_data,
-                        "caption": caption[:1024] if caption else None,
-                        "reply_to_message_id": reply_to_id,
-                        **upload_thread_kwargs,
-                        **self._notification_kwargs(metadata),
-                    },
-                    metadata,
-                    reply_to_id,
-                    "uploaded photo",
-                )
+                    image_data = await read_httpx_body_with_limit(resp, media_type="image")
+                msg = await self._send_media(
+                    self._bot.send_photo, chat_id, reply_to, metadata, "uploaded photo", photo=image_data, caption=photo_caption)
                 return SendResult(success=True, message_id=str(msg.message_id))
             except Exception as e2:
-                logger.error(
-                    "[%s] File upload send_photo also failed: %s",
-                    self.name,
-                    e2,
-                    exc_info=True,
-                )
-                # Final fallback: send URL as text
+                if (recovered := await self._media_flood_recover(e2, chat_id, redo, "uploaded photo", metadata=metadata) or _unconfirmed(e2, "uploaded photo", as_failure=True)):
+                    return recovered
+                logger.error("[%s] File upload send_photo also failed: %s", self.name, e2, exc_info=True)
                 return await super().send_image(chat_id, image_url, caption, reply_to, metadata=metadata)
 
     async def send_animation(
-        self,
-        chat_id: str,
-        animation_url: str,
-        caption: Optional[str] = None,
-        reply_to: Optional[str] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-    ) -> SendResult:
+        self, chat_id: str, animation_url: str, caption: Optional[str] = None, reply_to: Optional[str] = None,
+        metadata: Optional[dict[str, Any]] = None) -> SendResult:
         """Send an animated GIF natively as a Telegram animation (auto-plays inline)."""
         if not self._bot:
             return SendResult(success=False, error="Not connected")
         inline_msg_id = _inline_msg_id.get() or (metadata or {}).get("inline_message_id")
         if inline_msg_id is not None:
             return await self._send_inline_media(chat_id, inline_msg_id, animation_url, "animation", caption)
-        
+
         try:
-            _anim_thread = self._metadata_thread_id(metadata)
-            reply_to_id = self._reply_to_message_id_for_send(reply_to, metadata, reply_to_mode=self._reply_to_mode)
-            animation_thread_kwargs = self._thread_kwargs_for_send(
-                chat_id,
-                _anim_thread,
-                metadata,
-                reply_to_message_id=reply_to_id,
-                reply_to_mode=self._reply_to_mode
-            )
-            msg = await self._send_with_dm_topic_reply_anchor_retry(
-                self._bot.send_animation,
-                {
-                    "chat_id": normalize_telegram_chat_id(chat_id),
-                    "animation": animation_url,
-                    "caption": caption[:1024] if caption else None,
-                    "reply_to_message_id": reply_to_id,
-                    **animation_thread_kwargs,
-                    **self._notification_kwargs(metadata),
-                },
-                metadata,
-                reply_to_id,
-                "animation",
-            )
+            msg = await self._send_media(
+                self._bot.send_animation, chat_id, reply_to, metadata, "animation", animation=animation_url,
+                caption=self._caption_1024(caption))
             return SendResult(success=True, message_id=str(msg.message_id))
         except Exception as e:
-            logger.error(
-                "[%s] Failed to send Telegram animation, falling back to photo: %s",
-                self.name,
-                _redact_telegram_error_text(e),
-                exc_info=True,
-            )
-            # Fallback: try as a regular photo
+            if (recovered := await self._media_flood_recover(
+                    e, chat_id, lambda _p: self.send_animation(chat_id, animation_url, caption, reply_to, metadata), "animation", metadata=metadata)
+                    or _unconfirmed(e, "animation", as_failure=True)):
+                return recovered
+            logger.error("[%s] Failed to send Telegram animation, falling back to photo: %s", self.name, _redact_telegram_error_text(e), exc_info=True)
             return await self.send_image(chat_id, animation_url, caption, reply_to, metadata=metadata)
 
     @staticmethod
@@ -8146,7 +8228,7 @@ class TelegramAdapter(BasePlatformAdapter):
             return MessageType.STICKER
         if msg.photo:
             return MessageType.PHOTO
-        if msg.video:
+        if msg.video or getattr(msg, "video_note", None):
             return MessageType.VIDEO
         if msg.audio:
             return MessageType.AUDIO
@@ -8262,6 +8344,8 @@ class TelegramAdapter(BasePlatformAdapter):
             return msg.photo[-1], "", "", "image"
         if msg.video:
             return msg.video, "", "video/mp4", "video"
+        if getattr(msg, "video_note", None):
+            return msg.video_note, "", "video/mp4", "video"
         if msg.voice:
             return msg.voice, "voice.ogg", "audio/ogg", "audio"
         if msg.audio:
@@ -8301,12 +8385,26 @@ class TelegramAdapter(BasePlatformAdapter):
         and failed — never a silent empty turn. No new event fields (the
         structured-event refactor is out of scope per #23045).
         """
+        from agent.i18n import t
         named = f" ({display_name})" if display_name else ""
+        kind_key = {
+            "attachment": "platform.telegram.media.kind_attachment",
+            "photo": "platform.telegram.media.kind_photo",
+            "voice message": "platform.telegram.media.kind_voice",
+            "audio file": "platform.telegram.media.kind_audio",
+            "video file": "platform.telegram.media.kind_video",
+            "video note": "platform.telegram.media.kind_video",
+        }.get(kind, kind)
         try:
-            await msg.reply_text(
-                f"\u26a0\ufe0f Couldn't download your {kind}{named} "
-                f"({exc.__class__.__name__}). Please try sending it again."
+            localized_kind = t(kind_key) if kind_key.startswith("platform.telegram.media.") else kind
+            localized_name = t("platform.telegram.media.named_suffix", name=display_name) if display_name else ""
+            reply_text = t(
+                "platform.telegram.media.download_failed",
+                kind=localized_kind,
+                name=localized_name,
+                error=exc.__class__.__name__,
             )
+            await msg.reply_text(reply_text)
         except Exception as reply_err:
             logger.warning(
                 "[Telegram] Failed to notify user about %s cache failure: %s",
@@ -8507,6 +8605,27 @@ class TelegramAdapter(BasePlatformAdapter):
         consuming channel posts without ever building a gateway event.
         """
         return getattr(update, "effective_message", None) or getattr(update, "message", None)
+
+    def _register_handlers(self, app: Any) -> None:
+        """Register Telegram message handlers."""
+        import plugins.platforms.telegram.adapter as _mod
+        flt = None
+        current_filters = getattr(_mod, "filters", None)
+        if current_filters is not None:
+            flt = (
+                current_filters.PHOTO
+                | current_filters.VIDEO
+                | getattr(current_filters, "VIDEO_NOTE", current_filters.VIDEO)
+                | current_filters.AUDIO
+                | current_filters.VOICE
+                | current_filters.Document.ALL
+                | current_filters.Sticker.ALL
+            )
+        handler_cls = getattr(_mod, "TelegramMessageHandler", None)
+        if handler_cls is not None and flt is not None:
+            handler = handler_cls(flt, self._handle_media_message)
+            if hasattr(app, "add_handler"):
+                app.add_handler(handler)
 
     async def _handle_telegram_error(self, update: Any, context: Any = None) -> None:
         """Make PTB handler failures visible instead of silently dropping them."""
@@ -9304,7 +9423,7 @@ class TelegramAdapter(BasePlatformAdapter):
                             ext = candidate
                             break
                 # Save to local cache (for vision tool access)
-                cached_path = cache_image_from_bytes(bytes(image_bytes), ext=ext)
+                cached_path = await cache_image_from_bytes_async(bytes(image_bytes), ext=ext)
                 event.media_urls = [cached_path]
                 event.media_types = [f"image/{ext.lstrip('.')}" ]
                 logger.info("[Telegram] Cached user photo at %s", cached_path)
@@ -9356,15 +9475,18 @@ class TelegramAdapter(BasePlatformAdapter):
                 logger.warning("[Telegram] Failed to cache audio: %s", _redact_telegram_error_text(e), exc_info=True)
                 await self._surface_media_cache_failure(msg, event, "audio file", e)
 
-        elif msg.video:
+        elif msg.video or getattr(msg, "video_note", None):
+            raw_video = msg.video or getattr(msg, "video_note", None)
+            is_video_note = bool(getattr(msg, "video_note", None)) and not msg.video
+            item_label = "video note" if is_video_note else "video file"
             try:
-                allowed, note = self._telegram_media_size_allowed(msg.video, "video file")
+                allowed, note = self._telegram_media_size_allowed(raw_video, item_label)
                 if not allowed:
                     event.text = self._append_observed_note(event.text, note or "")
-                    logger.info("[Telegram] Skipped oversized user video (size=%s)", getattr(msg.video, "file_size", None))
+                    logger.info("[Telegram] Skipped oversized user %s (size=%s)", item_label, getattr(raw_video, "file_size", None))
                     await self.handle_message(event)
                     return
-                file_obj = await msg.video.get_file()
+                file_obj = await raw_video.get_file()
                 video_bytes = await file_obj.download_as_bytearray()
                 ext = ".mp4"
                 if getattr(file_obj, "file_path", None):
@@ -9375,10 +9497,10 @@ class TelegramAdapter(BasePlatformAdapter):
                 cached_path = cache_video_from_bytes(bytes(video_bytes), ext=ext)
                 event.media_urls = [cached_path]
                 event.media_types = [SUPPORTED_VIDEO_TYPES.get(ext, "video/mp4")]
-                logger.info("[Telegram] Cached user video at %s", cached_path)
+                logger.info("[Telegram] Cached user %s at %s", item_label, cached_path)
             except Exception as e:
-                logger.warning("[Telegram] Failed to cache video: %s", _redact_telegram_error_text(e), exc_info=True)
-                await self._surface_media_cache_failure(msg, event, "video file", e)
+                logger.warning("[Telegram] Failed to cache %s: %s", item_label, _redact_telegram_error_text(e), exc_info=True)
+                await self._surface_media_cache_failure(msg, event, item_label, e)
 
         # Download document files to cache for agent processing
         elif msg.document:
@@ -9504,10 +9626,13 @@ class TelegramAdapter(BasePlatformAdapter):
                             event.text = f"{injection}\n\n{event.text}"
                         else:
                             event.text = injection
+                        event.media_text_inlined = [True]
                     except UnicodeDecodeError:
                         # Binary file — agent has the cached path and can use
                         # terminal/read_file against it. No inline injection.
-                        pass
+                        event.media_text_inlined = [False]
+                else:
+                    event.media_text_inlined = [False]
 
             except Exception as e:
                 logger.warning("[Telegram] Failed to cache document: %s", _redact_telegram_error_text(e), exc_info=True)

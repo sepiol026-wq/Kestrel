@@ -19,7 +19,7 @@ from fastapi.testclient import TestClient
 
 from kestrel_cli import anon_auth, guest_handoff
 from kestrel_cli.web_server import _SESSION_TOKEN, app
-from tests.hermes_cli.test_anon_upgrade import EMAIL, free_account, portal
+from tests.kestrel_cli.test_anon_upgrade import EMAIL, free_account, portal
 
 client = TestClient(app)
 HEADERS = {"X-Hermes-Session-Token": _SESSION_TOKEN}

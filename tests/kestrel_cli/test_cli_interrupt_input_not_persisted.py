@@ -16,7 +16,7 @@ import queue
 from unittest.mock import patch
 
 from agent.onboarding import BUSY_INPUT_FLAG
-from tests.hermes_cli.test_cli_interrupt_ack_race import _make_cli, _StubAgent
+from tests.kestrel_cli.test_cli_interrupt_ack_race import _make_cli, _StubAgent
 
 SECRET = "1234567890:" + "A" * 35  # Telegram bot-token shape, synthetic
 

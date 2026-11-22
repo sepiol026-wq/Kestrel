@@ -98,7 +98,7 @@ def test_signing_out_closes_a_screen_viewer_a_browser_tab_opened(monkeypatch):
     screen: it closes with the tab's other sockets when the browser signs out. A viewer a native
     client opened (no browser credential on its ticket) stays."""
     from kestrel_cli import browser_credential, web_server, web_session_sockets
-    from tests.hermes_cli.test_webapp_sign_out_sockets import _close_code
+    from tests.kestrel_cli.test_webapp_sign_out_sockets import _close_code
 
     ws_tickets._reset_for_tests()
     client = _viewer_app(monkeypatch)
@@ -115,7 +115,7 @@ def test_signing_out_closes_a_screen_viewer_a_browser_tab_opened(monkeypatch):
 
 def test_a_screen_viewer_ticket_from_a_signed_out_tab_opens_nothing(monkeypatch):
     from kestrel_cli import browser_credential, web_server
-    from tests.hermes_cli.test_webapp_sign_out_sockets import _close_code
+    from tests.kestrel_cli.test_webapp_sign_out_sockets import _close_code
 
     ws_tickets._reset_for_tests()
     client = _viewer_app(monkeypatch)

@@ -20,7 +20,7 @@ import pytest
 from kestrel_cli import anon_auth, anon_sign_in, free_tier_bootstrap
 from kestrel_cli.auth import _load_auth_store
 
-from tests.hermes_cli.anon_portal import PORTAL, WELCOME, as_local_desktop_backend, claimed_trial, install_portal
+from tests.kestrel_cli.anon_portal import PORTAL, WELCOME, as_local_desktop_backend, claimed_trial, install_portal
 
 
 @pytest.fixture
@@ -96,7 +96,7 @@ class TestNasRefusalCodes:
 
     def test_a_locked_account_is_never_replaced_through_connectors_either(self, nas):
         from kestrel_cli.auth import _auth_store_lock, _save_auth_store
-        from tests.hermes_cli.anon_portal import make_jwt
+        from tests.kestrel_cli.anon_portal import make_jwt
         from tools import managed_tool_gateway as mtg
         anon_auth.ensure_portal_identity(explicit=True)
         with _auth_store_lock():

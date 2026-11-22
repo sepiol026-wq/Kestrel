@@ -11,7 +11,7 @@ from types import SimpleNamespace
 import pytest
 
 from kestrel_cli import uninstall
-from tests.hermes_cli.test_data_uninstall import layout
+from tests.kestrel_cli.test_data_uninstall import layout
 
 
 @pytest.mark.parametrize("mode", ["confirmed", "cancel", "dry-run"])

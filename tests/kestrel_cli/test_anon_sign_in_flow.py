@@ -21,7 +21,7 @@ import pytest
 
 from kestrel_cli import anon_auth, auth_device_flow
 from kestrel_cli.auth import _auth_file_path, _load_auth_store
-from tests.hermes_cli.test_anon_upgrade import (
+from tests.kestrel_cli.test_anon_upgrade import (
     EMAIL, FREE_PICK, PORTAL, WELCOME, _write_model_config, free_account, portal)
 
 __all__ = ["free_account", "portal"]

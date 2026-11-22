@@ -18,7 +18,7 @@ from kestrel_cli import lifecycle
 from kestrel_cli.observability import relay_shared_metrics
 from kestrel_cli.observability import shared_metrics_engagement as engagement
 from kestrel_cli.observability.shared_metrics import SharedMetricsStore
-from tests.hermes_cli.test_relay_shared_metrics_runtime import (
+from tests.kestrel_cli.test_relay_shared_metrics_runtime import (
     _join_export_workers,
     _stored_values,
     direct_runtime,

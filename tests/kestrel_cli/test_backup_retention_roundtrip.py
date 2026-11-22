@@ -11,7 +11,7 @@ from pathlib import Path
 import pytest
 
 import kestrel_cli.gateway_setup_service as service_setup
-from tests.hermes_cli.test_backup import _make_hermes_tree
+from tests.kestrel_cli.test_backup import _make_hermes_tree
 
 
 @pytest.fixture(autouse=True)

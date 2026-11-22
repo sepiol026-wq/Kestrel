@@ -20,7 +20,7 @@ from starlette.websockets import WebSocketDisconnect
 from kestrel_cli import gateway_connections as store
 from kestrel_cli.gateway_connections_watch import watch_store
 from kestrel_cli.web_routers import webapp_relay_proxy
-from tests.hermes_cli import test_webapp_relay_proxy as relay_tests
+from tests.kestrel_cli import test_webapp_relay_proxy as relay_tests
 from tests.waiting import wait_until
 
 webapp, live_other = relay_tests.webapp, relay_tests.live_other

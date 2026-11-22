@@ -12,7 +12,7 @@ credential. Contract: a request whose ``Sec-Fetch-Site`` is present and not ``sa
 """
 import pytest
 
-from tests.hermes_cli import test_webapp_relay_proxy as relay_tests
+from tests.kestrel_cli import test_webapp_relay_proxy as relay_tests
 
 webapp = relay_tests.webapp
 

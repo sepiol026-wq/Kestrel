@@ -23,7 +23,7 @@ from kestrel_cli import auth_nous
 from agent.agent_runtime_helpers import _recover_auth_failure
 from agent.credential_pool import load_pool
 
-from tests.hermes_cli.test_auth_nous_provider import _invoke_jwt, _setup_nous_auth
+from tests.kestrel_cli.test_auth_nous_provider import _invoke_jwt, _setup_nous_auth
 
 
 def _future(seconds: int) -> str:

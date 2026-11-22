@@ -39,7 +39,7 @@ from kestrel_cli.session_recovery import (
     recover_session_database,
 )
 
-from tests.hermes_cli.test_session_recovery import (
+from tests.kestrel_cli.test_session_recovery import (
     _btree_leaf_pages,
     _make_page_spanning_source,
 )

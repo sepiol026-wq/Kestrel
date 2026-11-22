@@ -19,7 +19,7 @@ import json
 import pytest
 
 from kestrel_cli import anon_auth
-from tests.hermes_cli.anon_portal import install_portal
+from tests.kestrel_cli.anon_portal import install_portal
 
 
 @pytest.fixture

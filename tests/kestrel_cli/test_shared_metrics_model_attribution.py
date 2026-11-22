@@ -17,7 +17,7 @@ import pytest
 from agent.portal_tags import reset_conversation_context, set_conversation_context
 from kestrel_cli import lifecycle
 from kestrel_cli.observability import relay_shared_metrics
-from tests.hermes_cli.test_relay_shared_metrics_runtime import (
+from tests.kestrel_cli.test_relay_shared_metrics_runtime import (
     _stored_values,
     direct_runtime,
 )

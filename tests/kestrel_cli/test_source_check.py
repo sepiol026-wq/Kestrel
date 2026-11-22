@@ -605,7 +605,7 @@ def test_stable_release_the_updater_refuses_is_held_not_offered(
     checkout already contains it: neither an update offer nor a rollback promise is valid."""
     from kestrel_cli import _startup_fast
     from kestrel_cli.source_check import check_for_updates
-    from tests.hermes_cli.test_update_downgrade_guard import _ledgered_store
+    from tests.kestrel_cli.test_update_downgrade_guard import _ledgered_store
 
     root, _linked, home, base, _head, responses, requests, git = installation
     sibling = tmp_path / "sibling"
@@ -668,7 +668,7 @@ def test_an_unfetched_release_is_judged_from_github(installation, tmp_path, monk
     update` fetches it, and a local probe proves nothing. The check reads the release's state modules
     from GitHub instead, so it still holds what the update would refuse (#140215 review)."""
     from kestrel_cli.source_check import check_for_updates
-    from tests.hermes_cli.test_update_downgrade_guard import _ledgered_store
+    from tests.kestrel_cli.test_update_downgrade_guard import _ledgered_store
 
     root, _linked, home, base, _head, responses, requests, git = installation
     monkeypatch.setattr("hermes_cli.backup._sibling_profile_homes", lambda h: [])

@@ -30,7 +30,7 @@ import uvicorn
 from kestrel_cli import web_server
 from kestrel_cli.dashboard_auth import register_provider
 from kestrel_cli.dashboard_auth.base import RefreshExpiredError, Session
-from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
 
 class SlowRotatingIdP(StubAuthProvider):

@@ -16,7 +16,7 @@ from tui_gateway import server
 from agent.onboarding import PROFILE_BUILD_FLAG
 from kestrel_cli import profiles
 from kestrel_cli.config import read_user_config_raw
-from tests.hermes_cli.anon_portal import as_local_desktop_backend
+from tests.kestrel_cli.anon_portal import as_local_desktop_backend
 
 
 @pytest.fixture

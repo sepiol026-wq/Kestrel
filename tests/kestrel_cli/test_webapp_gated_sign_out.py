@@ -23,9 +23,9 @@ import pytest
 from starlette.testclient import TestClient
 from starlette.websockets import WebSocketDisconnect
 
-from tests.hermes_cli.test_web_host_terminal_persistence import metadata
-from tests.hermes_cli.test_webapp_sign_out_sockets import _close_code
-from tests.hermes_cli.test_webapp_socket_tickets import _TOKEN, serve_webapp
+from tests.kestrel_cli.test_web_host_terminal_persistence import metadata
+from tests.kestrel_cli.test_webapp_sign_out_sockets import _close_code
+from tests.kestrel_cli.test_webapp_socket_tickets import _TOKEN, serve_webapp
 
 WEBAPP = "http://hermes.lan:9120"
 USER, PASSWORD = "owner", "throwaway-test-password"
@@ -39,7 +39,7 @@ def gated(tmp_path, monkeypatch):
     from kestrel_cli.dashboard_auth.routes import _reset_password_rate_limit
     from kestrel_cli.dashboard_auth.ws_tickets import _reset_for_tests
     from plugins.dashboard_auth.basic import BasicAuthProvider, hash_password
-    from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+    from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
     webapp = serve_webapp(tmp_path, monkeypatch)
     state = webapp.server.app.state

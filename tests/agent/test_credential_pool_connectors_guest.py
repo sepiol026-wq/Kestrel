@@ -11,7 +11,7 @@ drop that row instead of handing its welcome-host token to the runtime.
 """
 
 from kestrel_cli import anon_auth
-from tests.hermes_cli.anon_portal import claimed_trial, install_portal, off_local_desktop
+from tests.kestrel_cli.anon_portal import claimed_trial, install_portal, off_local_desktop
 
 
 def test_a_claimed_guest_pool_row_serves_every_surface(monkeypatch, tmp_path):

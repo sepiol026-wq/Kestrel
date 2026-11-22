@@ -17,7 +17,7 @@ from kestrel_cli.dashboard_auth import clear_providers, register_provider
 from kestrel_cli.dashboard_auth import refresh_singleflight as replay
 from kestrel_cli.dashboard_auth.base import ProviderError, RefreshExpiredError, Session
 from kestrel_cli.dashboard_auth.routes import router
-from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
 
 class Provider(StubAuthProvider):

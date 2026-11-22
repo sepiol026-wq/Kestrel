@@ -19,7 +19,7 @@ from types import SimpleNamespace
 import httpx
 import pytest
 
-from tests.hermes_cli.anon_portal import PORTAL, FakePortal, install_portal, make_jwt
+from tests.kestrel_cli.anon_portal import PORTAL, FakePortal, install_portal, make_jwt
 
 DESTINATION = "user_acct_1"
 

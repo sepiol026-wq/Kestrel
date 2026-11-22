@@ -16,7 +16,7 @@ import pm
 from pm import paths, registry
 from pm.lock import Facts, Lockfile
 from pm.packages import LlamaCppCpu
-from tests.hermes_cli.test_local_download_jobs import client, poll
+from tests.kestrel_cli.test_local_download_jobs import client, poll
 from tests.pm._range_server import RangeHandler, dl_server, url
 from tests.pm.test_install_download_control import archive
 

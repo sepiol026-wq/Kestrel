@@ -31,7 +31,7 @@ from websockets.exceptions import InvalidStatus
 from gateway.runtime_bootstrap import TicketStore
 from tests.gateway.test_native_http_auth import daemon, headers
 from tests.gateway.test_normal_runtime_boot import control
-from tests.hermes_cli.test_gateway_attach import REPO, _attach, _serve
+from tests.kestrel_cli.test_gateway_attach import REPO, _attach, _serve
 
 
 @pytest.fixture

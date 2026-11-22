@@ -18,8 +18,8 @@ import anyio
 import pytest
 from starlette.testclient import TestClient
 
-from tests.hermes_cli.test_web_host_terminal_persistence import metadata
-from tests.hermes_cli.test_webapp_socket_tickets import _TOKEN, _mint, serve_webapp
+from tests.kestrel_cli.test_web_host_terminal_persistence import metadata
+from tests.kestrel_cli.test_webapp_socket_tickets import _TOKEN, _mint, serve_webapp
 
 
 def _next_message(ws, seconds=5.0):

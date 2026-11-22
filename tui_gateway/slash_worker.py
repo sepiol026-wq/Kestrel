@@ -17,7 +17,7 @@ Protocol: reads JSON lines from stdin {id, command}, writes {id, ok, output|erro
 # points — #51693 added the guard to ``entry.py``/``acp_adapter/entry.py`` but missed this child.
 import kestrel_bootstrap
 
-hermes_bootstrap.harden_import_path()
+kestrel_bootstrap.harden_import_path()
 
 import argparse
 import contextlib

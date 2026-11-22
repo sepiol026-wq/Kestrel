@@ -189,7 +189,7 @@ def test_start_server_gate_with_provider_proceeds_and_sets_proxy_headers(monkeyp
     from Fly's TLS terminator is honoured for cookie Secure-flag decisions.
     """
     from kestrel_cli.dashboard_auth import clear_providers, register_provider
-    from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+    from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
     clear_providers()
     register_provider(StubAuthProvider())
@@ -214,7 +214,7 @@ def test_start_server_gate_with_provider_proceeds_and_sets_proxy_headers(monkeyp
 def test_start_server_passes_bounded_trusted_proxy_networks(monkeypatch, caplog):
     """A configured proxy network reaches uvicorn without broadening to all peers."""
     from kestrel_cli.dashboard_auth import clear_providers, register_provider
-    from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+    from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
     clear_providers()
     register_provider(StubAuthProvider())
@@ -324,7 +324,7 @@ def test_public_url_aware_gate_preserves_local_only_mode(monkeypatch):
 def test_start_server_loopback_public_url_enables_gate(monkeypatch):
     """A declared external URL turns a loopback reverse proxy into gated mode."""
     from kestrel_cli.dashboard_auth import clear_providers, register_provider
-    from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+    from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
     monkeypatch.setenv(
         "HERMES_DASHBOARD_PUBLIC_URL",
@@ -392,7 +392,7 @@ def test_desktop_ssh_backend_serves_session_token_requests_despite_public_url(mo
     ``auth_required`` plumbing regression that re-engages the cookie gate.
     """
     from kestrel_cli.dashboard_auth import clear_providers, register_provider
-    from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+    from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
     monkeypatch.setenv("HERMES_DASHBOARD_PUBLIC_URL", "https://dashboard.example.test:9443")
     monkeypatch.setenv("HERMES_DESKTOP", "1")

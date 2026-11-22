@@ -88,7 +88,7 @@ class TestProviderPrecedence:
 
 @pytest.fixture
 def portal(monkeypatch, tmp_path):
-    from tests.hermes_cli.anon_portal import install_portal
+    from tests.kestrel_cli.anon_portal import install_portal
     return install_portal(monkeypatch, tmp_path)
 
 
@@ -100,7 +100,7 @@ def _never_mint(monkeypatch):
 
 def _claimed_trial_with_aws(monkeypatch):
     """A claimed welcome trial on the desktop's local backend, then a leftover ~/.aws profile."""
-    from tests.hermes_cli.anon_portal import claimed_trial
+    from tests.kestrel_cli.anon_portal import claimed_trial
     _clear_provider_env(monkeypatch)
     claimed_trial(monkeypatch)
     _never_mint(monkeypatch)
@@ -132,7 +132,7 @@ class TestFreeTierBeatsImplicitHostCredentials:
         assert resolve_provider("auto") == expected
 
     def test_on_the_cli_surface_a_claimed_guest_still_beats_host_credentials(self, portal, monkeypatch):
-        from tests.hermes_cli.anon_portal import off_local_desktop
+        from tests.kestrel_cli.anon_portal import off_local_desktop
         _claimed_trial_with_aws(monkeypatch)
         off_local_desktop(monkeypatch)
         assert resolve_provider("auto") == "nous"

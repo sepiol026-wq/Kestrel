@@ -18,8 +18,8 @@ from kestrel_cli.observability import shared_metrics_contract as contract
 from kestrel_cli.observability.shared_metrics import SharedMetricsStore
 from kestrel_cli.observability.shared_metrics_connectors import tool_batch_fields
 
-from tests.hermes_cli.test_relay_shared_metrics import _schema_validator
-from tests.hermes_cli import test_relay_shared_metrics_runtime as runtime_tests
+from tests.kestrel_cli.test_relay_shared_metrics import _schema_validator
+from tests.kestrel_cli import test_relay_shared_metrics_runtime as runtime_tests
 
 _RESOURCE = {"architecture": "x86_64", "hermes_version": "0.0.0", "install_method": "git", "os_family": "linux"}
 _ROUTE = {"model": "m", "provider": "openrouter"}

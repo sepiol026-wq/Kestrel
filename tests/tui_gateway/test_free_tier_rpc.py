@@ -5,7 +5,7 @@
 
 """``free_tier.status`` / ``free_tier.ack_notice`` (pull) and the free-tier branch of ``billing.state``,
 driven through the registered RPC handlers against a claimed welcome trial on the desktop's local
-backend (the fake account service in ``tests.hermes_cli.anon_portal``)."""
+backend (the fake account service in ``tests.kestrel_cli.anon_portal``)."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ import pytest
 import tui_gateway.server as srv
 from kestrel_cli import anon_auth, free_tier_offer
 from kestrel_cli.auth import _auth_store_lock, _load_auth_store, _save_auth_store
-from tests.hermes_cli.anon_portal import as_local_desktop_backend, claimed_trial, install_portal
+from tests.kestrel_cli.anon_portal import as_local_desktop_backend, claimed_trial, install_portal
 
 
 def _call(method: str, params: dict | None = None) -> dict:

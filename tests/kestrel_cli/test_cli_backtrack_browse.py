@@ -16,7 +16,7 @@ import pytest
 from prompt_toolkit.utils import get_cwidth
 
 from kestrel_state import SessionDB
-from tests.hermes_cli.test_cli_init import _make_cli
+from tests.kestrel_cli.test_cli_init import _make_cli
 
 
 @pytest.fixture

@@ -17,7 +17,7 @@ import pytest
 
 from kestrel_cli.plugin_host import PluginHost
 from kestrel_constants import hermes_home_key
-from tests.hermes_cli import test_plugin_secondary_profile_host as secondary
+from tests.kestrel_cli import test_plugin_secondary_profile_host as secondary
 
 daemon = secondary.daemon
 

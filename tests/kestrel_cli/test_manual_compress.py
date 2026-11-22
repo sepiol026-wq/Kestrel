@@ -7,7 +7,7 @@
 
 from unittest.mock import MagicMock, patch
 
-from tests.hermes_cli.test_cli_init import _make_cli
+from tests.kestrel_cli.test_cli_init import _make_cli
 
 
 def _make_history() -> list[dict[str, str]]:

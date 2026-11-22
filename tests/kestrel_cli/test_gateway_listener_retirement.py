@@ -14,7 +14,7 @@ routes now refuse and the fence stays open; a standalone serve keeps its permit 
 
 from fastapi.testclient import TestClient
 
-from tests.hermes_cli.native_gateway_client import native_desktop_client
+from tests.kestrel_cli.native_gateway_client import native_desktop_client
 
 
 def _fresh_fence(monkeypatch):

@@ -1524,6 +1524,10 @@ class KestrelCLI(CLIBacktrackMixin, CLIInitMixin, CLITuiRuntimeMixin, CLIProcess
             relaunch(self._pending_relaunch, preserve_inherited=False)
 
 
+# Backward-compatibility alias for tests and plugins
+HermesCLI = KestrelCLI
+
+
 def _build_cli_from_args(model, toolsets, provider, reasoning, api_key, base_url, max_turns, run_budget, verbose, compact, resume, checkpoints, pass_session_id, ignore_rules, skills):
     """Resolve the toolset list (explicit / coding posture / platform default), construct KestrelCLI, and start the background skills preload."""
     toolsets_list = None

@@ -12,7 +12,7 @@ from unittest.mock import MagicMock
 import pytest
 
 from kestrel_state import SessionDB
-from tests.hermes_cli.test_cli_init import _make_cli
+from tests.kestrel_cli.test_cli_init import _make_cli
 
 
 def _active(db, session_id):

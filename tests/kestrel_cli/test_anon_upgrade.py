@@ -176,7 +176,7 @@ class TestUpgrade:
 
     def test_hermes_model_signs_a_connector_free_tier_in_instead_of_refusing(self, portal, monkeypatch, capsys):
         from kestrel_cli import model_setup_flows
-        from tests.hermes_cli.anon_portal import as_local_desktop_backend
+        from tests.kestrel_cli.anon_portal import as_local_desktop_backend
         as_local_desktop_backend(monkeypatch)
         assert anon_auth.guest_without_free_tier(anon_auth.ensure_portal_identity(explicit=True))
         logins = []

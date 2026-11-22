@@ -12,7 +12,7 @@ import pytest
 
 from tests.fakes.fake_llm_provider import FakeLLMServer, Text
 from tests.fakes.redactor_plugin import RAW, REWRITE, redactor_home
-from tests.hermes_cli.test_gateway_agent import SID, FakeClient, connect_with, frame
+from tests.kestrel_cli.test_gateway_agent import SID, FakeClient, connect_with, frame
 
 
 def _held_receipt(home: Path) -> dict:

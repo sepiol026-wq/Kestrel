@@ -1933,7 +1933,7 @@ def _detect_venv_python_processes(*, exclude_pids: set[int] | None = None) -> li
 # invocation ~50-100ms, so they resolve on first read. Nothing else may be
 # added here — internal import paths are not a stable API.
 _FROZEN_UPDATER_SURFACE: dict[str, tuple[str, ...]] = {
-    "hermes_cli.update_cmd": (
+    "kestrel_cli.update_cmd": (
         "_assess_parked_branch_switch",
         "_cold_start_windows_gateway_after_update", "_discard_stashed_changes",
         "_filter_non_gateway_concurrent_instances", "_fleet_probe_expected_runtimes",
@@ -1947,7 +1947,7 @@ _FROZEN_UPDATER_SURFACE: dict[str, tuple[str, ...]] = {
         "_venv_launcher_ancestors",
         "_wait_for_windows_update_gateway_exit", "_warn_orphaned_update_autostashes",
     ),
-    "hermes_cli.old_updater_deps": (
+    "kestrel_cli.old_updater_deps": (
         "_capture_active_lazy_features", "_handoff_reapable_backend_pids",
         "_ledger_manual_serve_holders", "_ledger_reapable_backend_pids",
         "_leftover_pausable_gateway_pids", "_npm_lockfile_changed",
@@ -1955,10 +1955,10 @@ _FROZEN_UPDATER_SURFACE: dict[str, tuple[str, ...]] = {
         "_refresh_active_memory_provider_dependencies", "_relaunch_stopped_serves",
         "_stop_process_trees", "_write_update_incomplete_marker",
     ),
-    "hermes_cli.update_cmd_maint": (
+    "kestrel_cli.update_cmd_maint": (
         "_purge_stale_hermes_modules", "_reload_updated_runtime_modules",
     ),
-    "hermes_cli.dashboard_procs": (
+    "kestrel_cli.dashboard_procs": (
         "_detect_concurrent_hermes_instances", "_kill_stale_dashboard_processes",
     ),
 }
@@ -1967,16 +1967,28 @@ _FROZEN_ATTR_SOURCES: dict[str, str] = {
 }
 
 
-def __getattr__(name):
-    """Resolve the frozen updater surface on first read (see _FROZEN_UPDATER_SURFACE)."""
+def __getattr__(name: str):
+    """Resolve the frozen updater surface and setup handlers on first read."""
     module = _FROZEN_ATTR_SOURCES.get(name)
-    if module is None:
-        raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
-    import importlib
+    if module is not None:
+        if module.startswith("hermes_cli"):
+            module = "kestrel_cli" + module[len("hermes_cli"):]
+        import importlib
 
-    value = getattr(importlib.import_module(module), name)
-    globals()[name] = value  # cache: later accesses skip __getattr__
-    return value
+        value = getattr(importlib.import_module(module), name)
+        globals()[name] = value  # cache: later accesses skip __getattr__
+        return value
+    import kestrel_cli.main_provider_setup as _mps
+    if hasattr(_mps, name):
+        value = getattr(_mps, name)
+        globals()[name] = value
+        return value
+    import kestrel_cli.setup as _setups
+    if hasattr(_setups, name):
+        value = getattr(_setups, name)
+        globals()[name] = value
+        return value
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
 def cmd_verify(args):
@@ -3371,16 +3383,6 @@ def main():
             sys.exit(rc)
     else:
         parser.print_help()
-
-
-def __getattr__(name: str):
-    import kestrel_cli.main_provider_setup as _mps
-    if hasattr(_mps, name):
-        return getattr(_mps, name)
-    import kestrel_cli.setup as _setups
-    if hasattr(_setups, name):
-        return getattr(_setups, name)
-    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
 if __name__ == "__main__":

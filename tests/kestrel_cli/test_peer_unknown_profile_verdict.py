@@ -19,7 +19,7 @@ from types import SimpleNamespace
 import pytest
 
 from kestrel_cli.subcommands import peer as peer_cmd
-from tests.hermes_cli.test_peer_cmd import _ProfilePeer
+from tests.kestrel_cli.test_peer_cmd import _ProfilePeer
 
 _SENTENCE = "Unknown or unconfigured profile"
 _AMBIGUOUS = "box/default"

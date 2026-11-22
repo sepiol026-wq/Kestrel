@@ -7,7 +7,7 @@
 import subprocess
 
 from kestrel_cli import update_downgrade_guard as guard
-from tests.hermes_cli import test_update_downgrade_guard as base
+from tests.kestrel_cli import test_update_downgrade_guard as base
 
 repo = base.repo  # the real git repo fixture: an old tag predating the runtime ledger
 

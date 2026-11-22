@@ -25,7 +25,7 @@ from gateway.session_authority import LiveSession, SessionAuthority
 from gateway.session_controls import AuthorityConnection
 from kestrel_cli import sessions_cmd
 from kestrel_state import SessionDB
-from tests.hermes_state.test_target_advance_fence import _local_session, _mutate
+from tests.kestrel_state.test_target_advance_fence import _local_session, _mutate
 
 pytestmark = pytest.mark.platforms("posix")  # the holder scan the old path refused on is POSIX-only
 

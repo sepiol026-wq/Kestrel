@@ -25,7 +25,7 @@ import pytest
 pytest.importorskip("fastapi")
 from fastapi.testclient import TestClient
 
-from tests.hermes_cli.native_gateway_client import native_desktop_client
+from tests.kestrel_cli.native_gateway_client import native_desktop_client
 from tests.waiting import wait_until
 
 RESTART_PID = 4242

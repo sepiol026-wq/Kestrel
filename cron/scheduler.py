@@ -1305,6 +1305,58 @@ def _get_kestrel_home() -> Path:
     return _kestrel_home or get_kestrel_home()
 
 
+def _apply_cron_session_retention(db: Any, job_id: str) -> None:
+    """Trim old session records for a recurring cron job down to configured retention window."""
+    try:
+        home = _get_kestrel_home()
+        cfg_file = home / "config.yaml"
+        retention = 50
+        if cfg_file.exists():
+            import yaml
+            try:
+                cfg = yaml.safe_load(cfg_file.read_text(encoding="utf-8")) or {}
+            except Exception:
+                cfg = {}
+            if isinstance(cfg, dict):
+                cron_cfg = cfg.get("cron")
+                if isinstance(cron_cfg, dict) and "session_retention" in cron_cfg:
+                    val = cron_cfg["session_retention"]
+                    if val is None or val == "all":
+                        return
+                    try:
+                        retention = int(val)
+                    except (ValueError, TypeError):
+                        return
+                    if retention < 0:
+                        return
+
+        conn = getattr(db, "_conn", None)
+        if conn is None:
+            return
+
+        pattern = f"cron_{job_id}_%"
+        cur = conn.execute(
+            "SELECT id FROM sessions WHERE id LIKE ? ORDER BY started_at DESC",
+            (pattern,)
+        )
+        rows = cur.fetchall()
+        if len(rows) <= retention:
+            return
+        to_delete = [
+            r["id"] if isinstance(r, dict) or hasattr(r, "keys") else (r[0] if isinstance(r, (tuple, list)) else getattr(r, "id", r[0]))
+            for r in rows[retention:]
+        ]
+        if to_delete:
+            try:
+                conn.executemany("DELETE FROM messages WHERE session_id = ?", [(sid,) for sid in to_delete])
+            except Exception:
+                pass
+            conn.executemany("DELETE FROM sessions WHERE id = ?", [(sid,) for sid in to_delete])
+            conn.commit()
+    except Exception:
+        return
+
+
 def _get_lock_paths() -> tuple[Path, Path]:
     """Resolve cron lock paths at call time so profile/env changes are honored."""
     hermes_home = _get_kestrel_home()
@@ -2207,6 +2259,10 @@ def _finalize_cron_session(session_db, agent, job_id: str, job_name: str, cron_s
             agent._end_session_on_close = False
     except (Exception, KeyboardInterrupt) as e:
         logger.debug("Job '%s': failed to end session: %s", job_id, e)
+    try:
+        _apply_cron_session_retention(_session_db, job_id)
+    except (Exception, KeyboardInterrupt) as e:
+        logger.debug("Job '%s': failed to apply cron session retention: %s", job_id, e)
     try:
         from kestrel_state_registry import release_or_close
         release_or_close(_session_db)

@@ -183,7 +183,7 @@ async def test_native_http_preserves_gated_auth_and_actual_socket_boundary(tmp_p
     from kestrel_cli.dashboard_auth import register_provider, clear_providers
     from kestrel_cli.dashboard_auth.cookies import SESSION_AT_COOKIE
     from kestrel_constants import get_kestrel_home
-    from tests.hermes_cli.conftest_dashboard_auth import StubAuthProvider
+    from tests.kestrel_cli.conftest_dashboard_auth import StubAuthProvider
 
     home = get_kestrel_home()
     (home / 'config.yaml').write_text('dashboard:\n  public_url: https://gateway.example.test\n')
